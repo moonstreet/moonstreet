@@ -1,0 +1,65 @@
+baseurl         = ""
+theme           = "casper-two"
+languageCode    = "en-US"
+disqusShortname = ""
+paginate        = 6
+#SectionPagesMenu = "main"
+
+[params]
+  title       = "Moonstreet"
+  subtitle    = "devops en cybersecurity"
+
+  cover       = "moonstreetheader1.jpeg"
+  description = "Here is a description of your site."
+  metaDescription = ""
+  googleAnalytics = ""
+  customCSS = []
+  RSSLink = ""
+
+  twitterName = "faketryghost"
+  fbName = "fakeghost"
+  githubName = "eueung"
+
+  logo = ""
+  orgName = "EM"
+  orgWebsite = "https://www.telematika.org"
+  orgDescription = "Here is a description placeholder for your org"
+
+  author = "Moonstreet"
+  authorAvatar = "moonstreetlogo.png"
+  authorLocation = "Nederland"
+  authorWebsite = "https://www.moonstreet.nl"
+  authorDescription = "Devops, CyberSecurity"
+
+  pageNotFoundTitle = "404 - Page not found"
+
+  #casper or caspertwo
+  singleViewStyle = "casper"
+
+[permalinks]
+  post = "/:slug/"
+
+[[menu.main]]
+  name = "Main"
+  url = "/"
+  weight = 200
+
+[[menu.main]]
+  name = "Devops"
+  url = "/tags/devops/"
+  weight = 100
+
+[[menu.main]]
+  name = "Cybersecurity"
+  url = "/tags/cybersecurity/"
+  weight = 99
+  
+[[menu.main]]
+  name = "My Life"
+  url = "/categories/life/"
+  weight = 98
+
+[[menu.main]]
+  name = "External"
+  url = "https://google.com/"
+  weight = 95
