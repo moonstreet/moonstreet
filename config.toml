@@ -7,26 +7,25 @@ paginate        = 6
 
 [params]
   title       = "Moonstreet"
-  subtitle    = "devops en cybersecurity"
+  subtitle    = "devops & cybersecurity"
 
-  cover       = "moonstreetheader1.jpeg"
-  description = "Here is a description of your site."
+  cover       = "uploads/moonstreetheader1.jpeg"
+  description = "Digital Organizers"
   metaDescription = ""
   googleAnalytics = ""
   customCSS = []
   RSSLink = ""
 
-  twitterName = "faketryghost"
-  fbName = "fakeghost"
-  githubName = "eueung"
+  twitterName = "moonstreetnl"
+  githubName = "moonstreet"
 
   logo = ""
-  orgName = "EM"
-  orgWebsite = "https://www.telematika.org"
-  orgDescription = "Here is a description placeholder for your org"
+  orgName = "Moonstreet"
+  orgWebsite = "https://www.moonstreet.nl"
+  orgDescription = "Digital Organizers"
 
   author = "Moonstreet"
-  authorAvatar = "moonstreetlogo.png"
+  authorAvatar = "uploads/moonstreetlogo.png"
   authorLocation = "Nederland"
   authorWebsite = "https://www.moonstreet.nl"
   authorDescription = "Devops, CyberSecurity"

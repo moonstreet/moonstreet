@@ -2,7 +2,7 @@
 title: "Windows Defender Realtime Protection Check"
 date: 2019-01-04T12:11:56+01:00
 draft: false
-image: "settings.jpeg"
+image: "uploads/settings.jpeg"
 tags: ["cybersecurity"]
 ---
 
