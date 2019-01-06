@@ -8,6 +8,7 @@ paginate        = 6
 [params]
   title       = "Moonstreet"
   subtitle    = "devops & cybersecurity"
+  copyright   = "© 2019"
 
   cover       = "uploads/moonstreetheader1.jpeg"
   description = "Digital Organizers"
