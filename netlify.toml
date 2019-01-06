@@ -1,4 +1,4 @@
-[[headers]]
+[[redirects]]
   from = "http://moonstreet.nl/*"
   to = "https://www.moonstreet.nl/:splat"
   status = 301
