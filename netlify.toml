@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "moonstreet.nl"
+  to = "www.moonstreet.nl"
+  status = 301
+  force = false
