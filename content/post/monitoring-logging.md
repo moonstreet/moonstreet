@@ -16,4 +16,29 @@ I would recommend [this](https://www.prometheusbook.com/) book by the way.
 
 ## Installing Prometheus
 
+Grab the latest version from [here](https://github.com/prometheus/prometheus/releases)
+
+```sh
+tar -xzf prometheus-2.6.0.linux-amd64.tar.gz
+sudo cp prometheus-2.6.0.linux-amd64/prometheus /usr/local/bin/
+sudo cp prometheus-2.6.0.linux-amd64/promtool /usr/local/bin/
+```
+
+You can now go ahead and see if the installation went well:
+
+```sh
+prometheus --version
+```
+
+This should return the current version.
+
+![](/uploads/monitoring-logging-1.png)
+
+
+
+
+
+
+
+
 
