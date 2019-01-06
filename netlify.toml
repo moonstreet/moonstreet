@@ -1,5 +1,6 @@
-[[redirects]]
-  from = "moonstreet.nl"
-  to = "www.moonstreet.nl"
+[[headers]]
+  from = "http://moonstreet.nl/*"
+  to = "https://www.moonstreet.nl/:splat"
   status = 301
-  force = false
+  force = true
+  headers = {Cache-Control = "public, max-age=2592000"}
