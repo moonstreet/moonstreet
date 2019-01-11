@@ -1,0 +1,27 @@
+backend:
+    name: git-gateway
+    branch: master
+
+  
+media_folder: "static/uploads"
+public_folder: "uploads"
+
+collections:
+  - name: "devops"
+    lable: "DevOps"
+    folder: "content/devops""
+    create: true
+    slug: "{{year}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "Title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "date"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: true}
+      - {label: "Categories", name: "categories", widget: "string", required: true}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
+      - {label: "Author", name: "author", widget: "hidden", default: moonstreet}
+      - {label: "Author Image", name: "authorImage", widget: "hidden", default: "uploads/moonstreetlogo.png"}
+      - {label: "Header Image", name: "image", widget: "image", default: false}
+      - {label: "Commenting", name: "comments", widget: "boolean", default: true}
+      - {label: "Sharing", name: "share", widget: "boolean", default: true}
+      - {label: "Type", name: "type", widget: "hidden", default: "post"}
+      - {label: "Body", name: "body", widget: "markdown"}
