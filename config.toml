@@ -46,12 +46,12 @@ paginate        = 6
 
 [[menu.main]]
   name = "Devops"
-  url = "/tags/devops/"
+  url = "/categories/devops/"
   weight = 100
 
 [[menu.main]]
   name = "Cybersecurity"
-  url = "/tags/cybersecurity/"
+  url = "/categories/cybersecurity/"
   weight = 99
   
 [[menu.main]]
