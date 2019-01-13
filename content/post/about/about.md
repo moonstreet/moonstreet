@@ -1,10 +1,11 @@
 ---
 title: "About"
 date: 2019-01-13T13:11:25+01:00
-draft: true
+draft: false
 image: ""
 tags: ["about"]
-#categories : ["about"]
+categories: about
+type: post
 ---
 
 een stukje over about
