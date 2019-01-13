@@ -4,7 +4,7 @@ date: 2019-01-04T16:29:13+01:00
 draft: false
 image: "uploads/monitoring.jpeg"
 tags: ["devops"]
-categories : ["devops"]
+categories: ["devops"]
 ---
 
 # Beginning monitoring with Prometheus from scratch.
