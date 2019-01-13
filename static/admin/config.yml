@@ -25,7 +25,8 @@ collections:
       - {label: "Sharing", name: "share", widget: "boolean", default: true}
       - {label: "Type", name: "type", widget: "hidden", default: "post"}
       - {label: "Body", name: "body", widget: "markdown"}
-    - name: "CyberSecurity"
+
+    - name: "cybersecurity"
       label: "CyberSecurity" 
       folder: "content/post/cybersecurity"
       create: true
