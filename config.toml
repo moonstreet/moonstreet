@@ -55,8 +55,8 @@ paginate        = 6
   weight = 99
   
 [[menu.main]]
-  name = "My Life"
-  url = "/categories/life/"
+  name = "About"
+  url = "/categories/about/"
   weight = 98
 
 [[menu.main]]
