@@ -1,65 +1,19 @@
-baseurl         = "/"
-theme           = "casper-three"
-languageCode    = "en-US"
-disqusShortname = ""
-paginate        = 6
-#SectionPagesMenu = "main"
+baseurl = "https://example.com"
+title = "moonstreet.nl"
+author = "Moonstreet"
+copyright = "Copyright © 2019, Moonstreet, Steve Francia and the Hugo Authors; all rights reserved."
+canonifyurls = true
+paginate = 3
+theme = "silhouette-hugo"
+
+pygmentsUseClasses=true
+
+#disqusShortname = ""
+#googleAnalytics = ""
 
 [params]
-  title       = "Moonstreet"
-  subtitle    = "devops & cybersecurity"
-  copyright   = "© 2019"
+author = "Moonstreet Weblog"
+introDescription = "A weblog about cyber security and devops stuff"
+contentSharing = ""
 
-  cover       = "uploads/moonstreetheader1.jpeg"
-  description = "Digital Organizers"
-  metaDescription = ""
-  googleAnalytics = ""
-  customCSS = []
-  RSSLink = ""
 
-  twitterName = "moonstreetnl"
-  githubName = "moonstreet"
-
-  logo = ""
-  orgName = "Moonstreet"
-  orgWebsite = "https://www.moonstreet.nl"
-  orgDescription = "Digital Organizers"
-
-  author = "Moonstreet"
-  authorAvatar = "uploads/moonstreetlogo.png"
-  authorLocation = "Nederland"
-  authorWebsite = "https://www.moonstreet.nl"
-  authorDescription = "Devops, CyberSecurity"
-
-  pageNotFoundTitle = "404 - Page not found"
-
-  #casper or caspertwo
-  singleViewStyle = "casper"
-
-[permalinks]
-  post = "/:slug/"
-
-[[menu.main]]
-  name = "Main"
-  url = "/"
-  weight = 200
-
-[[menu.main]]
-  name = "Devops"
-  url = "/tags/devops/"
-  weight = 100
-
-[[menu.main]]
-  name = "Cybersecurity"
-  url = "/tags/cybersecurity/"
-  weight = 99
-  
-[[menu.main]]
-  name = "About"
-  url = "/categories/about/"
-  weight = 98
-
-[[menu.main]]
-  name = "External"
-  url = "https://google.com/"
-  weight = 95

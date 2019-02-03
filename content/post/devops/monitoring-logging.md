@@ -5,11 +5,9 @@ draft: false
 image: "uploads/monitoring.jpeg"
 tags: ["devops"]
 categories: ["devops"]
+author: "Jacqueline"
 ---
 
-# Beginning monitoring with Prometheus from scratch.
-
-Dear all, this is my first blogpost on this website. 
 Currently I am working for a SaaS project that has some Microservices which are hosted on Kubernetes. And as a devops engineer I am not only responsible for the continuously delivery part but also for things like monitoring. 
 
 It seems like Prometheus is the de-facto monitoring solution for Kubernetes nowadays. Prometheus is very popular according to the [CNCF project](https://cncf.ci/)  and is also mentioned in the Kubernetes [docs](https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/).  
