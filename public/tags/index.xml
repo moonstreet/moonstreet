@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on moonstreet.nl</title>
-    <link>https://example.com/tags/</link>
+    <link>https://moonstreet.nl/tags/</link>
     <description>Recent content in Tags on moonstreet.nl</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2019, Moonstreet, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
     <lastBuildDate>Fri, 04 Jan 2019 12:11:56 +0100</lastBuildDate>
     
-	<atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moonstreet.nl/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Cybersecurity</title>
-      <link>https://example.com/tags/cybersecurity/</link>
+      <link>https://moonstreet.nl/tags/cybersecurity/</link>
       <pubDate>Fri, 04 Jan 2019 12:11:56 +0100</pubDate>
       
-      <guid>https://example.com/tags/cybersecurity/</guid>
+      <guid>https://moonstreet.nl/tags/cybersecurity/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Devops</title>
-      <link>https://example.com/tags/devops/</link>
+      <link>https://moonstreet.nl/tags/devops/</link>
       <pubDate>Fri, 04 Jan 2019 16:29:13 +0100</pubDate>
       
-      <guid>https://example.com/tags/devops/</guid>
+      <guid>https://moonstreet.nl/tags/devops/</guid>
       <description></description>
     </item>
     

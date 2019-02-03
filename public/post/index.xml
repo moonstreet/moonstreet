@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on moonstreet.nl</title>
-    <link>https://example.com/post/</link>
+    <link>https://moonstreet.nl/post/</link>
     <description>Recent content in Posts on moonstreet.nl</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2019, Moonstreet, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
     <lastBuildDate>Fri, 04 Jan 2019 16:29:13 +0100</lastBuildDate>
     
-	<atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moonstreet.nl/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Monitoring with Prometheus</title>
-      <link>https://example.com/post/devops/monitoring-logging/</link>
+      <link>https://moonstreet.nl/post/devops/monitoring-logging/</link>
       <pubDate>Fri, 04 Jan 2019 16:29:13 +0100</pubDate>
       
-      <guid>https://example.com/post/devops/monitoring-logging/</guid>
+      <guid>https://moonstreet.nl/post/devops/monitoring-logging/</guid>
       <description>Currently I am working for a SaaS project that has some Microservices which are hosted on Kubernetes. And as a devops engineer I am not only responsible for the continuously delivery part but also for things like monitoring.
 It seems like Prometheus is the de-facto monitoring solution for Kubernetes nowadays. Prometheus is very popular according to the CNCF project and is also mentioned in the Kubernetes docs.
 So what does Prometheus do?</description>
@@ -24,10 +24,10 @@ So what does Prometheus do?</description>
     
     <item>
       <title>Windows Defender Realtime Protection Check</title>
-      <link>https://example.com/post/cybersecurity/windows-defender-realtime-protection-check/</link>
+      <link>https://moonstreet.nl/post/cybersecurity/windows-defender-realtime-protection-check/</link>
       <pubDate>Fri, 04 Jan 2019 12:11:56 +0100</pubDate>
       
-      <guid>https://example.com/post/cybersecurity/windows-defender-realtime-protection-check/</guid>
+      <guid>https://moonstreet.nl/post/cybersecurity/windows-defender-realtime-protection-check/</guid>
       <description>Windows Defender is tegenwoordig een prima anti-virus programma, mits real-time protection werkt. Check of real-time protection werkt en niet wordt geblocked door een firewall via onderstaand commando:
 C:\Program Files\Windows Defender&amp;gt;mpcmdrun -validatemapsconnection  p.s. werkt alleen in een command prompt met admin privileges.</description>
     </item>
