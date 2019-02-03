@@ -23,25 +23,25 @@
   </url>
   
   <url>
-    <loc>https://example.com/tags/cybersecurity/</loc>
-    <lastmod>2019-01-04T12:11:56+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://example.com/categories/cybersecurity/</loc>
     <lastmod>2019-01-04T12:11:56+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://example.com/tags/devops/</loc>
-    <lastmod>2019-01-04T16:29:13+01:00</lastmod>
+    <loc>https://example.com/tags/cybersecurity/</loc>
+    <lastmod>2019-01-04T12:11:56+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://example.com/categories/devops/</loc>
+    <lastmod>2019-01-04T16:29:13+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://example.com/tags/devops/</loc>
     <lastmod>2019-01-04T16:29:13+01:00</lastmod>
     <priority>0</priority>
   </url>
