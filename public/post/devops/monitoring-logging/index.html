@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta property="og:title" content="Monitoring with Prometheus" />
+<meta property="og:description" content="Currently I am working for a SaaS project that has some Microservices which are hosted on Kubernetes. And as a devops engineer I am not only responsible for the continuously delivery part but also for things like monitoring.
+It seems like Prometheus is the de-facto monitoring solution for Kubernetes nowadays. Prometheus is very popular according to the CNCF project and is also mentioned in the Kubernetes docs.
+So what does Prometheus do?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/post/devops/monitoring-logging/" /><meta property="article:published_time" content="2019-01-04T16:29:13&#43;01:00"/>
+<meta property="article:modified_time" content="2019-01-04T16:29:13&#43;01:00"/>
+
+        <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Monitoring with Prometheus"/>
+<meta name="twitter:description" content="Currently I am working for a SaaS project that has some Microservices which are hosted on Kubernetes. And as a devops engineer I am not only responsible for the continuously delivery part but also for things like monitoring.
+It seems like Prometheus is the de-facto monitoring solution for Kubernetes nowadays. Prometheus is very popular according to the CNCF project and is also mentioned in the Kubernetes docs.
+So what does Prometheus do?"/>
+
+        
+        <title>
+  Monitoring with Prometheus | moonstreet.nl
+</title>
+
+        <link rel="icon" type="image/png" href='https://example.com/images/favicon-16x16.png' sizes="16x16">
+        <link rel="icon" type="image/png" href='https://example.com/images/favicon-32x32.png' sizes="32x32">  
+
+        <link href="https://fonts.googleapis.com/css?family=Oswald:400" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">      
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        
+        
+        
+        
+
+        <link rel="stylesheet" href="https://example.com/css/bundle.min.7ca6cd3bb53a831d18b6183000ae658b8d6f672f7acab1b00f788e5fe8b5d844.css" integrity="sha256-fKbNO7U6gx0YthgwAK5li41vZy96yrGwD3iOX&#43;i12EQ="  />
+
+        
+    <link rel="icon" type="image/png" href="https://example.com/images/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="https://example.com/images/favicon-32x32.png" sizes="32x32">
+
+<link rel="alternate" type="application/rss+xml" href='https://example.com/index.xml' />
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="Moonstreet Weblog" />
+<meta name="copyright" content="Copyright © 2019, Moonstreet, Steve Francia and the Hugo Authors; all rights reserved." />
+
+
+<meta name="description" content="Currently I am working for a SaaS project that has some Microservices which are hosted on Kubernetes. And as a devops engineer I am not only responsible for the continuously delivery part but also for things like monitoring.
+It seems like Prometheus is the de-facto monitoring solution for Kubernetes nowadays. Prometheus is very popular according to the CNCF project and is also mentioned in the Kubernetes docs.
+So what does Prometheus do?">
+
+
+    
+        
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark py-1 top-nav">
+            <div class="container">
+                    <a class="navbar-brand pr-2" href="https://example.com">MOONSTREET.NL</a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="navbar-collapse collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+    <a class="nav-link active" href="https://example.com/categories/development/">Development</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://example.com/categories/golang/">Golang</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://example.com/about/">About</a>
+</li>
+                    </ul>
+                    <div class="social-icons d-none d-lg-block">
+                        <a class="py-2 px-2" href='https://example.com/index.xml'><i class="fas fa-rss"></i></a>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        
+<header class="feature-image d-print-none">
+</header>
+
+        
+        <div class="main">
+            
+<div class="container mt-4 post">
+    <h1>Monitoring with Prometheus</h1>
+    <div class="mb-3">
+    <small>
+        <strong>By Jacqueline</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Jan 4, 2019&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='https://example.com/tags/devops/'>devops</a>
+    </small>
+</div>
+
+    <div class="share-icons d-flex justify-content-center d-print-none">
+        <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fexample.com%2fpost%2fdevops%2fmonitoring-logging%2f&text=Monitoring%20with%20Prometheus&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Tweet</small></div>
+</a>
+
+<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fexample.com%2fpost%2fdevops%2fmonitoring-logging%2f&t=Monitoring%20with%20Prometheus" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fexample.com%2fpost%2fdevops%2fmonitoring-logging%2f&title=Monitoring%20with%20Prometheus&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="javascript:window.print()" title="Print this article" class="p-2" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fa fa-print fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Print</small></div>
+</a>
+    </div>
+
+    <div class="mt-4 mb-4 main-content">
+        
+
+<p>Currently I am working for a SaaS project that has some Microservices which are hosted on Kubernetes. And as a devops engineer I am not only responsible for the continuously delivery part but also for things like monitoring.</p>
+
+<p>It seems like Prometheus is the de-facto monitoring solution for Kubernetes nowadays. Prometheus is very popular according to the <a href="https://cncf.ci/">CNCF project</a>  and is also mentioned in the Kubernetes <a href="https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/">docs</a>.</p>
+
+<p>So what does Prometheus do? Well, it collects metrics from configured targets at given intervals, evaluates rule expressions, displays the results, and can trigger alerts if some condition is observed to be true.</p>
+
+<p>Getting started with Prometheus shouldn&rsquo;t be that hard. You can get up and <a href="https://itnext.io/kubernetes-monitoring-with-prometheus-in-15-minutes-8e54d1de2e13">running quickly</a>. And although you get some beautiful graphs in a second, you may not know what you are doing. So here is a blog that takes some steps back and takes the from scratch approach.</p>
+
+<p>I would recommend <a href="https://www.prometheusbook.com/">this</a> book by the way.</p>
+
+<h2 id="installing-prometheus">Installing Prometheus</h2>
+
+<p>Grab the latest version from <a href="https://github.com/prometheus/prometheus/releases">here</a></p>
+
+<pre><code class="language-sh">tar -xzf prometheus-2.6.0.linux-amd64.tar.gz
+sudo cp prometheus-2.6.0.linux-amd64/prometheus /usr/local/bin/
+sudo cp prometheus-2.6.0.linux-amd64/promtool /usr/local/bin/
+</code></pre>
+
+<p>You can now go ahead and see if the installation went well:</p>
+
+<pre><code class="language-sh">prometheus --version
+</code></pre>
+
+<p>This should return the current version.</p>
+
+<p><img src="https://example.com/uploads/monitoring-logging-1.png" alt="" /></p>
+
+<p>Now go ahead and copy the promotheus.yml file from the extracted folder to /etc/prometheus and start the server:</p>
+
+<pre><code class="language-sh">sudo mkdir /etc/prometheus
+sudo cp prometheus.yml /etc/prometheus/
+prometheus --config.file &quot;/etc/prometheus.yml&quot;
+</code></pre>
+
+<p>If you browse to <code>localhost:9090</code> you will see the Prometheus dashboard and you can execute some of the queries in the dropdown list.
+What it basically does right now is monitoring itself.</p>
+
+<p><img src="https://example.com/uploads/monitoring-logging-2.png" alt="" /></p>
+
+<h3 id="monitoring-a-node">Monitoring a node</h3>
+
+<p>Download and install the node exporter here:
+<a href="https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz">https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz</a></p>
+
+<pre><code class="language-sh">tar -xzf node_exp*
+sudo cp node_exporter-*/node_exporter /usr/local/bin
+</code></pre>
+
+<p>Configure the Textfile collector</p>
+
+<pre><code class="language-sh">sudo mkdir -p /var/lib/node_exporter/textfile_collector
+echo 'metadata{role=&quot;docker_server&quot;,datacenter=&quot;RDAM&quot;} 1' | sudo tee \
+ /var/lib/node_exporter/textfile_collector/metadata.prom
+</code></pre>
+
+<p>Then we can launch node_exporter:</p>
+
+<pre><code class="language-sh">node_exporter --collector.textfile.directory /var/lib/node_exporter/textfile_collector \
+--collector.systemd --collector.systemd.unit-whitelist=&quot;(docker|ssh|rsyslog).service&quot;
+</code></pre>
+
+<p>Then scrape it. Our new prometheus.yml file will look like so:</p>
+
+<pre><code class="language-yml">scrape_configs:
+- job_name: 'prometheus'
+  static_configs:
+    - targets: ['localhost:9090']
+- job_name: 'node'
+  static_configs:
+    - targets: ['192.168.2.66:9100']
+</code></pre>
+
+
+        <div class="share-icons d-flex justify-content-center d-print-none">
+            <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fexample.com%2fpost%2fdevops%2fmonitoring-logging%2f&text=Monitoring%20with%20Prometheus&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Tweet</small></div>
+</a>
+
+<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fexample.com%2fpost%2fdevops%2fmonitoring-logging%2f&t=Monitoring%20with%20Prometheus" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fexample.com%2fpost%2fdevops%2fmonitoring-logging%2f&title=Monitoring%20with%20Prometheus&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="javascript:window.print()" title="Print this article" class="p-2" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fa fa-print fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Print</small></div>
+</a>
+        </div>
+    </div>
+
+    
+</div>
+<div class="sidebar d-print-none d-none d-xl-block">
+    
+        <h2>Moonstreet Weblog</h2>
+        <div>
+            A weblog about cyber security and devops stuff
+        </div>
+        <a href='https://example.com/about/' class="btn btn-outline-secondary mt-3" role="button">Read More...</a>
+        <h2 class="mt-4">Top Posts</h2>
+    
+    
+    <h2 class="mt-4">Recent Posts</h2>
+    <nav class="nav flex-column">
+        
+        <a href="https://example.com/post/devops/monitoring-logging/" class="nav-link">Monitoring with Prometheus</a>
+        
+        <a href="https://example.com/post/cybersecurity/windows-defender-realtime-protection-check/" class="nav-link">Windows Defender Realtime Protection Check</a>
+        
+        <a href="https://example.com/post/" class="nav-link">Posts</a>
+        
+    </nav>
+    
+    <h2 class="mt-4 text-capitalize">categories</h2>
+    <nav class="nav flex-column">
+        
+        <a href='https://example.comcategories/cybersecurity/' class="nav-link">
+        cybersecurity
+        <span class="badge badge-pill badge-secondary">1</span>
+        </a>
+        
+        <a href='https://example.comcategories/devops/' class="nav-link">
+        devops
+        <span class="badge badge-pill badge-secondary">1</span>
+        </a>
+        
+    </nav>
+    
+    <h2 class="mt-4 text-capitalize">tags</h2>
+    <nav class="nav flex-column">
+        
+        <a href='https://example.comtags/cybersecurity/' class="nav-link">
+        cybersecurity
+        <span class="badge badge-pill badge-secondary">1</span>
+        </a>
+        
+        <a href='https://example.comtags/devops/' class="nav-link">
+        devops
+        <span class="badge badge-pill badge-secondary">1</span>
+        </a>
+        
+    </nav>
+    
+</div>
+
+        </div>
+
+        <footer class="mt-auto footer d-print-none">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 col-xl-3">
+                        <h5>Copyright © 2019, Moonstreet, Steve Francia and the Hugo Authors; all rights reserved.</h5>
+
+                    </div>
+                    <div class="col-md-4 col-xl-3">
+                        <h5>Disclaimer</h5>
+Opinions expressed here are my own and may not reflect those of the company I work for, or the people I work with.
+                    </div>
+                    <div class="col-md-4 col-xl-3">
+                        <h5>About This Site</h5>
+This blog was created using the <a href="https://gohugo.io/">Hugo</a> static site generator, using
+<a href="https://getbootstrap.com/">Bootstrap</a>, using the Silhouette Hugo theme, created by
+<a href='https://www.mattbutton.com'>Matt Button</a>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="d-flex justify-content-center icons">
+                    <a class="py-2 px-2" href='https://example.com/index.xml'><i class="fas fa-rss"></i></a>
+
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        
+    </body>
+</html>
