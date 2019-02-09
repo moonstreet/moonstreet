@@ -1,5 +1,5 @@
 ---
-title: "Monitoring with Prometheus"
+title: "Getting started with Prometheus"
 date: 2019-01-04T16:29:13+01:00
 draft: false
 image: "uploads/monitoring.jpeg"
@@ -8,13 +8,11 @@ categories: ["devops"]
 author: "Jacqueline"
 ---
 
-Currently I am working for a SaaS project that has some Microservices which are hosted on Kubernetes. And as a devops engineer I am not only responsible for the continuously delivery part but also for things like monitoring. 
-
-It seems like Prometheus is the de-facto monitoring solution for Kubernetes nowadays. Prometheus is very popular according to the [CNCF project](https://cncf.ci/)  and is also mentioned in the Kubernetes [docs](https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/).  
+Prometheus delivers real-time monitoring, alerting and time-series database capabilities including powerful queries and visualizations. Prometheus is one of the  fastest-growing projects on GitHub according to the [CNCF project](https://cncf.ci/) and is also mentioned in the Kubernetes [docs](https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/).  
 
 So what does Prometheus do? Well, it collects metrics from configured targets at given intervals, evaluates rule expressions, displays the results, and can trigger alerts if some condition is observed to be true.
 
-Getting started with Prometheus shouldn't be that hard. You can get up and [running quickly](https://itnext.io/kubernetes-monitoring-with-prometheus-in-15-minutes-8e54d1de2e13). And although you get some beautiful graphs in a second, you may not know what you are doing. So here is a blog that takes some steps back and takes the from scratch approach.
+Well then, how to get started with it? Getting started with Prometheus shouldn't be that hard. You can get up and [running quickly](https://itnext.io/kubernetes-monitoring-with-prometheus-in-15-minutes-8e54d1de2e13). And although you get some beautiful graphs in a second, you may not know what you are doing. So here is a blog that takes some steps back and takes the from scratch approach.
 
 I would recommend [this](https://www.prometheusbook.com/) book by the way.
 
@@ -90,13 +88,4 @@ scrape_configs:
     - targets: ['192.168.2.66:9100']
 ```
 
-
-
-
-
-
-
-
-
-
-
+This is a first post on Prometheus. Next time I will write about running Prometheus in Kubernetes.
