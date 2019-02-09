@@ -8,7 +8,7 @@ categories: ["devops"]
 author: "Jacqueline"
 ---
 
-Prometheus delivers real-time monitoring, alerting and time-series database capabilities including powerful queries and visualizations. Prometheus is one of the  fastest-growing projects on GitHub according to the [CNCF project](https://cncf.ci/) and is also mentioned in the Kubernetes [docs](https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/).  
+Prometheus delivers real-time monitoring, alerting and time-series database capabilities including powerful queries and visualizations. Written in Go, Prometheus is one of the  fastest-growing projects on GitHub according to the [CNCF project](https://cncf.ci/) and is also mentioned in the Kubernetes [docs](https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/).  
 
 So what does Prometheus do? Well, it collects metrics from configured targets at given intervals, evaluates rule expressions, displays the results, and can trigger alerts if some condition is observed to be true.
 
