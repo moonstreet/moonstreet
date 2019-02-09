@@ -12,8 +12,8 @@ pygmentsUseClasses=true
 #googleAnalytics = ""
 
 [params]
-author = "Moonstreet Weblog"
-introDescription = "A weblog about cyber security and devops stuff"
+author = "Moonstreet Notebook"
+introDescription = "Notes about cyber security and devops stuff"
 contentSharing = ""
 
 
