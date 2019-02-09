@@ -2,8 +2,8 @@
 title: "Getting started with Golang"
 date: 2019-02-09T15:16:45+01:00
 draft: false
-tags: ["development"]
-categories: ["development"]
+tags: ["golang"]
+categories: ["golang"]
 author: "Jacqueline"
 ---
 
