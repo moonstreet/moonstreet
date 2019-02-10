@@ -12,11 +12,8 @@ To create a simple webserver, we need:
 
 * a function that can serve a page in browser (using http obviously)
 * it should listen at a port
-* it should respond to incoming requests
+* it should respond to (handle) incoming requests
 * it should be able to write content to the page
-
-
-
 
 First create a new project structure:
 
@@ -40,6 +37,17 @@ func main() {
 EOF
 ```
 
+So what is this about?
+* We are using the http package from the Go standard library
+* The http package has a method HandleFunc.
+* It's first argument is the forward slash "/" so it will respond to all requests
+* The second argument is the callback. It takes two arguments: a response writer and a pointer to the request
+* We need to write out our response in a byte array.
+
+Finally we let our http server listen to port 8000 with ListenAndServe.
+The second argument has a value of "nil", in which case the DefaultServerMux is used (more about that later).
+
+
 We now execute:
 
 ```sh
@@ -53,7 +61,4 @@ Then browse to localhost:8000.
 Result:
 
 ![](/uploads/gowebserver.png)
-
-
-
 
