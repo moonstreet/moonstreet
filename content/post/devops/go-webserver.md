@@ -38,6 +38,7 @@ EOF
 ```
 
 So what is this about?
+
 * We are using the http package from the Go standard library
 * The http package has a method HandleFunc.
 * It's first argument is the forward slash "/" so it will respond to all requests
