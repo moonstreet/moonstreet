@@ -8,12 +8,21 @@ categories: ["golang"]
 
 The last Golang post was a little bit lame so let's do something more interesting now. Let's create a webserver.
 
+To create a simple webserver, we need:
+
+* a function that can serve a page in browser (using http obviously)
+* it should listen at a port
+* it should respond to incoming requests
+* it should be able to write content to the page
+
+
+
+
 First create a new project structure:
 
 ```sh
 mkdir -p ~/go/src/httpserver
 ```
-
 Then create this file:
 
 ```sh
@@ -45,6 +54,6 @@ Result:
 
 ![](/uploads/gowebserver.png)
 
-## What happened
+
 
 
