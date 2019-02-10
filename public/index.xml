@@ -2,42 +2,67 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>moonstreet.nl</title>
-    <link>https://moonstreet.nl/</link>
+    <link>https://www.moonstreet.nl/</link>
     <description>Recent content on moonstreet.nl</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2019, Moonstreet, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Fri, 04 Jan 2019 16:29:13 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 10 Feb 2019 09:43:32 +0100</lastBuildDate>
     
-	<atom:link href="https://moonstreet.nl/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.moonstreet.nl/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Monitoring with Prometheus</title>
-      <link>https://moonstreet.nl/post/devops/monitoring-logging/</link>
+      <title>Go Webserver</title>
+      <link>https://www.moonstreet.nl/post/devops/go-webserver/</link>
+      <pubDate>Sun, 10 Feb 2019 09:43:32 +0100</pubDate>
+      
+      <guid>https://www.moonstreet.nl/post/devops/go-webserver/</guid>
+      <description>The last Golang post was a little bit lame so let&amp;rsquo;s do something more interesting now. Let&amp;rsquo;s create a webserver.
+First create a new project structure:
+mkdir -p ~/go/src/httpserver  Then create this file:
+cat &amp;gt; ~/go/src/httpserver/main.go &amp;lt;&amp;lt;EOF package main import &amp;quot;net/http&amp;quot; func main() { http.HandleFunc(&amp;quot;/&amp;quot;, func(w http.ResponseWriter, r *http.Request) { w.Write([]byte(&amp;quot;&amp;lt;h1&amp;gt;Go webserver&amp;lt;/h1&amp;gt;&amp;quot;)) }) http.ListenAndServe(&amp;quot;:8000&amp;quot;, nil) } EOF  We now execute:
+cd ~/go/src/httpserver go build main.go ./main  Then browse to localhost:8000.</description>
+    </item>
+    
+    <item>
+      <title>Getting started with Golang</title>
+      <link>https://www.moonstreet.nl/post/devops/getting-started-with-golang/</link>
+      <pubDate>Sat, 09 Feb 2019 15:16:45 +0100</pubDate>
+      
+      <guid>https://www.moonstreet.nl/post/devops/getting-started-with-golang/</guid>
+      <description>This is yet another getting started note. This time I am trying to code in Golang.
+Why, would you ask?
+Obviously because of its mascotte:
+Installing Golang Download Golang here https://golang.org/dl/. I am on Ubuntu, so next step is to simply unpack the executable to /usr/local.
+sudo tar -C /usr/local -xzf go1.11.5.linux-amd64.tar.gz  Then add Go to your path in your profile (in my case it would be in ~/.</description>
+    </item>
+    
+    <item>
+      <title>Getting started with Prometheus</title>
+      <link>https://www.moonstreet.nl/post/devops/monitoring-logging/</link>
       <pubDate>Fri, 04 Jan 2019 16:29:13 +0100</pubDate>
       
-      <guid>https://moonstreet.nl/post/devops/monitoring-logging/</guid>
-      <description>Currently I am working for a SaaS project that has some Microservices which are hosted on Kubernetes. And as a devops engineer I am not only responsible for the continuously delivery part but also for things like monitoring.
-It seems like Prometheus is the de-facto monitoring solution for Kubernetes nowadays. Prometheus is very popular according to the CNCF project and is also mentioned in the Kubernetes docs.
-So what does Prometheus do?</description>
+      <guid>https://www.moonstreet.nl/post/devops/monitoring-logging/</guid>
+      <description>Prometheus delivers real-time monitoring, alerting and time-series database capabilities including powerful queries and visualizations. Written in Go, Prometheus is one of the fastest-growing projects on GitHub according to the CNCF project and is also mentioned in the Kubernetes docs.
+So what does Prometheus do? Well, it collects metrics from configured targets at given intervals, evaluates rule expressions, displays the results, and can trigger alerts if some condition is observed to be true.</description>
     </item>
     
     <item>
       <title>Windows Defender Realtime Protection Check</title>
-      <link>https://moonstreet.nl/post/cybersecurity/windows-defender-realtime-protection-check/</link>
+      <link>https://www.moonstreet.nl/post/cybersecurity/windows-defender-realtime-protection-check/</link>
       <pubDate>Fri, 04 Jan 2019 12:11:56 +0100</pubDate>
       
-      <guid>https://moonstreet.nl/post/cybersecurity/windows-defender-realtime-protection-check/</guid>
+      <guid>https://www.moonstreet.nl/post/cybersecurity/windows-defender-realtime-protection-check/</guid>
       <description>Windows Defender is tegenwoordig een prima anti-virus programma, mits real-time protection werkt. Check of real-time protection werkt en niet wordt geblocked door een firewall via onderstaand commando:
 C:\Program Files\Windows Defender&amp;gt;mpcmdrun -validatemapsconnection  p.s. werkt alleen in een command prompt met admin privileges.</description>
     </item>
     
     <item>
       <title>About Moonstreet</title>
-      <link>https://moonstreet.nl/about/</link>
+      <link>https://www.moonstreet.nl/about/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://moonstreet.nl/about/</guid>
+      <guid>https://www.moonstreet.nl/about/</guid>
       <description>Jacqueline en Miranda are living in Moonstreet.
 We write this blog because we have a passion for Devops and CyberSecurity and we like to write things down. We live in the Netherlands.</description>
     </item>

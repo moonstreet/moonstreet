@@ -3,64 +3,86 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://moonstreet.nl/post/devops/monitoring-logging/</loc>
+    <loc>https://www.moonstreet.nl/post/devops/go-webserver/</loc>
+    <lastmod>2019-02-10T09:43:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.moonstreet.nl/post/devops/getting-started-with-golang/</loc>
+    <lastmod>2019-02-09T15:16:45+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.moonstreet.nl/post/devops/monitoring-logging/</loc>
     <lastmod>2019-01-04T16:29:13+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://moonstreet.nl/post/cybersecurity/windows-defender-realtime-protection-check/</loc>
+    <loc>https://www.moonstreet.nl/post/cybersecurity/windows-defender-realtime-protection-check/</loc>
     <lastmod>2019-01-04T12:11:56+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://moonstreet.nl/about/</loc>
+    <loc>https://www.moonstreet.nl/about/</loc>
     <lastmod>2019-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://moonstreet.nl/categories/</loc>
+    <loc>https://www.moonstreet.nl/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://moonstreet.nl/tags/cybersecurity/</loc>
+    <loc>https://www.moonstreet.nl/categories/cybersecurity/</loc>
     <lastmod>2019-01-04T12:11:56+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://moonstreet.nl/categories/cybersecurity/</loc>
+    <loc>https://www.moonstreet.nl/tags/cybersecurity/</loc>
     <lastmod>2019-01-04T12:11:56+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://moonstreet.nl/tags/devops/</loc>
+    <loc>https://www.moonstreet.nl/categories/devops/</loc>
     <lastmod>2019-01-04T16:29:13+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://moonstreet.nl/categories/devops/</loc>
+    <loc>https://www.moonstreet.nl/tags/devops/</loc>
     <lastmod>2019-01-04T16:29:13+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://moonstreet.nl/post/</loc>
-    <lastmod>2019-01-04T16:29:13+01:00</lastmod>
+    <loc>https://www.moonstreet.nl/categories/golang/</loc>
+    <lastmod>2019-02-10T09:43:32+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://moonstreet.nl/tags/</loc>
+    <loc>https://www.moonstreet.nl/tags/golang/</loc>
+    <lastmod>2019-02-10T09:43:32+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.moonstreet.nl/post/</loc>
+    <lastmod>2019-02-10T09:43:32+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.moonstreet.nl/tags/</loc>
     <lastmod>2019-01-04T12:11:56+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://moonstreet.nl/</loc>
-    <lastmod>2019-01-04T16:29:13+01:00</lastmod>
+    <loc>https://www.moonstreet.nl/</loc>
+    <lastmod>2019-02-10T09:43:32+01:00</lastmod>
     <priority>0</priority>
   </url>
   
