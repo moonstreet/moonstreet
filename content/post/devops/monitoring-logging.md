@@ -4,11 +4,11 @@ date: 2019-01-04T16:29:13+01:00
 draft: false
 image: "uploads/monitoring.jpeg"
 tags: ["devops"]
-categories: ["devops"]
+topic: ["devops"]
 author: "Jacqueline"
 ---
 
-Prometheus delivers real-time monitoring, alerting and time-series database capabilities including powerful queries and visualizations. Written in Go, Prometheus is one of the  fastest-growing projects on GitHub according to the [CNCF project](https://cncf.ci/) and is also mentioned in the Kubernetes [docs](https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/).  
+Prometheus delivers real-time monitoring, alerting and time-series database capabilities including powerful queries and visualizations. Written in Go, Prometheus is one of the fastest-growing projects on GitHub according to the [CNCF project](https://cncf.ci/) and is also mentioned in the Kubernetes [docs](https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/).
 
 So what does Prometheus do? Well, it collects metrics from configured targets at given intervals, evaluates rule expressions, displays the results, and can trigger alerts if some condition is observed to be true.
 
@@ -49,12 +49,10 @@ What it basically does right now is monitoring itself.
 
 ![](/uploads/monitoring-logging-2.png)
 
-
 ### Monitoring a node
 
 Download and install the node exporter here:
 https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz
-
 
 ```sh
 tar -xzf node_exp*
@@ -80,12 +78,12 @@ Then scrape it. Our new prometheus.yml file will look like so:
 
 ```yml
 scrape_configs:
-- job_name: 'prometheus'
-  static_configs:
-    - targets: ['localhost:9090']
-- job_name: 'node'
-  static_configs:
-    - targets: ['192.168.2.66:9100']
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: "node"
+    static_configs:
+      - targets: ["192.168.2.66:9100"]
 ```
 
 This is a first post on Prometheus. Next time I will write about running Prometheus in Kubernetes.
