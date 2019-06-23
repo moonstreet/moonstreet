@@ -1,5 +1,5 @@
 ---
-title: "Azure Kubernetes Services, Terraform and Jenkins (part 1)"
+title: "Azure Kubernetes Services and Terraform (part 1)"
 date: 2019-06-21T11:29:13+01:00
 draft: false
 image: "uploads/monitoring.jpeg"
@@ -10,8 +10,7 @@ author: "Jacqueline"
 
 # Terraform
 
-This blogseries is about my adventures in AKS, Terraform and Jenkins. This first article is about Terraform.
-
+This blogseries is about my adventures in AKS and Terraform. This first article is about Terraform.  
 This assumes you have an Azure account.
 
 ## Prepare
@@ -74,8 +73,7 @@ provider "azurerm" {
 EOF
 ```
 
-I need to declare these variable somewhere. Let's create a vars file for that.
-
+We need to declare these variable somewhere. Let's create a vars file for that.
 ```sh
 cat > vars.tf <<'EOF'
 variable "az_subscription_id" {}
@@ -84,6 +82,16 @@ variable "az_secret" {}
 variable "az_tenant_id" {}
 }
 EOF
+```
+
+Note the curly braces. It is also possible to give some extra attributes to the vars like this:
+
+```
+variable "az_secret" {
+  type        = "string"
+  description = "The secret of the principal"
+  default     = "AsIfThereWasAD3faultS3cret"
+}
 ```
 
 And finally, initialize the variables. This is done in a `tfvars` document. Since version 0.12 it supports the json format as well.
@@ -99,7 +107,7 @@ cat > sandbox.tfvars.json <<'EOF'
 EOF
 ```
 
-Yes, I am happy. Let's now initialize Terraform to see if everything is OK:
+Let's now initialize Terraform to see if everything is OK:
 
 ```
 terraform init
@@ -112,7 +120,7 @@ This should download the Terraform azurerm plugin and tell you that everything i
 ## Save Terraform state elsewhere (in Azure storage)
 
 We don't want to keep our state in source control or on our local computer. It might get lost and it contains some sensitive information about the environment.  
-Quickly create a storage account, add blob storage and then add a container named terraform.  
+So just quickly create a storage account then add a container named terraform to the blob storage.  
 Add the following on top of terraform.tf:
 
 ```
@@ -154,20 +162,11 @@ resource "azurerm_subnet" "k8s-subnet" {
 }
 ```
 
-We need to add some extra variables to our vars file. The vars file looks like this. I used the extended notation for some of the variables for good measure.
+We need to add some extra variables to our vars file. The vars file looks like this.
 
 ```
-variable "environment" {
-  type        = "string"
-  description = "Name of the environment to deploy to"
-  default     = "dev"
-}
-variable "prefix" {
-  type        = "string"
-  description = "Prefix for the deployment name"
-  default     = "app"
-}
-
+variable "environment" {}
+variable "prefix" {}
 variable "az_subscription_id" {}
 variable "az_client_id" {}
 variable "az_secret" {}
@@ -189,8 +188,8 @@ Now have a quick look and you should see these resources are installed in Azure.
 
 ## Modularize
 
-Let's make a module of the network creation.
-In our module folder, we'll create a dir named vnet and we put two files.
+It's good practice to modularize Terraform projects, so let's make a module of the network creation.
+In our module folder, we'll create a dir named vnet and then we wil add two files, vnet.tf and vnet.vars:
 
 ```
 └── infrastructure-as-code
@@ -234,7 +233,7 @@ resource "azurerm_subnet" "k8s-subnet" {
 
 ```
 
-And in modules/vnet/vnetvars.tf we copy and paste:
+And in modules/vnet/vnetvars.tf we will paste the relevant vnet vars:
 
 ```sh
 variable "environment" {}
@@ -253,7 +252,7 @@ terraform {
     storage_account_name = "microbotstorage"
     container_name       = "terraform"
     key                  = "sandbox_tfstate"
-    access_key           = "LXzVqR8apD0wkCFFE6OcBed+CvgeDZklAL5YvHg79EPSS45UCsGp/XKCS974pgMghgDo3kdFwqfoHhoQ3fBvXw=="
+    access_key           = "***************"
   }
 }
 
