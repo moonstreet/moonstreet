@@ -276,7 +276,7 @@ module "vnet" {
 
 ```
 
-Jeez. It looks like duplication but it isn't really. The modules need variables declared, but so does our sandbox configuration that consumes the module. We can now add more environments and supply different values for the modules.  
+It looks like we duplicated a lot, but it isn't really. The modules need variables declared, but so does our sandbox configuration that consumes the module. We can now add more environments and supply different values for the modules.  
 Let's carry on and create the cluster, as a module.
 
 ## Add the cluster
