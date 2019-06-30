@@ -33,7 +33,7 @@ Save the login info this command returns somewhere really safe.
 
 ## Set up Terraform
 
-I already know what I want with Terraform. Apart form an AKS cluster I would also like to build my Jenkins environment with Terraform (in the future, I already have one now built manually). I also already know that I want to reuse code as much as possible. This looks like a nice folderstructure for now:
+Set up a folder structure. In the following example there is an aks-cluster project and a jenkins project (in the future I might want to build a Jenkins server with Terraform).
 
 ```
 └── infrastructure-as-code
@@ -396,7 +396,7 @@ variable "az_secret" {}
 ```
 
 So we already built the vnet, and now we want to put this Kubernetes cluster in it.
-_We need a reference to the subnet created by the vnet module!_ So how does that work?
+_However, we need a reference to the subnet created by the vnet module_ So how does that work?
 
 We add a file called modules/vnet/outputs.tf and add this piece of code to it:
 
@@ -424,5 +424,6 @@ module "aks" {
   az_secret                    = "${var.az_secret}"
 }
 ```
+I will post a Github repo once I finish this.
 
 https://stackoverflow.com/questions/51213871/terraform-provider-variable-sharing-in-modules
