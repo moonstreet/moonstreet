@@ -27,18 +27,15 @@ Make a file named vars/azureCreateStatefileStorage.groovy
 
 ```
 def call(Map config) {
-    echo "Creating storage for ${config.customerName)"
-    script {
-        withCredentials([azureServicePrincipal("${config.azureServicePrincipal}")]) {
-            sh "az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}"
-            sh "az account set --subscription ${AZURE_SUBSCRIPTION_ID} "
-            sh "az group create --name deploymentartifacts --location ${config.location}"
-            sh "az storage account create --name ${config.deploymentStorageAccount} --resource-group deploymentartifacts --location ${config.location} --sku Standard_LRS --kind StorageV2"
-            sh "az storage container create --account-name ${config.deploymentStorageAccount} --name terraformstate"
-            accessKey = sh(returnStdout: true, script: "az storage account keys list -n ${config.deploymentStorageAccount} --query \"[0].value\" -o tsv")
-            return accessKey
-          }   
-    }
+    withCredentials([azureServicePrincipal("${config.azureServicePrincipal}")]) {
+        sh "az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}"
+        sh "az account set --subscription ${AZURE_SUBSCRIPTION_ID} "
+        sh "az group create --name deploymentartifacts --location ${config.location}"
+        sh "az storage account create --name ${config.deploymentStorageAccount} --resource-group deploymentartifacts --location ${config.location} --sku Standard_LRS --kind StorageV2"
+        sh "az storage container create --account-name ${config.deploymentStorageAccount} --name terraformstate"
+        accessKey = sh(returnStdout: true, script: "az storage account keys list -n ${config.deploymentStorageAccount} --query \"[0].value\" -o tsv | tr -d '\n'")
+        return accessKey
+    }   
 }
 ```
 
@@ -61,3 +58,39 @@ You need to set the environment variables as a string parameter in your pipeline
 
 
 # Replace tokens
+
+
+
+```
+def call(String text, Map binding) {
+    _tokenize(text, binding)
+}
+
+@NonCPS
+def _tokenize(String text, Map binding){
+    def engine = new org.apache.commons.lang3.text.StrSubstitutor(binding)
+    def s = engine.replace(text)
+    engine = null
+    return s
+}
+```
+
+```
+stage('Replace tokens for backend') {
+    steps {
+        script {
+            text = readFile("${FOLDER}/backend.txt")
+            def binding = [:]
+            binding.StorageAccountName = "${env.CUSTOMER_NAME}artifacts"                         
+            binding.StorageAccessKey = accessKey
+            binding.StateFileName = "${env.CUSTOMER_NAME}${env.TELEPHONY_PLATFORM}${env.ENVIRONMENT_TO_BUILD}artifacts"
+            writeFile(file: "${FOLDER}/backend.tf", text: tokenize(text, binding)
+            )
+            sh "cat ${FOLDER}/backend.tf"  
+        }
+    }
+}
+```
+
+
+# Credentials
