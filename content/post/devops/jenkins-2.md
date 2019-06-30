@@ -111,8 +111,35 @@ stage('Prepare') {
               vars['az_secret'] = $AZURE_CLIENT_SECRET
               vars['az_tenant_id'] = $AZURE_TENANT_ID
               writeJSON file: 'terraform.tfvars.json', json: vars
-          }                           
-      }
+         }
+         withCredentials([file(credentialsId: "${params.CONFIG}", variable: 'Configuration')]) {
+              sh 'cp $Configuration configuration.json'
+              vars = readJSON file: 'configuration.json'
+              AKS_RG = "${vars['prefix']}-${vars['environment']}-we-cluster-rg"
+              AKS_CLUSTER = "${vars['prefix']}-${vars['environment']}-we-cluster"
+              STORAGE = "${vars['az_storage_account_name']}"
+              DATA_RG = "${vars['prefix']}-${vars['environment']}-we-data-rg"
+        }
+    }
   }
+}
+```
+
+# From Azure KeyVault
+
+```
+stage('Fetch Terraform vars from KeyVault') {
+    steps {
+        script {
+            def secrets = [
+                [ secretType: 'Secret', name: "${env.CUSTOMER_NAME}${env.TELEPHONY_PLATFORM}${env.ENVIRONMENT_TO_BUILD}secret", version: '', envVariable: 'SECRET' ]
+            ]
+            withAzureKeyvault(secrets) {
+                sh "echo $SECRET > ${FOLDER}/terraform.tfvars.json"
+                vars = readJSON file:"${FOLDER}/terraform.tfvars.json"
+                //sh "cat ${FOLDER}/terraform.tfvars.json"
+            }
+        }
+    }
 }
 ```
