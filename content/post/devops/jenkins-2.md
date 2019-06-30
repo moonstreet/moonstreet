@@ -85,7 +85,7 @@ steps {
         def binding = [:]
         binding.StorageAccountName = "${env.CUSTOMER_NAME}artifacts"                         
         binding.StorageAccessKey = accessKey
-        binding.StateFileName = "${env.CUSTOMER_NAME}${env.TELEPHONY_PLATFORM}${env.ENVIRONMENT_TO_BUILD}artifacts"
+        binding.StateFileName = "${env.CUSTOMER_NAME}.statefile"
         writeFile(file: "${FOLDER}/backend.tf", text: tokenize(text, binding)
         )
         sh "cat ${FOLDER}/backend.tf"  
@@ -97,7 +97,7 @@ steps {
 
 # Credentials
 
-Example of credentials
+Example of credentials.
 
 ```
 stage('Prepare') {
