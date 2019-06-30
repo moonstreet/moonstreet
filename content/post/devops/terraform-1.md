@@ -1,5 +1,5 @@
 ---
-title: "Azure Kubernetes Services and Terraform (part 1)"
+title: "Azure Kubernetes Services and Terraform"
 date: 2019-06-21T11:29:13+01:00
 draft: false
 image: "uploads/monitoring.jpeg"
