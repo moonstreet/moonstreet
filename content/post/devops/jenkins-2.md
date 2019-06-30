@@ -59,7 +59,7 @@ You need to set the environment variables as a string parameter in your pipeline
 
 # Replace tokens
 
-
+This is a function that replaces tokens with the StrSubstitutor. The SimpleTemplateEngine doesn't work (https://issues.jenkins-ci.org/browse/JENKINS-38432)
 
 ```
 def call(String text, Map binding) {
@@ -74,6 +74,8 @@ def _tokenize(String text, Map binding){
     return s
 }
 ```
+
+Then in your Pipeline:
 
 ```
 stage('Replace tokens for backend') {
@@ -115,11 +117,8 @@ stage('Prepare') {
          withCredentials([file(credentialsId: "${params.CONFIG}", variable: 'Configuration')]) {
               sh 'cp $Configuration configuration.json'
               vars = readJSON file: 'configuration.json'
-              AKS_RG = "${vars['prefix']}-${vars['environment']}-we-cluster-rg"
-              AKS_CLUSTER = "${vars['prefix']}-${vars['environment']}-we-cluster"
               STORAGE = "${vars['az_storage_account_name']}"
-              DATA_RG = "${vars['prefix']}-${vars['environment']}-we-data-rg"
-        }
+      }
     }
   }
 }
@@ -132,7 +131,7 @@ stage('Fetch Terraform vars from KeyVault') {
     steps {
         script {
             def secrets = [
-                [ secretType: 'Secret', name: "${env.CUSTOMER_NAME}${env.TELEPHONY_PLATFORM}${env.ENVIRONMENT_TO_BUILD}secret", version: '', envVariable: 'SECRET' ]
+                [ secretType: 'Secret', name: "Secret001", version: '', envVariable: 'SECRET' ]
             ]
             withAzureKeyvault(secrets) {
                 sh "echo $SECRET > ${FOLDER}/terraform.tfvars.json"
