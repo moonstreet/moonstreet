@@ -1,10 +1,18 @@
 ---
 title: "Jenkins shared library notes"
 date: 2019-06-30T13:08:28+02:00
-draft: true
+draft: false
 image: ""
-author: ""
+author: "Jacqueline"
 ---
+# Resources
+
+* KeyVault plugin
+* az cli, jq, Terraform installed on the agent
+* Pipeline utility steps plugin
+* https://jenkins.io/doc/pipeline/steps/pipeline-utility-steps/
+* https://jenkins.io/doc/book/pipeline/syntax/
+
 
 # Create Azure storage with a Shared Library
 
