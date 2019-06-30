@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Getting started with Prometheus  &middot; Moonstreet notes</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="description" content="" />
+
+<meta name="keywords" content="devops, ">
+
+
+<meta property="og:title" content="Getting started with Prometheus  &middot; Moonstreet notes ">
+<meta property="og:site_name" content="Moonstreet notes"/>
+<meta property="og:url" content="https://www.moonstreet.nl/2019/01/04/getting-started-with-prometheus/" />
+<meta property="og:locale" content="en-EN">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content=""/>
+<meta property="og:article:published_time" content="2019-01-04T16:29:13&#43;01:00" />
+<meta property="og:article:modified_time" content="2019-01-04T16:29:13&#43;01:00" />
+
+  
+    
+<meta property="og:article:tag" content="devops">
+    
+  
+
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@jacqoutthebox" />
+<meta name="twitter:creator" content="@jacqoutthebox" />
+<meta name="twitter:title" content="Getting started with Prometheus" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:url" content="https://www.moonstreet.nl/2019/01/04/getting-started-with-prometheus/" />
+<meta name="twitter:domain" content="https://www.moonstreet.nl">
+  
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "Getting started with Prometheus",
+    "author": {
+      "@type": "Person",
+      "name": "yourname"
+    },
+    "datePublished": "2019-01-04",
+    "description": "",
+    "wordCount": 324
+  }
+</script>
+
+
+
+<link rel="canonical" href="https://www.moonstreet.nl/2019/01/04/getting-started-with-prometheus/" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
+<link href="https://www.moonstreet.nl/favicon.png" rel="icon">
+
+<meta name="generator" content="Hugo 0.52" />
+
+  <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300%7CRaleway%7COpen+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight/tomorrow-night-blue.css">
+
+  
+  
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'Your Google Analytics tracking code', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+</head>
+<body>
+  <main id="main-wrapper" class="container main_wrapper has-sidebar">
+    <header id="main-header" class="container main_header">
+  <div class="container brand">
+  <div class="container title h1-like">
+  <a class="baselink" href="https://www.moonstreet.nl">
+  Moonstreet
+
+</a>
+
+</div>
+
+  
+<div class="container topline">
+  
+  A few notes about devops and automation
+
+
+</div>
+
+</div>
+  <nav class="container nav primary no-print">
+  
+
+<a class="homelink" href="https://www.moonstreet.nl">Home</a>
+
+
+  
+<a href="https://www.moonstreet.nl/about">About</a>
+
+<a href="https://www.moonstreet.nl/post" title="Show list of posts">Posts</a>
+
+<a href="https://www.moonstreet.nl/tags" title="Show list of tags">Tags</a>
+
+
+</nav>
+
+<div class="container nav secondary no-print">
+  
+<a id="contact-link-email" class="contact_link" rel="me" aria-label="Email" href="mailto:yourname@example.com">
+  <span class="fa fa-envelope-square"></span></a>
+
+
+
+<a id="contact-link-github" class="contact_link" rel="me" aria-label="Github" href="https://github.com/jacqinthebox">
+  <span class="fa fa-github-square"></span></a>
+
+
+
+
+ 
+<a id="contact-link-linkedin" class="contact_link" rel="me" aria-label="LinkedIn" href="https://www.linkedin.com/in/jacquelineportier">
+  <span class="fa fa-linkedin-square"></span></a>
+
+
+
+
+
+
+
+<a id="contact-link-twitter" class="contact_link" rel="me" aria-label="Twitter" href="https://twitter.com/jacqoutthebox">
+  <span class="fa fa-twitter-square"></span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  
+
+  <img src="https://imgur.com/kcELCt3.png" />
+</header>
+
+
+<article id="main-content" class="container main_content single">
+  <header class="container hat">
+  <h1>Getting started with Prometheus
+</h1>
+
+  <div class="metas">
+<time datetime="2019-01-04">4 Jan, 2019</time>
+
+
+  
+    &middot; by Jacqueline
+  
+  &middot; Read in about 2 min
+  &middot; (324 Words)
+  <br>
+  
+<a class="label" href="https://www.moonstreet.nl/tags/devops">devops</a>
+
+
+
+</div>
+
+</header>
+
+  <div class="container content">
+  
+
+<p>Prometheus delivers real-time monitoring, alerting and time-series database capabilities including powerful queries and visualizations. Written in Go, Prometheus is one of the fastest-growing projects on GitHub according to the <a href="https://cncf.ci/">CNCF project</a> and is also mentioned in the Kubernetes <a href="https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/">docs</a>.</p>
+
+<p>So what does Prometheus do? Well, it collects metrics from configured targets at given intervals, evaluates rule expressions, displays the results, and can trigger alerts if some condition is observed to be true.</p>
+
+<p>Well then, how to get started with it? Getting started with Prometheus shouldn&rsquo;t be that hard. You can get up and <a href="https://itnext.io/kubernetes-monitoring-with-prometheus-in-15-minutes-8e54d1de2e13">running quickly</a>. And although you get some beautiful graphs in a second, you may not know what you are doing. So here is a blog that takes some steps back and takes the from scratch approach.</p>
+
+<p>I would recommend <a href="https://www.prometheusbook.com/">this</a> book by the way.</p>
+
+<h2 id="installing-prometheus">Installing Prometheus</h2>
+
+<p>Grab the latest version from <a href="https://github.com/prometheus/prometheus/releases">here</a></p>
+
+<pre><code class="language-sh">tar -xzf prometheus-2.6.0.linux-amd64.tar.gz
+sudo cp prometheus-2.6.0.linux-amd64/prometheus /usr/local/bin/
+sudo cp prometheus-2.6.0.linux-amd64/promtool /usr/local/bin/
+</code></pre>
+
+<p>You can now go ahead and see if the installation went well:</p>
+
+<pre><code class="language-sh">prometheus --version
+</code></pre>
+
+<p>This should return the current version.</p>
+
+<p><img src="/uploads/monitoring-logging-1.png" alt="" /></p>
+
+<p>Now go ahead and copy the promotheus.yml file from the extracted folder to /etc/prometheus and start the server:</p>
+
+<pre><code class="language-sh">sudo mkdir /etc/prometheus
+sudo cp prometheus.yml /etc/prometheus/
+prometheus --config.file &quot;/etc/prometheus.yml&quot;
+</code></pre>
+
+<p>If you browse to <code>localhost:9090</code> you will see the Prometheus dashboard and you can execute some of the queries in the dropdown list.
+What it basically does right now is monitoring itself.</p>
+
+<p><img src="/uploads/monitoring-logging-2.png" alt="" /></p>
+
+<h3 id="monitoring-a-node">Monitoring a node</h3>
+
+<p>Download and install the node exporter here:
+<a href="https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz">https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz</a></p>
+
+<pre><code class="language-sh">tar -xzf node_exp*
+sudo cp node_exporter-*/node_exporter /usr/local/bin
+</code></pre>
+
+<p>Configure the Textfile collector</p>
+
+<pre><code class="language-sh">sudo mkdir -p /var/lib/node_exporter/textfile_collector
+echo 'metadata{role=&quot;docker_server&quot;,datacenter=&quot;RDAM&quot;} 1' | sudo tee \
+ /var/lib/node_exporter/textfile_collector/metadata.prom
+</code></pre>
+
+<p>Then we can launch node_exporter:</p>
+
+<pre><code class="language-sh">node_exporter --collector.textfile.directory /var/lib/node_exporter/textfile_collector \
+--collector.systemd --collector.systemd.unit-whitelist=&quot;(docker|ssh|rsyslog).service&quot;
+</code></pre>
+
+<p>Then scrape it. Our new prometheus.yml file will look like so:</p>
+
+<pre><code class="language-yml">scrape_configs:
+  - job_name: &quot;prometheus&quot;
+    static_configs:
+      - targets: [&quot;localhost:9090&quot;]
+  - job_name: &quot;node&quot;
+    static_configs:
+      - targets: [&quot;192.168.2.66:9100&quot;]
+</code></pre>
+
+<p>This is a first post on Prometheus. Next time I will write about running Prometheus in Kubernetes.</p>
+
+</div>
+
+
+  <footer class="container">
+  <div class="container navigation no-print">
+  <h2>Navigation</h2>
+  
+  
+
+    
+    <a class="prev" href="https://www.moonstreet.nl/2019/01/04/windows-defender-realtime-protection-check/" title="Windows Defender Realtime Protection Check">
+      Previous
+    </a>
+    
+
+    
+    <a class="next" href="https://www.moonstreet.nl/2019/02/09/getting-started-with-golang/" title="Getting started with Golang">
+      Next
+    </a>
+    
+
+  
+
+
+</div>
+
+  
+<div class="container comments">
+  <h2>Comments</h2>
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//your_disqus_shortname.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
+
+</footer>
+
+</article>
+      <footer id="main-footer" class="container main_footer">
+  
+
+  <div class="container nav foot no-print">
+  
+
+  <a class="toplink" href="#">back to top</a>
+
+</div>
+
+  <div class="container credits">
+  
+<div class="container footline">
+  
+  code with <i class='fa fa-heart'></i>
+
+
+</div>
+
+
+  
+<div class="container copyright">
+  
+  &copy; 2019 Jacqueline
+
+
+</div>
+
+
+</div>
+
+</footer>
+
+    </main>
+    
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//your_disqus_shortname.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>
+

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on moonstreet.nl</title>
+    <title>Tags on Moonstreet notes</title>
     <link>https://www.moonstreet.nl/tags/</link>
-    <description>Recent content in Tags on moonstreet.nl</description>
+    <description>Recent content in Tags on Moonstreet notes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>Copyright © 2019, Moonstreet, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
+    <language>en-EN</language>
+    <managingEditor>yourname@example.com (yourname)</managingEditor>
+    <webMaster>yourname@example.com (yourname)</webMaster>
+    <copyright>(c) 2019 Jacqueline</copyright>
     <lastBuildDate>Fri, 04 Jan 2019 12:11:56 +0100</lastBuildDate>
     
 	<atom:link href="https://www.moonstreet.nl/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +18,7 @@
       <title>Cybersecurity</title>
       <link>https://www.moonstreet.nl/tags/cybersecurity/</link>
       <pubDate>Fri, 04 Jan 2019 12:11:56 +0100</pubDate>
-      
+      <author>yourname@example.com (yourname)</author>
       <guid>https://www.moonstreet.nl/tags/cybersecurity/</guid>
       <description></description>
     </item>
@@ -23,8 +26,8 @@
     <item>
       <title>Devops</title>
       <link>https://www.moonstreet.nl/tags/devops/</link>
-      <pubDate>Fri, 04 Jan 2019 16:29:13 +0100</pubDate>
-      
+      <pubDate>Fri, 21 Jun 2019 11:29:13 +0100</pubDate>
+      <author>yourname@example.com (yourname)</author>
       <guid>https://www.moonstreet.nl/tags/devops/</guid>
       <description></description>
     </item>
@@ -33,7 +36,7 @@
       <title>Golang</title>
       <link>https://www.moonstreet.nl/tags/golang/</link>
       <pubDate>Sun, 10 Feb 2019 09:43:32 +0100</pubDate>
-      
+      <author>yourname@example.com (yourname)</author>
       <guid>https://www.moonstreet.nl/tags/golang/</guid>
       <description></description>
     </item>

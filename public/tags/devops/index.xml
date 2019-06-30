@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Devops on moonstreet.nl</title>
+    <title>Devops on Moonstreet notes</title>
     <link>https://www.moonstreet.nl/tags/devops/</link>
-    <description>Recent content in Devops on moonstreet.nl</description>
+    <description>Recent content in Devops on Moonstreet notes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>Copyright © 2019, Moonstreet, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Fri, 04 Jan 2019 16:29:13 +0100</lastBuildDate>
+    <language>en-EN</language>
+    <managingEditor>yourname@example.com (yourname)</managingEditor>
+    <webMaster>yourname@example.com (yourname)</webMaster>
+    <copyright>(c) 2019 Jacqueline</copyright>
+    <lastBuildDate>Fri, 21 Jun 2019 11:29:13 +0100</lastBuildDate>
     
 	<atom:link href="https://www.moonstreet.nl/tags/devops/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Azure Kubernetes Services and Terraform (part 1)</title>
+      <link>https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform-part-1/</link>
+      <pubDate>Fri, 21 Jun 2019 11:29:13 +0100</pubDate>
+      <author>yourname@example.com (yourname)</author>
+      <guid>https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform-part-1/</guid>
+      <description>Terraform This blogseries is about my adventures in AKS and Terraform. This first article is about Terraform.
+This assumes you have an Azure account.
+Prepare Create a service principal with contributor permissions on Azure Subscription level. We can fine tune the permissions later.
+AZ_SUB=&amp;quot;your subscription id&amp;quot; AZ_SECRET=&amp;quot;S3cr3tPasw0rd&amp;quot; NAME=&amp;quot;terraform-partner-sub&amp;quot; az login az account set --subscription $AZ_SUB az ad sp create-for-rbac --name $NAME-installation-account --password $AZ_SECRET --years 2  Now this account has contributor permissions on the subscription level.</description>
+    </item>
+    
+    <item>
       <title>Getting started with Prometheus</title>
-      <link>https://www.moonstreet.nl/post/devops/monitoring-logging/</link>
+      <link>https://www.moonstreet.nl/2019/01/04/getting-started-with-prometheus/</link>
       <pubDate>Fri, 04 Jan 2019 16:29:13 +0100</pubDate>
-      
-      <guid>https://www.moonstreet.nl/post/devops/monitoring-logging/</guid>
+      <author>yourname@example.com (yourname)</author>
+      <guid>https://www.moonstreet.nl/2019/01/04/getting-started-with-prometheus/</guid>
       <description>Prometheus delivers real-time monitoring, alerting and time-series database capabilities including powerful queries and visualizations. Written in Go, Prometheus is one of the fastest-growing projects on GitHub according to the CNCF project and is also mentioned in the Kubernetes docs.
 So what does Prometheus do? Well, it collects metrics from configured targets at given intervals, evaluates rule expressions, displays the results, and can trigger alerts if some condition is observed to be true.</description>
     </item>

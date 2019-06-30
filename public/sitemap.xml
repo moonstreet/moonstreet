@@ -3,22 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.moonstreet.nl/post/devops/go-webserver/</loc>
+    <loc>https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform-part-1/</loc>
+    <lastmod>2019-06-21T11:29:13+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.moonstreet.nl/2019/02/10/go-webserver/</loc>
     <lastmod>2019-02-10T09:43:32+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://www.moonstreet.nl/post/devops/getting-started-with-golang/</loc>
+    <loc>https://www.moonstreet.nl/2019/02/09/getting-started-with-golang/</loc>
     <lastmod>2019-02-09T15:16:45+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://www.moonstreet.nl/post/devops/monitoring-logging/</loc>
+    <loc>https://www.moonstreet.nl/2019/01/04/getting-started-with-prometheus/</loc>
     <lastmod>2019-01-04T16:29:13+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://www.moonstreet.nl/post/cybersecurity/windows-defender-realtime-protection-check/</loc>
+    <loc>https://www.moonstreet.nl/2019/01/04/windows-defender-realtime-protection-check/</loc>
     <lastmod>2019-01-04T12:11:56+01:00</lastmod>
   </url>
   
@@ -28,37 +33,14 @@
   </url>
   
   <url>
-    <loc>https://www.moonstreet.nl/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.moonstreet.nl/categories/cybersecurity/</loc>
-    <lastmod>2019-01-04T12:11:56+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://www.moonstreet.nl/tags/cybersecurity/</loc>
     <lastmod>2019-01-04T12:11:56+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://www.moonstreet.nl/categories/devops/</loc>
-    <lastmod>2019-01-04T16:29:13+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://www.moonstreet.nl/tags/devops/</loc>
-    <lastmod>2019-01-04T16:29:13+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.moonstreet.nl/categories/golang/</loc>
-    <lastmod>2019-02-10T09:43:32+01:00</lastmod>
+    <lastmod>2019-06-21T11:29:13+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -69,8 +51,14 @@
   </url>
   
   <url>
+    <loc>https://www.moonstreet.nl/</loc>
+    <lastmod>2019-06-21T11:29:13+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://www.moonstreet.nl/post/</loc>
-    <lastmod>2019-02-10T09:43:32+01:00</lastmod>
+    <lastmod>2019-06-21T11:29:13+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -81,8 +69,7 @@
   </url>
   
   <url>
-    <loc>https://www.moonstreet.nl/</loc>
-    <lastmod>2019-02-10T09:43:32+01:00</lastmod>
+    <loc>https://www.moonstreet.nl/topics/</loc>
     <priority>0</priority>
   </url>
   
