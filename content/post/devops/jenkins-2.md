@@ -126,6 +126,8 @@ stage('Prepare') {
 
 # From Azure KeyVault
 
+
+
 ```
 stage('Fetch Terraform vars from KeyVault') {
     steps {
