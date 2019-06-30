@@ -77,20 +77,42 @@ def _tokenize(String text, Map binding){
 
 ```
 stage('Replace tokens for backend') {
-    steps {
-        script {
-            text = readFile("${FOLDER}/backend.txt")
-            def binding = [:]
-            binding.StorageAccountName = "${env.CUSTOMER_NAME}artifacts"                         
-            binding.StorageAccessKey = accessKey
-            binding.StateFileName = "${env.CUSTOMER_NAME}${env.TELEPHONY_PLATFORM}${env.ENVIRONMENT_TO_BUILD}artifacts"
-            writeFile(file: "${FOLDER}/backend.tf", text: tokenize(text, binding)
-            )
-            sh "cat ${FOLDER}/backend.tf"  
-        }
-    }
+steps {
+    script {
+        text = readFile("${FOLDER}/backend.txt")
+        def binding = [:]
+        binding.StorageAccountName = "${env.CUSTOMER_NAME}artifacts"                         
+        binding.StorageAccessKey = accessKey
+        binding.StateFileName = "${env.CUSTOMER_NAME}${env.TELEPHONY_PLATFORM}${env.ENVIRONMENT_TO_BUILD}artifacts"
+        writeFile(file: "${FOLDER}/backend.tf", text: tokenize(text, binding)
+        )
+        sh "cat ${FOLDER}/backend.tf"  
+      }
+   }
 }
 ```
 
 
 # Credentials
+
+Example of credentials
+
+```
+stage('Prepare') {
+  steps {
+      script {
+          withCredentials([file(credentialsId: env.TFVARS, variable: 'tfvars')]) {
+              sh 'cp $tfvars terraform.tfvars.json'
+          }
+          withCredentials([azureServicePrincipal("${env.AZURE_PRINCIPAL}")]) {
+              vars = readJSON file: 'terraform.tfvars.json'
+              vars['az_subscription_id'] = $AZURE_SUBSCRIPTION_ID
+              vars['az_client_id'] = $AZURE_CLIENT_ID
+              vars['az_secret'] = $AZURE_CLIENT_SECRET
+              vars['az_tenant_id'] = $AZURE_TENANT_ID
+              writeJSON file: 'terraform.tfvars.json', json: vars
+          }                           
+      }
+  }
+}
+```
