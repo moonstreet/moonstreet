@@ -14,9 +14,11 @@ author: "Jacqueline"
 * https://jenkins.io/doc/book/pipeline/syntax/
 
 
-# Create Azure storage with a Shared Library
+# Create Azure storage for Terraform 
 
-This piece of code exposes some of the secrets of Jenkins pipeline and shared library.
+This piece of code creates a storage account that can be used as Terraform backend storage.  
+It uses a Jenkins shared library
+
 
 * It logs in with an Azure Service Principal
 * Creates a storage account
@@ -53,7 +55,6 @@ stage('Prepare statefile storage') {
       accessKey = azureCreateStorage azureServicePrincipal: env.AZURE_SERVICE_PRINCIPAL,
         deploymentStorageAccount: "${env.CUSTOMER_NAME}artifacts",
         location: env.LOCATION
-        echo accessKey
     }
   }
 }
