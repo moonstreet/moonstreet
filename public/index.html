@@ -34,7 +34,7 @@
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
 <link href="https://www.moonstreet.nl/favicon.png" rel="icon">
 
-<meta name="generator" content="Hugo 0.52" />
+<meta name="generator" content="Hugo 0.59.1" />
 
   <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -152,7 +152,7 @@
     <h1>Moonstreet notes
 </h1>
 
-    <span>last update: <time datetime="2019-06-21T11:29:13&#43;01:00">21 June at 11:29am</time>
+    <span>last update: <time datetime="2019-11-22T16:31:44&#43;01:00">22 November at 4:31pm</time>
 </span>
 
   </header>
@@ -160,153 +160,22 @@
   
     <article class="container content summary">
   <div class="container hat">
-  <h2><a href="https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform-part-1/">Azure Kubernetes Services and Terraform (part 1)
+  <h2><a href="https://www.moonstreet.nl/post/">Posts
 </a>
 </h2>
 
-  <time datetime="2019-06-21">21 Jun, 2019</time>
+  <time datetime="2019-11-22">22 Nov, 2019</time>
 
 </div>
 
   <p class="container content">
   
-  
-    Terraform This blogseries is about my adventures in AKS and Terraform. This first article is about Terraform.
-This assumes you have an Azure account.
-Prepare Create a service principal with contributor permissions on Azure Subscription level. We can fine tune the permissions later.
-AZ_SUB=&quot;your subscription id&quot; AZ_SECRET=&quot;S3cr3tPasw0rd&quot; NAME=&quot;terraform-partner-sub&quot; az login az account set --subscription $AZ_SUB az ad sp create-for-rbac --name $NAME-installation-account --password $AZ_SECRET --years 2  Now this account has contributor permissions on the subscription level.
-  
-
 
 </p>
 
 
   <div class="container readlink">
-  <a href="https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform-part-1/">Read more &rarr;</a>
-
-</div>
-
-
-</article>
-
-  
-    <article class="container content summary">
-  <div class="container hat">
-  <h2><a href="https://www.moonstreet.nl/2019/02/10/go-webserver/">Go Webserver
-</a>
-</h2>
-
-  <time datetime="2019-02-10">10 Feb, 2019</time>
-
-</div>
-
-  <p class="container content">
-  
-  
-    The last Golang post was a little bit lame so let&rsquo;s do something more interesting now. Let&rsquo;s create a webserver.
-To create a simple webserver, we need:
- a function that can serve a page in browser (using http obviously) it should listen at a port it should respond to (handle) incoming requests it should be able to write content to the page  First create a new project structure:
-  
-
-
-</p>
-
-
-  <div class="container readlink">
-  <a href="https://www.moonstreet.nl/2019/02/10/go-webserver/">Read more &rarr;</a>
-
-</div>
-
-
-</article>
-
-  
-    <article class="container content summary">
-  <div class="container hat">
-  <h2><a href="https://www.moonstreet.nl/2019/02/09/getting-started-with-golang/">Getting started with Golang
-</a>
-</h2>
-
-  <time datetime="2019-02-09">9 Feb, 2019</time>
-
-</div>
-
-  <p class="container content">
-  
-  
-    This is yet another getting started note. This time I am trying to code in Golang.
-Why, would you ask?
-Obviously because of its mascotte:
-Installing Golang Download Golang here https://golang.org/dl/. I am on Ubuntu, so next step is to simply unpack the executable to /usr/local.
-sudo tar -C /usr/local -xzf go1.11.5.linux-amd64.tar.gz  Then add Go to your path in your profile (in my case it would be in ~/.
-  
-
-
-</p>
-
-
-  <div class="container readlink">
-  <a href="https://www.moonstreet.nl/2019/02/09/getting-started-with-golang/">Read more &rarr;</a>
-
-</div>
-
-
-</article>
-
-  
-    <article class="container content summary">
-  <div class="container hat">
-  <h2><a href="https://www.moonstreet.nl/2019/01/04/getting-started-with-prometheus/">Getting started with Prometheus
-</a>
-</h2>
-
-  <time datetime="2019-01-04">4 Jan, 2019</time>
-
-</div>
-
-  <p class="container content">
-  
-  
-    Prometheus delivers real-time monitoring, alerting and time-series database capabilities including powerful queries and visualizations. Written in Go, Prometheus is one of the fastest-growing projects on GitHub according to the CNCF project and is also mentioned in the Kubernetes docs.
-So what does Prometheus do? Well, it collects metrics from configured targets at given intervals, evaluates rule expressions, displays the results, and can trigger alerts if some condition is observed to be true.
-  
-
-
-</p>
-
-
-  <div class="container readlink">
-  <a href="https://www.moonstreet.nl/2019/01/04/getting-started-with-prometheus/">Read more &rarr;</a>
-
-</div>
-
-
-</article>
-
-  
-    <article class="container content summary">
-  <div class="container hat">
-  <h2><a href="https://www.moonstreet.nl/2019/01/04/windows-defender-realtime-protection-check/">Windows Defender Realtime Protection Check
-</a>
-</h2>
-
-  <time datetime="2019-01-04">4 Jan, 2019</time>
-
-</div>
-
-  <p class="container content">
-  
-  
-    Windows Defender is tegenwoordig een prima anti-virus programma, mits real-time protection werkt. Check of real-time protection werkt en niet wordt geblocked door een firewall via onderstaand commando:
-C:\Program Files\Windows Defender&gt;mpcmdrun -validatemapsconnection  p.s. werkt alleen in een command prompt met admin privileges.
-  
-
-
-</p>
-
-
-  <div class="container readlink">
-  <a href="https://www.moonstreet.nl/2019/01/04/windows-defender-realtime-protection-check/">Read more &rarr;</a>
+  <a href="https://www.moonstreet.nl/post/">Read more &rarr;</a>
 
 </div>
 

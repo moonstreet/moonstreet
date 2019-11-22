@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Go Webserver  &middot; Moonstreet notes</title>
+  <title>Basic Go  &middot; Moonstreet notes</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="HandheldFriendly" content="True">
 <meta name="MobileOptimized" content="320">
@@ -14,33 +14,29 @@
 
 <meta name="description" content="" />
 
-<meta name="keywords" content="golang, ">
+<meta name="keywords" content="">
 
 
-<meta property="og:title" content="Go Webserver  &middot; Moonstreet notes ">
+<meta property="og:title" content="Basic Go  &middot; Moonstreet notes ">
 <meta property="og:site_name" content="Moonstreet notes"/>
-<meta property="og:url" content="https://www.moonstreet.nl/2019/02/10/go-webserver/" />
+<meta property="og:url" content="https://www.moonstreet.nl/2019/11/22/basic-go/" />
 <meta property="og:locale" content="en-EN">
 
 
 <meta property="og:type" content="article" />
 <meta property="og:description" content=""/>
-<meta property="og:article:published_time" content="2019-02-10T09:43:32&#43;01:00" />
-<meta property="og:article:modified_time" content="2019-02-10T09:43:32&#43;01:00" />
+<meta property="og:article:published_time" content="2019-11-22T16:31:44&#43;01:00" />
+<meta property="og:article:modified_time" content="2019-11-22T16:31:44&#43;01:00" />
 
-  
-    
-<meta property="og:article:tag" content="golang">
-    
   
 
   
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@jacqoutthebox" />
 <meta name="twitter:creator" content="@jacqoutthebox" />
-<meta name="twitter:title" content="Go Webserver" />
+<meta name="twitter:title" content="Basic Go" />
 <meta name="twitter:description" content="" />
-<meta name="twitter:url" content="https://www.moonstreet.nl/2019/02/10/go-webserver/" />
+<meta name="twitter:url" content="https://www.moonstreet.nl/2019/11/22/basic-go/" />
 <meta name="twitter:domain" content="https://www.moonstreet.nl">
   
 
@@ -48,20 +44,20 @@
   {
     "@context": "http://schema.org",
     "@type": "Article",
-    "headline": "Go Webserver",
+    "headline": "Basic Go",
     "author": {
       "@type": "Person",
       "name": "yourname"
     },
-    "datePublished": "2019-02-10",
+    "datePublished": "2019-11-22",
     "description": "",
-    "wordCount":  212 
+    "wordCount":  458 
   }
 </script>
 
 
 
-<link rel="canonical" href="https://www.moonstreet.nl/2019/02/10/go-webserver/" />
+<link rel="canonical" href="https://www.moonstreet.nl/2019/11/22/basic-go/" />
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
 <link href="https://www.moonstreet.nl/favicon.png" rel="icon">
@@ -178,20 +174,20 @@
 
 <article id="main-content" class="container main_content single">
   <header class="container hat">
-  <h1>Go Webserver
+  <h1>Basic Go
 </h1>
 
   <div class="metas">
-<time datetime="2019-02-10">10 Feb, 2019</time>
+<time datetime="2019-11-22">22 Nov, 2019</time>
 
 
   
-  &middot; Read in about 1 min
-  &middot; (212 Words)
+    &middot; by Jacqueline
+  
+  &middot; Read in about 3 min
+  &middot; (458 Words)
   <br>
   
-<a class="label" href="https://www.moonstreet.nl/tags/golang">golang</a>
-
 
 
 </div>
@@ -199,63 +195,168 @@
 </header>
 
   <div class="container content">
-  <p>The last Golang post was a little bit lame so let&rsquo;s do something more interesting now. Let&rsquo;s create a webserver.</p>
+  <p>When learning Golang and coming from other (scripting) languages, that asterisk and ampersant may strike as a bit odd.<br />
+This is a beginner Golang post!</p>
 
-<p>To create a simple webserver, we need:</p>
+<p>Let&rsquo;s start with a basic Golang program outline and in the main func, let&rsquo;s create a variable named a and assign it the value Three-toed sloth.</p>
 
-<ul>
-<li>a function that can serve a page in browser (using http obviously)</li>
-<li>it should listen at a port</li>
-<li>it should respond to (handle) incoming requests</li>
-<li>it should be able to write content to the page</li>
-</ul>
-
-<p>First create a new project structure:</p>
-
-<pre><code class="language-sh">mkdir -p ~/go/src/httpserver
+<pre><code class="language-golang">package main
+import (
+    &quot;fmt&quot;
+)
+func main() {
+  a := &quot;Three-toed sloth&quot;
+  fmt.Println(a)
+}
 </code></pre>
 
-<p>Then create this file:</p>
+<p>Notice the : before the = and that no type was specified. The Go compiler is able to derive the type based on the literal value of the variable. So it knows it&rsquo;s a string.</p>
 
-<pre><code class="language-sh">cat &gt; ~/go/src/httpserver/main.go &lt;&lt;EOF
-package main
+<p>I could also have declared the variable like this:</p>
 
-import &quot;net/http&quot;
+<pre><code class="language-golang">var a string = 'Three-toed slothCopy
+</code></pre>
+
+<p>Ok, so the program will return:</p>
+
+<p><code>Three-toed sloth</code></p>
+
+<p>So you see that a is assigned a value of Three-toed sloth. It has stored that value in memory. And we can get the memory address by adding the &amp; (ampersant).</p>
+
+<p>Like this:</p>
+
+<pre><code class="language-golang">package main
+import (
+    &quot;fmt&quot;
+)
+func main() {
+  a := &quot;Three-toed sloth&quot;
+  fmt.Println(a)
+  fmt.Println(&amp;a)
+}
+</code></pre>
+
+<p>This will return:</p>
+
+<pre><code>Three-toed sloth
+0xc0000861c0
+</code></pre>
+
+<p>We can get the types like so:</p>
+
+<pre><code>fmt.Printf(&quot;%T\n&quot;,a)
+fmt.Printf(&quot;%T\n&quot;,&amp;a)
+</code></pre>
+
+<p>Adding this to our func will return:</p>
+
+<pre><code> string
+*string
+</code></pre>
+
+<p>We can also get the value of what is stored on that memory address like so (with the asterisk!):</p>
+
+<pre><code>  b := &amp;a
+  fmt.Println(*b)Copy
+</code></pre>
+
+<p>This will return:</p>
+
+<pre><code>Three-toed sloth
+</code></pre>
+
+<p>And finally we can do:</p>
+
+<pre><code>fmt.Println(*&amp;b)
+</code></pre>
+
+<p>Now what would that return?</p>
+
+<p>Exactly:</p>
+
+<pre><code>0xc0000861c0
+</code></pre>
+
+<p>Anyways, here is the complete code of this very useful exercise:</p>
+
+<pre><code>package main
+import (
+    &quot;fmt&quot;
+)
 
 func main() {
-	http.HandleFunc(&quot;/&quot;, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(&quot;&lt;h1&gt;Go webserver&lt;/h1&gt;&quot;))
-	})
-	http.ListenAndServe(&quot;:8000&quot;, nil)
+    a := &quot;Three-toed sloth&quot;
+    fmt.Println(a)
+    fmt.Println(&amp;a)
+    fmt.Printf(&quot;%T\n&quot;,a)
+    fmt.Printf(&quot;%T\n&quot;,&amp;a)
+    b := &amp;a
+    fmt.Println(*b)
+    fmt.Println(*&amp;b)
 }
-EOF
 </code></pre>
 
-<p>So what is this about?</p>
+<p>So the gist of this post comes down to:</p>
 
-<ul>
-<li>We are using the http package from the Go standard library</li>
-<li>The http package has a method HandleFunc.</li>
-<li>It&rsquo;s first argument is the forward slash &laquo;/&raquo; so it will respond to all requests</li>
-<li>The second argument is the callback. It takes two arguments: a response writer and a pointer to the request</li>
-<li>We need to write out our response in a byte array.</li>
-</ul>
+<p>The &amp; will give you the memory address.<br />
+The asterisk will give you the value stored at an address, aka the pointer to the memory location where the value of the variable is stored.<br />
+Now consider this piece of code without any pointers:</p>
 
-<p>Finally we let our http server listen to port 8000 with ListenAndServe.
-The second argument has a value of &laquo;nil&raquo;, in which case the DefaultServerMux is used (more about that later).</p>
+<pre><code>package main
+import (
+    &quot;fmt&quot;
+)
 
-<p>We now execute:</p>
+func main() {
+    x := 100
+    blah(x)
+    fmt.Println(x)
+}
 
-<pre><code class="language-sh">cd ~/go/src/httpserver
-go build main.go
-./main
+func blah(y int) {
+    fmt.Println(y)
+    y = 12
+    fmt.Println(y)
+}
 </code></pre>
 
-<p>Then browse to localhost:8000.</p>
+<p>This will return</p>
 
-<p>Result:</p>
+<pre><code>100 # from blah
+12 # from blah
+100
+</code></pre>
 
-<p><img src="/uploads/gowebserver.png" alt="" /></p>
+<p>But when we change the signature of &lsquo;blah&rsquo; so that it will take in a memory address instead of an actual int</p>
+
+<pre><code>package main
+import (
+    &quot;fmt&quot;
+)
+
+func main() {
+    x := 100
+    blah(&amp;x)
+    fmt.Println(&quot;From main: &quot;, x)
+}
+
+func blah(y *int) {
+    fmt.Println(&quot;1.From foo:&quot;, y)
+    *y = 12
+    fmt.Println(&quot;2.From foo:&quot;, y)
+}
+</code></pre>
+
+<p>This will return</p>
+
+<pre><code>1.From foo: 0xc00001c0c8
+2.From foo: 0xc00001c0c8
+From main:  12
+</code></pre>
+
+<p>That value will be never be the value of 100 because the blah function assigns the memory address the value of 12.</p>
+
+<p>Finally a tip for a great Golang mentor: <a href="https://twitter.com/Todd_McLeod">https://twitter.com/Todd_McLeod</a></p>
 
 </div>
 
@@ -267,15 +368,11 @@ go build main.go
   
 
     
-    <a class="prev" href="https://www.moonstreet.nl/2019/02/09/getting-started-with-golang/" title="Getting started with Golang">
+    <a class="prev" href="https://www.moonstreet.nl/2019/06/30/jenkins-shared-library-notes/" title="Jenkins shared library notes">
       Previous
     </a>
     
 
-    
-    <a class="next" href="https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform/" title="Azure Kubernetes Services and Terraform">
-      Next
-    </a>
     
 
   

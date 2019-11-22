@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Go Webserver  &middot; Moonstreet notes</title>
+  <title>Jenkins shared library notes  &middot; Moonstreet notes</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="HandheldFriendly" content="True">
 <meta name="MobileOptimized" content="320">
@@ -14,33 +14,29 @@
 
 <meta name="description" content="" />
 
-<meta name="keywords" content="golang, ">
+<meta name="keywords" content="">
 
 
-<meta property="og:title" content="Go Webserver  &middot; Moonstreet notes ">
+<meta property="og:title" content="Jenkins shared library notes  &middot; Moonstreet notes ">
 <meta property="og:site_name" content="Moonstreet notes"/>
-<meta property="og:url" content="https://www.moonstreet.nl/2019/02/10/go-webserver/" />
+<meta property="og:url" content="https://www.moonstreet.nl/2019/06/30/jenkins-shared-library-notes/" />
 <meta property="og:locale" content="en-EN">
 
 
 <meta property="og:type" content="article" />
 <meta property="og:description" content=""/>
-<meta property="og:article:published_time" content="2019-02-10T09:43:32&#43;01:00" />
-<meta property="og:article:modified_time" content="2019-02-10T09:43:32&#43;01:00" />
+<meta property="og:article:published_time" content="2019-06-30T13:08:28&#43;02:00" />
+<meta property="og:article:modified_time" content="2019-06-30T13:08:28&#43;02:00" />
 
-  
-    
-<meta property="og:article:tag" content="golang">
-    
   
 
   
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@jacqoutthebox" />
 <meta name="twitter:creator" content="@jacqoutthebox" />
-<meta name="twitter:title" content="Go Webserver" />
+<meta name="twitter:title" content="Jenkins shared library notes" />
 <meta name="twitter:description" content="" />
-<meta name="twitter:url" content="https://www.moonstreet.nl/2019/02/10/go-webserver/" />
+<meta name="twitter:url" content="https://www.moonstreet.nl/2019/06/30/jenkins-shared-library-notes/" />
 <meta name="twitter:domain" content="https://www.moonstreet.nl">
   
 
@@ -48,20 +44,20 @@
   {
     "@context": "http://schema.org",
     "@type": "Article",
-    "headline": "Go Webserver",
+    "headline": "Jenkins shared library notes",
     "author": {
       "@type": "Person",
       "name": "yourname"
     },
-    "datePublished": "2019-02-10",
+    "datePublished": "2019-06-30",
     "description": "",
-    "wordCount":  212 
+    "wordCount":  383 
   }
 </script>
 
 
 
-<link rel="canonical" href="https://www.moonstreet.nl/2019/02/10/go-webserver/" />
+<link rel="canonical" href="https://www.moonstreet.nl/2019/06/30/jenkins-shared-library-notes/" />
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
 <link href="https://www.moonstreet.nl/favicon.png" rel="icon">
@@ -178,20 +174,20 @@
 
 <article id="main-content" class="container main_content single">
   <header class="container hat">
-  <h1>Go Webserver
+  <h1>Jenkins shared library notes
 </h1>
 
   <div class="metas">
-<time datetime="2019-02-10">10 Feb, 2019</time>
+<time datetime="2019-06-30">30 Jun, 2019</time>
 
 
   
-  &middot; Read in about 1 min
-  &middot; (212 Words)
+    &middot; by Jacqueline
+  
+  &middot; Read in about 2 min
+  &middot; (383 Words)
   <br>
   
-<a class="label" href="https://www.moonstreet.nl/tags/golang">golang</a>
-
 
 
 </div>
@@ -199,63 +195,143 @@
 </header>
 
   <div class="container content">
-  <p>The last Golang post was a little bit lame so let&rsquo;s do something more interesting now. Let&rsquo;s create a webserver.</p>
+  
 
-<p>To create a simple webserver, we need:</p>
+<h1 id="resources">Resources</h1>
 
 <ul>
-<li>a function that can serve a page in browser (using http obviously)</li>
-<li>it should listen at a port</li>
-<li>it should respond to (handle) incoming requests</li>
-<li>it should be able to write content to the page</li>
+<li>KeyVault plugin</li>
+<li>az cli, jq, Terraform installed on the agent</li>
+<li>Pipeline utility steps plugin</li>
+<li><a href="https://jenkins.io/doc/pipeline/steps/pipeline-utility-steps/">https://jenkins.io/doc/pipeline/steps/pipeline-utility-steps/</a></li>
+<li><a href="https://jenkins.io/doc/book/pipeline/syntax/">https://jenkins.io/doc/book/pipeline/syntax/</a></li>
 </ul>
 
-<p>First create a new project structure:</p>
+<h1 id="create-azure-storage-for-terraform">Create Azure storage for Terraform</h1>
 
-<pre><code class="language-sh">mkdir -p ~/go/src/httpserver
-</code></pre>
+<p>This piece of code creates a storage account that can be used as Terraform backend storage.<br />
+It uses a Jenkins shared library</p>
 
-<p>Then create this file:</p>
+<ul>
+<li>It logs in with an Azure Service Principal</li>
+<li>Creates a storage account</li>
+<li>Creates a container</li>
+<li>returns the access key</li>
+</ul>
 
-<pre><code class="language-sh">cat &gt; ~/go/src/httpserver/main.go &lt;&lt;EOF
-package main
+<p>Make a file named vars/azureCreateStatefileStorage.groovy</p>
 
-import &quot;net/http&quot;
-
-func main() {
-	http.HandleFunc(&quot;/&quot;, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(&quot;&lt;h1&gt;Go webserver&lt;/h1&gt;&quot;))
-	})
-	http.ListenAndServe(&quot;:8000&quot;, nil)
+<pre><code>def call(Map config) {
+  withCredentials([azureServicePrincipal(&quot;${config.azureServicePrincipal}&quot;)]) {
+    sh &quot;&quot;&quot;
+      az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}&quot;
+      az account set --subscription ${AZURE_SUBSCRIPTION_ID}
+      az group create --name deploymentartifacts --location ${config.location}
+      az storage account create --name ${config.deploymentStorageAccount} \
+         --resource-group deploymentartifacts \
+         --location ${config.location} \
+         --sku Standard_LRS --kind StorageV2
+      --az storage container create --account-name ${config.deploymentStorageAccount} --name terraformstate
+    &quot;&quot;&quot;
+    accessKey = sh(returnStdout: true, script: &quot;az storage account keys list -n ${config.deploymentStorageAccount} --query \&quot;[0].value\&quot; -o tsv | tr -d '\n'&quot;)
+    return accessKey
+  }   
 }
-EOF
 </code></pre>
 
-<p>So what is this about?</p>
+<p>Then call it like so</p>
 
-<ul>
-<li>We are using the http package from the Go standard library</li>
-<li>The http package has a method HandleFunc.</li>
-<li>It&rsquo;s first argument is the forward slash &laquo;/&raquo; so it will respond to all requests</li>
-<li>The second argument is the callback. It takes two arguments: a response writer and a pointer to the request</li>
-<li>We need to write out our response in a byte array.</li>
-</ul>
-
-<p>Finally we let our http server listen to port 8000 with ListenAndServe.
-The second argument has a value of &laquo;nil&raquo;, in which case the DefaultServerMux is used (more about that later).</p>
-
-<p>We now execute:</p>
-
-<pre><code class="language-sh">cd ~/go/src/httpserver
-go build main.go
-./main
+<pre><code>stage('Prepare statefile storage') {
+  steps {
+    script {
+      accessKey = azureCreateStorage azureServicePrincipal: env.AZURE_SERVICE_PRINCIPAL,
+        deploymentStorageAccount: &quot;${env.CUSTOMER_NAME}artifacts&quot;,
+        location: env.LOCATION
+    }
+  }
+}
 </code></pre>
 
-<p>Then browse to localhost:8000.</p>
+<p>You need to set the environment variables as a string parameter in your pipeline definition.</p>
 
-<p>Result:</p>
+<h1 id="replace-tokens">Replace tokens</h1>
 
-<p><img src="/uploads/gowebserver.png" alt="" /></p>
+<p>This is a function that replaces tokens with the StrSubstitutor. The SimpleTemplateEngine doesn&rsquo;t work (<a href="https://issues.jenkins-ci.org/browse/JENKINS-38432">https://issues.jenkins-ci.org/browse/JENKINS-38432</a>)</p>
+
+<pre><code>def call(String text, Map binding) {
+  _tokenize(text, binding)
+}
+
+@NonCPS
+def _tokenize(String text, Map binding){
+  def engine = new org.apache.commons.lang3.text.StrSubstitutor(binding)
+  def s = engine.replace(text)
+  engine = null
+  return s
+}
+</code></pre>
+
+<p>Then in your Pipeline:</p>
+
+<pre><code>stage('Replace tokens for backend') {
+steps {
+  script {
+    text = readFile(&quot;${FOLDER}/backend.txt&quot;)
+      def binding = [:]
+      binding.StorageAccountName = &quot;${env.CUSTOMER_NAME}artifacts&quot;                         
+      binding.StorageAccessKey = accessKey
+      binding.StateFileName = &quot;${env.CUSTOMER_NAME}.statefile&quot;
+      writeFile(file: &quot;${FOLDER}/backend.tf&quot;, text: tokenize(text, binding))
+      sh &quot;cat ${FOLDER}/backend.tf&quot;  
+    }
+  }
+}
+</code></pre>
+
+<h1 id="credentials">Credentials</h1>
+
+<p>Example of credentials.</p>
+
+<pre><code>stage('Prepare') {
+  steps {
+    script {
+      withCredentials([file(credentialsId: env.TFVARS, variable: 'tfvars')]) {
+          sh 'cp $tfvars terraform.tfvars.json'
+      }
+      withCredentials([azureServicePrincipal(&quot;${env.AZURE_PRINCIPAL}&quot;)]) {
+        vars = readJSON file: 'terraform.tfvars.json'
+        vars['az_subscription_id'] = $AZURE_SUBSCRIPTION_ID
+        vars['az_client_id'] = $AZURE_CLIENT_ID
+        vars['az_secret'] = $AZURE_CLIENT_SECRET
+        vars['az_tenant_id'] = $AZURE_TENANT_ID
+        writeJSON file: 'terraform.tfvars.json', json: vars
+      }
+      withCredentials([file(credentialsId: &quot;${params.CONFIG}&quot;, variable: 'Configuration')]) {
+        sh 'cp $Configuration configuration.json'
+        vars = readJSON file: 'configuration.json'
+        STORAGE = &quot;${vars['az_storage_account_name']}&quot;
+      }
+    }
+  }
+}
+</code></pre>
+
+<h1 id="from-azure-keyvault">From Azure KeyVault</h1>
+
+<pre><code>stage('Fetch Terraform vars from KeyVault') {
+  steps {
+    script {
+      def secrets = [
+        [ secretType: 'Secret', name: &quot;Secret001&quot;, version: '', envVariable: 'SECRET' ]
+        ]
+       withAzureKeyvault(secrets) {
+         sh &quot;echo $SECRET &gt; ${FOLDER}/terraform.tfvars.json&quot;
+         vars = readJSON file:&quot;${FOLDER}/terraform.tfvars.json&quot;
+      }
+    }
+  }
+}
+</code></pre>
 
 </div>
 
@@ -267,13 +343,13 @@ go build main.go
   
 
     
-    <a class="prev" href="https://www.moonstreet.nl/2019/02/09/getting-started-with-golang/" title="Getting started with Golang">
+    <a class="prev" href="https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform/" title="Azure Kubernetes Services and Terraform">
       Previous
     </a>
     
 
     
-    <a class="next" href="https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform/" title="Azure Kubernetes Services and Terraform">
+    <a class="next" href="https://www.moonstreet.nl/2019/11/22/basic-go/" title="Basic Go">
       Next
     </a>
     

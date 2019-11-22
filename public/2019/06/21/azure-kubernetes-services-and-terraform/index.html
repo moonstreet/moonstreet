@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Azure Kubernetes Services and Terraform  &middot; Moonstreet notes</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="description" content="" />
+
+<meta name="keywords" content="devops, ">
+
+
+<meta property="og:title" content="Azure Kubernetes Services and Terraform  &middot; Moonstreet notes ">
+<meta property="og:site_name" content="Moonstreet notes"/>
+<meta property="og:url" content="https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform/" />
+<meta property="og:locale" content="en-EN">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content=""/>
+<meta property="og:article:published_time" content="2019-06-21T11:29:13&#43;01:00" />
+<meta property="og:article:modified_time" content="2019-06-21T11:29:13&#43;01:00" />
+
+  
+    
+<meta property="og:article:tag" content="devops">
+    
+  
+
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@jacqoutthebox" />
+<meta name="twitter:creator" content="@jacqoutthebox" />
+<meta name="twitter:title" content="Azure Kubernetes Services and Terraform" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:url" content="https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform/" />
+<meta name="twitter:domain" content="https://www.moonstreet.nl">
+  
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "Azure Kubernetes Services and Terraform",
+    "author": {
+      "@type": "Person",
+      "name": "yourname"
+    },
+    "datePublished": "2019-06-21",
+    "description": "",
+    "wordCount":  1252 
+  }
+</script>
+
+
+
+<link rel="canonical" href="https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform/" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
+<link href="https://www.moonstreet.nl/favicon.png" rel="icon">
+
+<meta name="generator" content="Hugo 0.59.1" />
+
+  <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300%7CRaleway%7COpen+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight/tomorrow-night-blue.css">
+
+  
+  
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'Your Google Analytics tracking code', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+</head>
+<body>
+  <main id="main-wrapper" class="container main_wrapper has-sidebar">
+    <header id="main-header" class="container main_header">
+  <div class="container brand">
+  <div class="container title h1-like">
+  <a class="baselink" href="https://www.moonstreet.nl">
+  Moonstreet
+
+</a>
+
+</div>
+
+  
+<div class="container topline">
+  
+  A few notes about devops and automation
+
+
+</div>
+
+</div>
+  <nav class="container nav primary no-print">
+  
+
+<a class="homelink" href="https://www.moonstreet.nl">Home</a>
+
+
+  
+<a href="https://www.moonstreet.nl/about">About</a>
+
+<a href="https://www.moonstreet.nl/post" title="Show list of posts">Posts</a>
+
+<a href="https://www.moonstreet.nl/tags" title="Show list of tags">Tags</a>
+
+
+</nav>
+
+<div class="container nav secondary no-print">
+  
+<a id="contact-link-email" class="contact_link" rel="me" aria-label="Email" href="mailto:yourname@example.com">
+  <span class="fa fa-envelope-square"></span></a>
+
+
+
+<a id="contact-link-github" class="contact_link" rel="me" aria-label="Github" href="https://github.com/jacqinthebox">
+  <span class="fa fa-github-square"></span></a>
+
+
+
+
+ 
+<a id="contact-link-linkedin" class="contact_link" rel="me" aria-label="LinkedIn" href="https://www.linkedin.com/in/jacquelineportier">
+  <span class="fa fa-linkedin-square"></span></a>
+
+
+
+
+
+
+
+<a id="contact-link-twitter" class="contact_link" rel="me" aria-label="Twitter" href="https://twitter.com/jacqoutthebox">
+  <span class="fa fa-twitter-square"></span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  
+
+  <img src="https://imgur.com/kcELCt3.png" />
+</header>
+
+
+<article id="main-content" class="container main_content single">
+  <header class="container hat">
+  <h1>Azure Kubernetes Services and Terraform
+</h1>
+
+  <div class="metas">
+<time datetime="2019-06-21">21 Jun, 2019</time>
+
+
+  
+    &middot; by Jacqueline
+  
+  &middot; Read in about 6 min
+  &middot; (1252 Words)
+  <br>
+  
+<a class="label" href="https://www.moonstreet.nl/tags/devops">devops</a>
+
+
+
+</div>
+
+</header>
+
+  <div class="container content">
+  
+
+<h1 id="terraform">Terraform</h1>
+
+<p>This blogseries is about my adventures in AKS and Terraform. This first article is about Terraform.<br />
+This assumes you have an Azure account.</p>
+
+<h2 id="prepare">Prepare</h2>
+
+<p>Create a service principal with contributor permissions on Azure Subscription level. We can fine tune the permissions later.</p>
+
+<pre><code class="language-sh">AZ_SUB=&quot;your subscription id&quot;
+AZ_SECRET=&quot;S3cr3tPasw0rd&quot;
+NAME=&quot;terraform-partner-sub&quot;
+
+az login
+az account set --subscription $AZ_SUB
+az ad sp create-for-rbac --name $NAME-installation-account --password $AZ_SECRET --years 2
+</code></pre>
+
+<p>Now this account has contributor permissions on the subscription level.
+The account is valid for 2 years.<br />
+Save the login info this command returns somewhere really safe.</p>
+
+<h2 id="set-up-terraform">Set up Terraform</h2>
+
+<p>Set up a folder structure. In the following example there is an aks-cluster project and a jenkins project (in the future I might want to build a Jenkins server with Terraform).</p>
+
+<pre><code>└── infrastructure-as-code
+    ├── aks-cluster
+    │   ├── dev
+    │   └── sandbox
+    ├── jenkins
+    └── modules
+
+</code></pre>
+
+<p>Let&rsquo;s install Terraform. Should work on any Linux distro with sudo enabled:</p>
+
+<pre><code class="language-sh">wget https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_amd64.zip
+unzip terraform_0.12.2_linux_amd64.zip
+sudo mv terraform /usr/local/bin
+</code></pre>
+
+<p>Let&rsquo;s start with our sandbox environment.</p>
+
+<pre><code class="language-sh">cd aks-cluster/sandbox
+</code></pre>
+
+<p>The first thing we need to do is create a Terraform file and confugure the Azure provider.</p>
+
+<pre><code class="language-sh">cat &gt; infrastructure.tf &lt;&lt;'EOF'
+provider &quot;azurerm&quot; {
+  subscription_id = &quot;${var.az_subscription_id}&quot;
+  client_id       = &quot;${var.az_client_id}&quot;
+  client_secret   = &quot;${var.az_secret}&quot;
+  tenant_id       = &quot;${var.az_tenant_id}&quot;
+  version         = &quot;=1.28.0&quot;
+}
+EOF
+</code></pre>
+
+<p>We need to declare these variable somewhere. Let&rsquo;s create a vars file for that.</p>
+
+<pre><code class="language-sh">cat &gt; vars.tf &lt;&lt;'EOF'
+variable &quot;az_subscription_id&quot; {}
+variable &quot;az_client_id&quot; {}
+variable &quot;az_secret&quot; {}
+variable &quot;az_tenant_id&quot; {}
+}
+EOF
+</code></pre>
+
+<p>Note the curly braces. It is also possible to give some extra attributes to the vars like this:</p>
+
+<pre><code>variable &quot;az_secret&quot; {
+  type        = &quot;string&quot;
+  description = &quot;The secret of the principal&quot;
+  default     = &quot;AsIfThereWasAD3faultS3cret&quot;
+}
+</code></pre>
+
+<p>And finally, initialize the variables. This is done in a <code>tfvars</code> document. Since version 0.12 it supports the json format as well.</p>
+
+<pre><code class="language-sh">cat &gt; sandbox.tfvars.json &lt;&lt;'EOF'
+{
+&quot;az_subscription_id&quot;:&quot;your subscription id&quot;,
+&quot;az_client_id&quot;:&quot;your app id&quot;,
+&quot;az_secret&quot;: &quot;****&quot;
+&quot;az_tenant_id&quot;:&quot;your tenant id&quot;
+}
+EOF
+</code></pre>
+
+<p>Let&rsquo;s now initialize Terraform to see if everything is OK:</p>
+
+<pre><code>terraform init
+terraform plan --var-file sandbox.tfvars.json -out terraform_plan -input=false
+</code></pre>
+
+<p>I am adding <code>-out terraform_plan -input=false</code> because I don&rsquo;t want to manually input anything. This comes in handy later when you run this in a pipeline.
+This should download the Terraform azurerm plugin and tell you that everything is OK.</p>
+
+<h2 id="save-terraform-state-elsewhere-in-azure-storage">Save Terraform state elsewhere (in Azure storage)</h2>
+
+<p>We don&rsquo;t want to keep our state in source control or on our local computer. It might get lost and it contains some sensitive information about the environment.<br />
+So just quickly create a storage account then add a container named terraform to the blob storage.<br />
+Add the following on top of terraform.tf:</p>
+
+<pre><code>terraform {
+  backend &quot;azurerm&quot; {
+    storage_account_name = &quot;microbotstorage&quot;
+    container_name       = &quot;terraform&quot;
+    key                  = &quot;sandbox_tfstate_file##&quot;
+    access_key           = &quot;***&quot;
+  }
+}
+</code></pre>
+
+<p>And we are save. Also look here: <a href="https://docs.microsoft.com/en-us/azure/terraform/terraform-backend">https://docs.microsoft.com/en-us/azure/terraform/terraform-backend</a></p>
+
+<h2 id="build-the-network">Build the Network</h2>
+
+<p>Add the following to the infrastructure.tf file:</p>
+
+<pre><code>resource &quot;azurerm_resource_group&quot; &quot;network&quot; {
+  name     = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-network-rg&quot;
+  location = &quot;${var.az_region}&quot;
+}
+
+resource &quot;azurerm_virtual_network&quot; &quot;vnet&quot; {
+  name                = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-vnet&quot;
+  address_space       = [&quot;${var.az_vnet_address_prefix}&quot;]
+  location            = &quot;${var.az_region}&quot;
+  resource_group_name = &quot;${azurerm_resource_group.network.name}&quot;
+}
+
+resource &quot;azurerm_subnet&quot; &quot;k8s-subnet&quot; {
+  name                 = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-kubernetes-subnet&quot;
+  resource_group_name  = &quot;${azurerm_resource_group.network.name}&quot;
+  virtual_network_name = &quot;${azurerm_virtual_network.vnet.name}&quot;
+  address_prefix       = &quot;${var.az_vnet_kubernetes_subnet}&quot;
+  service_endpoints    = [&quot;Microsoft.Sql&quot;, &quot;Microsoft.Storage&quot;]
+}
+</code></pre>
+
+<p>We need to add some extra variables to our vars file. The vars file looks like this.</p>
+
+<pre><code>variable &quot;environment&quot; {}
+variable &quot;prefix&quot; {}
+variable &quot;az_subscription_id&quot; {}
+variable &quot;az_client_id&quot; {}
+variable &quot;az_secret&quot; {}
+variable &quot;az_tenant_id&quot; {}
+variable &quot;location_abbreviation&quot; {}
+variable &quot;az_region&quot; {}
+variable &quot;az_vnet_kubernetes_subnet&quot; {}
+variable &quot;az_vnet_address&quot; {}
+</code></pre>
+
+<p>Let&rsquo;s install this:</p>
+
+<pre><code>terraform plan --var-file sandbox.tfvars.json -out terraform_plan -input=false
+terraform apply --var-file sandbox.tfvars.json -out terraform_plan -input=false
+</code></pre>
+
+<p>Now have a quick look and you should see these resources are installed in Azure.</p>
+
+<h2 id="modularize">Modularize</h2>
+
+<p>It&rsquo;s good practice to modularize Terraform projects, so let&rsquo;s make a module of the network creation.
+In our module folder, we&rsquo;ll create a dir named vnet and then we wil add two files, vnet.tf and vnet.vars:</p>
+
+<pre><code>└── infrastructure-as-code
+    ├── aks-cluster
+    │   ├── dev
+    │   └── sandbox
+    │       ├── infrastructure.tf
+    │       ├── sandbox.tfvars.json
+    │       ├── terraform_plan
+    │       └── vars.tf
+    ├── jenkins-agent
+    └── modules
+        └── vnet
+            ├── vnet.tf
+            └── vnetvars.tf
+</code></pre>
+
+<p>We cut and paste this portion from sandbox/infrastructure.tf to modules/vnet/vnet.tf:</p>
+
+<pre><code class="language-sh">resource &quot;azurerm_resource_group&quot; &quot;network&quot; {
+  name     = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-network-rg&quot;
+  location = &quot;${var.az_region}&quot;
+}
+
+# Create virtual network and subnets
+resource &quot;azurerm_virtual_network&quot; &quot;vnet&quot; {
+  name                = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-vnet&quot;
+  address_space       = [&quot;${var.az_vnet_address}&quot;]
+  location            = &quot;${var.az_region}&quot;
+  resource_group_name = &quot;${azurerm_resource_group.network.name}&quot;
+}
+
+resource &quot;azurerm_subnet&quot; &quot;k8s-subnet&quot; {
+  name                 = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-kubernetes-subnet&quot;
+  resource_group_name  = &quot;${azurerm_resource_group.network.name}&quot;
+  virtual_network_name = &quot;${azurerm_virtual_network.vnet.name}&quot;
+  address_prefix       = &quot;${var.az_vnet_kubernetes_subnet}&quot;
+  service_endpoints    = [&quot;Microsoft.Sql&quot;, &quot;Microsoft.Storage&quot;]
+}
+
+</code></pre>
+
+<p>And in modules/vnet/vnetvars.tf we will paste the relevant vnet vars:</p>
+
+<pre><code class="language-sh">variable &quot;environment&quot; {}
+variable &quot;prefix&quot; {}
+variable &quot;location_abbreviation&quot; {}
+variable &quot;az_region&quot; {}
+variable &quot;az_vnet_kubernetes_subnet&quot; {}
+variable &quot;az_vnet_address&quot; {}
+</code></pre>
+
+<p>And now sandbox/infrastructure looks like this:</p>
+
+<pre><code class="language-sh">terraform {
+  backend &quot;azurerm&quot; {
+    storage_account_name = &quot;microbotstorage&quot;
+    container_name       = &quot;terraform&quot;
+    key                  = &quot;sandbox_tfstate&quot;
+    access_key           = &quot;***************&quot;
+  }
+}
+
+provider &quot;azurerm&quot; {
+  subscription_id = &quot;${var.az_subscription_id}&quot;
+  client_id       = &quot;${var.az_client_id}&quot;
+  client_secret   = &quot;${var.az_secret}&quot;
+  tenant_id       = &quot;${var.az_tenant_id}&quot;
+  version         = &quot;1.28.0&quot;
+}
+
+module &quot;vnet&quot; {
+  source                    = &quot;../../modules/vnet&quot;
+  prefix                    = &quot;${var.prefix}&quot;
+  environment               = &quot;${var.environment}&quot;
+  location_abbreviation     = &quot;${var.location_abbreviation}&quot;
+  az_vnet_address           = &quot;${var.az_vnet_address}&quot;
+  az_region                 = &quot;${var.az_region}&quot;
+  az_vnet_kubernetes_subnet = &quot;${var.az_vnet_kubernetes_subnet}&quot;
+}
+
+</code></pre>
+
+<p>It looks like we duplicated a lot, but it isn&rsquo;t really. The modules need variables declared, but so does our sandbox configuration that consumes the module. We can now add more environments and supply different values for the modules.<br />
+Let&rsquo;s carry on and create the cluster, as a module.</p>
+
+<h2 id="add-the-cluster">Add the cluster</h2>
+
+<p>This is how I defined the AKS cluster, with monitoring support.</p>
+
+<pre><code class="language-sh">resource &quot;azurerm_resource_group&quot; &quot;k8s&quot; {
+  name     = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-cluster-rg&quot;
+  location = &quot;${var.az_region}&quot;
+}
+resource &quot;azurerm_resource_group&quot; &quot;logging&quot; {
+  name     = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-logging-rg&quot;
+  location = &quot;${var.az_region}&quot;
+}
+
+resource &quot;azurerm_log_analytics_workspace&quot; &quot;space&quot; {
+  name                = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-loganalytics-workspace&quot;
+  location            = &quot;${var.az_region}&quot;
+  resource_group_name = &quot;${azurerm_resource_group.logging.name}&quot;
+  sku                 = &quot;PerGB2018&quot;
+}
+
+resource &quot;azurerm_log_analytics_solution&quot; &quot;oms&quot; {
+  solution_name         = &quot;ContainerInsights&quot;
+  location              = &quot;${azurerm_log_analytics_workspace.space.location}&quot;
+  resource_group_name   = &quot;${azurerm_log_analytics_workspace.space.resource_group_name}&quot;
+  workspace_resource_id = &quot;${azurerm_log_analytics_workspace.space.id}&quot;
+  workspace_name        = &quot;${azurerm_log_analytics_workspace.space.name}&quot;
+
+  plan {
+    publisher = &quot;Microsoft&quot;
+    product   = &quot;OMSGallery/ContainerInsights&quot;
+  }
+}
+
+resource &quot;azurerm_kubernetes_cluster&quot; &quot;k8s&quot; {
+  name                = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-cluster&quot;
+  location            = &quot;${azurerm_resource_group.k8s.location}&quot;
+  resource_group_name = &quot;${azurerm_resource_group.k8s.name}&quot;
+  dns_prefix          = &quot;${var.prefix}${var.environment}${var.location_abbreviation}&quot;
+  kubernetes_version  = &quot;${var.az_aks_version}&quot;
+
+  service_principal {
+    client_id     = &quot;${var.az_client_id}&quot;
+    client_secret = &quot;${var.az_secret}&quot;
+  }
+
+  addon_profile {
+    oms_agent {
+      enabled                    = true
+      log_analytics_workspace_id = &quot;${azurerm_log_analytics_workspace.space.id}&quot;
+    }
+  }
+
+  agent_pool_profile {
+    name            = &quot;agentpool&quot;
+    count           = &quot;2&quot;
+    vm_size         = &quot;${var.az_aks_vm_size}&quot;
+    os_type         = &quot;Linux&quot;
+    os_disk_size_gb = 60
+    vnet_subnet_id  = &quot;${var.az_vnet_kubernetes_subnet_id}&quot;
+    max_pods        = 110
+  }
+
+  network_profile {
+    docker_bridge_cidr = &quot;172.17.0.1/16&quot;
+    dns_service_ip     = &quot;10.2.0.10&quot;
+    network_plugin     = &quot;azure&quot;
+    service_cidr       = &quot;10.2.0.0/16&quot;
+  }
+
+  role_based_access_control {
+    enabled = true
+  }
+}
+
+</code></pre>
+
+<p>The variables:</p>
+
+<pre><code class="language-sh">variable &quot;prefix&quot; {}
+
+variable &quot;environment&quot; {}
+
+variable &quot;location_abbreviation&quot; {
+  type        = &quot;string&quot;
+  description = &quot;Abbreviation of the location&quot;
+  default     = &quot;we&quot;
+}
+
+variable &quot;az_region&quot; {
+  type        = &quot;string&quot;
+  description = &quot;Azure region for deployment&quot;
+  default     = &quot;West Europe&quot;
+}
+
+variable &quot;az_aks_version&quot; {
+  type        = &quot;string&quot;
+  description = &quot;Kubernetes Version - az aks get-versions --location westeurope --output table&quot;
+  default     = &quot;1.12.7&quot;
+}
+
+variable &quot;az_aks_vm_size&quot; {
+  type        = &quot;string&quot;
+  description = &quot;Azure VM node size e.g. Standard_D2s_v3 or Standard_B4ms - az vm list-sizes --location westeurope&quot;
+  default     = &quot;Standard_D2s_v3&quot;
+}
+
+variable &quot;az_vnet_kubernetes_subnet_id&quot; {}
+
+variable &quot;az_client_id&quot; {}
+
+variable &quot;az_secret&quot; {}
+
+</code></pre>
+
+<p>So we already built the vnet, and now we want to put this Kubernetes cluster in it.
+<em>However, we need a reference to the subnet created by the vnet module</em> So how does that work?</p>
+
+<p>We add a file called modules/vnet/outputs.tf and add this piece of code to it:</p>
+
+<pre><code>output &quot;k8s_subnet_id&quot; {
+  value = &quot;${azurerm_subnet.k8s-subnet.id}&quot;
+}
+
+</code></pre>
+
+<p>We can reference that value with <code>&quot;${module.vnet.k8s_subnet_id}&quot;</code>, like this:</p>
+
+<pre><code class="language-sh">
+module &quot;aks&quot; {
+  source                = &quot;../../modules/aks&quot;
+  prefix                = &quot;${var.prefix}&quot;
+  environment           = &quot;${var.environment}&quot;
+  location_abbreviation = &quot;${var.location_abbreviation}&quot;
+
+  az_region                    = &quot;${var.az_region}&quot;
+  az_vnet_kubernetes_subnet_id = &quot;${module.vnet.k8s_subnet_id}&quot;
+  az_aks_version               = &quot;${var.az_aks_version}&quot;
+  az_client_id                 = &quot;${var.az_client_id}&quot;
+  az_secret                    = &quot;${var.az_secret}&quot;
+}
+</code></pre>
+
+<p>I will post a Github repo once I finish this.</p>
+
+<p><a href="https://stackoverflow.com/questions/51213871/terraform-provider-variable-sharing-in-modules">https://stackoverflow.com/questions/51213871/terraform-provider-variable-sharing-in-modules</a></p>
+
+</div>
+
+
+  <footer class="container">
+  <div class="container navigation no-print">
+  <h2>Navigation</h2>
+  
+  
+
+    
+    <a class="prev" href="https://www.moonstreet.nl/2019/02/10/go-webserver/" title="Go Webserver">
+      Previous
+    </a>
+    
+
+    
+    <a class="next" href="https://www.moonstreet.nl/2019/06/30/jenkins-shared-library-notes/" title="Jenkins shared library notes">
+      Next
+    </a>
+    
+
+  
+
+
+</div>
+
+  
+<div class="container comments">
+  <h2>Comments</h2>
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//your_disqus_shortname.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
+
+</footer>
+
+</article>
+      <footer id="main-footer" class="container main_footer">
+  
+
+  <div class="container nav foot no-print">
+  
+
+  <a class="toplink" href="#">back to top</a>
+
+</div>
+
+  <div class="container credits">
+  
+<div class="container footline">
+  
+  code with <i class='fa fa-heart'></i>
+
+
+</div>
+
+
+  
+<div class="container copyright">
+  
+  &copy; 2019 Jacqueline
+
+
+</div>
+
+
+</div>
+
+</footer>
+
+    </main>
+    
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//your_disqus_shortname.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>
+

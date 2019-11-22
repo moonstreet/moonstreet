@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Devops on Moonstreet notes</title>
+    <title>devops on Moonstreet notes</title>
     <link>https://www.moonstreet.nl/tags/devops/</link>
-    <description>Recent content in Devops on Moonstreet notes</description>
+    <description>Recent content in devops on Moonstreet notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-EN</language>
     <managingEditor>yourname@example.com (yourname)</managingEditor>
@@ -15,11 +15,11 @@
     
     
     <item>
-      <title>Azure Kubernetes Services and Terraform (part 1)</title>
-      <link>https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform-part-1/</link>
+      <title>Azure Kubernetes Services and Terraform</title>
+      <link>https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform/</link>
       <pubDate>Fri, 21 Jun 2019 11:29:13 +0100</pubDate>
       <author>yourname@example.com (yourname)</author>
-      <guid>https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform-part-1/</guid>
+      <guid>https://www.moonstreet.nl/2019/06/21/azure-kubernetes-services-and-terraform/</guid>
       <description>Terraform This blogseries is about my adventures in AKS and Terraform. This first article is about Terraform.
 This assumes you have an Azure account.
 Prepare Create a service principal with contributor permissions on Azure Subscription level. We can fine tune the permissions later.
