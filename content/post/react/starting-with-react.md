@@ -228,4 +228,4 @@ const cityTrip = new ShortHoliday('France',3,'Paris')
 cityTrip.info()
 ```
 
-I gues this is enough for now.
+I gues this is enough javascript for now.
