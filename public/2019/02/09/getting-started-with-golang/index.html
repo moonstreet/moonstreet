@@ -66,7 +66,7 @@
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
 <link href="https://www.moonstreet.nl/favicon.png" rel="icon">
 
-<meta name="generator" content="Hugo 0.59.1" />
+<meta name="generator" content="Hugo 0.63.2" />
 
   <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -201,77 +201,45 @@
 </header>
 
   <div class="container content">
-  
-
-<p>This is yet another getting started note. This time I am trying to code in Golang.<br />
+  <p>This is yet another getting started note. This time I am trying to code in Golang.<br>
 Why, would you ask?</p>
-
 <p>Obviously because of its mascotte:</p>
-
-<p><img src="https://ih0.redbubble.net/image.324409663.0450/sticker,375x360-bg,ffffff.u4.png" alt="GitHub Logo" /></p>
-
+<p><img src="https://ih0.redbubble.net/image.324409663.0450/sticker,375x360-bg,ffffff.u4.png" alt="GitHub Logo"></p>
 <h2 id="installing-golang">Installing Golang</h2>
-
 <p>Download Golang here <a href="https://golang.org/dl/">https://golang.org/dl/</a>. I am on Ubuntu, so next step is to simply unpack the executable to <code>/usr/local</code>.</p>
-
 <pre><code>sudo tar -C /usr/local -xzf go1.11.5.linux-amd64.tar.gz
 
-</code></pre>
-
-<p>Then add Go to your path in your profile (in my case it would be in ~/.zshrc)</p>
-
+</code></pre><p>Then add Go to your path in your profile (in my case it would be in ~/.zshrc)</p>
 <pre><code>export PATH=$PATH:/usr/local/go/bin
-</code></pre>
-
-<p>After exiting and starting the terminal you should be able to write your first Go code. Start with creating your workspace directory in $HOME/go. If you&rsquo;d like to use a different directory, you will need to set the GOPATH environment variable.</p>
-
+</code></pre><p>After exiting and starting the terminal you should be able to write your first Go code. Start with creating your workspace directory in $HOME/go. If you&rsquo;d like to use a different directory, you will need to set the GOPATH environment variable.</p>
 <p>Make a folder:</p>
-
-<pre><code class="language-sh">mkdir -p ~/go/src/hello
-</code></pre>
-
-<p>Create a file called hello.go:</p>
-
-<pre><code class="language-sh">cat &gt; ~/go/src/hello/hello.go &lt;&lt;EOF
-package main
-
-import &quot;fmt&quot;
-
-func main() {
-	fmt.Printf(&quot;hello, world\n&quot;)
-}
-EOF
-</code></pre>
-
-<p>Explanation:</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mkdir -p ~/go/src/hello
+</code></pre></div><p>Create a file called hello.go:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat &gt; ~/go/src/hello/hello.go <span style="color:#e6db74">&lt;&lt;EOF
+</span><span style="color:#e6db74">package main
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">import &#34;fmt&#34;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">func main() {
+</span><span style="color:#e6db74">	fmt.Printf(&#34;hello, world\n&#34;)
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>Explanation:</p>
 <ul>
-<li>The package &laquo;main&raquo; tells the Go compiler that the package should compile as an executable program instead of a shared library. It is our entrypoint.</li>
-<li>The keyword &laquo;import&raquo; is used for importing a package. The package &laquo;fmt&raquo; is used for the function Println. The package “fmt” comes from the Go standard library.</li>
+<li>The package &ldquo;main&rdquo; tells the Go compiler that the package should compile as an executable program instead of a shared library. It is our entrypoint.</li>
+<li>The keyword &ldquo;import&rdquo; is used for importing a package. The package &ldquo;fmt&rdquo; is used for the function Println. The package “fmt” comes from the Go standard library.</li>
 </ul>
-
 <p>Now build it:</p>
-
-<pre><code class="language-sh">cd $HOME/go/src/hello
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd $HOME/go/src/hello
 go build
-</code></pre>
-
-<p>Run it</p>
-
+</code></pre></div><p>Run it</p>
 <pre><code>./hello
 hello, world
-</code></pre>
-
-<p>You can also run</p>
-
-<pre><code class="language-sh">go install hello
-</code></pre>
-
-<p>This will create a bin folder in your Go directory with the binary.
+</code></pre><p>You can also run</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">go install hello
+</code></pre></div><p>This will create a bin folder in your Go directory with the binary.
 If the GOPATH is configured correctly then this will work from any folder in your machine.</p>
-
 <p>So this is proof that Go is correctly installed on your computer.</p>
-
 <p>You can now follow <a href="https://tour.golang.org/list">a tour of Go</a> to get further aquainted with Go.</p>
 
 </div>
@@ -340,7 +308,7 @@ If the GOPATH is configured correctly then this will work from any folder in you
   
 <div class="container footline">
   
-  code with <i class='fa fa-heart'></i>
+  code with <!-- raw HTML omitted --><!-- raw HTML omitted -->
 
 
 </div>
@@ -349,7 +317,7 @@ If the GOPATH is configured correctly then this will work from any folder in you
   
 <div class="container copyright">
   
-  &copy; 2019 Jacqueline
+  (c) 2019 Jacqueline
 
 
 </div>

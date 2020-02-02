@@ -35,7 +35,8 @@ To create a simple webserver, we need:
 Why, would you ask?
 Obviously because of its mascotte:
 Installing Golang Download Golang here https://golang.org/dl/. I am on Ubuntu, so next step is to simply unpack the executable to /usr/local.
-sudo tar -C /usr/local -xzf go1.11.5.linux-amd64.tar.gz  Then add Go to your path in your profile (in my case it would be in ~/.</description>
+sudo tar -C /usr/local -xzf go1.11.5.linux-amd64.tar.gz Then add Go to your path in your profile (in my case it would be in ~/.zshrc)
+export PATH=$PATH:/usr/local/go/bin After exiting and starting the terminal you should be able to write your first Go code.</description>
     </item>
     
   </channel>

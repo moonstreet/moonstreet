@@ -62,7 +62,7 @@
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
 <link href="https://www.moonstreet.nl/favicon.png" rel="icon">
 
-<meta name="generator" content="Hugo 0.59.1" />
+<meta name="generator" content="Hugo 0.63.2" />
 
   <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -195,10 +195,7 @@
 </header>
 
   <div class="container content">
-  
-
-<h1 id="resources">Resources</h1>
-
+  <h1 id="resources">Resources</h1>
 <ul>
 <li>KeyVault plugin</li>
 <li>az cli, jq, Terraform installed on the agent</li>
@@ -206,21 +203,16 @@
 <li><a href="https://jenkins.io/doc/pipeline/steps/pipeline-utility-steps/">https://jenkins.io/doc/pipeline/steps/pipeline-utility-steps/</a></li>
 <li><a href="https://jenkins.io/doc/book/pipeline/syntax/">https://jenkins.io/doc/book/pipeline/syntax/</a></li>
 </ul>
-
 <h1 id="create-azure-storage-for-terraform">Create Azure storage for Terraform</h1>
-
-<p>This piece of code creates a storage account that can be used as Terraform backend storage.<br />
+<p>This piece of code creates a storage account that can be used as Terraform backend storage.<br>
 It uses a Jenkins shared library</p>
-
 <ul>
 <li>It logs in with an Azure Service Principal</li>
 <li>Creates a storage account</li>
 <li>Creates a container</li>
 <li>returns the access key</li>
 </ul>
-
 <p>Make a file named vars/azureCreateStatefileStorage.groovy</p>
-
 <pre><code>def call(Map config) {
   withCredentials([azureServicePrincipal(&quot;${config.azureServicePrincipal}&quot;)]) {
     sh &quot;&quot;&quot;
@@ -237,10 +229,7 @@ It uses a Jenkins shared library</p>
     return accessKey
   }   
 }
-</code></pre>
-
-<p>Then call it like so</p>
-
+</code></pre><p>Then call it like so</p>
 <pre><code>stage('Prepare statefile storage') {
   steps {
     script {
@@ -250,14 +239,9 @@ It uses a Jenkins shared library</p>
     }
   }
 }
-</code></pre>
-
-<p>You need to set the environment variables as a string parameter in your pipeline definition.</p>
-
+</code></pre><p>You need to set the environment variables as a string parameter in your pipeline definition.</p>
 <h1 id="replace-tokens">Replace tokens</h1>
-
 <p>This is a function that replaces tokens with the StrSubstitutor. The SimpleTemplateEngine doesn&rsquo;t work (<a href="https://issues.jenkins-ci.org/browse/JENKINS-38432">https://issues.jenkins-ci.org/browse/JENKINS-38432</a>)</p>
-
 <pre><code>def call(String text, Map binding) {
   _tokenize(text, binding)
 }
@@ -269,10 +253,7 @@ def _tokenize(String text, Map binding){
   engine = null
   return s
 }
-</code></pre>
-
-<p>Then in your Pipeline:</p>
-
+</code></pre><p>Then in your Pipeline:</p>
 <pre><code>stage('Replace tokens for backend') {
 steps {
   script {
@@ -286,12 +267,8 @@ steps {
     }
   }
 }
-</code></pre>
-
-<h1 id="credentials">Credentials</h1>
-
+</code></pre><h1 id="credentials">Credentials</h1>
 <p>Example of credentials.</p>
-
 <pre><code>stage('Prepare') {
   steps {
     script {
@@ -314,10 +291,7 @@ steps {
     }
   }
 }
-</code></pre>
-
-<h1 id="from-azure-keyvault">From Azure KeyVault</h1>
-
+</code></pre><h1 id="from-azure-keyvault">From Azure KeyVault</h1>
 <pre><code>stage('Fetch Terraform vars from KeyVault') {
   steps {
     script {
@@ -332,7 +306,6 @@ steps {
   }
 }
 </code></pre>
-
 </div>
 
 
@@ -399,7 +372,7 @@ steps {
   
 <div class="container footline">
   
-  code with <i class='fa fa-heart'></i>
+  code with <!-- raw HTML omitted --><!-- raw HTML omitted -->
 
 
 </div>
@@ -408,7 +381,7 @@ steps {
   
 <div class="container copyright">
   
-  &copy; 2019 Jacqueline
+  (c) 2019 Jacqueline
 
 
 </div>

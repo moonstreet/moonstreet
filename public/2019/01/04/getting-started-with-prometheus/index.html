@@ -66,7 +66,7 @@
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
 <link href="https://www.moonstreet.nl/favicon.png" rel="icon">
 
-<meta name="generator" content="Hugo 0.59.1" />
+<meta name="generator" content="Hugo 0.63.2" />
 
   <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -201,80 +201,47 @@
 </header>
 
   <div class="container content">
-  
-
-<p>Prometheus delivers real-time monitoring, alerting and time-series database capabilities including powerful queries and visualizations. Written in Go, Prometheus is one of the fastest-growing projects on GitHub according to the <a href="https://cncf.ci/">CNCF project</a> and is also mentioned in the Kubernetes <a href="https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/">docs</a>.</p>
-
+  <p>Prometheus delivers real-time monitoring, alerting and time-series database capabilities including powerful queries and visualizations. Written in Go, Prometheus is one of the fastest-growing projects on GitHub according to the <a href="https://cncf.ci/">CNCF project</a> and is also mentioned in the Kubernetes <a href="https://kubernetes.io/docs/tasks/debug-application-cluster/resource-usage-monitoring/">docs</a>.</p>
 <p>So what does Prometheus do? Well, it collects metrics from configured targets at given intervals, evaluates rule expressions, displays the results, and can trigger alerts if some condition is observed to be true.</p>
-
 <p>Well then, how to get started with it? Getting started with Prometheus shouldn&rsquo;t be that hard. You can get up and <a href="https://itnext.io/kubernetes-monitoring-with-prometheus-in-15-minutes-8e54d1de2e13">running quickly</a>. And although you get some beautiful graphs in a second, you may not know what you are doing. So here is a blog that takes some steps back and takes the from scratch approach.</p>
-
 <p>I would recommend <a href="https://www.prometheusbook.com/">this</a> book by the way.</p>
-
 <h2 id="installing-prometheus">Installing Prometheus</h2>
-
 <p>Grab the latest version from <a href="https://github.com/prometheus/prometheus/releases">here</a></p>
-
-<pre><code class="language-sh">tar -xzf prometheus-2.6.0.linux-amd64.tar.gz
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tar -xzf prometheus-2.6.0.linux-amd64.tar.gz
 sudo cp prometheus-2.6.0.linux-amd64/prometheus /usr/local/bin/
 sudo cp prometheus-2.6.0.linux-amd64/promtool /usr/local/bin/
-</code></pre>
-
-<p>You can now go ahead and see if the installation went well:</p>
-
-<pre><code class="language-sh">prometheus --version
-</code></pre>
-
-<p>This should return the current version.</p>
-
-<p><img src="/uploads/monitoring-logging-1.png" alt="" /></p>
-
+</code></pre></div><p>You can now go ahead and see if the installation went well:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">prometheus --version
+</code></pre></div><p>This should return the current version.</p>
+<p><img src="/uploads/monitoring-logging-1.png" alt=""></p>
 <p>Now go ahead and copy the promotheus.yml file from the extracted folder to /etc/prometheus and start the server:</p>
-
-<pre><code class="language-sh">sudo mkdir /etc/prometheus
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo mkdir /etc/prometheus
 sudo cp prometheus.yml /etc/prometheus/
-prometheus --config.file &quot;/etc/prometheus.yml&quot;
-</code></pre>
-
-<p>If you browse to <code>localhost:9090</code> you will see the Prometheus dashboard and you can execute some of the queries in the dropdown list.
+prometheus --config.file <span style="color:#e6db74">&#34;/etc/prometheus.yml&#34;</span>
+</code></pre></div><p>If you browse to <code>localhost:9090</code> you will see the Prometheus dashboard and you can execute some of the queries in the dropdown list.
 What it basically does right now is monitoring itself.</p>
-
-<p><img src="/uploads/monitoring-logging-2.png" alt="" /></p>
-
+<p><img src="/uploads/monitoring-logging-2.png" alt=""></p>
 <h3 id="monitoring-a-node">Monitoring a node</h3>
-
 <p>Download and install the node exporter here:
 <a href="https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz">https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz</a></p>
-
-<pre><code class="language-sh">tar -xzf node_exp*
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tar -xzf node_exp*
 sudo cp node_exporter-*/node_exporter /usr/local/bin
-</code></pre>
-
-<p>Configure the Textfile collector</p>
-
-<pre><code class="language-sh">sudo mkdir -p /var/lib/node_exporter/textfile_collector
-echo 'metadata{role=&quot;docker_server&quot;,datacenter=&quot;RDAM&quot;} 1' | sudo tee \
+</code></pre></div><p>Configure the Textfile collector</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo mkdir -p /var/lib/node_exporter/textfile_collector
+echo <span style="color:#e6db74">&#39;metadata{role=&#34;docker_server&#34;,datacenter=&#34;RDAM&#34;} 1&#39;</span> | sudo tee <span style="color:#ae81ff">\</span>
  /var/lib/node_exporter/textfile_collector/metadata.prom
-</code></pre>
-
-<p>Then we can launch node_exporter:</p>
-
-<pre><code class="language-sh">node_exporter --collector.textfile.directory /var/lib/node_exporter/textfile_collector \
---collector.systemd --collector.systemd.unit-whitelist=&quot;(docker|ssh|rsyslog).service&quot;
-</code></pre>
-
-<p>Then scrape it. Our new prometheus.yml file will look like so:</p>
-
-<pre><code class="language-yml">scrape_configs:
-  - job_name: &quot;prometheus&quot;
+</code></pre></div><p>Then we can launch node_exporter:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">node_exporter --collector.textfile.directory /var/lib/node_exporter/textfile_collector <span style="color:#ae81ff">\</span>
+--collector.systemd --collector.systemd.unit-whitelist<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(docker|ssh|rsyslog).service&#34;</span>
+</code></pre></div><p>Then scrape it. Our new prometheus.yml file will look like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">scrape_configs:
+  - <span style="color:#66d9ef">job_name</span>: <span style="color:#e6db74">&#34;prometheus&#34;</span>
     static_configs:
-      - targets: [&quot;localhost:9090&quot;]
-  - job_name: &quot;node&quot;
+      - <span style="color:#66d9ef">targets</span>: [<span style="color:#e6db74">&#34;localhost:9090&#34;</span>]
+  - <span style="color:#66d9ef">job_name</span>: <span style="color:#e6db74">&#34;node&#34;</span>
     static_configs:
-      - targets: [&quot;192.168.2.66:9100&quot;]
-</code></pre>
-
-<p>This is a first post on Prometheus. Next time I will write about running Prometheus in Kubernetes.</p>
+      - <span style="color:#66d9ef">targets</span>: [<span style="color:#e6db74">&#34;192.168.2.66:9100&#34;</span>]
+</code></pre></div><p>This is a first post on Prometheus. Next time I will write about running Prometheus in Kubernetes.</p>
 
 </div>
 
@@ -342,7 +309,7 @@ echo 'metadata{role=&quot;docker_server&quot;,datacenter=&quot;RDAM&quot;} 1' | 
   
 <div class="container footline">
   
-  code with <i class='fa fa-heart'></i>
+  code with <!-- raw HTML omitted --><!-- raw HTML omitted -->
 
 
 </div>
@@ -351,7 +318,7 @@ echo 'metadata{role=&quot;docker_server&quot;,datacenter=&quot;RDAM&quot;} 1' | 
   
 <div class="container copyright">
   
-  &copy; 2019 Jacqueline
+  (c) 2019 Jacqueline
 
 
 </div>

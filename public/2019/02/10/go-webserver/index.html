@@ -66,7 +66,7 @@
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
 <link href="https://www.moonstreet.nl/favicon.png" rel="icon">
 
-<meta name="generator" content="Hugo 0.59.1" />
+<meta name="generator" content="Hugo 0.63.2" />
 
   <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -200,62 +200,45 @@
 
   <div class="container content">
   <p>The last Golang post was a little bit lame so let&rsquo;s do something more interesting now. Let&rsquo;s create a webserver.</p>
-
 <p>To create a simple webserver, we need:</p>
-
 <ul>
 <li>a function that can serve a page in browser (using http obviously)</li>
 <li>it should listen at a port</li>
 <li>it should respond to (handle) incoming requests</li>
 <li>it should be able to write content to the page</li>
 </ul>
-
 <p>First create a new project structure:</p>
-
-<pre><code class="language-sh">mkdir -p ~/go/src/httpserver
-</code></pre>
-
-<p>Then create this file:</p>
-
-<pre><code class="language-sh">cat &gt; ~/go/src/httpserver/main.go &lt;&lt;EOF
-package main
-
-import &quot;net/http&quot;
-
-func main() {
-	http.HandleFunc(&quot;/&quot;, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(&quot;&lt;h1&gt;Go webserver&lt;/h1&gt;&quot;))
-	})
-	http.ListenAndServe(&quot;:8000&quot;, nil)
-}
-EOF
-</code></pre>
-
-<p>So what is this about?</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mkdir -p ~/go/src/httpserver
+</code></pre></div><p>Then create this file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat &gt; ~/go/src/httpserver/main.go <span style="color:#e6db74">&lt;&lt;EOF
+</span><span style="color:#e6db74">package main
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">import &#34;net/http&#34;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">func main() {
+</span><span style="color:#e6db74">	http.HandleFunc(&#34;/&#34;, func(w http.ResponseWriter, r *http.Request) {
+</span><span style="color:#e6db74">		w.Write([]byte(&#34;&lt;h1&gt;Go webserver&lt;/h1&gt;&#34;))
+</span><span style="color:#e6db74">	})
+</span><span style="color:#e6db74">	http.ListenAndServe(&#34;:8000&#34;, nil)
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>So what is this about?</p>
 <ul>
 <li>We are using the http package from the Go standard library</li>
 <li>The http package has a method HandleFunc.</li>
-<li>It&rsquo;s first argument is the forward slash &laquo;/&raquo; so it will respond to all requests</li>
+<li>It&rsquo;s first argument is the forward slash &ldquo;/&rdquo; so it will respond to all requests</li>
 <li>The second argument is the callback. It takes two arguments: a response writer and a pointer to the request</li>
 <li>We need to write out our response in a byte array.</li>
 </ul>
-
 <p>Finally we let our http server listen to port 8000 with ListenAndServe.
-The second argument has a value of &laquo;nil&raquo;, in which case the DefaultServerMux is used (more about that later).</p>
-
+The second argument has a value of &ldquo;nil&rdquo;, in which case the DefaultServerMux is used (more about that later).</p>
 <p>We now execute:</p>
-
-<pre><code class="language-sh">cd ~/go/src/httpserver
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd ~/go/src/httpserver
 go build main.go
 ./main
-</code></pre>
-
-<p>Then browse to localhost:8000.</p>
-
+</code></pre></div><p>Then browse to localhost:8000.</p>
 <p>Result:</p>
-
-<p><img src="/uploads/gowebserver.png" alt="" /></p>
+<p><img src="/uploads/gowebserver.png" alt=""></p>
 
 </div>
 
@@ -323,7 +306,7 @@ go build main.go
   
 <div class="container footline">
   
-  code with <i class='fa fa-heart'></i>
+  code with <!-- raw HTML omitted --><!-- raw HTML omitted -->
 
 
 </div>
@@ -332,7 +315,7 @@ go build main.go
   
 <div class="container copyright">
   
-  &copy; 2019 Jacqueline
+  (c) 2019 Jacqueline
 
 
 </div>

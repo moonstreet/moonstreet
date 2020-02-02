@@ -66,7 +66,7 @@
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
 <link href="https://www.moonstreet.nl/favicon.png" rel="icon">
 
-<meta name="generator" content="Hugo 0.59.1" />
+<meta name="generator" content="Hugo 0.63.2" />
 
   <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -201,34 +201,23 @@
 </header>
 
   <div class="container content">
-  
-
-<h1 id="terraform">Terraform</h1>
-
-<p>This blogseries is about my adventures in AKS and Terraform. This first article is about Terraform.<br />
+  <h1 id="terraform">Terraform</h1>
+<p>This blogseries is about my adventures in AKS and Terraform. This first article is about Terraform.<br>
 This assumes you have an Azure account.</p>
-
 <h2 id="prepare">Prepare</h2>
-
 <p>Create a service principal with contributor permissions on Azure Subscription level. We can fine tune the permissions later.</p>
-
-<pre><code class="language-sh">AZ_SUB=&quot;your subscription id&quot;
-AZ_SECRET=&quot;S3cr3tPasw0rd&quot;
-NAME=&quot;terraform-partner-sub&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">AZ_SUB<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;your subscription id&#34;</span>
+AZ_SECRET<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;S3cr3tPasw0rd&#34;</span>
+NAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;terraform-partner-sub&#34;</span>
 
 az login
 az account set --subscription $AZ_SUB
-az ad sp create-for-rbac --name $NAME-installation-account --password $AZ_SECRET --years 2
-</code></pre>
-
-<p>Now this account has contributor permissions on the subscription level.
-The account is valid for 2 years.<br />
+az ad sp create-for-rbac --name $NAME-installation-account --password $AZ_SECRET --years <span style="color:#ae81ff">2</span>
+</code></pre></div><p>Now this account has contributor permissions on the subscription level.
+The account is valid for 2 years.<br>
 Save the login info this command returns somewhere really safe.</p>
-
 <h2 id="set-up-terraform">Set up Terraform</h2>
-
 <p>Set up a folder structure. In the following example there is an aks-cluster project and a jenkins project (in the future I might want to build a Jenkins server with Terraform).</p>
-
 <pre><code>└── infrastructure-as-code
     ├── aks-cluster
     │   ├── dev
@@ -236,80 +225,54 @@ Save the login info this command returns somewhere really safe.</p>
     ├── jenkins
     └── modules
 
-</code></pre>
-
-<p>Let&rsquo;s install Terraform. Should work on any Linux distro with sudo enabled:</p>
-
-<pre><code class="language-sh">wget https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_amd64.zip
+</code></pre><p>Let&rsquo;s install Terraform. Should work on any Linux distro with sudo enabled:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">wget https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_amd64.zip
 unzip terraform_0.12.2_linux_amd64.zip
 sudo mv terraform /usr/local/bin
-</code></pre>
-
-<p>Let&rsquo;s start with our sandbox environment.</p>
-
-<pre><code class="language-sh">cd aks-cluster/sandbox
-</code></pre>
-
-<p>The first thing we need to do is create a Terraform file and confugure the Azure provider.</p>
-
-<pre><code class="language-sh">cat &gt; infrastructure.tf &lt;&lt;'EOF'
-provider &quot;azurerm&quot; {
-  subscription_id = &quot;${var.az_subscription_id}&quot;
-  client_id       = &quot;${var.az_client_id}&quot;
-  client_secret   = &quot;${var.az_secret}&quot;
-  tenant_id       = &quot;${var.az_tenant_id}&quot;
-  version         = &quot;=1.28.0&quot;
-}
-EOF
-</code></pre>
-
-<p>We need to declare these variable somewhere. Let&rsquo;s create a vars file for that.</p>
-
-<pre><code class="language-sh">cat &gt; vars.tf &lt;&lt;'EOF'
-variable &quot;az_subscription_id&quot; {}
-variable &quot;az_client_id&quot; {}
-variable &quot;az_secret&quot; {}
-variable &quot;az_tenant_id&quot; {}
-}
-EOF
-</code></pre>
-
-<p>Note the curly braces. It is also possible to give some extra attributes to the vars like this:</p>
-
+</code></pre></div><p>Let&rsquo;s start with our sandbox environment.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd aks-cluster/sandbox
+</code></pre></div><p>The first thing we need to do is create a Terraform file and confugure the Azure provider.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat &gt; infrastructure.tf <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39;
+</span><span style="color:#e6db74">provider &#34;azurerm&#34; {
+</span><span style="color:#e6db74">  subscription_id = &#34;${var.az_subscription_id}&#34;
+</span><span style="color:#e6db74">  client_id       = &#34;${var.az_client_id}&#34;
+</span><span style="color:#e6db74">  client_secret   = &#34;${var.az_secret}&#34;
+</span><span style="color:#e6db74">  tenant_id       = &#34;${var.az_tenant_id}&#34;
+</span><span style="color:#e6db74">  version         = &#34;=1.28.0&#34;
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>We need to declare these variable somewhere. Let&rsquo;s create a vars file for that.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat &gt; vars.tf <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39;
+</span><span style="color:#e6db74">variable &#34;az_subscription_id&#34; {}
+</span><span style="color:#e6db74">variable &#34;az_client_id&#34; {}
+</span><span style="color:#e6db74">variable &#34;az_secret&#34; {}
+</span><span style="color:#e6db74">variable &#34;az_tenant_id&#34; {}
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>Note the curly braces. It is also possible to give some extra attributes to the vars like this:</p>
 <pre><code>variable &quot;az_secret&quot; {
   type        = &quot;string&quot;
   description = &quot;The secret of the principal&quot;
   default     = &quot;AsIfThereWasAD3faultS3cret&quot;
 }
-</code></pre>
-
-<p>And finally, initialize the variables. This is done in a <code>tfvars</code> document. Since version 0.12 it supports the json format as well.</p>
-
-<pre><code class="language-sh">cat &gt; sandbox.tfvars.json &lt;&lt;'EOF'
-{
-&quot;az_subscription_id&quot;:&quot;your subscription id&quot;,
-&quot;az_client_id&quot;:&quot;your app id&quot;,
-&quot;az_secret&quot;: &quot;****&quot;
-&quot;az_tenant_id&quot;:&quot;your tenant id&quot;
-}
-EOF
-</code></pre>
-
-<p>Let&rsquo;s now initialize Terraform to see if everything is OK:</p>
-
+</code></pre><p>And finally, initialize the variables. This is done in a <code>tfvars</code> document. Since version 0.12 it supports the json format as well.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat &gt; sandbox.tfvars.json <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39;
+</span><span style="color:#e6db74">{
+</span><span style="color:#e6db74">&#34;az_subscription_id&#34;:&#34;your subscription id&#34;,
+</span><span style="color:#e6db74">&#34;az_client_id&#34;:&#34;your app id&#34;,
+</span><span style="color:#e6db74">&#34;az_secret&#34;: &#34;****&#34;
+</span><span style="color:#e6db74">&#34;az_tenant_id&#34;:&#34;your tenant id&#34;
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>Let&rsquo;s now initialize Terraform to see if everything is OK:</p>
 <pre><code>terraform init
 terraform plan --var-file sandbox.tfvars.json -out terraform_plan -input=false
-</code></pre>
-
-<p>I am adding <code>-out terraform_plan -input=false</code> because I don&rsquo;t want to manually input anything. This comes in handy later when you run this in a pipeline.
+</code></pre><p>I am adding <code>-out terraform_plan -input=false</code> because I don&rsquo;t want to manually input anything. This comes in handy later when you run this in a pipeline.
 This should download the Terraform azurerm plugin and tell you that everything is OK.</p>
-
 <h2 id="save-terraform-state-elsewhere-in-azure-storage">Save Terraform state elsewhere (in Azure storage)</h2>
-
-<p>We don&rsquo;t want to keep our state in source control or on our local computer. It might get lost and it contains some sensitive information about the environment.<br />
-So just quickly create a storage account then add a container named terraform to the blob storage.<br />
+<p>We don&rsquo;t want to keep our state in source control or on our local computer. It might get lost and it contains some sensitive information about the environment.<br>
+So just quickly create a storage account then add a container named terraform to the blob storage.<br>
 Add the following on top of terraform.tf:</p>
-
 <pre><code>terraform {
   backend &quot;azurerm&quot; {
     storage_account_name = &quot;microbotstorage&quot;
@@ -318,14 +281,9 @@ Add the following on top of terraform.tf:</p>
     access_key           = &quot;***&quot;
   }
 }
-</code></pre>
-
-<p>And we are save. Also look here: <a href="https://docs.microsoft.com/en-us/azure/terraform/terraform-backend">https://docs.microsoft.com/en-us/azure/terraform/terraform-backend</a></p>
-
+</code></pre><p>And we are save. Also look here: <a href="https://docs.microsoft.com/en-us/azure/terraform/terraform-backend">https://docs.microsoft.com/en-us/azure/terraform/terraform-backend</a></p>
 <h2 id="build-the-network">Build the Network</h2>
-
 <p>Add the following to the infrastructure.tf file:</p>
-
 <pre><code>resource &quot;azurerm_resource_group&quot; &quot;network&quot; {
   name     = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-network-rg&quot;
   location = &quot;${var.az_region}&quot;
@@ -345,10 +303,7 @@ resource &quot;azurerm_subnet&quot; &quot;k8s-subnet&quot; {
   address_prefix       = &quot;${var.az_vnet_kubernetes_subnet}&quot;
   service_endpoints    = [&quot;Microsoft.Sql&quot;, &quot;Microsoft.Storage&quot;]
 }
-</code></pre>
-
-<p>We need to add some extra variables to our vars file. The vars file looks like this.</p>
-
+</code></pre><p>We need to add some extra variables to our vars file. The vars file looks like this.</p>
 <pre><code>variable &quot;environment&quot; {}
 variable &quot;prefix&quot; {}
 variable &quot;az_subscription_id&quot; {}
@@ -359,21 +314,13 @@ variable &quot;location_abbreviation&quot; {}
 variable &quot;az_region&quot; {}
 variable &quot;az_vnet_kubernetes_subnet&quot; {}
 variable &quot;az_vnet_address&quot; {}
-</code></pre>
-
-<p>Let&rsquo;s install this:</p>
-
+</code></pre><p>Let&rsquo;s install this:</p>
 <pre><code>terraform plan --var-file sandbox.tfvars.json -out terraform_plan -input=false
 terraform apply --var-file sandbox.tfvars.json -out terraform_plan -input=false
-</code></pre>
-
-<p>Now have a quick look and you should see these resources are installed in Azure.</p>
-
+</code></pre><p>Now have a quick look and you should see these resources are installed in Azure.</p>
 <h2 id="modularize">Modularize</h2>
-
 <p>It&rsquo;s good practice to modularize Terraform projects, so let&rsquo;s make a module of the network creation.
 In our module folder, we&rsquo;ll create a dir named vnet and then we wil add two files, vnet.tf and vnet.vars:</p>
-
 <pre><code>└── infrastructure-as-code
     ├── aks-cluster
     │   ├── dev
@@ -387,221 +334,194 @@ In our module folder, we&rsquo;ll create a dir named vnet and then we wil add tw
         └── vnet
             ├── vnet.tf
             └── vnetvars.tf
-</code></pre>
+</code></pre><p>We cut and paste this portion from sandbox/infrastructure.tf to modules/vnet/vnet.tf:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">resource <span style="color:#e6db74">&#34;azurerm_resource_group&#34;</span> <span style="color:#e6db74">&#34;network&#34;</span> <span style="color:#f92672">{</span>
+  name     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.prefix<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.environment<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.location_abbreviation<span style="color:#e6db74">}</span><span style="color:#e6db74">-network-rg</span><span style="color:#e6db74">&#34;</span>
+  location <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_region<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#f92672">}</span>
 
-<p>We cut and paste this portion from sandbox/infrastructure.tf to modules/vnet/vnet.tf:</p>
+<span style="color:#75715e"># Create virtual network and subnets</span>
+resource <span style="color:#e6db74">&#34;azurerm_virtual_network&#34;</span> <span style="color:#e6db74">&#34;vnet&#34;</span> <span style="color:#f92672">{</span>
+  name                <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.prefix<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.environment<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.location_abbreviation<span style="color:#e6db74">}</span><span style="color:#e6db74">-vnet</span><span style="color:#e6db74">&#34;</span>
+  address_space       <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_vnet_address<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">]</span>
+  location            <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_region<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  resource_group_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>azurerm_resource_group.network.name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#f92672">}</span>
 
-<pre><code class="language-sh">resource &quot;azurerm_resource_group&quot; &quot;network&quot; {
-  name     = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-network-rg&quot;
-  location = &quot;${var.az_region}&quot;
-}
+resource <span style="color:#e6db74">&#34;azurerm_subnet&#34;</span> <span style="color:#e6db74">&#34;k8s-subnet&#34;</span> <span style="color:#f92672">{</span>
+  name                 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.prefix<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.environment<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.location_abbreviation<span style="color:#e6db74">}</span><span style="color:#e6db74">-kubernetes-subnet</span><span style="color:#e6db74">&#34;</span>
+  resource_group_name  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>azurerm_resource_group.network.name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  virtual_network_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>azurerm_virtual_network.vnet.name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  address_prefix       <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_vnet_kubernetes_subnet<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  service_endpoints    <span style="color:#f92672">=</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Microsoft.Sql&#34;</span>, <span style="color:#e6db74">&#34;Microsoft.Storage&#34;</span><span style="color:#f92672">]</span>
+<span style="color:#f92672">}</span>
 
-# Create virtual network and subnets
-resource &quot;azurerm_virtual_network&quot; &quot;vnet&quot; {
-  name                = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-vnet&quot;
-  address_space       = [&quot;${var.az_vnet_address}&quot;]
-  location            = &quot;${var.az_region}&quot;
-  resource_group_name = &quot;${azurerm_resource_group.network.name}&quot;
-}
+</code></pre></div><p>And in modules/vnet/vnetvars.tf we will paste the relevant vnet vars:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">variable <span style="color:#e6db74">&#34;environment&#34;</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
+variable <span style="color:#e6db74">&#34;prefix&#34;</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
+variable <span style="color:#e6db74">&#34;location_abbreviation&#34;</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
+variable <span style="color:#e6db74">&#34;az_region&#34;</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
+variable <span style="color:#e6db74">&#34;az_vnet_kubernetes_subnet&#34;</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
+variable <span style="color:#e6db74">&#34;az_vnet_address&#34;</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
+</code></pre></div><p>And now sandbox/infrastructure looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">terraform <span style="color:#f92672">{</span>
+  backend <span style="color:#e6db74">&#34;azurerm&#34;</span> <span style="color:#f92672">{</span>
+    storage_account_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;microbotstorage&#34;</span>
+    container_name       <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;terraform&#34;</span>
+    key                  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sandbox_tfstate&#34;</span>
+    access_key           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;***************&#34;</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
 
-resource &quot;azurerm_subnet&quot; &quot;k8s-subnet&quot; {
-  name                 = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-kubernetes-subnet&quot;
-  resource_group_name  = &quot;${azurerm_resource_group.network.name}&quot;
-  virtual_network_name = &quot;${azurerm_virtual_network.vnet.name}&quot;
-  address_prefix       = &quot;${var.az_vnet_kubernetes_subnet}&quot;
-  service_endpoints    = [&quot;Microsoft.Sql&quot;, &quot;Microsoft.Storage&quot;]
-}
+provider <span style="color:#e6db74">&#34;azurerm&#34;</span> <span style="color:#f92672">{</span>
+  subscription_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_subscription_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  client_id       <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_client_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  client_secret   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_secret<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  tenant_id       <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_tenant_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  version         <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1.28.0&#34;</span>
+<span style="color:#f92672">}</span>
 
-</code></pre>
+module <span style="color:#e6db74">&#34;vnet&#34;</span> <span style="color:#f92672">{</span>
+  source                    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;../../modules/vnet&#34;</span>
+  prefix                    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.prefix<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  environment               <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.environment<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  location_abbreviation     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.location_abbreviation<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  az_vnet_address           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_vnet_address<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  az_region                 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_region<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  az_vnet_kubernetes_subnet <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_vnet_kubernetes_subnet<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#f92672">}</span>
 
-<p>And in modules/vnet/vnetvars.tf we will paste the relevant vnet vars:</p>
-
-<pre><code class="language-sh">variable &quot;environment&quot; {}
-variable &quot;prefix&quot; {}
-variable &quot;location_abbreviation&quot; {}
-variable &quot;az_region&quot; {}
-variable &quot;az_vnet_kubernetes_subnet&quot; {}
-variable &quot;az_vnet_address&quot; {}
-</code></pre>
-
-<p>And now sandbox/infrastructure looks like this:</p>
-
-<pre><code class="language-sh">terraform {
-  backend &quot;azurerm&quot; {
-    storage_account_name = &quot;microbotstorage&quot;
-    container_name       = &quot;terraform&quot;
-    key                  = &quot;sandbox_tfstate&quot;
-    access_key           = &quot;***************&quot;
-  }
-}
-
-provider &quot;azurerm&quot; {
-  subscription_id = &quot;${var.az_subscription_id}&quot;
-  client_id       = &quot;${var.az_client_id}&quot;
-  client_secret   = &quot;${var.az_secret}&quot;
-  tenant_id       = &quot;${var.az_tenant_id}&quot;
-  version         = &quot;1.28.0&quot;
-}
-
-module &quot;vnet&quot; {
-  source                    = &quot;../../modules/vnet&quot;
-  prefix                    = &quot;${var.prefix}&quot;
-  environment               = &quot;${var.environment}&quot;
-  location_abbreviation     = &quot;${var.location_abbreviation}&quot;
-  az_vnet_address           = &quot;${var.az_vnet_address}&quot;
-  az_region                 = &quot;${var.az_region}&quot;
-  az_vnet_kubernetes_subnet = &quot;${var.az_vnet_kubernetes_subnet}&quot;
-}
-
-</code></pre>
-
-<p>It looks like we duplicated a lot, but it isn&rsquo;t really. The modules need variables declared, but so does our sandbox configuration that consumes the module. We can now add more environments and supply different values for the modules.<br />
+</code></pre></div><p>It looks like we duplicated a lot, but it isn&rsquo;t really. The modules need variables declared, but so does our sandbox configuration that consumes the module. We can now add more environments and supply different values for the modules.<br>
 Let&rsquo;s carry on and create the cluster, as a module.</p>
-
 <h2 id="add-the-cluster">Add the cluster</h2>
-
 <p>This is how I defined the AKS cluster, with monitoring support.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">resource <span style="color:#e6db74">&#34;azurerm_resource_group&#34;</span> <span style="color:#e6db74">&#34;k8s&#34;</span> <span style="color:#f92672">{</span>
+  name     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.prefix<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.environment<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.location_abbreviation<span style="color:#e6db74">}</span><span style="color:#e6db74">-cluster-rg</span><span style="color:#e6db74">&#34;</span>
+  location <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_region<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#f92672">}</span>
+resource <span style="color:#e6db74">&#34;azurerm_resource_group&#34;</span> <span style="color:#e6db74">&#34;logging&#34;</span> <span style="color:#f92672">{</span>
+  name     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.prefix<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.environment<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.location_abbreviation<span style="color:#e6db74">}</span><span style="color:#e6db74">-logging-rg</span><span style="color:#e6db74">&#34;</span>
+  location <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_region<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#f92672">}</span>
 
-<pre><code class="language-sh">resource &quot;azurerm_resource_group&quot; &quot;k8s&quot; {
-  name     = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-cluster-rg&quot;
-  location = &quot;${var.az_region}&quot;
-}
-resource &quot;azurerm_resource_group&quot; &quot;logging&quot; {
-  name     = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-logging-rg&quot;
-  location = &quot;${var.az_region}&quot;
-}
+resource <span style="color:#e6db74">&#34;azurerm_log_analytics_workspace&#34;</span> <span style="color:#e6db74">&#34;space&#34;</span> <span style="color:#f92672">{</span>
+  name                <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.prefix<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.environment<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.location_abbreviation<span style="color:#e6db74">}</span><span style="color:#e6db74">-loganalytics-workspace</span><span style="color:#e6db74">&#34;</span>
+  location            <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_region<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  resource_group_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>azurerm_resource_group.logging.name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  sku                 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PerGB2018&#34;</span>
+<span style="color:#f92672">}</span>
 
-resource &quot;azurerm_log_analytics_workspace&quot; &quot;space&quot; {
-  name                = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-loganalytics-workspace&quot;
-  location            = &quot;${var.az_region}&quot;
-  resource_group_name = &quot;${azurerm_resource_group.logging.name}&quot;
-  sku                 = &quot;PerGB2018&quot;
-}
+resource <span style="color:#e6db74">&#34;azurerm_log_analytics_solution&#34;</span> <span style="color:#e6db74">&#34;oms&#34;</span> <span style="color:#f92672">{</span>
+  solution_name         <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ContainerInsights&#34;</span>
+  location              <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>azurerm_log_analytics_workspace.space.location<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  resource_group_name   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>azurerm_log_analytics_workspace.space.resource_group_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  workspace_resource_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>azurerm_log_analytics_workspace.space.id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  workspace_name        <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>azurerm_log_analytics_workspace.space.name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
 
-resource &quot;azurerm_log_analytics_solution&quot; &quot;oms&quot; {
-  solution_name         = &quot;ContainerInsights&quot;
-  location              = &quot;${azurerm_log_analytics_workspace.space.location}&quot;
-  resource_group_name   = &quot;${azurerm_log_analytics_workspace.space.resource_group_name}&quot;
-  workspace_resource_id = &quot;${azurerm_log_analytics_workspace.space.id}&quot;
-  workspace_name        = &quot;${azurerm_log_analytics_workspace.space.name}&quot;
+  plan <span style="color:#f92672">{</span>
+    publisher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Microsoft&#34;</span>
+    product   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;OMSGallery/ContainerInsights&#34;</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
 
-  plan {
-    publisher = &quot;Microsoft&quot;
-    product   = &quot;OMSGallery/ContainerInsights&quot;
-  }
-}
+resource <span style="color:#e6db74">&#34;azurerm_kubernetes_cluster&#34;</span> <span style="color:#e6db74">&#34;k8s&#34;</span> <span style="color:#f92672">{</span>
+  name                <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.prefix<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.environment<span style="color:#e6db74">}</span><span style="color:#e6db74">-</span><span style="color:#e6db74">${</span>var.location_abbreviation<span style="color:#e6db74">}</span><span style="color:#e6db74">-cluster</span><span style="color:#e6db74">&#34;</span>
+  location            <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>azurerm_resource_group.k8s.location<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  resource_group_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>azurerm_resource_group.k8s.name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  dns_prefix          <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.prefix<span style="color:#e6db74">}</span><span style="color:#e6db74">${</span>var.environment<span style="color:#e6db74">}</span><span style="color:#e6db74">${</span>var.location_abbreviation<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  kubernetes_version  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_aks_version<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
 
-resource &quot;azurerm_kubernetes_cluster&quot; &quot;k8s&quot; {
-  name                = &quot;${var.prefix}-${var.environment}-${var.location_abbreviation}-cluster&quot;
-  location            = &quot;${azurerm_resource_group.k8s.location}&quot;
-  resource_group_name = &quot;${azurerm_resource_group.k8s.name}&quot;
-  dns_prefix          = &quot;${var.prefix}${var.environment}${var.location_abbreviation}&quot;
-  kubernetes_version  = &quot;${var.az_aks_version}&quot;
+  service_principal <span style="color:#f92672">{</span>
+    client_id     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_client_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+    client_secret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_secret<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  <span style="color:#f92672">}</span>
 
-  service_principal {
-    client_id     = &quot;${var.az_client_id}&quot;
-    client_secret = &quot;${var.az_secret}&quot;
-  }
+  addon_profile <span style="color:#f92672">{</span>
+    oms_agent <span style="color:#f92672">{</span>
+      enabled                    <span style="color:#f92672">=</span> true
+      log_analytics_workspace_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>azurerm_log_analytics_workspace.space.id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
 
-  addon_profile {
-    oms_agent {
-      enabled                    = true
-      log_analytics_workspace_id = &quot;${azurerm_log_analytics_workspace.space.id}&quot;
-    }
-  }
+  agent_pool_profile <span style="color:#f92672">{</span>
+    name            <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;agentpool&#34;</span>
+    count           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;2&#34;</span>
+    vm_size         <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_aks_vm_size<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+    os_type         <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Linux&#34;</span>
+    os_disk_size_gb <span style="color:#f92672">=</span> <span style="color:#ae81ff">60</span>
+    vnet_subnet_id  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_vnet_kubernetes_subnet_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+    max_pods        <span style="color:#f92672">=</span> <span style="color:#ae81ff">110</span>
+  <span style="color:#f92672">}</span>
 
-  agent_pool_profile {
-    name            = &quot;agentpool&quot;
-    count           = &quot;2&quot;
-    vm_size         = &quot;${var.az_aks_vm_size}&quot;
-    os_type         = &quot;Linux&quot;
-    os_disk_size_gb = 60
-    vnet_subnet_id  = &quot;${var.az_vnet_kubernetes_subnet_id}&quot;
-    max_pods        = 110
-  }
+  network_profile <span style="color:#f92672">{</span>
+    docker_bridge_cidr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;172.17.0.1/16&#34;</span>
+    dns_service_ip     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;10.2.0.10&#34;</span>
+    network_plugin     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;azure&#34;</span>
+    service_cidr       <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;10.2.0.0/16&#34;</span>
+  <span style="color:#f92672">}</span>
 
-  network_profile {
-    docker_bridge_cidr = &quot;172.17.0.1/16&quot;
-    dns_service_ip     = &quot;10.2.0.10&quot;
-    network_plugin     = &quot;azure&quot;
-    service_cidr       = &quot;10.2.0.0/16&quot;
-  }
+  role_based_access_control <span style="color:#f92672">{</span>
+    enabled <span style="color:#f92672">=</span> true
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
 
-  role_based_access_control {
-    enabled = true
-  }
-}
+</code></pre></div><p>The variables:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">variable <span style="color:#e6db74">&#34;prefix&#34;</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
 
-</code></pre>
+variable <span style="color:#e6db74">&#34;environment&#34;</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
 
-<p>The variables:</p>
+variable <span style="color:#e6db74">&#34;location_abbreviation&#34;</span> <span style="color:#f92672">{</span>
+  type        <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;string&#34;</span>
+  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Abbreviation of the location&#34;</span>
+  default     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;we&#34;</span>
+<span style="color:#f92672">}</span>
 
-<pre><code class="language-sh">variable &quot;prefix&quot; {}
+variable <span style="color:#e6db74">&#34;az_region&#34;</span> <span style="color:#f92672">{</span>
+  type        <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;string&#34;</span>
+  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Azure region for deployment&#34;</span>
+  default     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;West Europe&#34;</span>
+<span style="color:#f92672">}</span>
 
-variable &quot;environment&quot; {}
+variable <span style="color:#e6db74">&#34;az_aks_version&#34;</span> <span style="color:#f92672">{</span>
+  type        <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;string&#34;</span>
+  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Kubernetes Version - az aks get-versions --location westeurope --output table&#34;</span>
+  default     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1.12.7&#34;</span>
+<span style="color:#f92672">}</span>
 
-variable &quot;location_abbreviation&quot; {
-  type        = &quot;string&quot;
-  description = &quot;Abbreviation of the location&quot;
-  default     = &quot;we&quot;
-}
+variable <span style="color:#e6db74">&#34;az_aks_vm_size&#34;</span> <span style="color:#f92672">{</span>
+  type        <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;string&#34;</span>
+  description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Azure VM node size e.g. Standard_D2s_v3 or Standard_B4ms - az vm list-sizes --location westeurope&#34;</span>
+  default     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Standard_D2s_v3&#34;</span>
+<span style="color:#f92672">}</span>
 
-variable &quot;az_region&quot; {
-  type        = &quot;string&quot;
-  description = &quot;Azure region for deployment&quot;
-  default     = &quot;West Europe&quot;
-}
+variable <span style="color:#e6db74">&#34;az_vnet_kubernetes_subnet_id&#34;</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
 
-variable &quot;az_aks_version&quot; {
-  type        = &quot;string&quot;
-  description = &quot;Kubernetes Version - az aks get-versions --location westeurope --output table&quot;
-  default     = &quot;1.12.7&quot;
-}
+variable <span style="color:#e6db74">&#34;az_client_id&#34;</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
 
-variable &quot;az_aks_vm_size&quot; {
-  type        = &quot;string&quot;
-  description = &quot;Azure VM node size e.g. Standard_D2s_v3 or Standard_B4ms - az vm list-sizes --location westeurope&quot;
-  default     = &quot;Standard_D2s_v3&quot;
-}
+variable <span style="color:#e6db74">&#34;az_secret&#34;</span> <span style="color:#f92672">{</span><span style="color:#f92672">}</span>
 
-variable &quot;az_vnet_kubernetes_subnet_id&quot; {}
-
-variable &quot;az_client_id&quot; {}
-
-variable &quot;az_secret&quot; {}
-
-</code></pre>
-
-<p>So we already built the vnet, and now we want to put this Kubernetes cluster in it.
+</code></pre></div><p>So we already built the vnet, and now we want to put this Kubernetes cluster in it.
 <em>However, we need a reference to the subnet created by the vnet module</em> So how does that work?</p>
-
 <p>We add a file called modules/vnet/outputs.tf and add this piece of code to it:</p>
-
 <pre><code>output &quot;k8s_subnet_id&quot; {
   value = &quot;${azurerm_subnet.k8s-subnet.id}&quot;
 }
 
-</code></pre>
+</code></pre><p>We can reference that value with <code>&quot;${module.vnet.k8s_subnet_id}&quot;</code>, like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">
+module <span style="color:#e6db74">&#34;aks&#34;</span> <span style="color:#f92672">{</span>
+  source                <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;../../modules/aks&#34;</span>
+  prefix                <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.prefix<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  environment           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.environment<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  location_abbreviation <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.location_abbreviation<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
 
-<p>We can reference that value with <code>&quot;${module.vnet.k8s_subnet_id}&quot;</code>, like this:</p>
-
-<pre><code class="language-sh">
-module &quot;aks&quot; {
-  source                = &quot;../../modules/aks&quot;
-  prefix                = &quot;${var.prefix}&quot;
-  environment           = &quot;${var.environment}&quot;
-  location_abbreviation = &quot;${var.location_abbreviation}&quot;
-
-  az_region                    = &quot;${var.az_region}&quot;
-  az_vnet_kubernetes_subnet_id = &quot;${module.vnet.k8s_subnet_id}&quot;
-  az_aks_version               = &quot;${var.az_aks_version}&quot;
-  az_client_id                 = &quot;${var.az_client_id}&quot;
-  az_secret                    = &quot;${var.az_secret}&quot;
-}
-</code></pre>
-
-<p>I will post a Github repo once I finish this.</p>
-
+  az_region                    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_region<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  az_vnet_kubernetes_subnet_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>module.vnet.k8s_subnet_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  az_aks_version               <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_aks_version<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  az_client_id                 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_client_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+  az_secret                    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>var.az_secret<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>I will post a Github repo once I finish this.</p>
 <p><a href="https://stackoverflow.com/questions/51213871/terraform-provider-variable-sharing-in-modules">https://stackoverflow.com/questions/51213871/terraform-provider-variable-sharing-in-modules</a></p>
 
 </div>
@@ -670,7 +590,7 @@ module &quot;aks&quot; {
   
 <div class="container footline">
   
-  code with <i class='fa fa-heart'></i>
+  code with <!-- raw HTML omitted --><!-- raw HTML omitted -->
 
 
 </div>
@@ -679,7 +599,7 @@ module &quot;aks&quot; {
   
 <div class="container copyright">
   
-  &copy; 2019 Jacqueline
+  (c) 2019 Jacqueline
 
 
 </div>

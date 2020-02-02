@@ -23,7 +23,7 @@
       <description>Terraform This blogseries is about my adventures in AKS and Terraform. This first article is about Terraform.
 This assumes you have an Azure account.
 Prepare Create a service principal with contributor permissions on Azure Subscription level. We can fine tune the permissions later.
-AZ_SUB=&amp;quot;your subscription id&amp;quot; AZ_SECRET=&amp;quot;S3cr3tPasw0rd&amp;quot; NAME=&amp;quot;terraform-partner-sub&amp;quot; az login az account set --subscription $AZ_SUB az ad sp create-for-rbac --name $NAME-installation-account --password $AZ_SECRET --years 2  Now this account has contributor permissions on the subscription level.</description>
+AZ_SUB=&amp;#34;your subscription id&amp;#34; AZ_SECRET=&amp;#34;S3cr3tPasw0rd&amp;#34; NAME=&amp;#34;terraform-partner-sub&amp;#34; az login az account set --subscription $AZ_SUB az ad sp create-for-rbac --name $NAME-installation-account --password $AZ_SECRET --years 2 Now this account has contributor permissions on the subscription level.</description>
     </item>
     
     <item>

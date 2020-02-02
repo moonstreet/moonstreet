@@ -62,7 +62,7 @@
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
 <link href="https://www.moonstreet.nl/favicon.png" rel="icon">
 
-<meta name="generator" content="Hugo 0.59.1" />
+<meta name="generator" content="Hugo 0.63.2" />
 
   <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -195,90 +195,53 @@
 </header>
 
   <div class="container content">
-  <p>When learning Golang and coming from other (scripting) languages, that asterisk and ampersant may strike as a bit odd.<br />
+  <p>When learning Golang and coming from other (scripting) languages, that asterisk and ampersant may strike as a bit odd.<br>
 This is a beginner Golang post!</p>
-
 <p>Let&rsquo;s start with a basic Golang program outline and in the main func, let&rsquo;s create a variable named a and assign it the value Three-toed sloth.</p>
-
-<pre><code class="language-golang">package main
-import (
-    &quot;fmt&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
 )
-func main() {
-  a := &quot;Three-toed sloth&quot;
-  fmt.Println(a)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;Three-toed sloth&#34;</span>
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>)
 }
-</code></pre>
-
-<p>Notice the : before the = and that no type was specified. The Go compiler is able to derive the type based on the literal value of the variable. So it knows it&rsquo;s a string.</p>
-
+</code></pre></div><p>Notice the : before the = and that no type was specified. The Go compiler is able to derive the type based on the literal value of the variable. So it knows it&rsquo;s a string.</p>
 <p>I could also have declared the variable like this:</p>
-
-<pre><code class="language-golang">var a string = 'Three-toed slothCopy
-</code></pre>
-
-<p>Ok, so the program will return:</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#66d9ef">string</span> = <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">Three</span><span style="color:#f92672">-</span><span style="color:#a6e22e">toed</span> <span style="color:#a6e22e">slothCopy</span>
+</code></pre></div><p>Ok, so the program will return:</p>
 <p><code>Three-toed sloth</code></p>
-
 <p>So you see that a is assigned a value of Three-toed sloth. It has stored that value in memory. And we can get the memory address by adding the &amp; (ampersant).</p>
-
 <p>Like this:</p>
-
-<pre><code class="language-golang">package main
-import (
-    &quot;fmt&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
 )
-func main() {
-  a := &quot;Three-toed sloth&quot;
-  fmt.Println(a)
-  fmt.Println(&amp;a)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;Three-toed sloth&#34;</span>
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>)
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>)
 }
-</code></pre>
-
-<p>This will return:</p>
-
+</code></pre></div><p>This will return:</p>
 <pre><code>Three-toed sloth
 0xc0000861c0
-</code></pre>
-
-<p>We can get the types like so:</p>
-
+</code></pre><p>We can get the types like so:</p>
 <pre><code>fmt.Printf(&quot;%T\n&quot;,a)
 fmt.Printf(&quot;%T\n&quot;,&amp;a)
-</code></pre>
-
-<p>Adding this to our func will return:</p>
-
+</code></pre><p>Adding this to our func will return:</p>
 <pre><code> string
 *string
-</code></pre>
-
-<p>We can also get the value of what is stored on that memory address like so (with the asterisk!):</p>
-
+</code></pre><p>We can also get the value of what is stored on that memory address like so (with the asterisk!):</p>
 <pre><code>  b := &amp;a
   fmt.Println(*b)Copy
-</code></pre>
-
-<p>This will return:</p>
-
+</code></pre><p>This will return:</p>
 <pre><code>Three-toed sloth
-</code></pre>
-
-<p>And finally we can do:</p>
-
+</code></pre><p>And finally we can do:</p>
 <pre><code>fmt.Println(*&amp;b)
-</code></pre>
-
-<p>Now what would that return?</p>
-
+</code></pre><p>Now what would that return?</p>
 <p>Exactly:</p>
-
 <pre><code>0xc0000861c0
-</code></pre>
-
-<p>Anyways, here is the complete code of this very useful exercise:</p>
-
+</code></pre><p>Anyways, here is the complete code of this very useful exercise:</p>
 <pre><code>package main
 import (
     &quot;fmt&quot;
@@ -294,14 +257,10 @@ func main() {
     fmt.Println(*b)
     fmt.Println(*&amp;b)
 }
-</code></pre>
-
-<p>So the gist of this post comes down to:</p>
-
-<p>The &amp; will give you the memory address.<br />
-The asterisk will give you the value stored at an address, aka the pointer to the memory location where the value of the variable is stored.<br />
+</code></pre><p>So the gist of this post comes down to:</p>
+<p>The &amp; will give you the memory address. <br>
+The asterisk will give you the value stored at an address, aka the pointer to the memory location where the value of the variable is stored.<br>
 Now consider this piece of code without any pointers:</p>
-
 <pre><code>package main
 import (
     &quot;fmt&quot;
@@ -318,17 +277,11 @@ func blah(y int) {
     y = 12
     fmt.Println(y)
 }
-</code></pre>
-
-<p>This will return</p>
-
+</code></pre><p>This will return</p>
 <pre><code>100 # from blah
 12 # from blah
 100
-</code></pre>
-
-<p>But when we change the signature of &lsquo;blah&rsquo; so that it will take in a memory address instead of an actual int</p>
-
+</code></pre><p>But when we change the signature of &lsquo;blah&rsquo; so that it will take in a memory address instead of an actual int</p>
 <pre><code>package main
 import (
     &quot;fmt&quot;
@@ -345,17 +298,11 @@ func blah(y *int) {
     *y = 12
     fmt.Println(&quot;2.From foo:&quot;, y)
 }
-</code></pre>
-
-<p>This will return</p>
-
+</code></pre><p>This will return</p>
 <pre><code>1.From foo: 0xc00001c0c8
 2.From foo: 0xc00001c0c8
 From main:  12
-</code></pre>
-
-<p>That value will be never be the value of 100 because the blah function assigns the memory address the value of 12.</p>
-
+</code></pre><p>That value will be never be the value of 100 because the blah function assigns the memory address the value of 12.</p>
 <p>Finally a tip for a great Golang mentor: <a href="https://twitter.com/Todd_McLeod">https://twitter.com/Todd_McLeod</a></p>
 
 </div>
@@ -420,7 +367,7 @@ From main:  12
   
 <div class="container footline">
   
-  code with <i class='fa fa-heart'></i>
+  code with <!-- raw HTML omitted --><!-- raw HTML omitted -->
 
 
 </div>
@@ -429,7 +376,7 @@ From main:  12
   
 <div class="container copyright">
   
-  &copy; 2019 Jacqueline
+  (c) 2019 Jacqueline
 
 
 </div>
