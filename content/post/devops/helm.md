@@ -6,10 +6,19 @@ image: ""
 author: ""
 ---
 
-Next thing is to install some nice application on our cluster. Why not use something that's ready to use? Enter Helm.
-But I'm old fashioned, I still did not take the plunge and use Helm v3. need to to that upgrade, but that's for a later blogpost.
+Next thing is to install some nice applications on our cluster. Why not use something that's ready to use? Enter Helm.
+But I'm old fashioned, I still did not take the plunge and use Helm v3. That's for a later blogpost.
 
 So let's enable Helm 2.14 on our MicroK8s cluster.
+
+First step is to enable Helm
+
+```bash
+microk8s.enable dashboard
+```
+
+Let's initialize Helm in our cluster.
+
 
 ```bash
 ~  (⎈ microk8s:default)                                                                                                                                                                                                               ⍉
@@ -38,7 +47,7 @@ kubectl create clusterrolebinding tiller \
 Delete the current replicaset
 
 ```bash
-kubectl delete -n kube-system replicaset tiller-deploy-77855d9dcf
+kubectl delete -n kube-system replicaset tiller-deploy-7somechars
 ```
 
 And then it works.
