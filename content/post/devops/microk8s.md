@@ -1,13 +1,11 @@
 ---
-title: "Microk8s"
+title: "Microk8s with kubectl, not microk8s.kubectl"
 date: 2020-02-02T11:44:02+01:00
 draft: false
 image: ""
 author: ""
 ---
 
-
-# Installing MicroK8s (and use kubectl, not microk8s.kubectl)
 
 Let's install MicroK8s, the easiest way to install Kubernetes on your computer. 
 After that, let's configure our system to use kubectl instead of microk8s.kubectl. 
