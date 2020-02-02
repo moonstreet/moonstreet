@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Starting With React  &middot; Moonstreet notes</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="description" content="" />
+
+<meta name="keywords" content="reactjs, ">
+
+
+<meta property="og:title" content="Starting With React  &middot; Moonstreet notes ">
+<meta property="og:site_name" content="Moonstreet notes"/>
+<meta property="og:url" content="https://www.moonstreet.nl/2020/02/02/starting-with-react/" />
+<meta property="og:locale" content="en-EN">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content=""/>
+<meta property="og:article:published_time" content="2020-02-02T11:30:36&#43;01:00" />
+<meta property="og:article:modified_time" content="2020-02-02T11:30:36&#43;01:00" />
+
+  
+    
+<meta property="og:article:tag" content="reactjs">
+    
+  
+
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@jacqoutthebox" />
+<meta name="twitter:creator" content="@jacqoutthebox" />
+<meta name="twitter:title" content="Starting With React" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:url" content="https://www.moonstreet.nl/2020/02/02/starting-with-react/" />
+<meta name="twitter:domain" content="https://www.moonstreet.nl">
+  
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "Starting With React",
+    "author": {
+      "@type": "Person",
+      "name": "yourname"
+    },
+    "datePublished": "2020-02-02",
+    "description": "",
+    "wordCount":  484 
+  }
+</script>
+
+
+
+<link rel="canonical" href="https://www.moonstreet.nl/2020/02/02/starting-with-react/" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.moonstreet.nl/touch-icon-144-precomposed.png">
+<link href="https://www.moonstreet.nl/favicon.png" rel="icon">
+
+<meta name="generator" content="Hugo 0.63.2" />
+
+  <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300%7CRaleway%7COpen+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight/tomorrow-night-blue.css">
+
+  
+  
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'Your Google Analytics tracking code', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+</head>
+<body>
+  <main id="main-wrapper" class="container main_wrapper has-sidebar">
+    <header id="main-header" class="container main_header">
+  <div class="container brand">
+  <div class="container title h1-like">
+  <a class="baselink" href="https://www.moonstreet.nl">
+  Moonstreet
+
+</a>
+
+</div>
+
+  
+<div class="container topline">
+  
+  A few notes about devops and automation
+
+
+</div>
+
+</div>
+  <nav class="container nav primary no-print">
+  
+
+<a class="homelink" href="https://www.moonstreet.nl">Home</a>
+
+
+  
+<a href="https://www.moonstreet.nl/about">About</a>
+
+<a href="https://www.moonstreet.nl/post" title="Show list of posts">Posts</a>
+
+<a href="https://www.moonstreet.nl/tags" title="Show list of tags">Tags</a>
+
+
+</nav>
+
+<div class="container nav secondary no-print">
+  
+<a id="contact-link-email" class="contact_link" rel="me" aria-label="Email" href="mailto:yourname@example.com">
+  <span class="fa fa-envelope-square"></span></a>
+
+
+
+<a id="contact-link-github" class="contact_link" rel="me" aria-label="Github" href="https://github.com/jacqinthebox">
+  <span class="fa fa-github-square"></span></a>
+
+
+
+
+ 
+<a id="contact-link-linkedin" class="contact_link" rel="me" aria-label="LinkedIn" href="https://www.linkedin.com/in/jacquelineportier">
+  <span class="fa fa-linkedin-square"></span></a>
+
+
+
+
+
+
+
+<a id="contact-link-twitter" class="contact_link" rel="me" aria-label="Twitter" href="https://twitter.com/jacqoutthebox">
+  <span class="fa fa-twitter-square"></span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  
+
+  <img src="https://imgur.com/kcELCt3.png" />
+</header>
+
+
+<article id="main-content" class="container main_content single">
+  <header class="container hat">
+  <h1>Starting With React
+</h1>
+
+  <div class="metas">
+<time datetime="2020-02-02">2 Feb, 2020</time>
+
+
+  
+  &middot; Read in about 3 min
+  &middot; (484 Words)
+  <br>
+  
+<a class="label" href="https://www.moonstreet.nl/tags/reactjs">reactjs</a>
+
+
+
+</div>
+
+</header>
+
+  <div class="container content">
+  <h1 id="getting-started-with-react-need-to-know-modern-javascript">Getting started with React. Need to know modern JavaScript</h1>
+<p>Disclaimer: I just want to be able to build simple web apps. I do not want to be a professional web dev by no means. Just want to be able to create a little bit of frontend to some api&rsquo;s. So let&rsquo;s get going!</p>
+<h2 id="declaring-variables">Declaring variables</h2>
+<p>Using const:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">name1</span>)
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Jacqueline&#39;</span>
+<span style="color:#75715e">// name = &#34;Marie&#34; will render an error: Assignment to a constant variable
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">name</span>)
+</code></pre></div><p>Using var:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">true</span>) {
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name2</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Marlies&#34;</span>
+  <span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">name2</span>)
+}
+
+<span style="color:#75715e">//this will work even it is out scope, because name2 is part of the WINDOW&gt;OBJECT
+</span><span style="color:#75715e"></span><span style="color:#75715e">//This is why Javascript is so ugly
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name2</span>)
+</code></pre></div><p>Using let:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">true</span>) {
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">name3</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Marlies&#34;</span>
+  <span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">name3</span>)
+}
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">name3</span>) <span style="color:#75715e">//index.js:26 Uncaught ReferenceError: name3 is not defined
+</span></code></pre></div><h2 id="templating">Templating</h2>
+<p>The &ldquo;old way&rsquo;:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">fname</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Jacqueline&#39;</span>
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">mname</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Patricia&#39;</span>
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prompt</span>(<span style="color:#e6db74">&#39;Guess my age!&#39;</span>)
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Name &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">fname</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;Middlename &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">mname</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;Age&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">age</span> 
+<span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">result</span>)
+</code></pre></div><p>A new way, very nice!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">newresult</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">Hi my name is </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">fname</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">mname</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> and I am  </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">age</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> years old</span><span style="color:#e6db74">`</span>
+<span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">newresult</span>)
+</code></pre></div><h2 id="default-parameters">Default parameters</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">welcome</span>(<span style="color:#a6e22e">user</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Jacqueline&#39;</span>, <span style="color:#a6e22e">message</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Ja hoor&#39;</span>) {
+<span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">Hello </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">user</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">message</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>)
+}
+
+<span style="color:#a6e22e">welcome</span>(<span style="color:#e6db74">&#39;jacqueline&#39;</span>) <span style="color:#75715e">//will also display: ja hoor!
+</span></code></pre></div><h2 id="arrow-functions">Arrow Functions</h2>
+<p>Just a function how we used to write them:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">greeting</span>(<span style="color:#a6e22e">message</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">$</span>{<span style="color:#a6e22e">message</span>})
+}
+</code></pre></div><p>But now: look ma, no arguments!</p>
+<pre><code>let hello = () =&gt; alert('Hello everybody!')
+console.log(hello())
+</code></pre><p>Arrow function with one argument:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">mytext</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">The message is.. </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">mytext</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>)
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">message</span>(<span style="color:#e6db74">&#39;here is a log line&#39;</span>))
+</code></pre></div><p>Two arguments and error check:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">logMessage</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">title</span>, <span style="color:#a6e22e">body</span>) =&gt; {
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">title</span>) {
+    <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;A title is required&#39;</span>);
+  }
+
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">body</span>) {
+    <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;A body is required&#39;</span>);
+  }
+
+  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">log line: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">title</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> with body </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">body</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
+}
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">logMessage</span>(<span style="color:#e6db74">&#39;something broke&#39;</span>, <span style="color:#e6db74">&#39;unknown error&#39;</span>))
+</code></pre></div><h2 id="this-keyword">This keyword</h2>
+<p>The JavaScript this keyword refers to the object it belongs to. It is import for object method binding.
+<a href="https://www.w3schools.com/js/js_this.asp">https://www.w3schools.com/js/js_this.asp</a></p>
+<p>For example a todo list.</p>
+<pre><code>let todo = { 
+  tasks:['learn React','learn Javascript', 'learn CRUD'],
+  printTasks: function() {
+    console.log(this.tasks.join(' - '))
+  }
+}
+
+alert(todo.printTasks())
+</code></pre><p>Here another example:</p>
+<pre><code>let taskList = { 
+
+  tasks: ['React','MongoDb','CRUD'],
+
+  printTasks: function() {
+    setTimeout(() =&gt; console.log(this.tasks.join(' - ')), 3000);
+  }
+
+};
+
+alert(taskList.printTasks());
+</code></pre><h2 id="object-construction">Object construction</h2>
+<pre><code>let Todo = { 
+  name: &quot;Writing&quot;,
+  category: &quot;Book&quot;,
+  duration: 1
+}
+
+console.log(Todo.name);
+
+//instantiate the object
+let {category, name} = Todo 
+category = 'Study';
+console.log(Todo.category);
+</code></pre><h2 id="class-constructor-super">Class constructor super</h2>
+<pre><code>class Holiday {
+
+  constructor(destination, days) {
+    this.destination = destination;
+    this.days = days;
+  }
+
+  info() {
+    console.log(`We have been ${this.days} days in ${this.destination}`)
+  }
+
+}
+
+console.log(Holiday.prototype)
+const trip = new Holiday('Bonaire', 14) 
+console.log(trip.info());
+</code></pre><h2 id="inheritance">Inheritance</h2>
+<pre><code>class Holiday { 
+
+  constructor(destination, days) { 
+    this.destination = destination;
+    this.days = days;
+  }
+
+  info() { 
+    console.log(`We have been ${this.days} days in ${this.destination}`)
+  }
+
+}
+
+console.log(Holiday.prototype)
+const trip = new Holiday('Bonaire', 14)
+console.log(trip.info());
+
+
+class ShortHoliday extends Holiday { 
+  constructor(destination, days, city) { 
+    super(destination,days);
+    this.city = city;
+  }
+
+  info() { 
+    super.info();
+    console.log(`And visit ${this.city} when there`);
+  }
+
+}
+
+const cityTrip = new ShortHoliday('France',3,'Paris')
+cityTrip.info()
+</code></pre><p>I gues this is enough javascript for now.</p>
+
+</div>
+
+
+  <footer class="container">
+  <div class="container navigation no-print">
+  <h2>Navigation</h2>
+  
+  
+
+    
+    <a class="prev" href="https://www.moonstreet.nl/2019/11/22/basic-go/" title="Basic Go">
+      Previous
+    </a>
+    
+
+    
+
+  
+
+
+</div>
+
+  
+<div class="container comments">
+  <h2>Comments</h2>
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//your_disqus_shortname.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+</div>
+
+
+</footer>
+
+</article>
+      <footer id="main-footer" class="container main_footer">
+  
+
+  <div class="container nav foot no-print">
+  
+
+  <a class="toplink" href="#">back to top</a>
+
+</div>
+
+  <div class="container credits">
+  
+<div class="container footline">
+  
+  code with <!-- raw HTML omitted --><!-- raw HTML omitted -->
+
+
+</div>
+
+
+  
+<div class="container copyright">
+  
+  (c) 2019 Jacqueline
+
+
+</div>
+
+
+</div>
+
+</footer>
+
+    </main>
+    
+<script type="text/javascript">
+  (function() {
+    
+    
+    if (window.location.hostname == "localhost")
+      return;
+    var dsq = document.createElement('script'); dsq.async = true; dsq.type = 'text/javascript';
+    dsq.src = '//your_disqus_shortname.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>
+

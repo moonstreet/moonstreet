@@ -3,17 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.moonstreet.nl/2019/11/22/basic-go/</loc>
-    <lastmod>2019-11-22T16:31:44+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://www.moonstreet.nl/</loc>
-    <lastmod>2019-11-22T16:31:44+01:00</lastmod>
+    <lastmod>2020-02-02T11:30:36+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.moonstreet.nl/post/</loc>
+    <lastmod>2020-02-02T11:30:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.moonstreet.nl/tags/reactjs/</loc>
+    <lastmod>2020-02-02T11:30:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.moonstreet.nl/2020/02/02/starting-with-react/</loc>
+    <lastmod>2020-02-02T11:30:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.moonstreet.nl/tags/</loc>
+    <lastmod>2020-02-02T11:30:36+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.moonstreet.nl/2019/11/22/basic-go/</loc>
     <lastmod>2019-11-22T16:31:44+01:00</lastmod>
   </url>
   
@@ -29,11 +44,6 @@
   
   <url>
     <loc>https://www.moonstreet.nl/tags/devops/</loc>
-    <lastmod>2019-06-21T11:29:13+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.moonstreet.nl/tags/</loc>
     <lastmod>2019-06-21T11:29:13+01:00</lastmod>
   </url>
   
