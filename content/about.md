@@ -1,50 +1,44 @@
-+++
-title = "About Moonstreet"
-date = "2019-01-01"
-menu = "main"
-+++
+---
+title: "Moonstreet"
+date: 2020-09-19T08:36:08+02:00
+draft: true
+---
 
-Moonstreet is the name of the street where I live, together with my lovely girlfriend and all sorts of laptops and computers.
+Welcome to yet another Hugo blog!
+<!--more-->
 
-These are my notes about Automation, Devops and SRE. I use the following techniques:
+Moonstreet is the name of the street where I live, together with my lovely girlfriend.
+I am a devops engineer by day and a Linux distro hopper by night. By the time coding or scripting results in configuration I usually get bored.
+
+## About this website
+
+These are my notes about the things I learn and think I worthy of sharing with the world. 
+I am writing these notes on a modern Linux distro or my MacBook which I use as a daily driver so there will be hardly any Windows content (but never say never).
+This website is made with the following tools:
 
 - [Hugo](https://gohugo.io/), a static site generator
 - [Github](https://github.com), for version control
 - [Netlify](https://www.netlify.com/), for deployment
+- [Noteworthy](https://github.com/kimcc/hugo-theme-noteworthy), the theme. 
 
-
-## About Automation
-
-I like to automate all the things. Cloud provisioning, configurations, application deployment, container deployment and orchestration.. In this blog I will write things down not only because I have a tendency to forget stuff but also because I like to share what I know. And learn as I go.
-
-## About Hugo
-
-Install Hugo from a binary.
-
-https://gohugo.io/getting-started/installing/
-
+Here are the steps to create this site:
 
 ```sh
-wget https://github.com/gohugoio/hugo/releases/download/v0.63.2/hugo_0.63.2_Linux-64bit.deb && sudo dpkg -i hugo_*.deb
-hugo new site luthorcorp
-```
-This will make  a new folder named luthorcorp.
-
-Go look for a theme here: https://gohugo.io/getting-started/quick-start/
-
-```
-cd luthorcorp
+sudo dnf install -y hugo
+mkdir ~/blog && cd ~/blog
+hugo new site moonstreet
+cd themes
 git init
-git submodule add https://github.com/alanorth/hugo-theme-bootstrap4-blog.git themes/hugo-theme-bootstrap4-blog
+git clone https://github.com/kimcc/hugo-theme-noteworthy.git
+cd ..
+echo 'theme = "hugo-theme-noteworthy"' >> config.toml
+hugo serve -D
 ```
 
-Change the config.toml that came with the theme with the one that is in the root of your site.
-Just read the docs from the theme or else nothing gets displayed.
+Then in a new terminal window:
 
-Then create a new post.
-
-```
-hugo new posts/my-first-post.md
-hugo new posts/gardening/planting-a-tree.md
+```sh
+hugo new posts/hugo.md
 ```
 
+And then paste this content in hugo.md.
