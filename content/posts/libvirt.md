@@ -1,7 +1,7 @@
 ---
 title: "Vagrant with the libvirt plugin"
 date: 2020-09-20T10:37:24+02:00
-draft: true
+draft: false
 ---
 
 Here is a post about how to create virtual machines with Vagrant and the libvirt plugin.

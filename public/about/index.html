@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no"/>
 
-    <title> | Moonstreet</title>
+    <title>Moonstreet | Moonstreet</title>
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -143,31 +143,47 @@
         <div id="content" class="content-container">
         
 
-  <h1>
-    Archives
-  </h1>
-  <div>
-     
-      
-      
-          <h3>2020</h3> 
+<h1 class="post-title">Moonstreet</h1>
+    
+    <time>September 19, 2020</time>
+    
+    <div>
+        <p>
+        <p>Welcome to yet another Hugo blog!</p>
+<p>Moonstreet is the name of the street where I live, together with my lovely girlfriend.
+I am a devops engineer by day and a Linux distro hopper by night. By the time coding or scripting results in configuration I usually get bored.</p>
+<h2 id="about-this-website">About this website</h2>
+<p>These are my notes about the things I learn and think I worthy of sharing with the world.
+I am writing these notes on a modern Linux distro or my MacBook which I use as a daily driver so there will be hardly any Windows content (but never say never).
+This website is made with the following tools:</p>
+<ul>
+<li><a href="https://gohugo.io/">Hugo</a>, a static site generator</li>
+<li><a href="https://github.com">Github</a>, for version control</li>
+<li><a href="https://www.netlify.com/">Netlify</a>, for deployment</li>
+<li><a href="https://github.com/kimcc/hugo-theme-noteworthy">Noteworthy</a>, the theme.</li>
+</ul>
+<p>Here are the steps to create this site:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo dnf install -y hugo
+mkdir ~/blog <span style="color:#f92672">&amp;&amp;</span> cd ~/blog
+hugo new site moonstreet
+cd themes
+git init
+git clone https://github.com/kimcc/hugo-theme-noteworthy.git
+cd ..
+echo <span style="color:#e6db74">&#39;theme = &#34;hugo-theme-noteworthy&#34;&#39;</span> &gt;&gt; config.toml
+hugo serve -D
+</code></pre></div><p>Then in a new terminal window:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">hugo new posts/hugo.md
+</code></pre></div><p>And then paste this content in hugo.md.</p>
+        </p>
+    </div>
+    
 
-          <ul class="archives-list"> 
-            
-              
-             
-                  <li class="archives-list-item">
-                    <span class="archives-list-item-date">Sep 20</span>
-                    <span>
-                      <a href="/posts/libvirt/">Vagrant with the libvirt plugin</a>
-                    </span>
-                  </li>
-              
-          </ul>
-      
-  </div>
+    
 
-  <div class="page-footer"></div>
+    <div class="page-footer">
+        
+    </div>
 
 
         

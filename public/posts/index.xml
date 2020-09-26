@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Moonstreet</title>
+    <link>https://moonstreet.nl/posts/</link>
+    <description>Recent content in Posts on Moonstreet</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 20 Sep 2020 10:37:24 +0200</lastBuildDate>
+    
+	<atom:link href="https://moonstreet.nl/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Vagrant with the libvirt plugin</title>
+      <link>https://moonstreet.nl/posts/libvirt/</link>
+      <pubDate>Sun, 20 Sep 2020 10:37:24 +0200</pubDate>
+      
+      <guid>https://moonstreet.nl/posts/libvirt/</guid>
+      <description>Here is a post about how to create virtual machines with Vagrant and the libvirt plugin.</description>
+    </item>
+    
+  </channel>
+</rss>
