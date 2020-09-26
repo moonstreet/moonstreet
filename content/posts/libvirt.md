@@ -17,18 +17,17 @@ The answer is: [KVM](https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine)
 
 ## KVM, QEMU, libvirt: lost in the limbo
 
-KVM (like Xen, ESXi and Hyper-V) is a type 1 hypervisor. A hypervisor is software that creates and runs virtual machines. Type 1 hypervisors run directly on the hardware. So first the hypervisor is loaded which then loads the OS. Or is it?
-Not really as [this](https://medium.com/teamresellerclub/type-1-and-type-2-hypervisors-what-makes-them-different-6a1755d6ae2c) article states. KVM turns Linux to a type 1 hypervisor, but at the same time runs a fully functional OS. Which makes the type 1 or type 2 discussion a bit weird. 
+To refresh the memory a bit, a hypervisor is software that creates and runs virtual machines. Type 1 hypervisors (like Xen, ESXi and Hyper-V) run directly on the hardware. Type 2 hypervisors (Parallels, Virtualbox, Vmware Fusion) run on top of an OS.  KVM turns Linux into a type 1 hypervisor, but at the same time runs a fully functional OS. So it is a special case of a hypervisor.
 
-KVM provides device abstraction but no processor emulation. It exposes the /dev/kvm interface, which a user mode host can then use to:
+KVM provides device abstraction but does not emulate a machine. It exposes the /dev/kvm interface, which a user mode host can then use to:
  * Bootstrap an iso (set up theguest VM address space)
  * Feed the guest simulated I/O
  * Map the guest's video display back onto the system host
- 
+
 On Linux, QEMU is one such userspace host. QEMU uses KVM when available to virtualize guests at near-native speeds, but otherwise falls back to software-only emulation.
 
 The last piece of the puzzle is [libvirt](https://wiki.libvirt.org/page/FAQ#What_is_libvirt.3F)
-Libvirt provides a convenient way to storage and network interface management for virtual machines. Libvirt includes an API library, a daemon (libvirtd), and a command line utility (virsh). 
+Libvirt provides a convenient way to storage and network interface management for virtual machines. Libvirt includes an API library, a daemon (libvirtd), and a command line utility (virsh).
 
 Gnome Boxes uses libvirt, as does Vagrant. Hence the blog title: using Vagrant with the libvirt plugin.
 
@@ -88,7 +87,6 @@ Hooray!
 
 ## Afterthought: What about LXC and LXD?
 
-You can also run [LXD](https://linuxcontainers.org/lxd/) instead of KVM. I think that LXD is the Canonical way, while KVM has been adopted by RedHat (fact check probably needed). 
+You can also run [LXD](https://linuxcontainers.org/lxd/) instead of KVM. I think that LXD is the Canonical way, while KVM has been adopted by RedHat (fact check probably needed).
 Traditionally, LXD is used to create system containers, light-weight virtual machines that use Linux Container features and not hardware virtualization.
 However with LXD you can create both system containers and virtual machines. [Here](https://www.cyberciti.biz/faq/how-to-install-setup-lxd-on-fedora-linux/) is a nice blog post explaining that. 
-And it also states you can install LXD using snaps, which I am not very fond of. Again, that's just my opinion. 
