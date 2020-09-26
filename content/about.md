@@ -42,3 +42,9 @@ hugo new posts/hugo.md
 ```
 
 And then paste this content in hugo.md.
+
+## Push to Guthub and publish with Netlify
+
+When publishing, make sure your post is not set to 'draft'.
+Run a final `hugo` to build the site.
+Then commit and push.
