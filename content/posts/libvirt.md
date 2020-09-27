@@ -56,7 +56,8 @@ Then make a folder and add a Vagrantfile in it
 
 mkdir ~/vagrant/centos && cd ~/vagrant/centos
 
-echo "$extra = <<-EXTRA
+cat > Vagrantfile <<'EOF'
+$extra = <<-EXTRA
 dnf update -y && dnf install vim net-tools git lsof tar -y
 EXTRA
 
@@ -72,7 +73,8 @@ Vagrant.configure("2") do |config|
     end
   end
   config.vm.provision "shell", inline: $extra
-end" > Vagrantfile
+end
+EOF
 ```
 
 And then do
