@@ -138,6 +138,7 @@
 
 	<script src="https://moonstreet.nl/js/main.min.fa5c2b23e07b5d9bfad267a52b4b24fdb053e6fb7524993383594926a3ac270c.js" integrity="sha256-+lwrI+B7XZv60melK0sk/bBT5vt1JJkzg1lJJqOsJww=" crossorigin="anonymous"></script>
 </footer>
+
 </nav>
 
         <div id="content" class="content-container">
@@ -157,9 +158,8 @@ Maybe I am late to the party but I recently discovered <a href="https://help.gno
 <p>The answer is: <a href="https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine">KVM</a>. Together with <a href="https://wiki.qemu.org/Main_Page">QEMU</a> and <a href="https://libvirt.org/">libvirt</a>.
 (I remember using Qemu back in the 2007 or so but thinking it was terribly slow and left it for what is was. But its 2020 now, so let&rsquo;s dive in again!)</p>
 <h2 id="kvm-qemu-libvirt-lost-in-the-limbo">KVM, QEMU, libvirt: lost in the limbo</h2>
-<p>KVM (like Xen, ESXi and Hyper-V) is a type 1 hypervisor. A hypervisor is software that creates and runs virtual machines. Type 1 hypervisors run directly on the hardware. So first the hypervisor is loaded which then loads the OS. Or is it?
-Not really as <a href="https://medium.com/teamresellerclub/type-1-and-type-2-hypervisors-what-makes-them-different-6a1755d6ae2c">this</a> article states. KVM turns Linux to a type 1 hypervisor, but at the same time runs a fully functional OS. Which makes the type 1 or type 2 discussion a bit weird.</p>
-<p>KVM provides device abstraction but no processor emulation. It exposes the /dev/kvm interface, which a user mode host can then use to:</p>
+<p>To refresh the memory a bit, a hypervisor is software that creates and runs virtual machines. Type 1 hypervisors (like Xen, ESXi and Hyper-V) run directly on the hardware. Type 2 hypervisors (Parallels, Virtualbox, Vmware Fusion) run on top of an OS.  KVM turns Linux into a type 1 hypervisor, but at the same time runs a fully functional OS. So it is a special case of a hypervisor.</p>
+<p>KVM provides device abstraction but does not emulate a machine. It exposes the /dev/kvm interface, which a user mode host can then use to:</p>
 <ul>
 <li>Bootstrap an iso (set up theguest VM address space)</li>
 <li>Feed the guest simulated I/O</li>
@@ -181,14 +181,15 @@ sudo vagrant plugin install vagrant-libvirt
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">
 mkdir ~/vagrant/centos <span style="color:#f92672">&amp;&amp;</span> cd ~/vagrant/centos
 
-echo <span style="color:#e6db74">&#34;</span>$extra<span style="color:#e6db74"> = &lt;&lt;-EXTRA
+cat &gt; Vagrantfile <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39;
+</span><span style="color:#e6db74">$extra = &lt;&lt;-EXTRA
 </span><span style="color:#e6db74">dnf update -y &amp;&amp; dnf install vim net-tools git lsof tar -y
 </span><span style="color:#e6db74">EXTRA
 </span><span style="color:#e6db74">
-</span><span style="color:#e6db74">Vagrant.configure(&#34;</span>2<span style="color:#e6db74">&#34;) do |config|
-</span><span style="color:#e6db74">  config.vm.define &#34;</span>node01<span style="color:#e6db74">&#34; do |node01_config|
-</span><span style="color:#e6db74">    node01_config.vm.box =&#34;</span>generic/centos8<span style="color:#e6db74">&#34;
-</span><span style="color:#e6db74">    node01_config.vm.hostname = &#34;</span>centos01<span style="color:#e6db74">&#34;
+</span><span style="color:#e6db74">Vagrant.configure(&#34;2&#34;) do |config|
+</span><span style="color:#e6db74">  config.vm.define &#34;node01&#34; do |node01_config|
+</span><span style="color:#e6db74">    node01_config.vm.box =&#34;generic/centos8&#34;
+</span><span style="color:#e6db74">    node01_config.vm.hostname = &#34;centos01&#34;
 </span><span style="color:#e6db74">    node01_config.vm.provider :libvirt do |domain|
 </span><span style="color:#e6db74">      domain.memory = 4096
 </span><span style="color:#e6db74">      domain.cpus = 2
@@ -196,8 +197,9 @@ echo <span style="color:#e6db74">&#34;</span>$extra<span style="color:#e6db74"> 
 </span><span style="color:#e6db74">      domain.volume_cache = &#39;none&#39;
 </span><span style="color:#e6db74">    end
 </span><span style="color:#e6db74">  end
-</span><span style="color:#e6db74">  config.vm.provision &#34;</span>shell<span style="color:#e6db74">&#34;, inline: </span>$extra<span style="color:#e6db74">
-</span><span style="color:#e6db74">end&#34;</span> &gt; Vagrantfile
+</span><span style="color:#e6db74">  config.vm.provision &#34;shell&#34;, inline: $extra
+</span><span style="color:#e6db74">end
+</span><span style="color:#e6db74">EOF</span>
 </code></pre></div><p>And then do</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">vagrant up
 </code></pre></div><p>Hooray!</p>
@@ -205,8 +207,7 @@ echo <span style="color:#e6db74">&#34;</span>$extra<span style="color:#e6db74"> 
 <h2 id="afterthought-what-about-lxc-and-lxd">Afterthought: What about LXC and LXD?</h2>
 <p>You can also run <a href="https://linuxcontainers.org/lxd/">LXD</a> instead of KVM. I think that LXD is the Canonical way, while KVM has been adopted by RedHat (fact check probably needed).
 Traditionally, LXD is used to create system containers, light-weight virtual machines that use Linux Container features and not hardware virtualization.
-However with LXD you can create both system containers and virtual machines. <a href="https://www.cyberciti.biz/faq/how-to-install-setup-lxd-on-fedora-linux/">Here</a> is a nice blog post explaining that.
-And it also states you can install LXD using snaps, which I am not very fond of. Again, that&rsquo;s just my opinion.</p>
+However with LXD you can create both system containers and virtual machines. <a href="https://www.cyberciti.biz/faq/how-to-install-setup-lxd-on-fedora-linux/">Here</a> is a nice blog post explaining that.</p>
 
         </p>
     </div>

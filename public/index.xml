@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>K3s on a Centos vm</title>
+      <link>https://moonstreet.nl/posts/k3s-libvirt/</link>
+      <pubDate>Sun, 27 Sep 2020 09:17:02 +0200</pubDate>
+      
+      <guid>https://moonstreet.nl/posts/k3s-libvirt/</guid>
+      <description>This post is about installing lightweight Kubernetes (K3s) on our new vm.</description>
+    </item>
+    
+    <item>
       <title>Vagrant with the libvirt plugin</title>
       <link>https://moonstreet.nl/posts/libvirt/</link>
       <pubDate>Sun, 20 Sep 2020 10:37:24 +0200</pubDate>
