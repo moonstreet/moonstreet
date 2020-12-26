@@ -6,10 +6,15 @@
     <description>Recent content in Posts on Moonstreet</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Sep 2020 09:17:02 +0200</lastBuildDate>
-    
-	<atom:link href="https://moonstreet.nl/posts/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Sat, 26 Dec 2020 16:33:46 +0100</lastBuildDate><atom:link href="https://moonstreet.nl/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>K3s with Ingress</title>
+      <link>https://moonstreet.nl/posts/k3s-with-ingress/</link>
+      <pubDate>Sat, 26 Dec 2020 16:33:46 +0100</pubDate>
+      
+      <guid>https://moonstreet.nl/posts/k3s-with-ingress/</guid>
+      <description>When running K3s, by default Traefik is installed as an ingress controller.</description>
+    </item>
     
     <item>
       <title>K3s on a Centos vm</title>

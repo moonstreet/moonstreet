@@ -48,3 +48,12 @@ And then paste this content in hugo.md.
 When publishing, make sure your post is not set to 'draft'.
 Run a final `hugo` to build the site.
 Then commit and push.
+
+## On a new computer
+
+```sh
+git clone # this repo
+cd moonstreet
+git submodule update --init --recursive
+hugo server -D
+```

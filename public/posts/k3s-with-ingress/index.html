@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no"/>
 
-    <title>404 Page not found | Moonstreet</title>
+    <title>K3s with Ingress | Moonstreet</title>
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -143,9 +143,61 @@
 
         <div id="content" class="content-container">
         
-    <h1 class="not-found-title">404: Not found</h1>
-    <h2>Sorry, we couldn't find the page you're looking for.</h2>
-    <a href="/">Go back home</a>
+
+<h1 class="post-title">K3s with Ingress</h1>
+    
+    <time>December 26, 2020</time>
+    
+    <div>
+        <p>
+        <p>When running K3s, by default Traefik is installed as an ingress controller.
+I am however more comfortable with the Nginx ingress controller so let&rsquo;s just install that instead.
+Let&rsquo;s first install K3s.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode <span style="color:#ae81ff">644</span> --disable traefik
+</code></pre></div><p>Wait a bit. When done, we can copy the config file so we can use kubectl.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir ~/.kube
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+</code></pre></div><p>Now we are ready to install Nginx ingress:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/deploy.yaml
+</code></pre></div><p>With running <code>kubectl get pods --all-namespaces -w</code> we can check the progress</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>vagrant@centos02 ~<span style="color:#f92672">]</span>$ kubectl get pods --all-namespaces -w
+NAMESPACE       NAME                                        READY   STATUS              RESTARTS   AGE
+kube-system     coredns-66c464876b-2f5gq                    1/1     Running             <span style="color:#ae81ff">0</span>          21m
+kube-system     local-path-provisioner-7ff9579c6-ms2qx      1/1     Running             <span style="color:#ae81ff">0</span>          21m
+kube-system     metrics-server-7b4f8b595-2kxvv              1/1     Running             <span style="color:#ae81ff">0</span>          21m
+ingress-nginx   ingress-nginx-controller-7474996559-79ztf   0/1     ContainerCreating   <span style="color:#ae81ff">0</span>          21s
+ingress-nginx   ingress-nginx-admission-patch-km6v8         0/1     Completed           <span style="color:#ae81ff">0</span>          21s
+ingress-nginx   ingress-nginx-admission-create-6jqz4        0/1     Completed           <span style="color:#ae81ff">0</span>          21s
+</code></pre></div><p>Great, we have an ingress controller now. But, we do not have a load balancer. So we need to enable the ingress controller to use port 80 and 443 on the host. Let&rsquo;s patch the ingress controller.</p>
+<p>Create the patch first:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat &gt; ingress.yaml <span style="color:#e6db74">&lt;&lt;EOF 
+</span><span style="color:#e6db74">spec:
+</span><span style="color:#e6db74">  template:
+</span><span style="color:#e6db74">    spec:
+</span><span style="color:#e6db74">      hostNetwork: true
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>Then patch tthe ingress controller deployment like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl patch deployment ingress-nginx-controller -n ingress-nginx --patch <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat ingress.yaml<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</code></pre></div><p>If you now run <code>curl localhost</code> we see at there is a web server running. That means success!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>vagrant@centos02 ~<span style="color:#f92672">]</span>$ curl localhost                                                                                                                            
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;404 Not Found&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;center&gt;&lt;h1&gt;404 Not Found&lt;/h1&gt;&lt;/center&gt;
+&lt;hr&gt;&lt;center&gt;nginx&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+        </p>
+    </div>
+    
+
+    
+
+    <div class="page-footer">
+        
+    </div>
+
 
         
 
