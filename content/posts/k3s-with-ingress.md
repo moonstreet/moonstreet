@@ -78,7 +78,8 @@ If you now run `curl localhost` we see at there is a web server running. That me
 
 ## Expose a web page
 
-I am working on an application at the moment called 'carolyne'. You can find it here: https://gitlab.com/jacqinthebox/carolyne
+I am working on an application at the moment called 'carolyne'. 
+You can find it here: https://gitlab.com/jacqinthebox/carolyne. 
 I already pushed a container to the Docker hub, so we can just use that for now. 
 Carolyne runs happily on port 4000.
 
