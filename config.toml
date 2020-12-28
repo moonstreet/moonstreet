@@ -8,7 +8,7 @@ paginate = 4 # Set the number of posts to show before overflowing to the next pa
 summaryLength = 10 # Configure how long the post summary should be on the homepage.
 
 
-googleAnalytics = "UA-186201261-1"
+googleAnalytics = "UA-186145252-1"
 # Add your Google Analytics identifier: UA-XXXXXXXX-X
 #googleAnalytics = ""
 
