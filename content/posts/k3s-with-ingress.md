@@ -13,6 +13,7 @@ Finally I will deploy a little go application (which is going to be fabulous lat
 
 Disclaimer: I am currently studying operators and CRD's so this setup is for testing them locally with a simple one node cluster.
 
+## Install K3s with Nginx ingress
 
 ```shell
 curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644 --disable traefik
@@ -57,7 +58,7 @@ spec:
 EOF
 ```
 
-Then patch tthe ingress controller deployment like so:
+Then patch the ingress controller deployment like so:
 
 ```shell
 kubectl patch deployment ingress-nginx-controller -n ingress-nginx --patch "$(cat ingress.yaml)"
