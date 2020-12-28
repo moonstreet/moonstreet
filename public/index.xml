@@ -13,7 +13,7 @@
       <pubDate>Mon, 28 Dec 2020 17:10:13 +0100</pubDate>
       
       <guid>https://moonstreet.nl/posts/kubernetes-readonly/</guid>
-      <description>Create a normal user for read-only access Normal users are assumed to be managed by an outside, independent service.</description>
+      <description>Normal users are assumed to be managed by an outside, independent service.</description>
     </item>
     
     <item>
