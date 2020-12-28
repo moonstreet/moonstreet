@@ -7,7 +7,8 @@ draft: false
 When running K3s, by default Traefik is installed as an ingress controller. 
 You need an ingress controller to expose (web) applications to the outside world.
 I am however more comfortable with the Nginx ingress controller so let's just install that instead.
-Let's first install K3s.
+In this post I will first install K3s, then install the Nginx ingress controller. 
+Finally I will deploy a little go application (which is going to be fabulous later).
 
 Disclaimer: I am currently studying operators and CRD's so this setup is for testing them locally with a simple one node cluster.
 
