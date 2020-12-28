@@ -8,7 +8,7 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 26 Dec 2020 16:33:46 +0100</lastBuildDate><atom:link href="https://moonstreet.nl/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>K3s with Ingress</title>
+      <title>Install the Nginx ingress controller on K3s</title>
       <link>https://moonstreet.nl/posts/k3s-with-ingress/</link>
       <pubDate>Sat, 26 Dec 2020 16:33:46 +0100</pubDate>
       

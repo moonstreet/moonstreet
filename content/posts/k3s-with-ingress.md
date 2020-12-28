@@ -1,12 +1,16 @@
 ---
-title: "K3s with Ingress"
+title: "Install the Nginx ingress controller on K3s"
 date: 2020-12-26T16:33:46+01:00
 draft: false
 ---
 
 When running K3s, by default Traefik is installed as an ingress controller. 
+You need an ingress controller to expose (web) applications to the outside world.
 I am however more comfortable with the Nginx ingress controller so let's just install that instead.
 Let's first install K3s.
+
+Disclaimer: I am currently studying operators and CRD's so this setup is for testing them locally with a simple one node cluster.
+
 
 ```shell
 curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644 --disable traefik
@@ -69,3 +73,103 @@ If you now run `curl localhost` we see at there is a web server running. That me
 </body>
 </html>
 ```
+
+## Expose a web page
+
+I am working on an application at the moment called 'carolyne'. You can find it here: https://gitlab.com/jacqinthebox/carolyne
+I already pushed a container to the Docker hub, so we can just use that for now. 
+Carolyne runs happily on port 4000.
+
+Let's create a deployment and a service object quickly.
+
+```shell
+k create namespace apps
+```
+Then create the deployment
+
+```shell
+cat <<EOF | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carolyne
+  namespace: apps
+  labels:
+    app: carolyne
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: carolyne
+  template:
+    metadata:
+      labels:
+        app: carolyne
+    spec:
+      containers:
+        - name: carolyne
+          image: jacqueline/carolyne:latest
+          ports:
+            - containerPort: 4000
+EOF
+```
+Let's create the service
+
+```shell
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Service
+metadata:
+  name: carolyne-service
+  namespace: apps
+  labels:
+    app: carolyne
+spec:
+  ports:
+    - port: 4000
+  selector:
+    app: carolyne
+EOF
+```
+
+Finally, let's create the ingress rules.
+
+```shell
+cat <<EOF | kubectl apply -f -
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /\$1
+  name: apps-ingress-rules
+  namespace: apps
+spec:
+  rules:
+  - host: carolyne.moonstreet.local
+    http:
+      paths:
+      - backend:
+          service: 
+            name: carolyne-service
+            port: 
+              number: 4000
+        path: /(.*)
+        pathType: Prefix
+EOF
+```
+
+Need to add the hostname to my hostfile 
+
+```shell
+# sudo vim /etc/hosts
+127.0.0.1       localhost carolyne.moonstreet.local
+```
+
+And now we can browse to that lovely web application I just crafted.
+
+![1](/carolyne1.png)
+
+![2](/carolyne2.png)
+
+

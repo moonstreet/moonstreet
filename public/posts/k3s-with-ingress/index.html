@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no"/>
 
-    <title>K3s with Ingress | Moonstreet</title>
+    <title>Install the Nginx ingress controller on K3s | Moonstreet</title>
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -144,15 +144,17 @@
         <div id="content" class="content-container">
         
 
-<h1 class="post-title">K3s with Ingress</h1>
+<h1 class="post-title">Install the Nginx ingress controller on K3s</h1>
     
     <time>December 26, 2020</time>
     
     <div>
         <p>
         <p>When running K3s, by default Traefik is installed as an ingress controller.
+You need an ingress controller to expose (web) applications to the outside world.
 I am however more comfortable with the Nginx ingress controller so let&rsquo;s just install that instead.
 Let&rsquo;s first install K3s.</p>
+<p>Disclaimer: I am currently studying operators and CRD&rsquo;s so this setup is for testing them locally with a simple one node cluster.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode <span style="color:#ae81ff">644</span> --disable traefik
 </code></pre></div><p>Wait a bit. When done, we can copy the config file so we can use kubectl.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir ~/.kube
@@ -187,7 +189,82 @@ ingress-nginx   ingress-nginx-admission-create-6jqz4        0/1     Completed   
 &lt;hr&gt;&lt;center&gt;nginx&lt;/center&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre></div>
+</code></pre></div><h2 id="expose-a-web-page">Expose a web page</h2>
+<p>I am working on an application at the moment called &lsquo;carolyne&rsquo;. You can find it here: <a href="https://gitlab.com/jacqinthebox/carolyne">https://gitlab.com/jacqinthebox/carolyne</a>
+I already pushed a container to the Docker hub, so we can just use that for now.
+Carolyne runs happily on port 4000.</p>
+<p>Let&rsquo;s create a deployment and a service object quickly.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k create namespace apps
+</code></pre></div><p>Then create the deployment</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat <span style="color:#e6db74">&lt;&lt;EOF | kubectl apply -f -
+</span><span style="color:#e6db74">apiVersion: apps/v1
+</span><span style="color:#e6db74">kind: Deployment
+</span><span style="color:#e6db74">metadata:
+</span><span style="color:#e6db74">  name: carolyne
+</span><span style="color:#e6db74">  namespace: apps
+</span><span style="color:#e6db74">  labels:
+</span><span style="color:#e6db74">    app: carolyne
+</span><span style="color:#e6db74">spec:
+</span><span style="color:#e6db74">  replicas: 1
+</span><span style="color:#e6db74">  selector:
+</span><span style="color:#e6db74">    matchLabels:
+</span><span style="color:#e6db74">      app: carolyne
+</span><span style="color:#e6db74">  template:
+</span><span style="color:#e6db74">    metadata:
+</span><span style="color:#e6db74">      labels:
+</span><span style="color:#e6db74">        app: carolyne
+</span><span style="color:#e6db74">    spec:
+</span><span style="color:#e6db74">      containers:
+</span><span style="color:#e6db74">        - name: carolyne
+</span><span style="color:#e6db74">          image: jacqueline/carolyne:latest
+</span><span style="color:#e6db74">          ports:
+</span><span style="color:#e6db74">            - containerPort: 4000
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>Let&rsquo;s create the service</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat <span style="color:#e6db74">&lt;&lt;EOF | kubectl apply -f -
+</span><span style="color:#e6db74">apiVersion: v1
+</span><span style="color:#e6db74">kind: Service
+</span><span style="color:#e6db74">metadata:
+</span><span style="color:#e6db74">  name: carolyne-service
+</span><span style="color:#e6db74">  namespace: apps
+</span><span style="color:#e6db74">  labels:
+</span><span style="color:#e6db74">    app: carolyne
+</span><span style="color:#e6db74">spec:
+</span><span style="color:#e6db74">  ports:
+</span><span style="color:#e6db74">    - port: 4000
+</span><span style="color:#e6db74">  selector:
+</span><span style="color:#e6db74">    app: carolyne
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>Finally, let&rsquo;s create the ingress rules.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat <span style="color:#e6db74">&lt;&lt;EOF | kubectl apply -f -
+</span><span style="color:#e6db74">apiVersion: networking.k8s.io/v1
+</span><span style="color:#e6db74">kind: Ingress
+</span><span style="color:#e6db74">metadata:
+</span><span style="color:#e6db74">  annotations:
+</span><span style="color:#e6db74">    kubernetes.io/ingress.class: nginx
+</span><span style="color:#e6db74">    nginx.ingress.kubernetes.io/rewrite-target: /\$1
+</span><span style="color:#e6db74">  name: apps-ingress-rules
+</span><span style="color:#e6db74">  namespace: apps
+</span><span style="color:#e6db74">spec:
+</span><span style="color:#e6db74">  rules:
+</span><span style="color:#e6db74">  - host: carolyne.moonstreet.local
+</span><span style="color:#e6db74">    http:
+</span><span style="color:#e6db74">      paths:
+</span><span style="color:#e6db74">      - backend:
+</span><span style="color:#e6db74">          service: 
+</span><span style="color:#e6db74">            name: carolyne-service
+</span><span style="color:#e6db74">            port: 
+</span><span style="color:#e6db74">              number: 4000
+</span><span style="color:#e6db74">        path: /(.*)
+</span><span style="color:#e6db74">        pathType: Prefix
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>Need to add the hostname to my hostfile</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># sudo vim /etc/hosts</span>
+127.0.0.1       localhost carolyne.moonstreet.local
+</code></pre></div><p>And now we can browse to that lovely web application I just crafted.</p>
+<p><img src="/carolyne1.png" alt="1"></p>
+<p><img src="/carolyne2.png" alt="2"></p>
+
         </p>
     </div>
     
