@@ -156,6 +156,7 @@ I am however more comfortable with the Nginx ingress controller so let&rsquo;s j
 <p>In this post I will first install K3s, then install the Nginx ingress controller.
 Finally I will deploy a little go application (which is going to be fabulous later).</p>
 <p>Disclaimer: I am currently studying operators and CRD&rsquo;s so this setup is for testing them locally with a simple one node cluster.</p>
+<h2 id="install-k3s-with-nginx-ingress">Install K3s with Nginx ingress</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode <span style="color:#ae81ff">644</span> --disable traefik
 </code></pre></div><p>Wait a bit. When done, we can copy the config file so we can use kubectl.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir ~/.kube
@@ -179,7 +180,7 @@ ingress-nginx   ingress-nginx-admission-create-6jqz4        0/1     Completed   
 </span><span style="color:#e6db74">    spec:
 </span><span style="color:#e6db74">      hostNetwork: true
 </span><span style="color:#e6db74">EOF</span>
-</code></pre></div><p>Then patch tthe ingress controller deployment like so:</p>
+</code></pre></div><p>Then patch the ingress controller deployment like so:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl patch deployment ingress-nginx-controller -n ingress-nginx --patch <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat ingress.yaml<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
 </code></pre></div><p>If you now run <code>curl localhost</code> we see at there is a web server running. That means success!</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>vagrant@centos02 ~<span style="color:#f92672">]</span>$ curl localhost                                                                                                                            

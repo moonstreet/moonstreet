@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no"/>
 
-    <title> | Moonstreet</title>
+    <title>Create a read-only user in Kubernetes | Moonstreet</title>
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -144,55 +144,141 @@
         <div id="content" class="content-container">
         
 
-  <h1>
-    Archives
-  </h1>
-  <div>
-     
-      
-      
-          <h3>2020</h3> 
+<h1 class="post-title">Create a read-only user in Kubernetes</h1>
+    
+    <time>December 28, 2020</time>
+    
+    <div>
+        <p>
+        <h1 id="create-a-normal-user-for-read-only-access">Create a normal user for read-only access</h1>
+<p>Normal users are assumed to be managed by an outside, independent service. Kubernetes does not have objects which represent normal user accounts. Normal users cannot be added to a cluster through an API call. However, any user that presents a valid certificate signed by the cluster&rsquo;s certificate authority (CA) is considered authenticated.
+So we can create a user with read-only access to the cluster, and hand the kube config file over to that that user.</p>
+<h2 id="create-a-cluster-role">Create a Cluster Role</h2>
+<p>First create a Cluster Role. I&rsquo;ve decided to name the cluster role &lsquo;kube-reader-cluster-role&rsquo;
+As you can see I excluded &lsquo;secrets&rsquo;.</p>
+<p>You can find out about apiGroups, resources and verbs with the following command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k api-resources --sort-by name <span style="color:#75715e">#I&#39;m so lazy, I use k instead of kubectl</span>
+</code></pre></div><p>This is the result:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat <span style="color:#e6db74">&lt;&lt;EOF | kubectl apply -f -
+</span><span style="color:#e6db74">apiVersion: rbac.authorization.k8s.io/v1
+</span><span style="color:#e6db74">kind: ClusterRole
+</span><span style="color:#e6db74">metadata:
+</span><span style="color:#e6db74">  annotations:
+</span><span style="color:#e6db74">    rbac.authorization.kubernetes.io/autoupdate: &#34;true&#34;
+</span><span style="color:#e6db74">  labels:
+</span><span style="color:#e6db74">  name: kube-reader-cluster-role
+</span><span style="color:#e6db74">  namespace: default
+</span><span style="color:#e6db74">rules:
+</span><span style="color:#e6db74">- apiGroups:
+</span><span style="color:#e6db74">  - &#34;&#34;
+</span><span style="color:#e6db74">  resources: [&#34;*&#34;]
+</span><span style="color:#e6db74">  verbs:
+</span><span style="color:#e6db74">  - get
+</span><span style="color:#e6db74">  - list
+</span><span style="color:#e6db74">  - watch
+</span><span style="color:#e6db74">- apiGroups:
+</span><span style="color:#e6db74">  - extensions
+</span><span style="color:#e6db74">  resources: [&#34;*&#34;]
+</span><span style="color:#e6db74">  verbs:
+</span><span style="color:#e6db74">  - get
+</span><span style="color:#e6db74">  - list
+</span><span style="color:#e6db74">  - watch
+</span><span style="color:#e6db74">- apiGroups:
+</span><span style="color:#e6db74">  - apps
+</span><span style="color:#e6db74">  resources: [&#34;*&#34;]
+</span><span style="color:#e6db74">  verbs:
+</span><span style="color:#e6db74">  - get
+</span><span style="color:#e6db74">  - list
+</span><span style="color:#e6db74">  - watch
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><h2 id="create-a-certificate-request">Create a certificate request</h2>
+<p>Let&rsquo;s add read-only access for a user called kube-support. It&rsquo;s not a real name.
+This user kube-support should be able to access Kubernetes resources from outside the cluster and they are only allowed to read.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">openssl req -new -newkey rsa:4096 -nodes -keyout kube-support.key -out kube-support.csr -subj <span style="color:#e6db74">&#34;/CN=kube-support/O=readers&#34;</span>
+csr<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat kube-support.csr | base64 | tr -d <span style="color:#e6db74">&#39;\n&#39;</span><span style="color:#66d9ef">)</span>
+</code></pre></div><p>Present the certificate signing request to Kubernetes like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat <span style="color:#e6db74">&lt;&lt;EOF | kubectl apply -f -
+</span><span style="color:#e6db74">kubectl create –edit -f k8s-csr.yaml:
+</span><span style="color:#e6db74">apiVersion: certificates.k8s.io/v1
+</span><span style="color:#e6db74">kind: CertificateSigningRequest
+</span><span style="color:#e6db74">metadata:
+</span><span style="color:#e6db74">name: kube-support-reader-access
+</span><span style="color:#e6db74">spec:
+</span><span style="color:#e6db74">signerName: kubernetes.io/kube-apiserver-client
+</span><span style="color:#e6db74">groups:
+</span><span style="color:#e6db74">- system:authenticated
+</span><span style="color:#e6db74">  request: $csr
+</span><span style="color:#e6db74">  usages:
+</span><span style="color:#e6db74">- client auth
+</span><span style="color:#e6db74">  EOF</span>
+</code></pre></div><p>Then check the progress:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k get certificatesigningrequests.certificates.k8s.io
 
-          <ul class="archives-list"> 
-            
-              
-             
-                  <li class="archives-list-item">
-                    <span class="archives-list-item-date">Dec 28</span>
-                    <span>
-                      <a href="/posts/kubernetes-readonly/">Create a read-only user in Kubernetes</a>
-                    </span>
-                  </li>
-              
-             
-                  <li class="archives-list-item">
-                    <span class="archives-list-item-date">Dec 26</span>
-                    <span>
-                      <a href="/posts/k3s-with-ingress/">Install the Nginx ingress controller on K3s and deploy a web app</a>
-                    </span>
-                  </li>
-              
-             
-                  <li class="archives-list-item">
-                    <span class="archives-list-item-date">Sep 27</span>
-                    <span>
-                      <a href="/posts/k3s-libvirt/">K3s on a Centos vm</a>
-                    </span>
-                  </li>
-              
-             
-                  <li class="archives-list-item">
-                    <span class="archives-list-item-date">Sep 20</span>
-                    <span>
-                      <a href="/posts/libvirt/">Vagrant with the libvirt plugin</a>
-                    </span>
-                  </li>
-              
-          </ul>
-      
-  </div>
+NAME                     AGE   SIGNERNAME                            REQUESTOR      CONDITION
+kube-support-reader-access   19s   kubernetes.io/kube-apiserver-client   system:admin   Pending
+</code></pre></div><p>Of course the state will be Pending unless you approve it. So let&rsquo;s go ahead and approve the csr:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl certificate approve kube-support-reader-access
+<span style="color:#75715e"># certificatesigningrequest.certificates.k8s.io/kube-support-reader-access approved</span>
+</code></pre></div><p>Retrieve the crt</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get csr kube-support-reader-access -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.status.certificate}&#39;</span> | base64 --decode &gt; kube-support.crt
+</code></pre></div><h2 id="build-the-kube-config-file">Build the kube config file.</h2>
+<p>Not sure if you ever studied the ~/.kube/config file up close. It has the following structure:</p>
+<p><img src="/kube-config.png" alt="config"></p>
+<p>So our next job is to populate the necessary fields.
+Let&rsquo;s start with certificate-authority-data:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl config view -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.clusters[0].cluster.certificate-authority-data}&#39;</span> --raw | base64 --decode - &gt; k8s-ca.crt
+</code></pre></div><p>Create the initial kube config file and populate it with the certificate-authority-data</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl config set-cluster <span style="color:#66d9ef">$(</span>kubectl config view -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.clusters[0].name}&#39;</span><span style="color:#66d9ef">)</span> --server<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>kubectl config view -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.clusters[0].cluster.server}&#39;</span><span style="color:#66d9ef">)</span> --certificate-authority<span style="color:#f92672">=</span>k8s-ca.crt --kubeconfig<span style="color:#f92672">=</span>kube-support-config --embed-certs
+</code></pre></div><p>Let&rsquo;s add the client-certificate-data and client-key-data.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl config set-credentials kube-support --client-certificate<span style="color:#f92672">=</span>kube-support.crt --client-key<span style="color:#f92672">=</span>kube-support.key --embed-certs --kubeconfig<span style="color:#f92672">=</span>kube-support-config
+</code></pre></div><p>Set a context (just default)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k config set-context default --cluster<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>kubectl config view -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.clusters[0].name}&#39;</span><span style="color:#66d9ef">)</span> --namespace<span style="color:#f92672">=</span>default --user<span style="color:#f92672">=</span>kube-support --kubeconfig<span style="color:#f92672">=</span>kube-support-config
+</code></pre></div><p>Switch to the namespace</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl config use-context default --kubeconfig<span style="color:#f92672">=</span>kube-support-config
+</code></pre></div><p>We are now done with the kube config file.</p>
+<h2 id="check-if-it-works">Check if it works</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k version --kubeconfig kube-support-config
 
-  <div class="page-footer"></div>
+kube-support on  stage1 via 🐹 v1.15.6 at ☸️  v1.19.5+k3s2 default  
+➜ k get pods --kubeconfig kube-support-config
+Error from server <span style="color:#f92672">(</span>Forbidden<span style="color:#f92672">)</span>: pods is forbidden: User <span style="color:#e6db74">&#34;kube-support&#34;</span> cannot list resource <span style="color:#e6db74">&#34;pods&#34;</span> in API group <span style="color:#e6db74">&#34;&#34;</span> in the namespace <span style="color:#e6db74">&#34;default&#34;</span>
+</code></pre></div><p>It doesn&rsquo;t work. We should bind the kube-support user to the kube-reader-cluster-role.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k create clusterrolebinding kube-support-kube-reader --clusterrole<span style="color:#f92672">=</span>kube-reader-cluster-role --user<span style="color:#f92672">=</span>kube-support
+<span style="color:#75715e"># clusterrolebinding.rbac.authorization.k8s.io/kube-support-kube-reader created</span>
+</code></pre></div><p>Now let&rsquo;s try again:</p>
+<pre><code>kube-support on  stage1 via 🐹 v1.15.6 at ☸️  v1.19.5+k3s2 default  
+➜ kubectl run -it trouble-pod --image=debian --kubeconfig kube-support-config
+Error from server (Forbidden): pods is forbidden: User &quot;kube-support&quot; cannot create resource &quot;pods&quot; in API group &quot;&quot; in the namespace &quot;default&quot;
+</code></pre><p>Well this was expected. kube-support has only read permissions! Let&rsquo;s try something else!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get pods --kubeconfig kube-support-config
+No resources found in default namespace.
+
+kubectl get pods --kubeconfig kube-support-config --all-namespaces 
+NAMESPACE       NAME                                        READY   STATUS      RESTARTS   AGE
+ingress-nginx   ingress-nginx-admission-create-cxb7c        0/1     Completed   <span style="color:#ae81ff">0</span>          46h
+ingress-nginx   ingress-nginx-admission-patch-zssrb         0/1     Completed   <span style="color:#ae81ff">1</span>          46h
+kube-system     metrics-server-7b4f8b595-42s5m              1/1     Running     <span style="color:#ae81ff">4</span>          46h
+kube-system     coredns-66c464876b-zckdd                    1/1     Running     <span style="color:#ae81ff">3</span>          46h
+ingress-nginx   ingress-nginx-controller-57fb49bdbf-xcpmd   1/1     Running     <span style="color:#ae81ff">20</span>         46h
+kube-system     local-path-provisioner-7ff9579c6-shd4b      1/1     Running     <span style="color:#ae81ff">28</span>         46h
+bob             trouble-pod                                 1/1     Running     <span style="color:#ae81ff">1</span>          39m
+
+</code></pre></div><h2 id="resources">Resources</h2>
+<p><a href="https://codefarm.me/2019/02/01/access-kubernetes-api-with-client-certificates/">https://codefarm.me/2019/02/01/access-kubernetes-api-with-client-certificates/</a>
+<a href="https://ahmet.im/blog/mastering-kubeconfig/">https://ahmet.im/blog/mastering-kubeconfig/</a>
+<a href="https://medium.com/swlh/how-we-effectively-managed-access-to-our-kubernetes-cluster-38821cf24d57">https://medium.com/swlh/how-we-effectively-managed-access-to-our-kubernetes-cluster-38821cf24d57</a>
+<a href="https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#authorization">https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#authorization</a>
+<a href="https://www.cyberark.com/resources/threat-research-blog/securing-kubernetes-clusters-by-eliminating-risky-permissions">https://www.cyberark.com/resources/threat-research-blog/securing-kubernetes-clusters-by-eliminating-risky-permissions</a></p>
+
+        </p>
+    </div>
+    
+
+    
+
+    <div class="page-footer">
+        
+    </div>
 
 
         

@@ -6,7 +6,16 @@
     <description>Recent content on Moonstreet</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 26 Dec 2020 16:33:46 +0100</lastBuildDate><atom:link href="https://moonstreet.nl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Dec 2020 17:10:13 +0100</lastBuildDate><atom:link href="https://moonstreet.nl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Create a read-only user in Kubernetes</title>
+      <link>https://moonstreet.nl/posts/kubernetes-readonly/</link>
+      <pubDate>Mon, 28 Dec 2020 17:10:13 +0100</pubDate>
+      
+      <guid>https://moonstreet.nl/posts/kubernetes-readonly/</guid>
+      <description>Create a normal user for read-only access Normal users are assumed to be managed by an outside, independent service.</description>
+    </item>
+    
     <item>
       <title>Install the Nginx ingress controller on K3s and deploy a web app</title>
       <link>https://moonstreet.nl/posts/k3s-with-ingress/</link>
