@@ -4,13 +4,14 @@ date: 2020-12-28T17:10:13+01:00
 draft: false
 ---
 
-# Create a normal user for read-only access
-Normal users are assumed to be managed by an outside, independent service. Kubernetes does not have objects which represent normal user accounts. Normal users cannot be added to a cluster through an API call. However, any user that presents a valid certificate signed by the cluster's certificate authority (CA) is considered authenticated.
+[Normal users are assumed to be managed by an outside, independent service](https://kubernetes.io/docs/reference/access-authn-authz/authentication/). Kubernetes does not have objects which represent normal user accounts. Normal users cannot be added to a cluster through an API call. However, any user that presents a valid certificate signed by the cluster's certificate authority (CA) is considered authenticated.
 So we can create a user with read-only access to the cluster, and hand the kube config file over to that that user.
 
-## Create a Cluster Role 
+This post assumes a basic level of understanding of how Kubernetes works.
 
-First create a Cluster Role. I've decided to name the cluster role 'kube-reader-cluster-role'
+## Create a ClusterRole
+
+First create a ClusterRole. I've decided to name the cluster role 'kube-reader-cluster-role'
 As you can see I excluded 'secrets'.
 
 You can find out about apiGroups, resources and verbs with the following command:
@@ -18,7 +19,7 @@ You can find out about apiGroups, resources and verbs with the following command
 ```shell
 k api-resources --sort-by name #I'm so lazy, I use k instead of kubectl
 ```
-
+More info about ClusterRoles and RBAC you can find [here](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
 This is the result:
 
 ```shell
@@ -58,7 +59,7 @@ EOF
 
 ## Create a certificate request
 
-Let's add read-only access for a user called kube-support. It's not a real name. 
+Let's add read-only access for a user called kube-support. It's not a real name.
 This user kube-support should be able to access Kubernetes resources from outside the cluster and they are only allowed to read.
 
 ```shell
@@ -85,7 +86,7 @@ groups:
   EOF
 ```
 
-Then check the progress: 
+Then check the progress:
 
 ```shell
 k get certificatesigningrequests.certificates.k8s.io
@@ -112,7 +113,7 @@ Not sure if you ever studied the ~/.kube/config file up close. It has the follow
 
 ![config](/kube-config.png)
 
-So our next job is to populate the necessary fields. 
+So our next job is to populate the necessary fields.
 Let's start with certificate-authority-data:
 
 ```shell
@@ -146,14 +147,11 @@ We are now done with the kube config file.
 ## Check if it works
 
 ```shell
-k version --kubeconfig kube-support-config
-
-kube-support on  stage1 via 🐹 v1.15.6 at ☸️  v1.19.5+k3s2 default  
-➜ k get pods --kubeconfig kube-support-config
+k get pods --kubeconfig kube-support-config
 Error from server (Forbidden): pods is forbidden: User "kube-support" cannot list resource "pods" in API group "" in the namespace "default"
 ```
 
-It doesn't work. We should bind the kube-support user to the kube-reader-cluster-role. 
+It doesn't work. We should bind the kube-support user to the kube-reader-cluster-role.
 
 ```shell
 k create clusterrolebinding kube-support-kube-reader --clusterrole=kube-reader-cluster-role --user=kube-support
@@ -162,19 +160,21 @@ k create clusterrolebinding kube-support-kube-reader --clusterrole=kube-reader-c
 
 Now let's try again:
 
-```
-kube-support on  stage1 via 🐹 v1.15.6 at ☸️  v1.19.5+k3s2 default  
-➜ kubectl run -it trouble-pod --image=debian --kubeconfig kube-support-config
+```shell
+k run -it trouble-pod --image=debian --kubeconfig kube-support-config
 Error from server (Forbidden): pods is forbidden: User "kube-support" cannot create resource "pods" in API group "" in the namespace "default"
 ```
 
 Well this was expected. kube-support has only read permissions! Let's try something else!
 
 ```shell
-kubectl get pods --kubeconfig kube-support-config
+k get pods --kubeconfig kube-support-config
 No resources found in default namespace.
+```
+Success!
 
-kubectl get pods --kubeconfig kube-support-config --all-namespaces 
+```shell
+k get pods --kubeconfig kube-support-config --all-namespaces 
 NAMESPACE       NAME                                        READY   STATUS      RESTARTS   AGE
 ingress-nginx   ingress-nginx-admission-create-cxb7c        0/1     Completed   0          46h
 ingress-nginx   ingress-nginx-admission-patch-zssrb         0/1     Completed   1          46h
@@ -186,10 +186,11 @@ bob             trouble-pod                                 1/1     Running     
 
 ```
 
-
 ## Resources
+
 https://codefarm.me/2019/02/01/access-kubernetes-api-with-client-certificates/
 https://ahmet.im/blog/mastering-kubeconfig/
 https://medium.com/swlh/how-we-effectively-managed-access-to-our-kubernetes-cluster-38821cf24d57
 https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#authorization
 https://www.cyberark.com/resources/threat-research-blog/securing-kubernetes-clusters-by-eliminating-risky-permissions
+https://www.openlogic.com/blog/granting-user-access-your-kubernetes-cluster
