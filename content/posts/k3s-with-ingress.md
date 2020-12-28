@@ -1,5 +1,5 @@
 ---
-title: "Install the Nginx ingress controller on K3s"
+title: "Install the Nginx ingress controller on K3s and deploy a web app"
 date: 2020-12-26T16:33:46+01:00
 draft: false
 ---
@@ -7,6 +7,7 @@ draft: false
 When running K3s, by default Traefik is installed as an ingress controller. 
 You need an ingress controller to expose (web) applications to the outside world.
 I am however more comfortable with the Nginx ingress controller so let's just install that instead.
+
 In this post I will first install K3s, then install the Nginx ingress controller. 
 Finally I will deploy a little go application (which is going to be fabulous later).
 
@@ -160,7 +161,7 @@ spec:
 EOF
 ```
 
-Need to add the hostname to my hostfile 
+Need to add the hostname to my hostfile:
 
 ```shell
 # sudo vim /etc/hosts
