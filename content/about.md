@@ -12,6 +12,8 @@ Welcome to yet another Hugo blog!
 Moonstreet is the name of the street where I live, together with my lovely girlfriend.
 I am a devops engineer by day that just can't stop thinking about technology in the night. 
 
+The opinions expressed in this blog are my own personal opinions and do not represent my employer’s view in any way.
+
 ## About this website
 
 These are my notes about the things I learn and think I worthy of sharing with the world.

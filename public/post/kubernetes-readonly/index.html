@@ -7,12 +7,12 @@
 <meta name="generator" content="Hugo 0.79.1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-186145252-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'XXXXXXXXXX');
+  gtag('config', 'UA-186145252-1');
 </script>
 <meta property="og:locale" content="en" />
 
@@ -55,7 +55,7 @@
 <header class="nav_header" >
   <nav class="nav">
     <a href='https://moonstreet.nl/' class="nav_brand nav_item">
-        Moonstreet
+      <img src="https://moonstreet.nl/logos/bitma10.png" class="logo">
       <div class="nav_close">
         <div>
           <svg class="icon">
@@ -77,18 +77,18 @@
     <a href="https://moonstreet.nl/" class="nav_item">Home </a>
   </div>
   <div class="nav_parent">
-    <a href="https://moonstreet.nl/post/rich-content/" class="nav_item">Archives </a>
+    <a href="https://moonstreet.nl/about/" class="nav_item">About </a>
   </div>
   <div class="nav_parent">
     <a href="https://moonstreet.nl/" class="nav_item">Links <img src='https://moonstreet.nl/icons/caret-icon.svg' alt="icon" class="nav_icon"></a>
     <div class="nav_sub">
       <span class="nav_child"></span>
-        <a href="https://www.linkedin.com/" class="nav_child nav_item">LinkedIn</a>
-        <a href="https://twitter.com/" class="nav_child nav_item">Twitter</a>
+        <a href="https://kubernetes.io/" class="nav_child nav_item">Kubernetes</a>
+        <a href="https://www.magalix.com/blog" class="nav_child nav_item">Magalix</a>
+        <a href="https://www.reddit.com/r/kubernetes/" class="nav_child nav_item">Reddit</a>
+        <a href="http://www.thebuttonfactory.nl/" class="nav_child nav_item">The Buttonfactory</a>
+        <a href="https://thenewstack.io/" class="nav_child nav_item">The New Stack</a>
     </div>
-  </div>
-  <div class="nav_parent">
-    <a href="https://moonstreet.nl/about/" class="nav_item">About </a>
   </div>
       
       <div class="nav_parent">
@@ -104,19 +104,14 @@
       </div>
       
 <div class='follow'>
-  <a href="https://github.com/#">
+  <a href="https://github.com/jacqinthebox">
     <svg class="icon">
   <use xlink:href="#github"></use>
 </svg>
   </a>
-  <a href="https://twitter.com/#">
+  <a href="https://twitter.com/jacqoutthebox">
     <svg class="icon">
   <use xlink:href="#twitter"></use>
-</svg>
-  </a>
-  <a href="https://www.linkedin.com/in/#">
-    <svg class="icon">
-  <use xlink:href="#linkedin"></use>
 </svg>
   </a>
     
@@ -165,34 +160,19 @@ This is the result:</p>
 </span><span class="ln"> 2</span><span class="s">apiVersion: rbac.authorization.k8s.io/v1
 </span><span class="ln"> 3</span><span class="s">kind: ClusterRole
 </span><span class="ln"> 4</span><span class="s">metadata:
-</span><span class="ln"> 5</span><span class="s">  annotations:
-</span><span class="ln"> 6</span><span class="s">    rbac.authorization.kubernetes.io/autoupdate: &#34;true&#34;
-</span><span class="ln"> 7</span><span class="s">  labels:
-</span><span class="ln"> 8</span><span class="s">  name: kube-reader-cluster-role
-</span><span class="ln"> 9</span><span class="s">  namespace: default
-</span><span class="ln">10</span><span class="s">rules:
-</span><span class="ln">11</span><span class="s">- apiGroups:
-</span><span class="ln">12</span><span class="s">  - &#34;&#34;
-</span><span class="ln">13</span><span class="s">  resources: [&#34;*&#34;]
-</span><span class="ln">14</span><span class="s">  verbs:
-</span><span class="ln">15</span><span class="s">  - get
-</span><span class="ln">16</span><span class="s">  - list
-</span><span class="ln">17</span><span class="s">  - watch
-</span><span class="ln">18</span><span class="s">- apiGroups:
-</span><span class="ln">19</span><span class="s">  - extensions
-</span><span class="ln">20</span><span class="s">  resources: [&#34;*&#34;]
-</span><span class="ln">21</span><span class="s">  verbs:
-</span><span class="ln">22</span><span class="s">  - get
-</span><span class="ln">23</span><span class="s">  - list
-</span><span class="ln">24</span><span class="s">  - watch
-</span><span class="ln">25</span><span class="s">- apiGroups:
-</span><span class="ln">26</span><span class="s">  - apps
-</span><span class="ln">27</span><span class="s">  resources: [&#34;*&#34;]
-</span><span class="ln">28</span><span class="s">  verbs:
-</span><span class="ln">29</span><span class="s">  - get
-</span><span class="ln">30</span><span class="s">  - list
-</span><span class="ln">31</span><span class="s">  - watch
-</span><span class="ln">32</span><span class="s">EOF</span>
+</span><span class="ln"> 5</span><span class="s">  name: kube-reader-cluster-role
+</span><span class="ln"> 6</span><span class="s">rules:
+</span><span class="ln"> 7</span><span class="s">- apiGroups: [&#34;&#34;]
+</span><span class="ln"> 8</span><span class="s">  resources: [&#34;pods&#34;,&#34;configmaps&#34;,&#34;services&#34;,&#34;events&#34;,&#34;namespaces&#34;,&#34;nodes&#34;,&#34;limitranges&#34;,&#34;persistentvolumes&#34;,&#34;persistenttvolumeclaims&#34;,&#34;resourcequotas&#34;]
+</span><span class="ln"> 9</span><span class="s">  verbs: [&#34;get&#34;, &#34;watch&#34;, &#34;list&#34;]
+</span><span class="ln">10</span><span class="s">- apiGroups:
+</span><span class="ln">11</span><span class="s">    - apps
+</span><span class="ln">12</span><span class="s">  resources: [&#34;*&#34;]
+</span><span class="ln">13</span><span class="s">  verbs:
+</span><span class="ln">14</span><span class="s">    - get
+</span><span class="ln">15</span><span class="s">    - list
+</span><span class="ln">16</span><span class="s">    - watch
+</span><span class="ln">17</span><span class="s">EOF</span>
 </code></pre></div><h2 id="create-a-certificate-request">Create a certificate request</h2>
 <p>Let's add read-only access for a user called kube-support. It's not a real name.
 This user kube-support should be able to access Kubernetes resources from outside the cluster and they are only allowed to read.</p>
@@ -278,11 +258,20 @@ Let's start with certificate-authority-data:</p>
     
       <h2>Jacqueline&#39;s misc notes</h2>
       <div>
-        I write stuff about Kubernetes mostly so I don&#39;t forget. Perpetual student.
+        A collection of notes about technology so I don&#39;t forget what it is all about.
       </div>
       <a href='https://moonstreet.nl/about/' class="button mt-1" role="button">Read More</a>
+    <h2 class="mt-4">Featured Posts</h2>
+    <ul>
+      <li>
+        <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
+      </li>
+    </ul>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
+      <li>
+        <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
+      </li>
       <li>
         <a href="https://moonstreet.nl/post/k3s-with-ingress/" class="nav-link">Install the Nginx ingress controller on K3s and deploy a web app</a>
       </li>
@@ -294,10 +283,31 @@ Let's start with certificate-authority-data:</p>
       </li>
     </ul>
     <div>
+      <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
+      <nav class="tags_nav">
+        <a href='https://moonstreet.nl/categories/technology/' class="post_tag button button_translucent">
+          TECHNOLOGY
+          <span class="button_tally">1</span>
+        </a>
+        
+        
+      </nav>
+    </div>
+    <div>
       <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
       <nav class="tags_nav">
+        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
+          AZURE
+          <span class="button_tally">1</span>
+        </a>
+        
         <a href='https://moonstreet.nl/tags/index/' class="post_tag button button_translucent">
           INDEX
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
+          KUBERNETES
           <span class="button_tally">1</span>
         </a>
         

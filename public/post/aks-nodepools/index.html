@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<html lang="en" data-figures="">
+<html lang="en" data-figures="true" class="page">
   <head>
-<title>Tags | Moonstreet</title>
+<title>Azure Kubernetes node pools with Terraform | Moonstreet</title>
 <meta charset="utf-8">
 <meta name="generator" content="Hugo 0.79.1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -16,16 +16,14 @@
 </script>
 <meta property="og:locale" content="en" />
 
-<meta property="og:locale:alternate" content="pt" />
-
 <meta property="og:type" content="article">
-<meta name="description" content="">
+<meta name="description" content="Article description.">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@jacqoutthebox">
-<meta name="twitter:title" content="Tags" />
-<meta property="og:url" content="https://moonstreet.nl/tags/" />
-<meta property="og:title" content="Tags" />
-<meta property="og:description" content="" />
+<meta name="twitter:title" content="Azure Kubernetes node pools with Terraform" />
+<meta property="og:url" content="https://moonstreet.nl/post/aks-nodepools/" />
+<meta property="og:title" content="Azure Kubernetes node pools with Terraform" />
+<meta property="og:description" content="Article description." />
 <meta property="og:image" content="https://moonstreet.nl/images/thumbnail.png" />
 <link rel="apple-touch-icon" sizes="180x180" href='https://moonstreet.nl/icons/apple-touch-icon.png'>
 <link rel="icon" type="image/png" sizes="32x32" href='https://moonstreet.nl/icons/favicon-32x32.png'>
@@ -34,8 +32,7 @@
 <meta name="msapplication-TileColor" content="#002538">
 <meta name="theme-color" content="#002538">
 
-<link rel="canonical" href="https://moonstreet.nl/tags/">
-<link rel="alternate" type="application/rss+xml" href="https://moonstreet.nl/tags/index.xml" title="Moonstreet" />
+<link rel="canonical" href="https://moonstreet.nl/post/aks-nodepools/">
 
     
 
@@ -52,8 +49,7 @@
   
   
     
-  
-  <body data-code="7" data-lines="false" id="documentTop">
+  <body data-code="40" data-lines="true" id="documentTop">
 
 <header class="nav_header" >
   <nav class="nav">
@@ -134,95 +130,134 @@
 </header>
 
     <main>
-
+  
 <div class="grid-inverse wrap content">
-  <ul class="posts" id="posts">
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://moonstreet.nl/tags/azure/">azure</a>
-      </h3>
-      <div class="post_meta">
+  <article class="post_content">
+    <h1 class="post_title">Azure Kubernetes node pools with Terraform</h1><div class="post_meta">
   
     <svg class="icon">
   <use xlink:href="#calendar"></use>
 </svg>
     <span class="post_date">
       Dec 29, 2020</span>
+      <a href='https://moonstreet.nl/tags/kubernetes' class="post_tag button button_translucent">kubernetes
+      </a>
+      <a href='https://moonstreet.nl/tags/azure' class="post_tag button button_translucent">azure
+      </a>
 </div>
 
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-          </p>
-          <a href="https://moonstreet.nl/tags/azure/" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
+    
 
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://moonstreet.nl/tags/kubernetes/">kubernetes</a>
-      </h3>
-      <div class="post_meta">
-  
-    <svg class="icon">
-  <use xlink:href="#calendar"></use>
-</svg>
-    <span class="post_date">
-      Dec 29, 2020</span>
-</div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-          </p>
-          <a href="https://moonstreet.nl/tags/kubernetes/" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="https://moonstreet.nl/tags/index/">index</a>
-      </h3>
-      <div class="post_meta">
-  
-    <svg class="icon">
-  <use xlink:href="#calendar"></use>
-</svg>
-    <span class="post_date">
-      Jan 1, 0001</span>
-</div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-          </p>
-          <a href="https://moonstreet.nl/tags/index/" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-    <li>
-
-
-    </li>
-  </ul>
+    
+    <p><strong>In Azure Kubernetes Service (AKS), nodes of the same configuration are grouped together into node pools.</strong> These node pools contain the underlying VMs that run your applications.
+The initial number of nodes and their size (SKU) is defined when you create an AKS cluster, which creates a system node pool. To support applications that have different compute or storage demands, you can create additional user node pools.</p>
+<p>I just copied the above text from <a href="https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools">here</a> because it is just right. To have a full understanding of node pools I encourage you to read the whole article. Also, if you plan to run Azure Kubernetes in production, I can recommend <a href="https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads">this article</a> as well. It's all about the sizing baby!</p>
+<p>This post is about deploying node pools with Terraform. I assume a bit of prior knowledge about Azure and Terraform modules.</p>
+<p>Because we run multiple instances of AKS I thought to make the number of node pools and their properties variable. <a href="https://www.danielstechblog.io/terraform-working-with-aks-multiple-node-pools-in-tf-azure-provider-version-1-37/">This</a> article directed me in that direction.</p>
+<p>At work, we have a git repo with multiple cluster definitions (I treat them like cattle). The clusters are deployed in a Jenkins pipeline.</p>
+<h2 id="terraform-config">Terraform config</h2>
+<p>My goals is to create 3 node pools:</p>
+<ul>
+<li>a system node pool for system pods</li>
+<li>an infra node pool for infra pods (Vault, Elasticsearch and Prometheus to be precise)</li>
+<li>an app node pool for our LOB apps</li>
+</ul>
+<p>If you define an AKS cluster, following the Terraform <a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster">documentation</a> you will note that there is a default node pool block, but there isn't a definition of for extra node pools. In fact, there is a separate resource, namely the <a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster_node_pool">azurerm_kubernetes_cluster_node_pool</a> resource.</p>
+<p>My definition of the azurerm_kubernetes_cluster_node_pool is like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-terraform" data-lang="terraform"><span class="ln"> 1</span><span class="kr">resource</span> <span class="s2">&#34;azurerm_kubernetes_cluster_node_pool&#34;</span> <span class="s2">&#34;pools&#34;</span> <span class="p">{</span>
+<span class="ln"> 2</span>  <span class="nx">lifecycle</span> <span class="p">{</span>
+<span class="ln"> 3</span>    <span class="na">ignore_changes</span> = <span class="p">[</span>
+<span class="ln"> 4</span>      <span class="nx">node_count</span>
+<span class="ln"> 5</span>    <span class="p">]</span>
+<span class="ln"> 6</span>  <span class="p">}</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>  <span class="na">for_each</span> = <span class="nb">var</span><span class="p">.</span><span class="nx">az_aks_additional_node_pools</span>
+<span class="ln"> 9</span>  <span class="na">kubernetes_cluster_id</span> = <span class="nx">azurerm_kubernetes_cluster</span><span class="p">.</span><span class="nx">kube</span><span class="p">.</span><span class="nx">id</span>
+<span class="ln">10</span>  <span class="na">name</span>                  = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">name</span>
+<span class="ln">11</span>  <span class="na">mode</span>                  = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">mode</span>
+<span class="ln">12</span>  <span class="na">node_count</span>            = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">node_count</span>
+<span class="ln">13</span>  <span class="na">vm_size</span>               = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">vm_size</span>
+<span class="ln">14</span>  <span class="na">availability_zones</span>    = <span class="p">[</span><span class="s2">&#34;1&#34;</span><span class="p">,</span> <span class="s2">&#34;2&#34;</span><span class="p">]</span>
+<span class="ln">15</span>  <span class="na">max_pods</span>              = <span class="m">250</span>
+<span class="ln">16</span>  <span class="na">os_disk_size_gb</span>       = <span class="m">128</span>
+<span class="ln">17</span>  <span class="na">node_taints</span>           = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">taints</span>
+<span class="ln">18</span>  <span class="na">node_labels</span>           = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">labels</span>
+<span class="ln">19</span>  <span class="na">enable_auto_scaling</span>   = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">cluster_auto_scaling</span>
+<span class="ln">20</span>  <span class="na">min_count</span>             = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">cluster_auto_scaling_min_count</span>
+<span class="ln">21</span>  <span class="na">max_count</span>             = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">cluster_auto_scaling_max_count</span>
+<span class="ln">22</span><span class="p">}</span>
+</code></pre></div><p>We will be using the for_each expression to be able to define and deploy multiple nodepools later.
+The variable is defined as follows:</p>
+<div class="highlight"><pre class="chroma"><code class="language-terraform" data-lang="terraform"><span class="ln"> 1</span><span class="kr">
+</span><span class="ln"> 2</span><span class="kr">variable</span> <span class="s2">&#34;az_aks_additional_node_pools&#34;</span> <span class="p">{</span>
+<span class="ln"> 3</span>  <span class="na">type</span> =<span class="nb"> map</span><span class="p">(</span><span class="nx">object</span><span class="p">({</span>
+<span class="ln"> 4</span>    <span class="na">node_count</span>                     = <span class="nx">number</span>
+<span class="ln"> 5</span>    <span class="na">name</span>                           = <span class="nx">string</span>
+<span class="ln"> 6</span>    <span class="na">mode</span>                           = <span class="nx">string</span>
+<span class="ln"> 7</span>    <span class="na">vm_size</span>                        = <span class="nx">string</span>
+<span class="ln"> 8</span>    <span class="na">taints</span>                         =<span class="nb"> list</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span>
+<span class="ln"> 9</span>    <span class="na">cluster_auto_scaling</span>           = <span class="nx">bool</span>
+<span class="ln">10</span>    <span class="na">cluster_auto_scaling_min_count</span> = <span class="nx">number</span>
+<span class="ln">11</span>    <span class="na">cluster_auto_scaling_max_count</span> = <span class="nx">number</span>
+<span class="ln">12</span>    <span class="na">labels</span>                         =<span class="nb"> map</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span>
+<span class="ln">13</span>  <span class="p">}))</span>
+<span class="ln">14</span><span class="p">}</span>
+</code></pre></div><p>Look at 'taints' and 'labels': taint is a list of strings whereas labels are a map of strings. It took me an hour or so to figure this out, but I was also watching television at the same time, and it does not say anything. You need the labels, and the taints to configure your workloads (deployments and statefulsets) to direct the pods to the correct node pool.</p>
+<p>Finally, this is how I define 3 node pools for a cluster. This will result in:</p>
+<div class="highlight"><pre class="chroma"><code class="language-terraform" data-lang="terraform"><span class="ln"> 1</span>  <span class="na">az_aks_additional_node_pools</span> = <span class="p">{</span>
+<span class="ln"> 2</span>    <span class="na">systempool</span> = <span class="p">{</span>
+<span class="ln"> 3</span>      <span class="na">node_count</span> = <span class="m">1</span>
+<span class="ln"> 4</span>      <span class="na">mode</span> = <span class="s2">&#34;System&#34;</span>
+<span class="ln"> 5</span>      <span class="na">name</span> = <span class="s2">&#34;system&#34;</span>
+<span class="ln"> 6</span>      <span class="na">vm_size</span>    = <span class="s2">&#34;Standard_B2ms&#34;</span>
+<span class="ln"> 7</span>      <span class="na">zones</span>      = <span class="p">[</span><span class="s2">&#34;1&#34;</span><span class="p">,</span> <span class="s2">&#34;2&#34;</span><span class="p">]</span>
+<span class="ln"> 8</span>      <span class="na">taints</span> = <span class="p">[</span>
+<span class="ln"> 9</span>        <span class="s2">&#34;CriticalAddonsOnly=true:NoSchedule&#34;</span>
+<span class="ln">10</span>      <span class="p">]</span>
+<span class="ln">11</span>      <span class="na">labels</span> = <span class="nx">null</span>
+<span class="ln">12</span>      <span class="na">cluster_auto_scaling</span>           = <span class="kc">false</span>
+<span class="ln">13</span>      <span class="na">cluster_auto_scaling_min_count</span> = <span class="nx">null</span>
+<span class="ln">14</span>      <span class="na">cluster_auto_scaling_max_count</span> = <span class="nx">null</span>
+<span class="ln">15</span>    <span class="p">}</span>
+<span class="ln">16</span>    <span class="na">infrapool</span> = <span class="p">{</span>
+<span class="ln">17</span>      <span class="na">node_count</span> = <span class="m">1</span>
+<span class="ln">18</span>      <span class="na">name</span> = <span class="s2">&#34;infra&#34;</span>
+<span class="ln">19</span>      <span class="na">mode</span> = <span class="s2">&#34;User&#34;</span>
+<span class="ln">20</span>      <span class="na">vm_size</span>    = <span class="s2">&#34;Standard_B2ms&#34;</span>
+<span class="ln">21</span>      <span class="na">zones</span>      = <span class="p">[</span><span class="s2">&#34;1&#34;</span><span class="p">,</span> <span class="s2">&#34;2&#34;</span><span class="p">]</span>
+<span class="ln">22</span>      <span class="na">taints</span> = <span class="p">[</span>
+<span class="ln">23</span>        <span class="s2">&#34;InfraAddonsOnly=true:NoSchedule&#34;</span>
+<span class="ln">24</span>      <span class="p">]</span>
+<span class="ln">25</span>      <span class="na">labels</span> = <span class="p">{</span>
+<span class="ln">26</span>        <span class="nx">nodepool</span><span class="o">:</span> <span class="s2">&#34;infra&#34;</span>
+<span class="ln">27</span>      <span class="p">}</span>
+<span class="ln">28</span>      <span class="na">cluster_auto_scaling</span>           = <span class="kc">false</span>
+<span class="ln">29</span>      <span class="na">cluster_auto_scaling_min_count</span> = <span class="nx">null</span>
+<span class="ln">30</span>      <span class="na">cluster_auto_scaling_max_count</span> = <span class="nx">null</span>
+<span class="ln">31</span>    <span class="p">}</span>
+<span class="ln">32</span>    <span class="na">apppool</span> = <span class="p">{</span>
+<span class="ln">33</span>      <span class="na">node_count</span>                     = <span class="m">2</span>
+<span class="ln">34</span>      <span class="na">name</span>                           = <span class="s2">&#34;app16&#34;</span>
+<span class="ln">35</span>      <span class="na">mode</span>                           = <span class="s2">&#34;User&#34;</span>
+<span class="ln">36</span>      <span class="na">vm_size</span>                        = <span class="s2">&#34;Standard_A2m_v2&#34;</span>
+<span class="ln">37</span>      <span class="na">zones</span>                          = <span class="p">[</span><span class="s2">&#34;1&#34;</span><span class="p">,</span> <span class="s2">&#34;2&#34;</span><span class="p">]</span>
+<span class="ln">38</span>      <span class="na">taints</span>                         = <span class="nx">null</span>
+<span class="ln">39</span>      <span class="na">labels</span> = <span class="p">{</span>
+<span class="ln">40</span>        <span class="nx">nodepool</span><span class="o">:</span> <span class="s2">&#34;app16&#34;</span>
+<span class="ln">41</span>      <span class="p">}</span>
+<span class="ln">42</span>      <span class="na">cluster_auto_scaling</span>           = <span class="kc">true</span>
+<span class="ln">43</span>      <span class="na">cluster_auto_scaling_min_count</span> = <span class="m">2</span>
+<span class="ln">44</span>      <span class="na">cluster_auto_scaling_max_count</span> = <span class="m">4</span>
+<span class="ln">45</span>    <span class="p">}</span>
+<span class="ln">46</span>  <span class="p">}</span>
+</code></pre></div><h2 id="cleaning-up-the-default-node-pool">Cleaning up the default node pool</h2>
+<p>When the cluster and its node pools are deployed, I let Jenkins clean up de the default node pool because it's no longer needed.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>az aks nodepool delete --resource-group <span class="nv">$CLUSTER_FULL_NAME</span>-rg --cluster-name <span class="nv">$CLUSTER_FULL_NAME</span> --name default
+</code></pre></div>
+    
+      
+    
+  </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
     
@@ -231,17 +266,8 @@
         A collection of notes about technology so I don&#39;t forget what it is all about.
       </div>
       <a href='https://moonstreet.nl/about/' class="button mt-1" role="button">Read More</a>
-    <h2 class="mt-4">Featured Posts</h2>
-    <ul>
-      <li>
-        <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
-      </li>
-    </ul>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
-      <li>
-        <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
-      </li>
       <li>
         <a href="https://moonstreet.nl/post/kubernetes-readonly/" class="nav-link">Create a read-only user in Kubernetes</a>
       </li>
@@ -291,8 +317,6 @@
 </aside>
 
 </div>
-
-
     </main><svg width="0" height="0" class="hidden">
   <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
     <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
