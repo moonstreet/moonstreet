@@ -9,15 +9,15 @@ toc: false # Controls if a table of contents should be generated for first-level
 #featureImage: "/images/terraform.png" # Sets featured image on blog post.
 #thumbnail: "/images/path/terraform.png" # Sets thumbnail image appearing inside card on homepage.
 #shareImage: "/images/path/share.png" # Designate a separate image for social media sharing.
-codeMaxLines: 40 # Override global value for how many lines within a code block before auto-collapsing.
+codeMaxLines: 50 # Override global value for how many lines within a code block before auto-collapsing.
 codeLineNumbers: true # Override global value for showing of line numbers within code block.
 figurePositionShow: true # Override global value for showing the figure label.
 categories:
-  - Technology
-tags:
-  - kubernetes
-  - azure 
-showShare: false
+- Technology
+  tags:
+- kubernetes
+- azure
+  showShare: false
 ---    
 
 
@@ -34,7 +34,7 @@ At work, we have a git repo with multiple cluster definitions (I treat them like
 
 ## Terraform config
 
-My goals is to create 3 node pools:
+My goal is to create 3 node pools:
 
 -   a system node pool for system pods
 -   an infra node pool for infra pods (Vault, Elasticsearch and Prometheus to be precise)
@@ -68,7 +68,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "pools" {
   max_count             = each.value.cluster_auto_scaling_max_count
 }
 ```
-We will be using the for_each expression to be able to define and deploy multiple nodepools later. 
+We will be using the for_each expression to be able to define and deploy multiple nodepools later.
 The variable is defined as follows:
 
 ```terraform
@@ -87,7 +87,7 @@ variable "az_aks_additional_node_pools" {
   }))
 }
 ```
-Look at 'taints' and 'labels': taint is a list of strings whereas labels are a map of strings. It took me an hour or so to figure this out, but I was also watching television at the same time, and it does not say anything. You need the labels, and the taints to configure your workloads (deployments and statefulsets) to direct the pods to the correct node pool. 
+Look at 'taints' and 'labels': taint is a list of strings whereas labels are a map of strings. It took me an hour or so to figure this out, but I was also watching television at the same time, and it does not say anything. You need the labels, and the taints to configure your workloads (deployments and statefulsets) to direct the pods to the correct node pool.
 
 Finally, this is how I define 3 node pools for a cluster. This will result in:
 
@@ -148,6 +148,11 @@ When the cluster and its node pools are deployed, I let Jenkins clean up de the 
 ```shell
 az aks nodepool delete --resource-group $CLUSTER_FULL_NAME-rg --cluster-name $CLUSTER_FULL_NAME --name default
 ```
+
+## Resources and inspiration
+- https://www.danielstechblog.io/
+- https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads
+- https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools
 
 
 
