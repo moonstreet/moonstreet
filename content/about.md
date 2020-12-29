@@ -1,25 +1,26 @@
 ---
-title: "Moonstreet"
-date: 2020-09-19T08:36:08+02:00
+title: "Over about"
+aliases: ["about-us", "about-hugo", "contact"]
+date: 2020-12-28T17:10:13+01:00
 draft: false
+showShare: false
 ---
 
 Welcome to yet another Hugo blog!
 <!--more-->
 
 Moonstreet is the name of the street where I live, together with my lovely girlfriend.
-I am a devops engineer by day and a Linux distro hopper by night. By the time coding or scripting results in configuration I usually get bored.
+I am a devops engineer by day that just can't stop thinking about technology in the night. 
 
 ## About this website
 
-These are my notes about the things I learn and think I worthy of sharing with the world. 
-I am writing these notes on a modern Linux distro or my MacBook which I use as a daily driver so there will be hardly any Windows content (but never say never).
+These are my notes about the things I learn and think I worthy of sharing with the world.
 This website is made with the following tools:
 
 - [Hugo](https://gohugo.io/), a static site generator
 - [Github](https://github.com), for version control
 - [Netlify](https://www.netlify.com/), for deployment
-- [Noteworthy](https://github.com/kimcc/hugo-theme-noteworthy), the theme. 
+- [Noteworthy](https://github.com/kimcc/hugo-theme-noteworthy), the theme.
 
 Here are the steps to create this site:
 
@@ -57,3 +58,21 @@ cd moonstreet
 git submodule update --init --recursive
 hugo server -D
 ```
+
+Written in Go, Hugo is an open source static site generator available under the [Apache Licence 2.0.](https://github.com/gohugoio/hugo/blob/master/LICENSE) Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
+
+Hugo makes use of a variety of open source projects including:
+
+* https://github.com/yuin/goldmark
+* https://github.com/alecthomas/chroma
+* https://github.com/muesli/smartcrop
+* https://github.com/spf13/cobra
+* https://github.com/spf13/viper
+
+Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
+
+Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.
+
+Websites built with Hugo are extremelly fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.
+
+Learn more and contribute on [GitHub](https://github.com/gohugoio).

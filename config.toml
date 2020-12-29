@@ -1,92 +1,121 @@
-baseURL = "https://moonstreet.nl"
-
-languageCode = "en-us"
+# set `baseurl` to your root domain
+# if you set it to "/" share icons won't work properly on production
+baseurl = "https://moonstreet.nl/"  # Include trailing slash
 title = "Moonstreet"
-theme = "hugo-theme-noteworthy"
-enableRobotsTXT = true
-paginate = 4 # Set the number of posts to show before overflowing to the next page.
-summaryLength = 10 # Configure how long the post summary should be on the homepage.
+author = "Jacqueline"
+copyright = "Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved."
+# canonifyurls = true
+paginate = 10
+theme = "hugo-clarity"
 
+disqusShortname = ""
 
-googleAnalytics = "UA-186145252-1"
-# Add your Google Analytics identifier: UA-XXXXXXXX-X
-#googleAnalytics = ""
+DefaultContentLanguage = "en"
+# [languages]
+# config/_default/languages.toml
 
-# Add your Disqus shortname here.
-#disqusShortname = ""
+# [menus]
+# config/_default/menus/menu.xx.toml
 
 [taxonomies]
-  tag = "tags"
+category = "categories"
+tag = "tags"
+series = "series"
 
-[author]
-	name = "Jacqueline"
 
-# Set to false to disallow raw HTML in markdown files
-[markup.goldmark.renderer]
-    unsafe = true
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      hardWraps = false
+      unsafe = true # change to false to disable inclusion of rawHTML and math functions
+      xhtml = false
+    [markup.goldmark.extensions]
+      typographer = false
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    hl_Lines = "--"
+    lineNoStart = 1
+    lineNos = true # always set to true # else line numbers won't show at all! even when you toggle them on in the UI
+    lineNumbersInTable = false # toggling this on (i.e to true) or deleting this line will break the code blocks functionality. Will
+    noClasses = false
+    # style = "monokai"
+    tabWidth = 2
 
 [params]
-	math = true
-	# Blog description at the top of the homepage. Supports markdown.
-	description = "A few notes to refer back to"
+author = "Jacqueline's misc notes"
+twitter = "@jacqoutthebox"
+largeTwitterCard = false # set to true if you want to show a large twitter card image. The default is a small twitter card image
+introDescription = "I write stuff about Kubernetes mostly so I don't forget. Perpetual student."
+# description = "" # set your site's description here. will be use for home page content meta tags (seo). Alternatively set this description in your homepage content file i.e content/_index.md. Whatever is set in the latter will take precedence
+# Google analytics Id
+ga_analytics = "XXXXXXXXXX"
 
-    showReadMore = false
+# Baidu analytics Id
+# baidu_analytics = "XXXXXXXX"
 
-    # Set enableKofi to true to enable the Ko-fi support button. Add your Ko-fi ID to link to your account.
-    enableKofi = false
-    kofi = ""
+# limit the number of taxonomies links shown on the sidebar of each page by default.
+numberOfTagsShown = 14 # Applies for all other default & custom taxonomies. e.g categories, brands see https://gohugo.io/content-management/taxonomies#what-is-a-taxonomy
 
-	# Add links to your accounts. Remove the ones you don't want to include.
-	# Main
-	#email = "jacqueline.patricia@yahoo.com"
-    twitter = "https://twitter.com/jacqoutthebox"
-	#instagram = "jacqoutthebox"
-	#reddit = "jacqinthebox"
-	linkedin = "https://www.linkedin.com/in/jacquelineportier/"
-	# wordpress = "#"
-	# Programming
-    github = "https://github.com/jacqinthebox"
-	#stackoverflow = "#"
-	gitlab = "https://gitlab.com/jacqinthebox"
+# will be used on share >> twitter, facebook, linkedin
+fallBackOgImage = "images/thumbnail.png"
 
-# Menu links along the sidebar navigation.
-[[menu.main]]
-	identifier = "about"
-	name = "About"
-	url = "/about/"
-	weight = 1 # Weight is an integer used to sort the menu items. The sorting goes from smallest to largest numbers. If weight is not defined for each menu entry, Hugo will sort the entries alphabetically.
+# sets the maximum number of lines per codeblock. The codeblock will however be scrollable and expandable.
+codeMaxLines = 7
 
-[[menu.main]]
-	identifier = "tags"
-	name = "Tags"
-	url = "/tags/"
-	weight = 2
+# disable showing line numbers by default. Switch to `true` if you'd rather have them on.
+codeLineNumbers = false
 
-[[menu.main]]
-	name = "Archives"
-	identifier = "archives"
-	url = "/archives/"
-	weight = 3
+# enable math notation. Switch to `true` to enable mathjax in your site.
+enableMathNotation = false
 
-# Privacy configurations: https://gohugo.io/about/hugo-and-gdpr/
-[privacy]
-  [privacy.disqus]
-    disable = false
-  [privacy.googleAnalytics]
-    anonymizeIP = true
-    disable = false
-    respectDoNotTrack = false
-    useSessionStorage = false
-  [privacy.instagram]
-    disable = false
-    simple = false
-  [privacy.twitter]
-    disable = false
-    enableDNT = false
-    simple = false
-  [privacy.vimeo]
-    disable = false
-    simple = false
-  [privacy.youtube]
-    disable = false
-    privacyEnhanced = true
+# directory(s) where your articles are located
+mainSections = ["post"] # see config details here https://gohugo.io/functions/where/#mainsections
+
+# center logo on navbar
+centerLogo = false # Set to "true" for centering or "false" for left aligned.
+
+#logo = "logos/logo.png"
+
+# Label Non inline images on an article body
+figurePositionShow = false # toggle on or off globally
+# you can toggle this behaviour on or off on per page using the same variable inside your articles frontmatter
+figurePositionLabel = "Figure" # the text before image number e.g Figure 1.0
+
+# Set the collapsed mobile navigation to either appear from the left or the right
+mobileNavigation = "left" # if you prefer right change to 'right'
+
+# some site owners want to decide how they would like their sites to be introduced users. These settings give you as a site owner to decide how the user will view your site for the first time.
+
+# please note that you cannot enforce both modes at the same time. i.e by enforcing one mode, you priotise it over the other (by setting it to true). enforceDarkMode will be commented out
+
+# please also not that mode toggle UI will remain in place. That way, if a user prefers darkmode, they can have their way.
+
+enforceLightMode = false
+# enforceDarkMode = false
+
+# customize footer icon. see issue https://github.com/chipzoller/hugo-clarity/issues/77
+# footerLogo = "icons/copy.svg"
+
+# Text for the languages menu.
+languageMenuName = "🌐"
+
+# Title separator, default to |.
+# titleSeparator = "|"
+
+# Enable or disable comment globally. Default to true.
+# comment = false
+
+# Maximum number of recent posts.
+# numberOfRecentPosts = 8
+
+# Maximum number of featured posts.
+# numberOfFeaturedPosts = 8
+
+# Date format. Checkout https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference for details.
+# dateFormat = "2006-01-02" # Default to "Jan 2, 2006".
+# customFonts = false # toggle to true if you want to use custom fonts only.
+
+# The year when ths website was created, this value is used in the copyright
+# notice of the footer.
+# since = 2016
