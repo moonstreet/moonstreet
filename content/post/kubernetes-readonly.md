@@ -28,33 +28,18 @@ cat <<EOF | kubectl apply -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  annotations:
-    rbac.authorization.kubernetes.io/autoupdate: "true"
-  labels:
   name: kube-reader-cluster-role
-  namespace: default
 rules:
+- apiGroups: [""]
+  resources: ["pods","configmaps","services","events","namespaces","nodes","limitranges","persistentvolumes","persistenttvolumeclaims","resourcequotas"]
+  verbs: ["get", "watch", "list"]
 - apiGroups:
-  - ""
+    - apps
   resources: ["*"]
   verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - extensions
-  resources: ["*"]
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - apps
-  resources: ["*"]
-  verbs:
-  - get
-  - list
-  - watch
+    - get
+    - list
+    - watch
 EOF
 ```
 
