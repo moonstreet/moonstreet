@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>virtualization on Moonstreet</title>
+    <link>https://moonstreet.nl/tags/virtualization/</link>
+    <description>Recent content in virtualization on Moonstreet</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
+    <lastBuildDate>Sun, 20 Sep 2020 10:37:24 +0200</lastBuildDate><atom:link href="https://moonstreet.nl/tags/virtualization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vagrant with the libvirt plugin</title>
+      <link>https://moonstreet.nl/post/libvirt/</link>
+      <pubDate>Sun, 20 Sep 2020 10:37:24 +0200</pubDate>
+      
+      <guid>https://moonstreet.nl/post/libvirt/</guid>
+      <description>
+        
+          &lt;p&gt;Here is a post about how to create virtual machines with Vagrant and the libvirt plugin.&lt;/p&gt;
+&lt;h2 id=&#34;why-use-libvirt-as-a-vagrant-provider&#34;&gt;Why use libvirt as a vagrant provider&lt;/h2&gt;
+&lt;p&gt;Because when on a modern Linux distro running Gnome, chances are it&#39;s already there!&lt;/p&gt;
+&lt;p&gt;I use Vagrant extensively to run quick, short lived virtual machines to test and try out things. I always used and use Virtualbox as a virtual machine provider for Vagrant.
+Maybe I am late to the party but I recently discovered &lt;a href=&#34;https://help.gnome.org/users/gnome-boxes/stable/supported-protocols.html.en&#34;&gt;Gnome Boxes&lt;/a&gt; and I was wondering about the underlying architecture. Then I went on vacation and finally took the time to investigate.&lt;/p&gt;
+&lt;p&gt;The answer is: &lt;a href=&#34;https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine&#34;&gt;KVM&lt;/a&gt;. Together with &lt;a href=&#34;https://wiki.qemu.org/Main_Page&#34;&gt;QEMU&lt;/a&gt; and &lt;a href=&#34;https://libvirt.org/&#34;&gt;libvirt&lt;/a&gt;.
+(I remember using Qemu back in the 2007 or so but thinking it was terribly slow and left it for what is was. But its 2020 now, so let&#39;s dive in again!)&lt;/p&gt;
+&lt;h2 id=&#34;kvm-qemu-libvirt-lost-in-the-limbo&#34;&gt;KVM, QEMU, libvirt: lost in the limbo&lt;/h2&gt;
+&lt;p&gt;To refresh the memory a bit, a hypervisor is software that creates and runs virtual machines. Type 1 hypervisors (like Xen, ESXi and Hyper-V) run directly on the hardware. Type 2 hypervisors (Parallels, Virtualbox, Vmware Fusion) run on top of an OS.  KVM turns Linux into a type 1 hypervisor, but at the same time runs a fully functional OS. So it is a special case of a hypervisor.&lt;/p&gt;
+&lt;p&gt;KVM provides device abstraction but does not emulate a machine. It exposes the /dev/kvm interface, which a user mode host can then use to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bootstrap an iso (set up theguest VM address space)&lt;/li&gt;
+&lt;li&gt;Feed the guest simulated I/O&lt;/li&gt;
+&lt;li&gt;Map the guest&#39;s video display back onto the system host&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;On Linux, QEMU is one such userspace host. QEMU uses KVM when available to virtualize guests at near-native speeds, but otherwise falls back to software-only emulation.&lt;/p&gt;
+&lt;p&gt;The last piece of the puzzle is &lt;a href=&#34;https://wiki.libvirt.org/page/FAQ#What_is_libvirt.3F&#34;&gt;libvirt&lt;/a&gt;
+Libvirt provides a convenient way to storage and network interface management for virtual machines. Libvirt includes an API library, a daemon (libvirtd), and a command line utility (virsh).&lt;/p&gt;
+&lt;p&gt;Gnome Boxes uses libvirt, as does Vagrant. Hence the blog title: using Vagrant with the libvirt plugin.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/kvm.jpg&#34; alt=&#34;plaatje&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;lets-run-a-vm-already&#34;&gt;Let&#39;s run a VM already&lt;/h2&gt;
+&lt;p&gt;If you run this on Fedora 32, you can see that lots of packages are already installed:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;dnf list --installed &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep libvirt
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;dnf list --installed &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep qemu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We need Vagrant and the vagrant-libvirt plugin:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;sudo dnf install vagrant
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;sudo vagrant plugin install vagrant-libvirt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then make a folder and add a Vagrantfile in it&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;mkdir ~/vagrant/centos &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/vagrant/centos
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;cat &amp;gt; Vagrantfile &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;&amp;#39;EOF&amp;#39;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;$extra = &amp;lt;&amp;lt;-EXTRA
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;dnf update -y &amp;amp;&amp;amp; dnf install vim net-tools git lsof tar -y
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EXTRA
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;Vagrant.configure(&amp;#34;2&amp;#34;) do |config|
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  config.vm.define &amp;#34;node01&amp;#34; do |node01_config|
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    node01_config.vm.box =&amp;#34;generic/centos8&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    node01_config.vm.hostname = &amp;#34;centos01&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    node01_config.vm.provider :libvirt do |domain|
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.memory = 4096
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.cpus = 2
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.nested = true
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.volume_cache = &amp;#39;none&amp;#39;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    end
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  end
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  config.vm.provision &amp;#34;shell&amp;#34;, inline: $extra
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;end
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And then do&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;vagrant up
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Hooray!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/vagrant-centos.png&#34; alt=&#34;centos&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;afterthought-what-about-lxc-and-lxd&#34;&gt;Afterthought: What about LXC and LXD?&lt;/h2&gt;
+&lt;p&gt;You can also run &lt;a href=&#34;https://linuxcontainers.org/lxd/&#34;&gt;LXD&lt;/a&gt; instead of KVM. I think that LXD is the Canonical way, while KVM has been adopted by RedHat (fact check probably needed).
+Traditionally, LXD is used to create system containers, light-weight virtual machines that use Linux Container features and not hardware virtualization.
+However with LXD you can create both system containers and virtual machines. &lt;a href=&#34;https://www.cyberciti.biz/faq/how-to-install-setup-lxd-on-fedora-linux/&#34;&gt;Here&lt;/a&gt; is a nice blog post explaining that.&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

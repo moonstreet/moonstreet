@@ -16,7 +16,8 @@ categories:
   - Technology 
 tags:
   - kubernetes
-  - azure 
+  - azure
+  - terraform
 showShare: false
 ---    
 

@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<html lang="en" data-figures="" class="page">
+<html lang="en" data-figures="">
   <head>
-<title>Create a read-only user in Kubernetes | Moonstreet</title>
+<title>terraform | Moonstreet</title>
 <meta charset="utf-8">
 <meta name="generator" content="Hugo 0.79.1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -17,13 +17,13 @@
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="Normal users are assumed to be managed by an outside, independent service. Kubernetes does not have objects which represent normal user accounts. Normal users …">
+<meta name="description" content="">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@jacqoutthebox">
-<meta name="twitter:title" content="Create a read-only user in Kubernetes" />
-<meta property="og:url" content="https://moonstreet.nl/post/kubernetes-readonly/" />
-<meta property="og:title" content="Create a read-only user in Kubernetes" />
-<meta property="og:description" content="Normal users are assumed to be managed by an outside, independent service. Kubernetes does not have objects which represent normal user accounts. Normal users …" />
+<meta name="twitter:title" content="terraform" />
+<meta property="og:url" content="https://moonstreet.nl/tags/terraform/" />
+<meta property="og:title" content="terraform" />
+<meta property="og:description" content="" />
 <meta property="og:image" content="https://moonstreet.nl/images/thumbnail.png" />
 <link rel="apple-touch-icon" sizes="180x180" href='https://moonstreet.nl/icons/apple-touch-icon.png'>
 <link rel="icon" type="image/png" sizes="32x32" href='https://moonstreet.nl/icons/favicon-32x32.png'>
@@ -32,7 +32,8 @@
 <meta name="msapplication-TileColor" content="#002538">
 <meta name="theme-color" content="#002538">
 
-<link rel="canonical" href="https://moonstreet.nl/post/kubernetes-readonly/">
+<link rel="canonical" href="https://moonstreet.nl/tags/terraform/">
+<link rel="alternate" type="application/rss+xml" href="https://moonstreet.nl/tags/terraform/index.xml" title="Moonstreet" />
 
     
 
@@ -50,7 +51,7 @@
   
     
   
-  <body data-code="50" data-lines="false" id="documentTop">
+  <body data-code="7" data-lines="false" id="documentTop">
 
 <header class="nav_header" >
   <nav class="nav">
@@ -131,132 +132,49 @@
 </header>
 
     <main>
-  
+
 <div class="grid-inverse wrap content">
-  <article class="post_content">
-    <h1 class="post_title">Create a read-only user in Kubernetes</h1><div class="post_meta">
+  <ul class="posts" id="posts">
+      <li class="post_item">
+  <div class="excerpt">
+    <div class="excerpt_header">
+      <h3 class="post_link">
+        <a href="https://moonstreet.nl/post/aks-nodepools/">Azure Kubernetes node pools with Terraform</a>
+      </h3>
+      <div class="post_meta">
   
     <svg class="icon">
   <use xlink:href="#calendar"></use>
 </svg>
     <span class="post_date">
-      Dec 28, 2020</span>
+      Dec 29, 2020</span>
       <a href='https://moonstreet.nl/tags/kubernetes' class="post_tag button button_translucent">kubernetes
       </a>
-      <a href='https://moonstreet.nl/tags/k3s' class="post_tag button button_translucent">k3s
+      <a href='https://moonstreet.nl/tags/azure' class="post_tag button button_translucent">azure
+      </a>
+      <a href='https://moonstreet.nl/tags/terraform' class="post_tag button button_translucent">terraform
       </a>
 </div>
 
-    
+    </div>
+      <div class="excerpt_footer">
+        <div>
+          <p class="pale">
+            
+              In Azure Kubernetes Service (AKS), nodes of the same configuration are grouped together into node pools. These node pools contain the underlying VMs that run your applications. The initial number of nodes and their size (SKU) is defined when you create an AKS cluster, which creates a system node pool. To support …
+            
+          </p>
+          <a href="https://moonstreet.nl/post/aks-nodepools/" class="excerpt_more button">Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
 
-    
-    <p><a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/">Normal users are assumed to be managed by an outside, independent service</a>. Kubernetes does not have objects which represent normal user accounts. Normal users cannot be added to a cluster through an API call. However, any user that presents a valid certificate signed by the cluster's certificate authority (CA) is considered authenticated.
-So we can create a user with read-only access to the cluster, and hand the kube config file over to that that user.</p>
-<p>This post assumes a basic level of understanding of how Kubernetes works.</p>
-<h2 id="create-a-clusterrole">Create a ClusterRole</h2>
-<p>First create a ClusterRole. I've decided to name the cluster role 'kube-reader-cluster-role'
-As you can see I excluded 'secrets'.</p>
-<p>You can find out about apiGroups, resources and verbs with the following command:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>k api-resources --sort-by name <span class="c1">#I&#39;m so lazy, I use k instead of kubectl</span>
-</code></pre></div><p>More info about ClusterRoles and RBAC you can find <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/">here</a>.
-This is the result:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>cat <span class="s">&lt;&lt;EOF | kubectl apply -f -
-</span><span class="ln"> 2</span><span class="s">apiVersion: rbac.authorization.k8s.io/v1
-</span><span class="ln"> 3</span><span class="s">kind: ClusterRole
-</span><span class="ln"> 4</span><span class="s">metadata:
-</span><span class="ln"> 5</span><span class="s">  name: kube-reader-cluster-role
-</span><span class="ln"> 6</span><span class="s">rules:
-</span><span class="ln"> 7</span><span class="s">- apiGroups: [&#34;&#34;]
-</span><span class="ln"> 8</span><span class="s">  resources: [&#34;pods&#34;,&#34;configmaps&#34;,&#34;services&#34;,&#34;events&#34;,&#34;namespaces&#34;,&#34;nodes&#34;,&#34;limitranges&#34;,&#34;persistentvolumes&#34;,&#34;persistenttvolumeclaims&#34;,&#34;resourcequotas&#34;]
-</span><span class="ln"> 9</span><span class="s">  verbs: [&#34;get&#34;, &#34;watch&#34;, &#34;list&#34;]
-</span><span class="ln">10</span><span class="s">- apiGroups:
-</span><span class="ln">11</span><span class="s">    - apps
-</span><span class="ln">12</span><span class="s">  resources: [&#34;*&#34;]
-</span><span class="ln">13</span><span class="s">  verbs:
-</span><span class="ln">14</span><span class="s">    - get
-</span><span class="ln">15</span><span class="s">    - list
-</span><span class="ln">16</span><span class="s">    - watch
-</span><span class="ln">17</span><span class="s">EOF</span>
-</code></pre></div><h2 id="create-a-certificate-request">Create a certificate request</h2>
-<p>Let's add read-only access for a user called kube-support. It's not a real name.
-This user kube-support should be able to access Kubernetes resources from outside the cluster and they are only allowed to read.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>openssl req -new -newkey rsa:4096 -nodes -keyout kube-support.key -out kube-support.csr -subj <span class="s2">&#34;/CN=kube-support/O=readers&#34;</span>
-<span class="ln">2</span><span class="nv">csr</span><span class="o">=</span><span class="k">$(</span>cat kube-support.csr <span class="p">|</span> base64 <span class="p">|</span> tr -d <span class="s1">&#39;\n&#39;</span><span class="k">)</span>
-</code></pre></div><p>Present the certificate signing request to Kubernetes like so:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>cat <span class="s">&lt;&lt;EOF | kubectl apply -f -
-</span><span class="ln"> 2</span><span class="s">kubectl create –edit -f k8s-csr.yaml:
-</span><span class="ln"> 3</span><span class="s">apiVersion: certificates.k8s.io/v1
-</span><span class="ln"> 4</span><span class="s">kind: CertificateSigningRequest
-</span><span class="ln"> 5</span><span class="s">metadata:
-</span><span class="ln"> 6</span><span class="s">name: kube-support-reader-access
-</span><span class="ln"> 7</span><span class="s">spec:
-</span><span class="ln"> 8</span><span class="s">signerName: kubernetes.io/kube-apiserver-client
-</span><span class="ln"> 9</span><span class="s">groups:
-</span><span class="ln">10</span><span class="s">- system:authenticated
-</span><span class="ln">11</span><span class="s">  request: $csr
-</span><span class="ln">12</span><span class="s">  usages:
-</span><span class="ln">13</span><span class="s">- client auth
-</span><span class="ln">14</span><span class="s">  EOF</span>
-</code></pre></div><p>Then check the progress:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>k get certificatesigningrequests.certificates.k8s.io
-<span class="ln">2</span>
-<span class="ln">3</span>NAME                     AGE   SIGNERNAME                            REQUESTOR      CONDITION
-<span class="ln">4</span>kube-support-reader-access   19s   kubernetes.io/kube-apiserver-client   system:admin   Pending
-</code></pre></div><p>Of course the state will be Pending unless you approve it. So let's go ahead and approve the csr:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl certificate approve kube-support-reader-access
-<span class="ln">2</span><span class="c1"># certificatesigningrequest.certificates.k8s.io/kube-support-reader-access approved</span>
-</code></pre></div><p>Retrieve the crt</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl get csr kube-support-reader-access -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.certificate}&#39;</span> <span class="p">|</span> base64 --decode &gt; kube-support.crt
-</code></pre></div><h2 id="build-the-kube-config-file">Build the kube config file.</h2>
-<p>Not sure if you ever studied the ~/.kube/config file up close. It has the following structure:</p>
-<p><img src="/kube-config.png" alt="config"></p>
-<p>So our next job is to populate the necessary fields.
-Let's start with certificate-authority-data:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl config view -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.clusters[0].cluster.certificate-authority-data}&#39;</span> --raw <span class="p">|</span> base64 --decode - &gt; k8s-ca.crt
-</code></pre></div><p>Create the initial kube config file and populate it with the certificate-authority-data</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl config set-cluster <span class="k">$(</span>kubectl config view -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.clusters[0].name}&#39;</span><span class="k">)</span> --server<span class="o">=</span><span class="k">$(</span>kubectl config view -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.clusters[0].cluster.server}&#39;</span><span class="k">)</span> --certificate-authority<span class="o">=</span>k8s-ca.crt --kubeconfig<span class="o">=</span>kube-support-config --embed-certs
-</code></pre></div><p>Let's add the client-certificate-data and client-key-data.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl config set-credentials kube-support --client-certificate<span class="o">=</span>kube-support.crt --client-key<span class="o">=</span>kube-support.key --embed-certs --kubeconfig<span class="o">=</span>kube-support-config
-</code></pre></div><p>Set a context (just default)</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>k config set-context default --cluster<span class="o">=</span><span class="k">$(</span>kubectl config view -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.clusters[0].name}&#39;</span><span class="k">)</span> --namespace<span class="o">=</span>default --user<span class="o">=</span>kube-support --kubeconfig<span class="o">=</span>kube-support-config
-</code></pre></div><p>Switch to the namespace</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl config use-context default --kubeconfig<span class="o">=</span>kube-support-config
-</code></pre></div><p>We are now done with the kube config file.</p>
-<h2 id="check-if-it-works">Check if it works</h2>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>k get pods --kubeconfig kube-support-config
-<span class="ln">2</span>Error from server <span class="o">(</span>Forbidden<span class="o">)</span>: pods is forbidden: User <span class="s2">&#34;kube-support&#34;</span> cannot list resource <span class="s2">&#34;pods&#34;</span> in API group <span class="s2">&#34;&#34;</span> in the namespace <span class="s2">&#34;default&#34;</span>
-</code></pre></div><p>It doesn't work. We should bind the kube-support user to the kube-reader-cluster-role.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>k create clusterrolebinding kube-support-kube-reader --clusterrole<span class="o">=</span>kube-reader-cluster-role --user<span class="o">=</span>kube-support
-<span class="ln">2</span><span class="c1"># clusterrolebinding.rbac.authorization.k8s.io/kube-support-kube-reader created</span>
-</code></pre></div><p>Now let's try again:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>k run -it trouble-pod --image<span class="o">=</span>debian --kubeconfig kube-support-config
-<span class="ln">2</span>Error from server <span class="o">(</span>Forbidden<span class="o">)</span>: pods is forbidden: User <span class="s2">&#34;kube-support&#34;</span> cannot create resource <span class="s2">&#34;pods&#34;</span> in API group <span class="s2">&#34;&#34;</span> in the namespace <span class="s2">&#34;default&#34;</span>
-</code></pre></div><p>Well this was expected. kube-support has only read permissions! Let's try something else!</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>k get pods --kubeconfig kube-support-config
-<span class="ln">2</span>No resources found in default namespace.
-</code></pre></div><p>Success!</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>k get pods --kubeconfig kube-support-config --all-namespaces 
-<span class="ln"> 2</span>NAMESPACE       NAME                                        READY   STATUS      RESTARTS   AGE
-<span class="ln"> 3</span>ingress-nginx   ingress-nginx-admission-create-cxb7c        0/1     Completed   <span class="m">0</span>          46h
-<span class="ln"> 4</span>ingress-nginx   ingress-nginx-admission-patch-zssrb         0/1     Completed   <span class="m">1</span>          46h
-<span class="ln"> 5</span>kube-system     metrics-server-7b4f8b595-42s5m              1/1     Running     <span class="m">4</span>          46h
-<span class="ln"> 6</span>kube-system     coredns-66c464876b-zckdd                    1/1     Running     <span class="m">3</span>          46h
-<span class="ln"> 7</span>ingress-nginx   ingress-nginx-controller-57fb49bdbf-xcpmd   1/1     Running     <span class="m">20</span>         46h
-<span class="ln"> 8</span>kube-system     local-path-provisioner-7ff9579c6-shd4b      1/1     Running     <span class="m">28</span>         46h
-<span class="ln"> 9</span>bob             trouble-pod                                 1/1     Running     <span class="m">1</span>          39m
-<span class="ln">10</span>
-</code></pre></div><h2 id="resources">Resources</h2>
-<p><a href="https://codefarm.me/2019/02/01/access-kubernetes-api-with-client-certificates/">https://codefarm.me/2019/02/01/access-kubernetes-api-with-client-certificates/</a>
-<a href="https://ahmet.im/blog/mastering-kubeconfig/">https://ahmet.im/blog/mastering-kubeconfig/</a>
-<a href="https://medium.com/swlh/how-we-effectively-managed-access-to-our-kubernetes-cluster-38821cf24d57">https://medium.com/swlh/how-we-effectively-managed-access-to-our-kubernetes-cluster-38821cf24d57</a>
-<a href="https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#authorization">https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#authorization</a>
-<a href="https://www.cyberark.com/resources/threat-research-blog/securing-kubernetes-clusters-by-eliminating-risky-permissions">https://www.cyberark.com/resources/threat-research-blog/securing-kubernetes-clusters-by-eliminating-risky-permissions</a>
-<a href="https://www.openlogic.com/blog/granting-user-access-your-kubernetes-cluster">https://www.openlogic.com/blog/granting-user-access-your-kubernetes-cluster</a></p>
+    <li>
 
-    
-      
-    
-  </article>
+
+    </li>
+  </ul>
 <aside class="sidebar">
   <section class="sidebar_inner">
     
@@ -275,6 +193,9 @@ Let's start with certificate-authority-data:</p>
     <ul class="flex-column">
       <li>
         <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/kubernetes-readonly/" class="nav-link">Create a read-only user in Kubernetes</a>
       </li>
       <li>
         <a href="https://moonstreet.nl/post/k3s-with-ingress/" class="nav-link">Install the Nginx ingress controller on K3s and deploy a web app</a>
@@ -342,6 +263,8 @@ Let's start with certificate-authority-data:</p>
 </aside>
 
 </div>
+
+
     </main><svg width="0" height="0" class="hidden">
   <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
     <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>

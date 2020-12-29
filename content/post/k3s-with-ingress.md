@@ -3,6 +3,12 @@ title: "Install the Nginx ingress controller on K3s and deploy a web app"
 date: 2020-12-26T16:33:46+01:00
 draft: false
 showShare: false
+categories:
+- Technology
+tags:
+- kubernetes
+- k3s
+- linux
 ---
 
 When running K3s, by default Traefik is installed as an ingress controller. 

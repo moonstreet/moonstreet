@@ -3,6 +3,11 @@ title: "K3s on a Centos vm"
 date: 2020-09-27T09:17:02+02:00
 draft: false
 showShare: false
+categories:
+- Technology 
+tags:
+- linux
+- k3s
 ---
 
 This post is about installing lightweight Kubernetes (K3s) on our new vm.

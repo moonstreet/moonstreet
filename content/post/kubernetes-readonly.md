@@ -3,6 +3,12 @@ title: "Create a read-only user in Kubernetes"
 date: 2020-12-28T17:10:13+01:00
 draft: false
 showShare: false
+codeMaxLines: 50
+categories:
+- Technology 
+tags:
+- kubernetes
+- k3s
 ---
 
 [Normal users are assumed to be managed by an outside, independent service](https://kubernetes.io/docs/reference/access-authn-authz/authentication/). Kubernetes does not have objects which represent normal user accounts. Normal users cannot be added to a cluster through an API call. However, any user that presents a valid certificate signed by the cluster's certificate authority (CA) is considered authenticated.
