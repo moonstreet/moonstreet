@@ -3,24 +3,29 @@
   url = ""
   weight = -110
 
-[[main]]
-  name = "Archives"
-  url = "post/rich-content/"
-  weight = -109
+#[[main]]
+#  name = "Archives"
+#  url = "post/rich-content/"
+#  weight = -109
 
 # Submenus are done this way: parent -> identifier
 [[main]]
   name = "Links"
   identifier = "Links"
-  weight = -108
+  weight = -106
 [[main]]
   parent = "Links"
-  name = "LinkedIn"
-  url = "https://www.linkedin.com/"
+  name = "Kubernetes"
+  url = "https://kubernetes.io/"
 [[main]]
   parent = "Links"
-  name = "Twitter"
-  url = "https://twitter.com/"
+  name = "Reddit"
+  url = "https://www.reddit.com/r/kubernetes/"
+[[main]]
+  parent = "Links"
+  name = "The New Stack"
+  url = "https://thenewstack.io/"
+
 
 [[main]]
   name = "About"
