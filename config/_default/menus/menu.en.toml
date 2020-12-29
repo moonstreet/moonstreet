@@ -25,7 +25,10 @@
   parent = "Links"
   name = "The New Stack"
   url = "https://thenewstack.io/"
-
+[[main]]
+  parent = "Links"
+  name = "The Buttonfactory"
+  url = "http://www.thebuttonfactory.nl/"
 
 [[main]]
   name = "About"
