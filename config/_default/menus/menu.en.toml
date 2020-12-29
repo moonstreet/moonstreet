@@ -29,6 +29,12 @@
   parent = "Links"
   name = "The Buttonfactory"
   url = "http://www.thebuttonfactory.nl/"
+[[main]]
+  parent = "Links"
+  name = "Magalix"
+  url = "https://www.magalix.com/blog"
+
+
 
 [[main]]
   name = "About"
