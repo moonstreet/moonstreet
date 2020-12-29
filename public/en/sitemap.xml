@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://moonstreet.nl/</loc>
+    <lastmod>2020-12-28T17:10:13+01:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://moonstreet.nl/pt/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://moonstreet.nl/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://moonstreet.nl/post/kubernetes-readonly/</loc>
+    <lastmod>2020-12-28T17:10:13+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://moonstreet.nl/about/</loc>
+    <lastmod>2020-12-28T17:10:13+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://moonstreet.nl/post/</loc>
+    <lastmod>2020-12-28T17:10:13+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://moonstreet.nl/post/k3s-with-ingress/</loc>
+    <lastmod>2020-12-26T16:33:46+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://moonstreet.nl/post/k3s-libvirt/</loc>
+    <lastmod>2020-09-27T09:17:02+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://moonstreet.nl/post/libvirt/</loc>
+    <lastmod>2020-09-20T10:37:24+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://moonstreet.nl/archives/</loc>
+    <lastmod>2019-05-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://moonstreet.nl/categories/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://moonstreet.nl/pt/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://moonstreet.nl/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://moonstreet.nl/tags/index/</loc>
+  </url>
+  
+  <url>
+    <loc>https://moonstreet.nl/series/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://moonstreet.nl/pt/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://moonstreet.nl/series/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://moonstreet.nl/tags/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="https://moonstreet.nl/pt/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://moonstreet.nl/tags/"
+                />
+  </url>
+  
+</urlset>

@@ -1,47 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Moonstreet</title>
-    <link>https://moonstreet.nl/posts/</link>
-    <description>Recent content in Posts on Moonstreet</description>
+    <title>Posts on Clarity</title>
+    <link>https://example.com/posts/</link>
+    <description>Recent content in Posts on Clarity</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 28 Dec 2020 17:10:13 +0100</lastBuildDate><atom:link href="https://moonstreet.nl/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Create a read-only user in Kubernetes</title>
-      <link>https://moonstreet.nl/posts/kubernetes-readonly/</link>
-      <pubDate>Mon, 28 Dec 2020 17:10:13 +0100</pubDate>
-      
-      <guid>https://moonstreet.nl/posts/kubernetes-readonly/</guid>
-      <description>Normal users are assumed to be managed by an outside, independent service.</description>
-    </item>
-    
-    <item>
-      <title>Install the Nginx ingress controller on K3s and deploy a web app</title>
-      <link>https://moonstreet.nl/posts/k3s-with-ingress/</link>
-      <pubDate>Sat, 26 Dec 2020 16:33:46 +0100</pubDate>
-      
-      <guid>https://moonstreet.nl/posts/k3s-with-ingress/</guid>
-      <description>When running K3s, by default Traefik is installed as an ingress controller.</description>
-    </item>
-    
-    <item>
-      <title>K3s on a Centos vm</title>
-      <link>https://moonstreet.nl/posts/k3s-libvirt/</link>
-      <pubDate>Sun, 27 Sep 2020 09:17:02 +0200</pubDate>
-      
-      <guid>https://moonstreet.nl/posts/k3s-libvirt/</guid>
-      <description>This post is about installing lightweight Kubernetes (K3s) on our new vm.</description>
-    </item>
-    
-    <item>
-      <title>Vagrant with the libvirt plugin</title>
-      <link>https://moonstreet.nl/posts/libvirt/</link>
-      <pubDate>Sun, 20 Sep 2020 10:37:24 +0200</pubDate>
-      
-      <guid>https://moonstreet.nl/posts/libvirt/</guid>
-      <description>Here is a post about how to create virtual machines with Vagrant and the libvirt plugin.</description>
-    </item>
-    
+    <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
+    <lastBuildDate>Mon, 28 Dec 2020 17:10:13 +0100</lastBuildDate><atom:link href="https://example.com/posts/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
