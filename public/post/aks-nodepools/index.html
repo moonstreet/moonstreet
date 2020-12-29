@@ -49,7 +49,7 @@
   
   
     
-  <body data-code="40" data-lines="true" id="documentTop">
+  <body data-code="50" data-lines="true" id="documentTop">
 
 <header class="nav_header" >
   <nav class="nav">
@@ -156,7 +156,7 @@ The initial number of nodes and their size (SKU) is defined when you create an A
 <p>Because we run multiple instances of AKS I thought to make the number of node pools and their properties variable. <a href="https://www.danielstechblog.io/terraform-working-with-aks-multiple-node-pools-in-tf-azure-provider-version-1-37/">This</a> article directed me in that direction.</p>
 <p>At work, we have a git repo with multiple cluster definitions (I treat them like cattle). The clusters are deployed in a Jenkins pipeline.</p>
 <h2 id="terraform-config">Terraform config</h2>
-<p>My goals is to create 3 node pools:</p>
+<p>My goal is to create 3 node pools:</p>
 <ul>
 <li>a system node pool for system pods</li>
 <li>an infra node pool for infra pods (Vault, Elasticsearch and Prometheus to be precise)</li>
@@ -253,7 +253,13 @@ The variable is defined as follows:</p>
 </code></pre></div><h2 id="cleaning-up-the-default-node-pool">Cleaning up the default node pool</h2>
 <p>When the cluster and its node pools are deployed, I let Jenkins clean up de the default node pool because it's no longer needed.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>az aks nodepool delete --resource-group <span class="nv">$CLUSTER_FULL_NAME</span>-rg --cluster-name <span class="nv">$CLUSTER_FULL_NAME</span> --name default
-</code></pre></div>
+</code></pre></div><h2 id="resources-and-inspiration">Resources and inspiration</h2>
+<ul>
+<li><a href="https://www.danielstechblog.io/">https://www.danielstechblog.io/</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads">https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools">https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools</a></li>
+</ul>
+
     
       
     

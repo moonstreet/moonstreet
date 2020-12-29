@@ -22,7 +22,7 @@ The initial number of nodes and their size (SKU) is defined when you create an A
 &lt;p&gt;Because we run multiple instances of AKS I thought to make the number of node pools and their properties variable. &lt;a href=&#34;https://www.danielstechblog.io/terraform-working-with-aks-multiple-node-pools-in-tf-azure-provider-version-1-37/&#34;&gt;This&lt;/a&gt; article directed me in that direction.&lt;/p&gt;
 &lt;p&gt;At work, we have a git repo with multiple cluster definitions (I treat them like cattle). The clusters are deployed in a Jenkins pipeline.&lt;/p&gt;
 &lt;h2 id=&#34;terraform-config&#34;&gt;Terraform config&lt;/h2&gt;
-&lt;p&gt;My goals is to create 3 node pools:&lt;/p&gt;
+&lt;p&gt;My goal is to create 3 node pools:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;a system node pool for system pods&lt;/li&gt;
 &lt;li&gt;an infra node pool for infra pods (Vault, Elasticsearch and Prometheus to be precise)&lt;/li&gt;
@@ -119,7 +119,13 @@ The variable is defined as follows:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;cleaning-up-the-default-node-pool&#34;&gt;Cleaning up the default node pool&lt;/h2&gt;
 &lt;p&gt;When the cluster and its node pools are deployed, I let Jenkins clean up de the default node pool because it&#39;s no longer needed.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;az aks nodepool delete --resource-group &lt;span class=&#34;nv&#34;&gt;$CLUSTER_FULL_NAME&lt;/span&gt;-rg --cluster-name &lt;span class=&#34;nv&#34;&gt;$CLUSTER_FULL_NAME&lt;/span&gt; --name default
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;resources-and-inspiration&#34;&gt;Resources and inspiration&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.danielstechblog.io/&#34;&gt;https://www.danielstechblog.io/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads&#34;&gt;https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools&#34;&gt;https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
         
       </description>
     </item>
