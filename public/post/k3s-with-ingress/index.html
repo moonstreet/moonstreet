@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en" data-figures="" class="page">
   <head>
-<title>Install the Nginx ingress controller on K3s and deploy a web app | Moonstreet</title>
+<title>Install the Nginx ingress controller on K3s - or Kind - and deploy a web app | Moonstreet</title>
 <meta charset="utf-8">
 <meta name="generator" content="Hugo 0.79.1" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -17,13 +17,13 @@
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="When running K3s, by default Traefik is installed as an ingress controller. You need an ingress controller to expose (web) applications to the outside world. I …">
+<meta name="description" content="Here is how to quickly install Kubernetes with ingress on your laptop. I use this to test and create operators with the Operator Framework. Still learning …">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@jacqoutthebox">
-<meta name="twitter:title" content="Install the Nginx ingress controller on K3s and deploy a web app" />
+<meta name="twitter:title" content="Install the Nginx ingress controller on K3s - or Kind - and deploy a web app" />
 <meta property="og:url" content="https://moonstreet.nl/post/k3s-with-ingress/" />
-<meta property="og:title" content="Install the Nginx ingress controller on K3s and deploy a web app" />
-<meta property="og:description" content="When running K3s, by default Traefik is installed as an ingress controller. You need an ingress controller to expose (web) applications to the outside world. I …" />
+<meta property="og:title" content="Install the Nginx ingress controller on K3s - or Kind - and deploy a web app" />
+<meta property="og:description" content="Here is how to quickly install Kubernetes with ingress on your laptop. I use this to test and create operators with the Operator Framework. Still learning …" />
 <meta property="og:image" content="https://moonstreet.nl/images/thumbnail.png" />
 <link rel="apple-touch-icon" sizes="180x180" href='https://moonstreet.nl/icons/apple-touch-icon.png'>
 <link rel="icon" type="image/png" sizes="32x32" href='https://moonstreet.nl/icons/favicon-32x32.png'>
@@ -50,7 +50,7 @@
   
     
   
-  <body data-code="7" data-lines="false" id="documentTop">
+  <body data-code="50" data-lines="false" id="documentTop">
 
 <header class="nav_header" >
   <nav class="nav">
@@ -134,7 +134,7 @@
   
 <div class="grid-inverse wrap content">
   <article class="post_content">
-    <h1 class="post_title">Install the Nginx ingress controller on K3s and deploy a web app</h1><div class="post_meta">
+    <h1 class="post_title">Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</h1><div class="post_meta">
   
     <svg class="icon">
   <use xlink:href="#calendar"></use>
@@ -145,6 +145,8 @@
       </a>
       <a href='https://moonstreet.nl/tags/k3s' class="post_tag button button_translucent">k3s
       </a>
+      <a href='https://moonstreet.nl/tags/kind' class="post_tag button button_translucent">kind
+      </a>
       <a href='https://moonstreet.nl/tags/linux' class="post_tag button button_translucent">linux
       </a>
 </div>
@@ -152,12 +154,15 @@
     
 
     
-    <p>When running K3s, by default Traefik is installed as an ingress controller.
+    <p>Here is how to quickly install Kubernetes with ingress on your laptop.
+I use this to test and create operators with the <a href="https://operatorframework.io/">Operator Framework</a>. Still learning though.</p>
+<p>I was first using K3s but then I discovered Kind which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn't manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.</p>
+<h2 id="k3s">K3s</h2>
+<p>When running K3s, by default Traefik is installed as an ingress controller.
 You need an ingress controller to expose (web) applications to the outside world.
 I am however more comfortable with the Nginx ingress controller so let's just install that instead.</p>
 <p>In this post I will first install K3s, then install the Nginx ingress controller.
 Finally I will deploy a little go application (which is going to be fabulous later).</p>
-<p>Disclaimer: I am currently studying operators and CRD's so this setup is for testing them locally with a simple one node cluster.</p>
 <h2 id="install-k3s-with-nginx-ingress">Install K3s with Nginx ingress</h2>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>curl -sfL https://get.k3s.io <span class="p">|</span> sh -s - --write-kubeconfig-mode <span class="m">644</span> --disable traefik
 </code></pre></div><p>Wait a bit. When done, we can copy the config file so we can use kubectl.</p>
@@ -269,7 +274,34 @@ Carolyne runs happily on port 4000.</p>
 </code></pre></div><p>And now we can browse to that lovely web application I just crafted.</p>
 <p><img src="/carolyne1.png" alt="1"></p>
 <p><img src="/carolyne2.png" alt="2"></p>
-
+<h2 id="and-now-with-kind">And now with Kind!</h2>
+<p><a href="https://kind.sigs.k8s.io/docs/user/ingress/">Kind </a>(Kubernetes in Docker) leaves even a smaller footprint than K3s.</p>
+<p>Create a Kind cluster like so:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>cat <span class="s">&lt;&lt;EOF | kind create cluster --name sandbox01 --config=-
+</span><span class="ln"> 2</span><span class="s">kind: Cluster
+</span><span class="ln"> 3</span><span class="s">apiVersion: kind.x-k8s.io/v1alpha4
+</span><span class="ln"> 4</span><span class="s">nodes:
+</span><span class="ln"> 5</span><span class="s">- role: control-plane
+</span><span class="ln"> 6</span><span class="s">  kubeadmConfigPatches:
+</span><span class="ln"> 7</span><span class="s">  - |
+</span><span class="ln"> 8</span><span class="s">    kind: InitConfiguration
+</span><span class="ln"> 9</span><span class="s">    nodeRegistration:
+</span><span class="ln">10</span><span class="s">      kubeletExtraArgs:
+</span><span class="ln">11</span><span class="s">        node-labels: &#34;ingress-ready=true&#34;
+</span><span class="ln">12</span><span class="s">  extraPortMappings:
+</span><span class="ln">13</span><span class="s">  - containerPort: 80
+</span><span class="ln">14</span><span class="s">    hostPort: 80
+</span><span class="ln">15</span><span class="s">    protocol: TCP
+</span><span class="ln">16</span><span class="s">  - containerPort: 443
+</span><span class="ln">17</span><span class="s">    hostPort: 443
+</span><span class="ln">18</span><span class="s">    protocol: TCP
+</span><span class="ln">19</span><span class="s">EOF</span>
+</code></pre></div><p>Install Ingress:</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+</code></pre></div><p>And create Carolyne (in the meantime I made a quick manifest):.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl create namespace apps
+<span class="ln">2</span>kubectl apply -f https://gitlab.com/jacqinthebox/carolyne/-/raw/master/deploy.yaml
+</code></pre></div>
     
       
     
@@ -339,6 +371,11 @@ Carolyne runs happily on port 4000.</p>
         
         <a href='https://moonstreet.nl/tags/index/' class="post_tag button button_translucent">
           INDEX
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='https://moonstreet.nl/tags/kind/' class="post_tag button button_translucent">
+          KIND
           <span class="button_tally">1</span>
         </a>
         

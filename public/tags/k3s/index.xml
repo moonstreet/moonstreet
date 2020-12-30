@@ -123,19 +123,22 @@ Let&#39;s start with certificate-authority-data:&lt;/p&gt;
     </item>
     
     <item>
-      <title>Install the Nginx ingress controller on K3s and deploy a web app</title>
+      <title>Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</title>
       <link>https://moonstreet.nl/post/k3s-with-ingress/</link>
       <pubDate>Sat, 26 Dec 2020 16:33:46 +0100</pubDate>
       
       <guid>https://moonstreet.nl/post/k3s-with-ingress/</guid>
       <description>
         
-          &lt;p&gt;When running K3s, by default Traefik is installed as an ingress controller.
+          &lt;p&gt;Here is how to quickly install Kubernetes with ingress on your laptop.
+I use this to test and create operators with the &lt;a href=&#34;https://operatorframework.io/&#34;&gt;Operator Framework&lt;/a&gt;. Still learning though.&lt;/p&gt;
+&lt;p&gt;I was first using K3s but then I discovered Kind which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn&#39;t manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.&lt;/p&gt;
+&lt;h2 id=&#34;k3s&#34;&gt;K3s&lt;/h2&gt;
+&lt;p&gt;When running K3s, by default Traefik is installed as an ingress controller.
 You need an ingress controller to expose (web) applications to the outside world.
 I am however more comfortable with the Nginx ingress controller so let&#39;s just install that instead.&lt;/p&gt;
 &lt;p&gt;In this post I will first install K3s, then install the Nginx ingress controller.
 Finally I will deploy a little go application (which is going to be fabulous later).&lt;/p&gt;
-&lt;p&gt;Disclaimer: I am currently studying operators and CRD&#39;s so this setup is for testing them locally with a simple one node cluster.&lt;/p&gt;
 &lt;h2 id=&#34;install-k3s-with-nginx-ingress&#34;&gt;Install K3s with Nginx ingress&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;curl -sfL https://get.k3s.io &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sh -s - --write-kubeconfig-mode &lt;span class=&#34;m&#34;&gt;644&lt;/span&gt; --disable traefik
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Wait a bit. When done, we can copy the config file so we can use kubectl.&lt;/p&gt;
@@ -247,7 +250,34 @@ Carolyne runs happily on port 4000.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And now we can browse to that lovely web application I just crafted.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/carolyne1.png&#34; alt=&#34;1&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/carolyne2.png&#34; alt=&#34;2&#34;&gt;&lt;/p&gt;
-
+&lt;h2 id=&#34;and-now-with-kind&#34;&gt;And now with Kind!&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://kind.sigs.k8s.io/docs/user/ingress/&#34;&gt;Kind &lt;/a&gt;(Kubernetes in Docker) leaves even a smaller footprint than K3s.&lt;/p&gt;
+&lt;p&gt;Create a Kind cluster like so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kind create cluster --name sandbox01 --config=-
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: Cluster
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: kind.x-k8s.io/v1alpha4
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;nodes:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;- role: control-plane
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  kubeadmConfigPatches:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  - |
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    kind: InitConfiguration
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    nodeRegistration:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      kubeletExtraArgs:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;        node-labels: &amp;#34;ingress-ready=true&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  extraPortMappings:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  - containerPort: 80
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    hostPort: 80
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    protocol: TCP
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  - containerPort: 443
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    hostPort: 443
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    protocol: TCP
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Install Ingress:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And create Carolyne (in the meantime I made a quick manifest):.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl create namespace apps
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;kubectl apply -f https://gitlab.com/jacqinthebox/carolyne/-/raw/master/deploy.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         
       </description>
     </item>

@@ -1,15 +1,25 @@
 ---
-title: "Install the Nginx ingress controller on K3s and deploy a web app"
+title: "Install the Nginx ingress controller on K3s - or Kind - and deploy a web app"
 date: 2020-12-26T16:33:46+01:00
 draft: false
 showShare: false
+codeMaxLines: 50
 categories:
-- Technology
+  - Technology
 tags:
-- kubernetes
-- k3s
-- linux
+  - kubernetes
+  - k3s 
+  - kind
+  - linux
 ---
+
+Here is how to quickly install Kubernetes with ingress on your laptop. 
+I use this to test and create operators with the [Operator Framework](https://operatorframework.io/). Still learning though.
+
+I was first using K3s but then I discovered Kind which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn't manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.
+
+
+## K3s
 
 When running K3s, by default Traefik is installed as an ingress controller. 
 You need an ingress controller to expose (web) applications to the outside world.
@@ -17,8 +27,6 @@ I am however more comfortable with the Nginx ingress controller so let's just in
 
 In this post I will first install K3s, then install the Nginx ingress controller. 
 Finally I will deploy a little go application (which is going to be fabulous later).
-
-Disclaimer: I am currently studying operators and CRD's so this setup is for testing them locally with a simple one node cluster.
 
 ## Install K3s with Nginx ingress
 
@@ -184,3 +192,42 @@ And now we can browse to that lovely web application I just crafted.
 ![2](/carolyne2.png)
 
 
+## And now with Kind!
+
+[Kind ](https://kind.sigs.k8s.io/docs/user/ingress/)(Kubernetes in Docker) leaves even a smaller footprint than K3s. 
+
+Create a Kind cluster like so:
+
+```bash
+cat <<EOF | kind create cluster --name sandbox01 --config=-
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+    protocol: TCP
+  - containerPort: 443
+    hostPort: 443
+    protocol: TCP
+EOF
+```
+
+Install Ingress: 
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+```
+And create Carolyne (in the meantime I made a quick manifest):.  
+
+```shell
+kubectl create namespace apps
+kubectl apply -f https://gitlab.com/jacqinthebox/carolyne/-/raw/master/deploy.yaml
+```
