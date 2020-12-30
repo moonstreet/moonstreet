@@ -255,7 +255,7 @@ Let&#39;s start with certificate-authority-data:&lt;/p&gt;
         
           &lt;p&gt;Here is how to quickly install Kubernetes with ingress on your laptop.
 I use this to test and create operators with the &lt;a href=&#34;https://operatorframework.io/&#34;&gt;Operator Framework&lt;/a&gt;. Still learning though.&lt;/p&gt;
-&lt;p&gt;I was first using K3s but then I discovered Kind which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn&#39;t manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.&lt;/p&gt;
+&lt;p&gt;I was first using &lt;a href=&#34;https://k3s.io/&#34;&gt;K3s&lt;/a&gt; but then I discovered &lt;a href=&#34;https://kind.sigs.k8s.io/&#34;&gt;Kind&lt;/a&gt; which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn&#39;t manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.&lt;/p&gt;
 &lt;h2 id=&#34;k3s&#34;&gt;K3s&lt;/h2&gt;
 &lt;p&gt;When running K3s, by default Traefik is installed as an ingress controller.
 You need an ingress controller to expose (web) applications to the outside world.
@@ -374,9 +374,12 @@ Carolyne runs happily on port 4000.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/carolyne1.png&#34; alt=&#34;1&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/carolyne2.png&#34; alt=&#34;2&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;and-now-with-kind&#34;&gt;And now with Kind!&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://kind.sigs.k8s.io/docs/user/ingress/&#34;&gt;Kind &lt;/a&gt;(Kubernetes in Docker) leaves even a smaller footprint than K3s.&lt;/p&gt;
-&lt;p&gt;Create a Kind cluster like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kind create cluster --name sandbox01 --config=-
+&lt;p&gt;Install Kind:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-linux-amd64
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;chmod +x ./kind
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;sudo mv ./kind /usr/local/bin/kind
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Create a Kind cluster like so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kind create cluster --name sandbox01 --config=-
 &lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: Cluster
 &lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: kind.x-k8s.io/v1alpha4
 &lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;nodes:

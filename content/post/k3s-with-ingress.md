@@ -16,8 +16,7 @@ tags:
 Here is how to quickly install Kubernetes with ingress on your laptop. 
 I use this to test and create operators with the [Operator Framework](https://operatorframework.io/). Still learning though.
 
-I was first using K3s but then I discovered Kind which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn't manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.
-
+I was first using [K3s](https://k3s.io/) but then I discovered [Kind](https://kind.sigs.k8s.io/) which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn't manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.
 
 ## K3s
 
@@ -194,11 +193,17 @@ And now we can browse to that lovely web application I just crafted.
 
 ## And now with Kind!
 
-[Kind ](https://kind.sigs.k8s.io/docs/user/ingress/)(Kubernetes in Docker) leaves even a smaller footprint than K3s. 
+Install Kind:
+
+```shell
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+```
 
 Create a Kind cluster like so:
 
-```bash
+```shell
 cat <<EOF | kind create cluster --name sandbox01 --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4

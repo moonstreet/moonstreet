@@ -156,7 +156,7 @@
     
     <p>Here is how to quickly install Kubernetes with ingress on your laptop.
 I use this to test and create operators with the <a href="https://operatorframework.io/">Operator Framework</a>. Still learning though.</p>
-<p>I was first using K3s but then I discovered Kind which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn't manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.</p>
+<p>I was first using <a href="https://k3s.io/">K3s</a> but then I discovered <a href="https://kind.sigs.k8s.io/">Kind</a> which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn't manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.</p>
 <h2 id="k3s">K3s</h2>
 <p>When running K3s, by default Traefik is installed as an ingress controller.
 You need an ingress controller to expose (web) applications to the outside world.
@@ -275,9 +275,12 @@ Carolyne runs happily on port 4000.</p>
 <p><img src="/carolyne1.png" alt="1"></p>
 <p><img src="/carolyne2.png" alt="2"></p>
 <h2 id="and-now-with-kind">And now with Kind!</h2>
-<p><a href="https://kind.sigs.k8s.io/docs/user/ingress/">Kind </a>(Kubernetes in Docker) leaves even a smaller footprint than K3s.</p>
-<p>Create a Kind cluster like so:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span>cat <span class="s">&lt;&lt;EOF | kind create cluster --name sandbox01 --config=-
+<p>Install Kind:</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-linux-amd64
+<span class="ln">2</span>chmod +x ./kind
+<span class="ln">3</span>sudo mv ./kind /usr/local/bin/kind
+</code></pre></div><p>Create a Kind cluster like so:</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>cat <span class="s">&lt;&lt;EOF | kind create cluster --name sandbox01 --config=-
 </span><span class="ln"> 2</span><span class="s">kind: Cluster
 </span><span class="ln"> 3</span><span class="s">apiVersion: kind.x-k8s.io/v1alpha4
 </span><span class="ln"> 4</span><span class="s">nodes:
