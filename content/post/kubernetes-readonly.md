@@ -63,19 +63,18 @@ Present the certificate signing request to Kubernetes like so:
 
 ```shell
 cat <<EOF | kubectl apply -f -
-kubectl create –edit -f k8s-csr.yaml:
 apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
 metadata:
-name: kube-support-reader-access
+  name: kube-support-reader-access
 spec:
-signerName: kubernetes.io/kube-apiserver-client
+  signerName: kubernetes.io/kube-apiserver-client
 groups:
-- system:authenticated
-  request: $csr
-  usages:
-- client auth
-  EOF
+  - system:authenticated
+    request: $csr
+    usages:
+    - client auth
+EOF
 ```
 
 Then check the progress:
