@@ -11,20 +11,20 @@ tags:
 ---
 
 Arch Linux is extremely well documented so I highly recommend to read the [Arch installation guide](https://wiki.archlinux.org/index.php/Installation_guide).
-These are my installation notes.
+These are installation notes I made when installing a Thinkpad t460s, t490s and a Dell Precision 5550.
 
 ## Partitioning
 
-Checkout the current partition scheme
+Checkout the current partition scheme and the name of the harddrive(s)
 
 ```shell
 fdisk -l
 ```
 
-Determine how you want to partition the disk. In my case:
+Determine how you want to partition the disk. I do not use anything fancy (yet).
+
 * a EFI boot partition and an ext4 root partition
 * an encrypted root
-
 
 | device       | size     | purpose     |
 | :------------- | :----------: | -----------: |
@@ -45,14 +45,13 @@ fdisk w # write
 
 ## Encrypt and mount
 
-Encrypt the root partion
+To encrypt the root partion with Luks:
 
 ```shell
 cryptsetup -y -v luksFormat /dev/nvme0n1p2
 cryptsetup open /dev/nvme0n1p2 cryptroot 
 ```
-https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system#LUKS_on_a_partition
-
+Source: https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system#LUKS_on_a_partition
 
 Set filesystem to ext4 and mount it:
 
@@ -82,13 +81,13 @@ Create fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
 
-Now chroot
+Now chroot into the newly mounted root:
 
 ```shell
 arch-chroot /mnt
 ```
 
-Set time zone
+Set time zone:
 
 ```shell
 ln -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
@@ -128,13 +127,13 @@ myhostname
 
 ## Grub
 
-This step is the most exciting. We need to create a ramdisk to configure earlu userspace.
-https://en.wikipedia.org/wiki/Initial_ramdisk
+This step is the most exciting. We need to create a ramdisk to configure early userspace.
+See here: https://en.wikipedia.org/wiki/Initial_ramdisk
 
 * We need to make sure to add an encrypt hook before the filesystem is loaded
 * We need to add the video driver so it starts before GDM (only for Gnome users)
 
-https://wiki.archlinux.org/index.php/Kernel_mode_setting#Early_KMS_start
+Which videodriver to add? See here: https://wiki.archlinux.org/index.php/Kernel_mode_setting#Early_KMS_start
 
 
 ```sh
@@ -159,9 +158,10 @@ Edit the grub conf to point to the encrypted root.
 ```shell
 vim /etc/default/grub # --> cryptdevice=/dev/nvme0n1p2:cryptroot
 ```
-https://shadowdxs.com/2017/11/05/newcomers-guide-to-installing-arch-linux-with-full-disk-encryption/
 
+Here is a screenshot from my grub config. I also changed the order as you can see.
 ![1](/grub.png)
+
 
 Generate grub:
 
@@ -182,8 +182,21 @@ systemctl enable dhcpcd
 pacman -S jq neofetch
 ```
 
+Now reboot into Gnome.
 
 ## Summary
+
+### Add an extra encryption key
+
+If you regret your disk encryption key, you can easily set another one:
+
+```shell
+sudo cryptsetup luksDump /dev/nvme0n1p2
+sudo cryptsetup luksAddKey --key-slot 1 /dev/nvme0n1p2
+```
+
+### History
+
 
 ```sh
 ln -sd /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
