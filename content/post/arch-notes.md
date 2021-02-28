@@ -1,5 +1,5 @@
 ---
-title: "Arch installation notes"
+title: "A minimal Arch Linux installation with Gnome. My notes."
 date: 2021-02-28T08:39:40+01:00
 draft: false
 showShare: false
@@ -11,7 +11,9 @@ tags:
 ---
 
 Arch Linux is extremely well documented so I highly recommend to read the [Arch installation guide](https://wiki.archlinux.org/index.php/Installation_guide).
-These are installation notes I made when installing a Thinkpad t460s, t490s and a Dell Precision 5550.
+This installs the Gnome desktop environment, but one can easily leave a DE out or choose another one.
+This is tested on a Thinkpad t460s, t490s and a Dell Precision 5550.
+
 
 ## Partitioning
 
