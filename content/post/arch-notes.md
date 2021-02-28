@@ -175,11 +175,10 @@ grub-mkconfig -o /boot/grub/grub.cfg
 passwd
 useradd -mg users -G wheel,storage,power -s /bin/bash jacqueline
 passwd jacqueline
-pacman -S xorg xorg-server gnome keybase keybase-gui zsh ansible terraform vagrant cmake chrome-gnome-shell nodejs npm kubectl git fzf
+pacman -S xorg xorg-server gnome zsh cmake git neofetch jq ansible
 systemctl enable gdm.service
 systemctl enable NetworkManager.service
 systemctl enable dhcpcd
-pacman -S jq neofetch
 ```
 
 Now reboot into Gnome.
@@ -214,9 +213,8 @@ grub-mkconfig -o /boot/grub/grub.cfg
 passwd
 useradd -mg users -G wheel,storage,power -s /bin/bash jacqueline
 passwd jacqueline
-pacman -S xorg xorg-server gnome keybase keybase-gui zsh ansible terraform vagrant cmake chrome-gnome-shell nodejs npm kubectl git fzf
+pacman -S xorg xorg-server gnome zsh cmake git neofetch jq ansible
 systemctl enable gdm.service
 systemctl enable NetworkManager.service
 systemctl enable dhcpcd
-pacman -S jq neofetch
 ```
