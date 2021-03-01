@@ -11,7 +11,7 @@ tags:
 ---
 
 Arch Linux is extremely well documented so I highly recommend to read the [Arch installation guide](https://wiki.archlinux.org/index.php/Installation_guide).
-This guide installs the Gnome desktop environment, but one can easily swap Gnome for i3 or another desktop environment, or none at all. )
+This guide installs the Gnome desktop environment, but one can easily swap Gnome for i3 or another desktop environment, or leave it all together.
 This is the procedure I used for installing Arch on a Thinkpad t460s, t490s and a Dell Precision 5550.
 
 
