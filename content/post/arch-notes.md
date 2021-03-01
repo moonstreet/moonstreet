@@ -137,9 +137,15 @@ See here: https://en.wikipedia.org/wiki/Initial_ramdisk
 
 Which videodriver to add? See here: https://wiki.archlinux.org/index.php/Kernel_mode_setting#Early_KMS_start
 
+Edit /etc/mkinitcpio.conf: 
+* HOOKS: add the word "encrypt" just before "filesystems"
+* MODULES: add the video driver
+
+Leave the rest of the file in tact. 
 
 ```sh
 vim /etc/mkinitcpio.conf
+# only change this:
 MODULES=(i915)
 HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt filesystems fsck)
 ```
