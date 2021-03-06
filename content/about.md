@@ -66,14 +66,16 @@ hugo server -D
 On how to include and resize images.
 
 ```markdown
-![tmux](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Tmux_logo.svg/1280px-Tmux_logo.svg.png)
+![tmux](https://upload.wikimedia.org/Tmux_logo.svg/1280px-Tmux_logo.svg.png)
  
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Tmux_logo.svg/1280px-Tmux_logo.svg.png" width="400">
+<img src="https://upload.wikimedia.org/1280px-Tmux_logo.svg.png" width="400">
 
 <img src="/termimal2.png" width="600">
 
 ![plaatje](/termimal2.png)
 ```
+
+## About Hugo
 
 Written in Go, Hugo is an open source static site generator available under the [Apache Licence 2.0.](https://github.com/gohugoio/hugo/blob/master/LICENSE) Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
 
