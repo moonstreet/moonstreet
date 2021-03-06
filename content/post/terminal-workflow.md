@@ -13,10 +13,9 @@ tags:
 - vim
 ---
 
-This is a post about my workflow when editing files in the terminal.
-
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Tmux_logo.svg/1280px-Tmux_logo.svg.png" width="400">
 
+This is a post about my workflow when editing files in the terminal.
 
 When editing files quickly I usually resort to vim.
 It requires a lot of muscle memory but hey, one needs to train their reptile brain, right.
@@ -84,7 +83,7 @@ Then you can just choose which buffer you want to display with
 | :ls| List buffers |
 
 
-And some other useful commands. It might take some practice because you need to memorize two sets of commands.
+And some other useful navigation commands. It might take some practice because you need to memorize two sets of commands.
 But the reward is big, I promise.
 
 | Command    | What it does    |
@@ -96,3 +95,28 @@ But the reward is big, I promise.
 | :vsplit | Split vertically (vim) |
 | ctrl+q % | Split vertically (tmux) |
 | vspl+q " | Split horizontally (tmux |
+
+Finally some handy vim productivity boosters:
+
+| Command    | What it does    |
+| :------------- | :----------: | 
+| v | Enter visual mode per character |
+| V | Enter visual mode per line |
+| ZZ | Write file, if modified, and quit Vim |
+| ( | jumps to the previous sentence |
+| ) | jumps to the next sentence |
+| { | jumps to the previous paragraph |
+| } | jumps to the next paragraph |
+| [[ | jumps to the previous section |
+| ]] | jumps to the next section |
+| [] | jump to the end of the previous section |
+| ][ | jump to the end of the next section |
+| a | Insert text after the cursor |
+| A | Insert text at the end of the line |
+| i | Insert text before the cursor |
+| o | Begin a new line below the cursor |
+| O | Begin a new line above the cursor |
+
+
+
+
