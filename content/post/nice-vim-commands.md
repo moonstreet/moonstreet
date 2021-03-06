@@ -18,7 +18,7 @@ Here is  my vim & tmux cheatsheet.
 
 ## tmux
 
-My .tmux.conf:
+This is my .tmux.conf. I prefer to set the meta key to **q**.
 
 ```sh
 set-option -g prefix C-q
