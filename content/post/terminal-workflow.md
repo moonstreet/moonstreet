@@ -99,6 +99,8 @@ But the reward is big, I promise.
 
 Here some tmux commands:
 
+| Command    | What it does    |
+| :------------- | :----------: | 
 | ctrl+q arrows | Navigate windows (tmux) |
 | ctrl+q % | Split vertically (tmux) |
 | ctrl+q " | Split horizontally (tmux) |
