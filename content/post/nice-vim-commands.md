@@ -14,10 +14,19 @@ tags:
 - vim
 ---
 
-This deserves a separate post: My vim & tmux cheatsheet.
+Here is  my vim & tmux cheatsheet.
 
 ## tmux
 
+My .tmux.conf:
+
+```sh
+set-option -g prefix C-q
+set -g mouse off
+
+set -g status-bg black
+set -g status-fg white
+```
 
 | Command    | What it does    |
 | :------------- | :----------: | 
@@ -25,9 +34,11 @@ This deserves a separate post: My vim & tmux cheatsheet.
 | ctrl+q % | Split vertically (tmux) |
 | ctrl+q " | Split horizontally (tmux) |
 | ctrl+q z | Toggle window full screen (nice one!) |
+| [ | Enter scroll mode |
+| q | Leave scroll mode |
 
 
-## Open multiple files at once
+ ## Open multiple files at once
 
 ```shell
 vim file1 file2
