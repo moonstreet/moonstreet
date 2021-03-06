@@ -96,7 +96,7 @@ But the reward is big, I promise.
 | ctrl+q arrows | Navigate windows (tmux) |
 | :vsplit | Split vertically (vim) |
 | ctrl+q % | Split vertically (tmux) |
-| vspl+q " | Split horizontally (tmux |
+| ctrl+q " | Split horizontally (tmux |
 
 Finally some handy vim productivity boosters:
 
