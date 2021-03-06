@@ -2,6 +2,7 @@
 title: "Terminal Workflow"
 date: 2021-03-06T09:44:56+01:00
 draft: false
+featured: true
 showShare: false
 codeMaxLines: 50 
 codeLineNumbers: true 

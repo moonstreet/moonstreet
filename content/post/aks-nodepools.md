@@ -2,7 +2,7 @@
 title: "Azure Kubernetes node pools with Terraform" # Title of the blog post.
 date: 2020-12-29T13:30:21+01:00 # Date of post creation.
 description: "Article description." # Description used for search engine.
-featured: true # Sets if post is a featured post, making appear on the home page side bar.
+featured: false # Sets if post is a featured post, making appear on the home page side bar.
 draft: false # Sets whether to render this page. Draft of true will not be rendered.
 toc: false # Controls if a table of contents should be generated for first-level links automatically.
 # menu: main
