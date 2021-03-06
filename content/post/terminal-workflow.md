@@ -93,10 +93,16 @@ But the reward is big, I promise.
 | u | Undo |
 | ctrl+r | Redo |
 | ctrl+ww | Navigate to buffer  |
+| :vsplit | Split vertically  |
+| ctrl + w _ | Set height of split to max  |
+| ctrl + w \| | Set width of split to max  |
+
+Here some tmux commands:
+
 | ctrl+q arrows | Navigate windows (tmux) |
-| :vsplit | Split vertically (vim) |
 | ctrl+q % | Split vertically (tmux) |
-| ctrl+q " | Split horizontally (tmux |
+| ctrl+q " | Split horizontally (tmux) |
+| ctrl+q z | Toggle window full screen (nice one!) |
 
 Finally some handy vim productivity boosters:
 
@@ -119,6 +125,14 @@ Finally some handy vim productivity boosters:
 | o | Begin a new line below the cursor |
 | O | Begin a new line above the cursor |
 | :%s/wrong/right/gc | Find and replace |
+| /foo | Search and highlight foo |
+| :noh | Stop highlihghting foo |
+| :r | Replace current character |
+| :R | Replace current character and stay in insert mode |
 
+My favorites
 
-
+| Command    | What it does    |
+| :------------- | :----------: | 
+| ci " | Change text between quotes works with {, [ and so on |
+| . | Repeat | 
