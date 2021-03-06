@@ -19,14 +19,14 @@ This is a post about my workflow when editing files in the terminal.
 
 
 When editing files quickly I usually resort to vim.
-It requires a lot of muscle memory but hey, one needs to train their reptile brain.
+It requires a lot of muscle memory but hey, one needs to train their reptile brain, right.
 
 
 ## Tmux config
 
 So I use tmux and vim so you need those two installed.
 My tmux config is really simple. I changed the leader key to ctrl+q for easy reach on my keyboard.
-I used to have ctrl+a but that conflicted with my habit to to use that keyboard combo to go to the beginning of a command.
+I used to have ctrl+a but that conflicted with my habit to use that keyboard combo to go to the beginning of a command.
 
 
 ```sh
