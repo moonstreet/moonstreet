@@ -106,36 +106,3 @@ Here some tmux commands:
 | ctrl+q " | Split horizontally (tmux) |
 | ctrl+q z | Toggle window full screen (nice one!) |
 
-Finally some handy vim productivity boosters:
-
-| Command    | What it does    |
-| :------------- | :----------: | 
-| v | Enter visual mode per character |
-| V | Enter visual mode per line |
-| ZZ | Write file, if modified, and quit Vim |
-| ( | jumps to the previous sentence |
-| ) | jumps to the next sentence |
-| { | jumps to the previous paragraph |
-| } | jumps to the next paragraph |
-| [[ | jumps to the previous section |
-| ]] | jumps to the next section |
-| [] | jump to the end of the previous section |
-| ][ | jump to the end of the next section |
-| a | Insert text after the cursor |
-| A | Insert text at the end of the line |
-| i | Insert text before the cursor |
-| o | Begin a new line below the cursor |
-| O | Begin a new line above the cursor |
-| Go | Add a new line at the end of the file |
-| :%s/wrong/right/gc | Find and replace |
-| /foo | Search and highlight foo |
-| :noh | Stop highlihghting foo |
-| :r | Replace current character |
-| :R | Replace current character and stay in insert mode |
-
-My favorites
-
-| Command    | What it does    |
-| :------------- | :----------: | 
-| ci " | Change text between quotes works with {, [ and so on |
-| . | Repeat | 
