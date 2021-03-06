@@ -28,6 +28,7 @@ So I use tmux and vim so you need those two installed.
 My tmux config is really simple. I changed the leader key to ctrl+q for easy reach on my keyboard.
 I used to have ctrl+a but that conflicted with my habit to use that keyboard combo to go to the beginning of a command.
 
+Create or edit ~/.tmux.conf and add this:
 
 ```sh
 set-option -g prefix C-q
