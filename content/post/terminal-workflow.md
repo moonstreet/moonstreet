@@ -50,7 +50,7 @@ ctrl+q  arrow down #hold ctrl+q while pressing arrow down key
 ```
 You will end up with something like this:
 
-<img src="/termimal1.png" width="600">
+<img src="/termimal1.png" width="800">
 
 Then in the upper half of the screen I open the files I want to work with
 
@@ -60,7 +60,7 @@ vim -O file1 file2
 
 Then you will end up with something like this:
 
-<img src="/termimal2.png" width="600">
+<img src="/termimal2.png" width="800">
 
 As you can see you can edit files in the upper part of the screen and issue commands in the lower part.
 
