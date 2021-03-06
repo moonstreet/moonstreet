@@ -118,7 +118,7 @@ Finally some handy vim productivity boosters:
 | i | Insert text before the cursor |
 | o | Begin a new line below the cursor |
 | O | Begin a new line above the cursor |
-
+| :%s/wrong/right/gc | Find and replace |
 
 
 
