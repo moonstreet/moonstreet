@@ -45,7 +45,7 @@ fdisk p # check
 fdisk w # write
 ```
 
-NB. if you need a swap partition just create an extra partition and prepare it as follows:
+Optional: if you need a swap partition just create an extra partition and prepare it as follows:
 
 ```shell
 mkswap /dev/nvme0n1p3
@@ -168,6 +168,7 @@ Now install Grub:
 
 ```shell
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+# if you didn't configure encryption, you should mount the EFI partition in /boot/efi and also set --efi-directory=/boot/efi
 ```
 Edit the grub conf to point to the encrypted root. 
 
