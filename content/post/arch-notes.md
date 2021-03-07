@@ -45,6 +45,14 @@ fdisk p # check
 fdisk w # write
 ```
 
+NB. if you need a swap partition just create an extra partition and prepare it as follows:
+
+```shell
+mkswap /dev/nvme0n1p3
+swapon /dev/nvme0n1p3
+```
+
+
 ## Encrypt and mount
 
 To encrypt the root partion with Luks:
