@@ -45,7 +45,7 @@ If you define an AKS cluster, following the Terraform [documentation](https://re
 
 My definition of the azurerm_kubernetes_cluster_node_pool is like this:
 
-```terraform
+```
 resource "azurerm_kubernetes_cluster_node_pool" "pools" {
   lifecycle {
     ignore_changes = [
@@ -72,7 +72,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "pools" {
 We will be using the for_each expression to be able to define and deploy multiple nodepools later.
 The variable is defined as follows:
 
-```terraform
+```
 
 variable "az_aks_additional_node_pools" {
   type = map(object({
@@ -88,12 +88,12 @@ variable "az_aks_additional_node_pools" {
   }))
 }
 ```
-Look at 'taints' and 'labels': taint is a list of strings whereas labels are a map of strings. It took me an hour or so to figure this out, but I was also watching television at the same time, and it does not say anything. You need the labels, and the taints to configure your workloads (deployments and statefulsets) to direct the pods to the correct node pool.
+Look at 'taints' and 'labels': taint is a list of strings whereas labels are a map of strings. It took me an hour or so to figure this out, but I was also watching television at the same time. You need the labels, and the taints to configure your workloads (deployments and statefulsets) to direct the pods to the correct node pool.
 
 Finally, this is how I define 3 node pools for a cluster. This will result in:
 
 
-```terraform
+```
   az_aks_additional_node_pools = {
     systempool = {
       node_count = 1

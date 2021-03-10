@@ -3,7 +3,6 @@ title: "Prompt"
 date: 2021-03-07T09:13:46+01:00
 draft: true
 featured: false
-draft: false 
 toc: false 
 menu: main
 featureImage: "/images/terraform.png"
