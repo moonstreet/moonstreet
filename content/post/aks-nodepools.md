@@ -13,13 +13,13 @@ codeMaxLines: 50 # Override global value for how many lines within a code block 
 codeLineNumbers: true # Override global value for showing of line numbers within code block.
 figurePositionShow: true # Override global value for showing the figure label.
 categories:
-  - Technology 
+  - Technology
 tags:
   - kubernetes
   - azure
   - terraform
 showShare: false
----    
+---
 
 
 **In Azure Kubernetes Service (AKS), nodes of the same configuration are grouped together into node pools.** These node pools contain the underlying VMs that run your applications.
