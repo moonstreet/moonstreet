@@ -21,7 +21,6 @@ tags:
 showShare: false
 ---
 
-
 This is a back to basics post about a Terraform pattern: conditionals.
 
 ## Conditionals: if then else
@@ -89,6 +88,9 @@ In other words:
 * in other cases: null does not mean a resource does not get created. It just means its default behaviour will be applied.
 
 https://www.hashicorp.com/blog/terraform-0-12-conditional-operator-improvements
+
+
+
 
 The next pattern will be loops.
 
