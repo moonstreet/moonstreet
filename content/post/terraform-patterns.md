@@ -1,5 +1,5 @@
 ---
-title: "Terraform patterns: confitionals" # Title of the blog post.
+title: "Terraform patterns: conditionals" # Title of the blog post.
 date: 2021-12-21T08:24:21+01:00 # Date of post creation.
 description: "Article description." # Description used for search engine.
 featured: false # Sets if post is a featured post, making appear on the home page side bar.
@@ -70,6 +70,14 @@ variable prefix {
 variable rg_name {
   default = null
 }
+
+# let's just tags for fun
+variable "tags" {
+  default = {
+    owner = "jacqueline",
+    department = "research"
+  }
+}
 ```
 
 ## What about the null value?
@@ -81,7 +89,6 @@ In other words:
 * in other cases: null does not mean a resource does not get created. It just means its default behaviour will be applied.
 
 https://www.hashicorp.com/blog/terraform-0-12-conditional-operator-improvements
-
 
 The next pattern will be loops.
 
