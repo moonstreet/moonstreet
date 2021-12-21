@@ -44,7 +44,7 @@ If var.prefix is an empty string then the result is "my-prefix-rg", but otherwis
 |   | do other stuff  |
 
 
-```
+```hcl
 # condition ? true_val : false_val
 name  = var.rg_name == null ? "${var.prefix}-rg" : var.rg_name
 ```
@@ -52,7 +52,7 @@ A full example
 
 
 main.tf
-```
+```hcl
 resource "azurerm_resource_group" "rg" {
   name     = var.rg_name == null ? "${var.prefix}-rg" : var.rg_name
   location = var.location
@@ -61,7 +61,7 @@ resource "azurerm_resource_group" "rg" {
 ```
 
 variables.tf
-```
+```hcl
 variable prefix {
   default = "projextx-dev"
 }
@@ -70,10 +70,14 @@ variable rg_name {
   default = null
 }
 
-# let's just tags for fun
+variable "location" {
+  default = "westeurope"
+}
+
+# let's add tags
 variable "tags" {
   default = {
-    owner = "jacqueline",
+    owner = "jacqueline"
     department = "research"
   }
 }
@@ -88,9 +92,6 @@ In other words:
 * in other cases: null does not mean a resource does not get created. It just means its default behaviour will be applied.
 
 https://www.hashicorp.com/blog/terraform-0-12-conditional-operator-improvements
-
-
-
 
 The next pattern will be loops.
 
