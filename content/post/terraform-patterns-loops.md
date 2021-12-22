@@ -91,16 +91,23 @@ resource "azurerm_virtual_network" "vnet" {
 }
 ```
 
-We need a map with key value pairs. The key is the name of the subnet instance, and the value is a complex object with the subnet properties.
-This is defined as follows:
+As the variable type we use a map of objects. The key is the name of the subnet instance, and the value is a complex object with the subnet properties.
+The subnet variable object types are incomplete, because Terraform will fail when using nested variables.
+And optional properties are not (yet?) supported. 
+
+So the map construct will look as follows:
 
 ```hcl
 variable "subnets" {
-    type    = map(object({
-    address_prefixes     = list(string)
-    service_endpoints    = list(string)
-    }))
+  type = map(object({
+    address_prefixes  = list(string)
+    service_endpoints = list(string)
+    //location = string - cannot use nested variables
+    //resource_group_name = string - cannot use nested variables 
+  }))
+}
 ```
+
 
 We can then define the default value of the variable: 
 
@@ -133,19 +140,6 @@ resource "azurerm_subnet" "subnet" {
     virtual_network_name = azurerm_virtual_network.vnet.name
     address_prefixes     = each.value.address_prefixes
     service_endpoints    = each.value.service_endpoints
-}
-```
-
-# What about the outputs?
-
-
-```hcl
-output "resource_groups" {
-    value       = { for groups in azurerm_resource_group.otherrg : groups.name => groups.location }
-}
-
-output "resource_groups_map" {
-    value       = azurerm_resource_group.otherrg
 }
 ```
 
