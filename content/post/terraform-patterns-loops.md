@@ -23,13 +23,12 @@ showShare: false
 
 # Create multiple instances with a loop
 
-If you want to create multiple instances of simular objects, you can add a for_each argument in the resource or module block.
-The for_each argument accepts a map or a set of strings, and creates an instance for each item in that map or set. 
+If you want to create multiple instances of, say, an Azure resource group, you can add a for_each argument.
+The for_each argument accepts a map or a set, and creates an instance for each item in that map or set.
 
+So you can create a map of key value pairs (aka a dictionary) and use it to define multiple resource groups:
 
-You can create a map of key value pairs and use them to define multiple resource groups:
-
-```hcl
+```
 resource "azurerm_resource_group" "rg" {
     for_each = {
         projectx-dev-we = "westeurope"
@@ -44,7 +43,7 @@ resource "azurerm_resource_group" "rg" {
 
 Sure enough you can also refactor the map as a variable
 
-```hcl
+```
 variable "groups" {
     default = {
         projectx-prod-we = "westeurope"
@@ -63,9 +62,10 @@ resource "azurerm_resource_group" "otherrg" {
 
 ## Reference the resource group
 
-When creating a storage account, you can reference the resource group that has been created with the for_each argument as follows: 
+What if you want to create a storage account in each of the created resource groups?
+You could reference the resource group that has been created in the previous step as follows: 
 
-```hcl
+```
 resource "azurerm_storage_account" "storage" {
     name = "projectxprodwestorage"
     account_replication_type = "LRS"
@@ -77,7 +77,9 @@ resource "azurerm_storage_account" "storage" {
 
 ## A more complex example
 
-What if I have a more complex resource to create. A map has just a key and a value. Or Maps contain many things of one type. Objects contain a specific set of things of many types.
+A map has just some keys and values. They can contain many things of just one type.
+But what if I want to use strings, lists and so on to create my new resource, in a for-each loop?
+We need an object. Objects contain a specific set of things of many types.
 Let's take a vnet as an example. A vnet has some subnets which is a complexer type.
 
 First, let's create the vnet:
@@ -91,13 +93,14 @@ resource "azurerm_virtual_network" "vnet" {
 }
 ```
 
+Let's now define the subnets.
 As the variable type we use a map of objects. The key is the name of the subnet instance, and the value is a complex object with the subnet properties.
-The subnet variable object types are incomplete, because Terraform will fail when using nested variables.
+The subnet variable object types are incomplete, because Terraform will fail when using nested variables (can not interpolate variables when using a datastructure as a variable).
 And optional properties are not (yet?) supported. 
 
 So the map construct will look as follows:
 
-```hcl
+```
 variable "subnets" {
   type = map(object({
     address_prefixes  = list(string)
@@ -111,7 +114,7 @@ variable "subnets" {
 
 We can then define the default value of the variable: 
 
-```hcl
+```
 variable "subnets" {
     type    = map(object({
     address_prefixes     = list(string)
@@ -132,7 +135,7 @@ variable "subnets" {
 
 Finally, we can create the subnets as follows:
 
-```hcl
+```
 resource "azurerm_subnet" "subnet" {
     for_each = var.subnets
     name                 = "${var.prefix}-${each.key}"
