@@ -22,37 +22,39 @@ showShare: false
 ---
 
 This is a back to basics post about a Terraform pattern: conditionals.
+It's Azure centric.
 
 ## Conditionals: if then else
 
-Consider a resource group name. Imagine we want the resource group to follow the rules of naming convention but in other cases we don't want to.
+Imagine we want a resource group name to follow the rules of naming convention but in other cases we don't want to.
 So if there is a naming convention, implement that, if not than do not.
 
-Imagine a naming convention `<projectname>-<environment>-<resource>`. In this case every resource has a certain prefix. Now we can say: if the prefix is set, please follow that naming, else just take the variable of the full name.
+For example, the naming convention should follow this pattern: `<projectname>-<environment>-<resource>` .
+We want every resource to be prefixed by that pattern. So if the prefix is set, please use the prefix pattern, else just take the variable of the full name.
 
 This is where the ternary operator comes in.
-
 If var.prefix is an empty string then the result is "my-prefix-rg", but otherwise it is the actual value of var.rg_name:
 
 
-| What  | Means  |
-|---|---|
-|  if var.prefix | condition  |
-|  ?  | then  |
-|   | do stuff   |
-|  : | else   |
-|   | do other stuff  |
+| Symbol        | Meaning        |
+|---------------|----------------|
+| if var.prefix | condition      |
+| ?             | then           |
+|               | do stuff       |
+| :             | else           |
+|               | do other stuff |
 
 
-```hcl
+```
 # condition ? true_val : false_val
 name  = var.rg_name == null ? "${var.prefix}-rg" : var.rg_name
 ```
+
 A full example
 
 
 main.tf
-```hcl
+```
 resource "azurerm_resource_group" "rg" {
   name     = var.rg_name == null ? "${var.prefix}-rg" : var.rg_name
   location = var.location
@@ -61,7 +63,7 @@ resource "azurerm_resource_group" "rg" {
 ```
 
 variables.tf
-```hcl
+```
 variable prefix {
   default = "projextx-dev"
 }
