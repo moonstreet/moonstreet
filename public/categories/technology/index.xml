@@ -6,128 +6,69 @@
     <description>Recent content in Technology on Moonstreet</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Tue, 29 Dec 2020 13:30:21 +0100</lastBuildDate><atom:link href="https://moonstreet.nl/categories/technology/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Dec 2021 11:24:21 +0100</lastBuildDate><atom:link href="https://moonstreet.nl/categories/technology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform patterns: loops</title>
+      <link>https://moonstreet.nl/post/terraform-patterns-loops/</link>
+      <pubDate>Tue, 21 Dec 2021 11:24:21 +0100</pubDate>
+      
+      <guid>https://moonstreet.nl/post/terraform-patterns-loops/</guid>
+      <description>Create multiple resources with a loop If you want to create multiple instances of, say, an Azure resource group, you can add a for_each argument. The for_each argument accepts a map or a set, and creates an instance for each item in that map or set.
+So you can create a map of key value pairs (aka a dictionary) and use it to define multiple resource groups:
+1resource &amp;#34;azurerm_resource_group&amp;#34; &amp;#34;rg&amp;#34; { 2 for_each = { 3 projectx-dev-we = &amp;#34;westeurope&amp;#34; 4 projectx-dev-us = &amp;#34;eastus&amp;#34; 5 } 6 7 name = &amp;#34;${each.</description>
+    </item>
+    
+    <item>
+      <title>Terraform patterns: conditionals</title>
+      <link>https://moonstreet.nl/post/terraform-patterns-conditionals/</link>
+      <pubDate>Tue, 21 Dec 2021 08:24:21 +0100</pubDate>
+      
+      <guid>https://moonstreet.nl/post/terraform-patterns-conditionals/</guid>
+      <description>This is a back to basics post about a Terraform pattern: conditionals. It&#39;s Azure centric.
+Conditionals: if then else Imagine we want a resource group name to follow the rules of naming convention but in other cases we don&#39;t want to. So if there is a naming convention, implement that, if not than do not.
+For example, the naming convention should follow this pattern: &amp;lt;projectname&amp;gt;-&amp;lt;environment&amp;gt;-&amp;lt;resource&amp;gt; . We want every resource to be prefixed by that pattern.</description>
+    </item>
+    
+    <item>
+      <title>Terminal Workflow</title>
+      <link>https://moonstreet.nl/post/terminal-workflow/</link>
+      <pubDate>Sat, 06 Mar 2021 09:44:56 +0100</pubDate>
+      
+      <guid>https://moonstreet.nl/post/terminal-workflow/</guid>
+      <description>This is a post about my workflow when editing files in the terminal.
+When editing files quickly I usually resort to vim. It requires a lot of muscle memory but hey, one needs to train their reptile brain, right.
+Tmux config So I use tmux and vim so you need those two installed. My tmux config is really simple. I changed the leader key to ctrl+q for easy reach on my keyboard.</description>
+    </item>
+    
+    <item>
+      <title>My personal vim cheatsheet</title>
+      <link>https://moonstreet.nl/post/nice-vim-commands/</link>
+      <pubDate>Fri, 05 Mar 2021 09:44:56 +0100</pubDate>
+      
+      <guid>https://moonstreet.nl/post/nice-vim-commands/</guid>
+      <description>Here is my vim &amp;amp; tmux cheatsheet.
+tmux This is my .tmux.conf. I prefer to set the meta key to q.
+1set-option -g prefix C-q 2set -g mouse off 3 4set -g status-bg black 5set -g status-fg white    Command What it does     ctrl+q arrows Navigate windows (tmux)   ctrl+q % Split vertically (tmux)   ctrl+q &amp;quot; Split horizontally (tmux)   ctrl+q z Toggle window full screen (nice one!</description>
+    </item>
+    
+    <item>
+      <title>A minimal Arch Linux installation with Gnome. My notes.</title>
+      <link>https://moonstreet.nl/post/arch-notes/</link>
+      <pubDate>Sun, 28 Feb 2021 08:39:40 +0100</pubDate>
+      
+      <guid>https://moonstreet.nl/post/arch-notes/</guid>
+      <description>Arch Linux is extremely well documented so I highly recommend to read the Arch installation guide. This guide installs the Gnome desktop environment, but one can easily swap Gnome for i3 or another desktop environment, or leave it all together. This is the procedure I used for installing Arch on a Thinkpad t460s, t490s and a Dell Precision 5550.
+Partitioning Checkout the current partition scheme and the name of the harddrive(s)</description>
+    </item>
+    
     <item>
       <title>Azure Kubernetes node pools with Terraform</title>
       <link>https://moonstreet.nl/post/aks-nodepools/</link>
       <pubDate>Tue, 29 Dec 2020 13:30:21 +0100</pubDate>
       
       <guid>https://moonstreet.nl/post/aks-nodepools/</guid>
-      <description>
-        
-          &lt;p&gt;&lt;strong&gt;In Azure Kubernetes Service (AKS), nodes of the same configuration are grouped together into node pools.&lt;/strong&gt; These node pools contain the underlying VMs that run your applications.
-The initial number of nodes and their size (SKU) is defined when you create an AKS cluster, which creates a system node pool. To support applications that have different compute or storage demands, you can create additional user node pools.&lt;/p&gt;
-&lt;p&gt;I just copied the above text from &lt;a href=&#34;https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools&#34;&gt;here&lt;/a&gt; because it is just right. To have a full understanding of node pools I encourage you to read the whole article. Also, if you plan to run Azure Kubernetes in production, I can recommend &lt;a href=&#34;https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads&#34;&gt;this article&lt;/a&gt; as well. It&#39;s all about the sizing baby!&lt;/p&gt;
-&lt;p&gt;This post is about deploying node pools with Terraform. I assume a bit of prior knowledge about Azure and Terraform modules.&lt;/p&gt;
-&lt;p&gt;Because we run multiple instances of AKS I thought to make the number of node pools and their properties variable. &lt;a href=&#34;https://www.danielstechblog.io/terraform-working-with-aks-multiple-node-pools-in-tf-azure-provider-version-1-37/&#34;&gt;This&lt;/a&gt; article directed me in that direction.&lt;/p&gt;
-&lt;p&gt;At work, we have a git repo with multiple cluster definitions (I treat them like cattle). The clusters are deployed in a Jenkins pipeline.&lt;/p&gt;
-&lt;h2 id=&#34;terraform-config&#34;&gt;Terraform config&lt;/h2&gt;
-&lt;p&gt;My goal is to create 3 node pools:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;a system node pool for system pods&lt;/li&gt;
-&lt;li&gt;an infra node pool for infra pods (Vault, Elasticsearch and Prometheus to be precise)&lt;/li&gt;
-&lt;li&gt;an app node pool for our LOB apps&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;If you define an AKS cluster, following the Terraform &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster&#34;&gt;documentation&lt;/a&gt; you will note that there is a default node pool block, but there isn&#39;t a definition of for extra node pools. In fact, there is a separate resource, namely the &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster_node_pool&#34;&gt;azurerm_kubernetes_cluster_node_pool&lt;/a&gt; resource.&lt;/p&gt;
-&lt;p&gt;My definition of the azurerm_kubernetes_cluster_node_pool is like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;resource&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;azurerm_kubernetes_cluster_node_pool&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;pools&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;  &lt;span class=&#34;nx&#34;&gt;lifecycle&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;ignore_changes&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;      &lt;span class=&#34;nx&#34;&gt;node_count&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;for_each&lt;/span&gt; = &lt;span class=&#34;nb&#34;&gt;var&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;az_aks_additional_node_pools&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;kubernetes_cluster_id&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;azurerm_kubernetes_cluster&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;kube&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;id&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;                  = &lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;mode&lt;/span&gt;                  = &lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;mode&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;node_count&lt;/span&gt;            = &lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;node_count&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;vm_size&lt;/span&gt;               = &lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;vm_size&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;availability_zones&lt;/span&gt;    = &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;max_pods&lt;/span&gt;              = &lt;span class=&#34;m&#34;&gt;250&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;os_disk_size_gb&lt;/span&gt;       = &lt;span class=&#34;m&#34;&gt;128&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;node_taints&lt;/span&gt;           = &lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;taints&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;node_labels&lt;/span&gt;           = &lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;labels&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;enable_auto_scaling&lt;/span&gt;   = &lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cluster_auto_scaling&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;min_count&lt;/span&gt;             = &lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cluster_auto_scaling_min_count&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;max_count&lt;/span&gt;             = &lt;span class=&#34;nb&#34;&gt;each&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;cluster_auto_scaling_max_count&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We will be using the for_each expression to be able to define and deploy multiple nodepools later.
-The variable is defined as follows:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;variable&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;az_aks_additional_node_pools&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt; =&lt;span class=&#34;nb&#34;&gt; map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;object&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;node_count&lt;/span&gt;                     = &lt;span class=&#34;nx&#34;&gt;number&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;                           = &lt;span class=&#34;nx&#34;&gt;string&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;mode&lt;/span&gt;                           = &lt;span class=&#34;nx&#34;&gt;string&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;vm_size&lt;/span&gt;                        = &lt;span class=&#34;nx&#34;&gt;string&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;taints&lt;/span&gt;                         =&lt;span class=&#34;nb&#34;&gt; list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling&lt;/span&gt;           = &lt;span class=&#34;nx&#34;&gt;bool&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling_min_count&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;number&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling_max_count&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;number&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;labels&lt;/span&gt;                         =&lt;span class=&#34;nb&#34;&gt; map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;}))&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Look at &#39;taints&#39; and &#39;labels&#39;: taint is a list of strings whereas labels are a map of strings. It took me an hour or so to figure this out, but I was also watching television at the same time, and it does not say anything. You need the labels, and the taints to configure your workloads (deployments and statefulsets) to direct the pods to the correct node pool.&lt;/p&gt;
-&lt;p&gt;Finally, this is how I define 3 node pools for a cluster. This will result in:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-terraform&#34; data-lang=&#34;terraform&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;az_aks_additional_node_pools&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;systempool&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;node_count&lt;/span&gt; = &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;mode&lt;/span&gt; = &lt;span class=&#34;s2&#34;&gt;&amp;#34;System&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt; = &lt;span class=&#34;s2&#34;&gt;&amp;#34;system&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;vm_size&lt;/span&gt;    = &lt;span class=&#34;s2&#34;&gt;&amp;#34;Standard_B2ms&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;zones&lt;/span&gt;      = &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;taints&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;CriticalAddonsOnly=true:NoSchedule&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;      &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;labels&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;null&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling&lt;/span&gt;           = &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling_min_count&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;null&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling_max_count&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;null&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;infrapool&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;node_count&lt;/span&gt; = &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt; = &lt;span class=&#34;s2&#34;&gt;&amp;#34;infra&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;mode&lt;/span&gt; = &lt;span class=&#34;s2&#34;&gt;&amp;#34;User&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;vm_size&lt;/span&gt;    = &lt;span class=&#34;s2&#34;&gt;&amp;#34;Standard_B2ms&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;zones&lt;/span&gt;      = &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;taints&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;23&lt;/span&gt;        &lt;span class=&#34;s2&#34;&gt;&amp;#34;InfraAddonsOnly=true:NoSchedule&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;24&lt;/span&gt;      &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;25&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;labels&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;26&lt;/span&gt;        &lt;span class=&#34;nx&#34;&gt;nodepool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;infra&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;27&lt;/span&gt;      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;28&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling&lt;/span&gt;           = &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;29&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling_min_count&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;null&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;30&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling_max_count&lt;/span&gt; = &lt;span class=&#34;nx&#34;&gt;null&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;31&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;32&lt;/span&gt;    &lt;span class=&#34;na&#34;&gt;apppool&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;33&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;node_count&lt;/span&gt;                     = &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;34&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;name&lt;/span&gt;                           = &lt;span class=&#34;s2&#34;&gt;&amp;#34;app16&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;35&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;mode&lt;/span&gt;                           = &lt;span class=&#34;s2&#34;&gt;&amp;#34;User&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;36&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;vm_size&lt;/span&gt;                        = &lt;span class=&#34;s2&#34;&gt;&amp;#34;Standard_A2m_v2&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;37&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;zones&lt;/span&gt;                          = &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;38&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;taints&lt;/span&gt;                         = &lt;span class=&#34;nx&#34;&gt;null&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;39&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;labels&lt;/span&gt; = &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;40&lt;/span&gt;        &lt;span class=&#34;nx&#34;&gt;nodepool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;app16&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;41&lt;/span&gt;      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;42&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling&lt;/span&gt;           = &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;43&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling_min_count&lt;/span&gt; = &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;44&lt;/span&gt;      &lt;span class=&#34;na&#34;&gt;cluster_auto_scaling_max_count&lt;/span&gt; = &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;45&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;46&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;cleaning-up-the-default-node-pool&#34;&gt;Cleaning up the default node pool&lt;/h2&gt;
-&lt;p&gt;When the cluster and its node pools are deployed, I let Jenkins clean up de the default node pool because it&#39;s no longer needed.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;az aks nodepool delete --resource-group &lt;span class=&#34;nv&#34;&gt;$CLUSTER_FULL_NAME&lt;/span&gt;-rg --cluster-name &lt;span class=&#34;nv&#34;&gt;$CLUSTER_FULL_NAME&lt;/span&gt; --name default
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;resources-and-inspiration&#34;&gt;Resources and inspiration&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.danielstechblog.io/&#34;&gt;https://www.danielstechblog.io/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads&#34;&gt;https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools&#34;&gt;https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-        
-      </description>
+      <description>In Azure Kubernetes Service (AKS), nodes of the same configuration are grouped together into node pools. These node pools contain the underlying VMs that run your applications. The initial number of nodes and their size (SKU) is defined when you create an AKS cluster, which creates a system node pool. To support applications that have different compute or storage demands, you can create additional user node pools.
+I just copied the above text from here because it is just right.</description>
     </item>
     
     <item>
@@ -136,113 +77,7 @@ The variable is defined as follows:&lt;/p&gt;
       <pubDate>Mon, 28 Dec 2020 17:10:13 +0100</pubDate>
       
       <guid>https://moonstreet.nl/post/kubernetes-readonly/</guid>
-      <description>
-        
-          &lt;p&gt;&lt;a href=&#34;https://kubernetes.io/docs/reference/access-authn-authz/authentication/&#34;&gt;Normal users are assumed to be managed by an outside, independent service&lt;/a&gt;. Kubernetes does not have objects which represent normal user accounts. Normal users cannot be added to a cluster through an API call. However, any user that presents a valid certificate signed by the cluster&#39;s certificate authority (CA) is considered authenticated.
-So we can create a user with read-only access to the cluster, and hand the kube config file over to that that user.&lt;/p&gt;
-&lt;p&gt;This post assumes a basic level of understanding of how Kubernetes works.&lt;/p&gt;
-&lt;h2 id=&#34;create-a-clusterrole&#34;&gt;Create a ClusterRole&lt;/h2&gt;
-&lt;p&gt;First create a ClusterRole. I&#39;ve decided to name the cluster role &#39;kube-reader-cluster-role&#39;
-As you can see I excluded &#39;secrets&#39;.&lt;/p&gt;
-&lt;p&gt;You can find out about apiGroups, resources and verbs with the following command:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;k api-resources --sort-by name &lt;span class=&#34;c1&#34;&gt;#I&amp;#39;m so lazy, I use k instead of kubectl&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;More info about ClusterRoles and RBAC you can find &lt;a href=&#34;https://kubernetes.io/docs/reference/access-authn-authz/rbac/&#34;&gt;here&lt;/a&gt;.
-This is the result:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kubectl apply -f -
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: rbac.authorization.k8s.io/v1
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: ClusterRole
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;metadata:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  name: kube-reader-cluster-role
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;rules:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;- apiGroups: [&amp;#34;&amp;#34;]
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  resources: [&amp;#34;pods&amp;#34;,&amp;#34;configmaps&amp;#34;,&amp;#34;services&amp;#34;,&amp;#34;events&amp;#34;,&amp;#34;namespaces&amp;#34;,&amp;#34;nodes&amp;#34;,&amp;#34;limitranges&amp;#34;,&amp;#34;persistentvolumes&amp;#34;,&amp;#34;persistenttvolumeclaims&amp;#34;,&amp;#34;resourcequotas&amp;#34;]
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  verbs: [&amp;#34;get&amp;#34;, &amp;#34;watch&amp;#34;, &amp;#34;list&amp;#34;]
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;- apiGroups:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    - apps
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  resources: [&amp;#34;*&amp;#34;]
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  verbs:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    - get
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    - list
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    - watch
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;create-a-certificate-request&#34;&gt;Create a certificate request&lt;/h2&gt;
-&lt;p&gt;Let&#39;s add read-only access for a user called kube-support. It&#39;s not a real name.
-This user kube-support should be able to access Kubernetes resources from outside the cluster and they are only allowed to read.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;openssl req -new -newkey rsa:4096 -nodes -keyout kube-support.key -out kube-support.csr -subj &lt;span class=&#34;s2&#34;&gt;&amp;#34;/CN=kube-support/O=readers&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;csr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;cat kube-support.csr &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; tr -d &lt;span class=&#34;s1&#34;&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Present the certificate signing request to Kubernetes like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kubectl apply -f -
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kubectl create –edit -f k8s-csr.yaml:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: certificates.k8s.io/v1
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: CertificateSigningRequest
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;metadata:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;name: kube-support-reader-access
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;spec:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;signerName: kubernetes.io/kube-apiserver-client
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;groups:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;- system:authenticated
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  request: $csr
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  usages:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;- client auth
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  EOF&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then check the progress:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;k get certificatesigningrequests.certificates.k8s.io
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;NAME                     AGE   SIGNERNAME                            REQUESTOR      CONDITION
-&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;kube-support-reader-access   19s   kubernetes.io/kube-apiserver-client   system:admin   Pending
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of course the state will be Pending unless you approve it. So let&#39;s go ahead and approve the csr:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl certificate approve kube-support-reader-access
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# certificatesigningrequest.certificates.k8s.io/kube-support-reader-access approved&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Retrieve the crt&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl get csr kube-support-reader-access -o &lt;span class=&#34;nv&#34;&gt;jsonpath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;{.status.certificate}&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 --decode &amp;gt; kube-support.crt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;build-the-kube-config-file&#34;&gt;Build the kube config file.&lt;/h2&gt;
-&lt;p&gt;Not sure if you ever studied the ~/.kube/config file up close. It has the following structure:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/kube-config.png&#34; alt=&#34;config&#34;&gt;&lt;/p&gt;
-&lt;p&gt;So our next job is to populate the necessary fields.
-Let&#39;s start with certificate-authority-data:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl config view -o &lt;span class=&#34;nv&#34;&gt;jsonpath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;{.clusters[0].cluster.certificate-authority-data}&amp;#39;&lt;/span&gt; --raw &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 --decode - &amp;gt; k8s-ca.crt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Create the initial kube config file and populate it with the certificate-authority-data&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl config set-cluster &lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;kubectl config view -o &lt;span class=&#34;nv&#34;&gt;jsonpath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;{.clusters[0].name}&amp;#39;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; --server&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;kubectl config view -o &lt;span class=&#34;nv&#34;&gt;jsonpath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;{.clusters[0].cluster.server}&amp;#39;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; --certificate-authority&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;k8s-ca.crt --kubeconfig&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;kube-support-config --embed-certs
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Let&#39;s add the client-certificate-data and client-key-data.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl config set-credentials kube-support --client-certificate&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;kube-support.crt --client-key&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;kube-support.key --embed-certs --kubeconfig&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;kube-support-config
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Set a context (just default)&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;k config set-context default --cluster&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;kubectl config view -o &lt;span class=&#34;nv&#34;&gt;jsonpath&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;{.clusters[0].name}&amp;#39;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; --namespace&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;default --user&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;kube-support --kubeconfig&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;kube-support-config
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Switch to the namespace&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl config use-context default --kubeconfig&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;kube-support-config
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We are now done with the kube config file.&lt;/p&gt;
-&lt;h2 id=&#34;check-if-it-works&#34;&gt;Check if it works&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;k get pods --kubeconfig kube-support-config
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;Error from server &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Forbidden&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: pods is forbidden: User &lt;span class=&#34;s2&#34;&gt;&amp;#34;kube-support&amp;#34;&lt;/span&gt; cannot list resource &lt;span class=&#34;s2&#34;&gt;&amp;#34;pods&amp;#34;&lt;/span&gt; in API group &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; in the namespace &lt;span class=&#34;s2&#34;&gt;&amp;#34;default&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It doesn&#39;t work. We should bind the kube-support user to the kube-reader-cluster-role.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;k create clusterrolebinding kube-support-kube-reader --clusterrole&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;kube-reader-cluster-role --user&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;kube-support
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# clusterrolebinding.rbac.authorization.k8s.io/kube-support-kube-reader created&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now let&#39;s try again:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;k run -it trouble-pod --image&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;debian --kubeconfig kube-support-config
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;Error from server &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;Forbidden&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: pods is forbidden: User &lt;span class=&#34;s2&#34;&gt;&amp;#34;kube-support&amp;#34;&lt;/span&gt; cannot create resource &lt;span class=&#34;s2&#34;&gt;&amp;#34;pods&amp;#34;&lt;/span&gt; in API group &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt; in the namespace &lt;span class=&#34;s2&#34;&gt;&amp;#34;default&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Well this was expected. kube-support has only read permissions! Let&#39;s try something else!&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;k get pods --kubeconfig kube-support-config
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;No resources found in default namespace.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Success!&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;k get pods --kubeconfig kube-support-config --all-namespaces 
-&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;NAMESPACE       NAME                                        READY   STATUS      RESTARTS   AGE
-&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;ingress-nginx   ingress-nginx-admission-create-cxb7c        0/1     Completed   &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          46h
-&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;ingress-nginx   ingress-nginx-admission-patch-zssrb         0/1     Completed   &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;          46h
-&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;kube-system     metrics-server-7b4f8b595-42s5m              1/1     Running     &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;          46h
-&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;kube-system     coredns-66c464876b-zckdd                    1/1     Running     &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;          46h
-&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;ingress-nginx   ingress-nginx-controller-57fb49bdbf-xcpmd   1/1     Running     &lt;span class=&#34;m&#34;&gt;20&lt;/span&gt;         46h
-&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;kube-system     local-path-provisioner-7ff9579c6-shd4b      1/1     Running     &lt;span class=&#34;m&#34;&gt;28&lt;/span&gt;         46h
-&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;bob             trouble-pod                                 1/1     Running     &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;          39m
-&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://codefarm.me/2019/02/01/access-kubernetes-api-with-client-certificates/&#34;&gt;https://codefarm.me/2019/02/01/access-kubernetes-api-with-client-certificates/&lt;/a&gt;
-&lt;a href=&#34;https://ahmet.im/blog/mastering-kubeconfig/&#34;&gt;https://ahmet.im/blog/mastering-kubeconfig/&lt;/a&gt;
-&lt;a href=&#34;https://medium.com/swlh/how-we-effectively-managed-access-to-our-kubernetes-cluster-38821cf24d57&#34;&gt;https://medium.com/swlh/how-we-effectively-managed-access-to-our-kubernetes-cluster-38821cf24d57&lt;/a&gt;
-&lt;a href=&#34;https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#authorization&#34;&gt;https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#authorization&lt;/a&gt;
-&lt;a href=&#34;https://www.cyberark.com/resources/threat-research-blog/securing-kubernetes-clusters-by-eliminating-risky-permissions&#34;&gt;https://www.cyberark.com/resources/threat-research-blog/securing-kubernetes-clusters-by-eliminating-risky-permissions&lt;/a&gt;
-&lt;a href=&#34;https://www.openlogic.com/blog/granting-user-access-your-kubernetes-cluster&#34;&gt;https://www.openlogic.com/blog/granting-user-access-your-kubernetes-cluster&lt;/a&gt;&lt;/p&gt;
-
-        
-      </description>
+      <description>Normal users are assumed to be managed by an outside, independent service. Kubernetes does not have objects which represent normal user accounts. Normal users cannot be added to a cluster through an API call. However, any user that presents a valid certificate signed by the cluster&#39;s certificate authority (CA) is considered authenticated. So we can create a user with read-only access to the cluster, and hand the kube config file over to that that user.</description>
     </item>
     
     <item>
@@ -251,161 +86,8 @@ Let&#39;s start with certificate-authority-data:&lt;/p&gt;
       <pubDate>Sat, 26 Dec 2020 16:33:46 +0100</pubDate>
       
       <guid>https://moonstreet.nl/post/k3s-with-ingress/</guid>
-      <description>
-        
-          &lt;p&gt;Here is how to quickly install Kubernetes with ingress on your laptop.
-I use this to test and create operators with the &lt;a href=&#34;https://operatorframework.io/&#34;&gt;Operator Framework&lt;/a&gt;. Still learning though.&lt;/p&gt;
-&lt;p&gt;I was first using &lt;a href=&#34;https://k3s.io/&#34;&gt;K3s&lt;/a&gt; but then I discovered &lt;a href=&#34;https://kind.sigs.k8s.io/&#34;&gt;Kind&lt;/a&gt; which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn&#39;t manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.&lt;/p&gt;
-&lt;h2 id=&#34;k3s&#34;&gt;K3s&lt;/h2&gt;
-&lt;p&gt;When running K3s, by default Traefik is installed as an ingress controller.
-You need an ingress controller to expose (web) applications to the outside world.
-I am however more comfortable with the Nginx ingress controller so let&#39;s just install that instead.&lt;/p&gt;
-&lt;p&gt;In this post I will first install K3s, then install the Nginx ingress controller.
-Finally I will deploy a little go application (which is going to be fabulous later).&lt;/p&gt;
-&lt;h2 id=&#34;install-k3s-with-nginx-ingress&#34;&gt;Install K3s with Nginx ingress&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;curl -sfL https://get.k3s.io &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sh -s - --write-kubeconfig-mode &lt;span class=&#34;m&#34;&gt;644&lt;/span&gt; --disable traefik
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Wait a bit. When done, we can copy the config file so we can use kubectl.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;mkdir ~/.kube
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we are ready to install Nginx ingress:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/deploy.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With running &lt;code&gt;kubectl get pods --all-namespaces -w&lt;/code&gt; we can check the progress&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;vagrant@centos02 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;$ kubectl get pods --all-namespaces -w
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;NAMESPACE       NAME                                        READY   STATUS              RESTARTS   AGE
-&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;kube-system     coredns-66c464876b-2f5gq                    1/1     Running             &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21m
-&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;kube-system     local-path-provisioner-7ff9579c6-ms2qx      1/1     Running             &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21m
-&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;kube-system     metrics-server-7b4f8b595-2kxvv              1/1     Running             &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21m
-&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;ingress-nginx   ingress-nginx-controller-7474996559-79ztf   0/1     ContainerCreating   &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21s
-&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;ingress-nginx   ingress-nginx-admission-patch-km6v8         0/1     Completed           &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21s
-&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;ingress-nginx   ingress-nginx-admission-create-6jqz4        0/1     Completed           &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Great, we have an ingress controller now. But, we do not have a load balancer. So we need to enable the ingress controller to use port 80 and 443 on the host. Let&#39;s patch the ingress controller.&lt;/p&gt;
-&lt;p&gt;Create the patch first:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;cat &amp;gt; ingress.yaml &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF 
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;spec:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  template:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    spec:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      hostNetwork: true
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then patch the ingress controller deployment like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl patch deployment ingress-nginx-controller -n ingress-nginx --patch &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;cat ingress.yaml&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you now run &lt;code&gt;curl localhost&lt;/code&gt; we see at there is a web server running. That means success!&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;vagrant@centos02 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;$ curl localhost                                                                                                                            
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&amp;lt;html&amp;gt;
-&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&amp;lt;head&amp;gt;&amp;lt;title&amp;gt;404 Not Found&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;
-&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&amp;lt;body&amp;gt;
-&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&amp;lt;center&amp;gt;&amp;lt;h1&amp;gt;404 Not Found&amp;lt;/h1&amp;gt;&amp;lt;/center&amp;gt;
-&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&amp;lt;hr&amp;gt;&amp;lt;center&amp;gt;nginx&amp;lt;/center&amp;gt;
-&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;&amp;lt;/body&amp;gt;
-&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;expose-a-web-page&#34;&gt;Expose a web page&lt;/h2&gt;
-&lt;p&gt;I am working on an application at the moment called &#39;carolyne&#39;.
-You can find it here: &lt;a href=&#34;https://gitlab.com/jacqinthebox/carolyne&#34;&gt;https://gitlab.com/jacqinthebox/carolyne&lt;/a&gt;.
-I already pushed a container to the Docker hub, so we can just use that for now.
-Carolyne runs happily on port 4000.&lt;/p&gt;
-&lt;p&gt;Let&#39;s create a deployment and a service object quickly.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;k create namespace apps
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then create the deployment&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kubectl apply -f -
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: apps/v1
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: Deployment
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;metadata:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  name: carolyne
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  namespace: apps
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  labels:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    app: carolyne
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;spec:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  replicas: 1
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  selector:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    matchLabels:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      app: carolyne
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  template:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    metadata:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      labels:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;        app: carolyne
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    spec:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      containers:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;        - name: carolyne
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;          image: jacqueline/carolyne:latest
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;          ports:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;23&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;            - containerPort: 4000
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;24&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Let&#39;s create the service&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kubectl apply -f -
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: v1
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: Service
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;metadata:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  name: carolyne-service
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  namespace: apps
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  labels:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    app: carolyne
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;spec:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  ports:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    - port: 4000
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  selector:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    app: carolyne
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally, let&#39;s create the ingress rules.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kubectl apply -f -
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: networking.k8s.io/v1
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: Ingress
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;metadata:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  annotations:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    kubernetes.io/ingress.class: nginx
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    nginx.ingress.kubernetes.io/rewrite-target: /\$1
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  name: apps-ingress-rules
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  namespace: apps
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;spec:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  rules:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  - host: carolyne.moonstreet.local
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    http:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      paths:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      - backend:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;          service: 
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;            name: carolyne-service
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;            port: 
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;              number: 4000
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;        path: /(.*)
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;        pathType: Prefix
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Need to add the hostname to my hostfile:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# sudo vim /etc/hosts&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;127.0.0.1       localhost carolyne.moonstreet.local
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And now we can browse to that lovely web application I just crafted.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/carolyne1.png&#34; alt=&#34;1&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/carolyne2.png&#34; alt=&#34;2&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;and-now-with-kind&#34;&gt;And now with Kind!&lt;/h2&gt;
-&lt;p&gt;Install Kind:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-linux-amd64
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;chmod +x ./kind
-&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;sudo mv ./kind /usr/local/bin/kind
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Create a Kind cluster like so:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kind create cluster --name sandbox01 --config=-
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: Cluster
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: kind.x-k8s.io/v1alpha4
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;nodes:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;- role: control-plane
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  kubeadmConfigPatches:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  - |
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    kind: InitConfiguration
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    nodeRegistration:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      kubeletExtraArgs:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;        node-labels: &amp;#34;ingress-ready=true&amp;#34;
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  extraPortMappings:
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  - containerPort: 80
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    hostPort: 80
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    protocol: TCP
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  - containerPort: 443
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    hostPort: 443
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    protocol: TCP
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Install Ingress:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And create Carolyne (in the meantime I made a quick manifest):.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl create namespace apps
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;kubectl apply -f https://gitlab.com/jacqinthebox/carolyne/-/raw/master/deploy.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-        
-      </description>
+      <description>Here is how to quickly install Kubernetes with ingress on your laptop. I use this to test and create operators with the Operator Framework. Still learning though.
+I was first using K3s but then I discovered Kind which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn&#39;t manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.</description>
     </item>
     
     <item>
@@ -414,54 +96,9 @@ Carolyne runs happily on port 4000.&lt;/p&gt;
       <pubDate>Sun, 27 Sep 2020 09:17:02 +0200</pubDate>
       
       <guid>https://moonstreet.nl/post/k3s-libvirt/</guid>
-      <description>
-        
-          &lt;p&gt;This post is about installing lightweight Kubernetes (K3s) on our new vm.&lt;/p&gt;
-&lt;h2 id=&#34;k3s&#34;&gt;K3s&lt;/h2&gt;
-&lt;p&gt;The previous post was all about being able to install Kubernetes quickly. For that I will use &lt;a href=&#34;https://k3s.io/&#34;&gt;k3s&lt;/a&gt; from Rancher because it is fast.
-Let&#39;s go!&lt;/p&gt;
-&lt;h2 id=&#34;prepare&#34;&gt;Prepare&lt;/h2&gt;
-&lt;p&gt;We do this for testing so we can safely disable the firewall and SELinux on our CentOS vm.
-This is because SELinux is still experimental in K3s.
-We also need to enable ssh password authentication so we can issue scp commands from our host machine.
-For this we just add the following lines to the extra script part of our Vagrantfile:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;vg&#34;&gt;$extra&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;-EXTRA
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dnf&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;update&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dnf&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vim&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;net&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tools&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lsof&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tar&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sed&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/enforcing/disabled/g&amp;#39;&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;/etc/se&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;linux&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sed&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/PasswordAuthentication\s.*no/PasswordAuthentication yes/g&amp;#39;&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;/etc/ss&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sshd_config&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;systemctl&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;disable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;firewalld&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;systemctl&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;restart&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sshd&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;reboot&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;EXTRA&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;Vagrant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;configure&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;define&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;node01&amp;#34;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node01_config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;node01_config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;box&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;generic/centos8&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;node01_config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hostname&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;centos01&amp;#34;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;node01_config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;provider&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:libvirt&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;memory&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4096&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cpus&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nested&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kp&#34;&gt;true&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;volume_cache&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;provision&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;shell&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;inline&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;vg&#34;&gt;$extra&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now log on the the virtual machine and issue these commands:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;curl -sfL https://get.k3s.io &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sh -s - --write-kubeconfig-mode &lt;span class=&#34;m&#34;&gt;644&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now wait a bit. Once ready, you can issue:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl get pods --all-namespaces
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;manage-k3s-from-the-host&#34;&gt;Manage K3s from the host&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt; scp vagrant@192.168.122.232:/home/vagrant/.kube/config .
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Edit the config and change the 127.0.0.1 address from the server to the ip address of your vm. (Mine is 192.168.122.232)&lt;/p&gt;
-&lt;p&gt;Then run:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl get pods --kubeconfig config --all-namespaces
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Hooray!&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/vagrant-k3s.png&#34; alt=&#34;k3s&#34;&gt;&lt;/p&gt;
-
-        
-      </description>
+      <description>This post is about installing lightweight Kubernetes (K3s) on our new vm.
+K3s The previous post was all about being able to install Kubernetes quickly. For that I will use k3s from Rancher because it is fast. Let&#39;s go!
+Prepare We do this for testing so we can safely disable the firewall and SELinux on our CentOS vm. This is because SELinux is still experimental in K3s. We also need to enable ssh password authentication so we can issue scp commands from our host machine.</description>
     </item>
     
     <item>
@@ -470,69 +107,9 @@ For this we just add the following lines to the extra script part of our Vagrant
       <pubDate>Sun, 20 Sep 2020 10:37:24 +0200</pubDate>
       
       <guid>https://moonstreet.nl/post/libvirt/</guid>
-      <description>
-        
-          &lt;p&gt;Here is a post about how to create virtual machines with Vagrant and the libvirt plugin.&lt;/p&gt;
-&lt;h2 id=&#34;why-use-libvirt-as-a-vagrant-provider&#34;&gt;Why use libvirt as a vagrant provider&lt;/h2&gt;
-&lt;p&gt;Because when on a modern Linux distro running Gnome, chances are it&#39;s already there!&lt;/p&gt;
-&lt;p&gt;I use Vagrant extensively to run quick, short lived virtual machines to test and try out things. I always used and use Virtualbox as a virtual machine provider for Vagrant.
-Maybe I am late to the party but I recently discovered &lt;a href=&#34;https://help.gnome.org/users/gnome-boxes/stable/supported-protocols.html.en&#34;&gt;Gnome Boxes&lt;/a&gt; and I was wondering about the underlying architecture. Then I went on vacation and finally took the time to investigate.&lt;/p&gt;
-&lt;p&gt;The answer is: &lt;a href=&#34;https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine&#34;&gt;KVM&lt;/a&gt;. Together with &lt;a href=&#34;https://wiki.qemu.org/Main_Page&#34;&gt;QEMU&lt;/a&gt; and &lt;a href=&#34;https://libvirt.org/&#34;&gt;libvirt&lt;/a&gt;.
-(I remember using Qemu back in the 2007 or so but thinking it was terribly slow and left it for what is was. But its 2020 now, so let&#39;s dive in again!)&lt;/p&gt;
-&lt;h2 id=&#34;kvm-qemu-libvirt-lost-in-the-limbo&#34;&gt;KVM, QEMU, libvirt: lost in the limbo&lt;/h2&gt;
-&lt;p&gt;To refresh the memory a bit, a hypervisor is software that creates and runs virtual machines. Type 1 hypervisors (like Xen, ESXi and Hyper-V) run directly on the hardware. Type 2 hypervisors (Parallels, Virtualbox, Vmware Fusion) run on top of an OS.  KVM turns Linux into a type 1 hypervisor, but at the same time runs a fully functional OS. So it is a special case of a hypervisor.&lt;/p&gt;
-&lt;p&gt;KVM provides device abstraction but does not emulate a machine. It exposes the /dev/kvm interface, which a user mode host can then use to:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Bootstrap an iso (set up theguest VM address space)&lt;/li&gt;
-&lt;li&gt;Feed the guest simulated I/O&lt;/li&gt;
-&lt;li&gt;Map the guest&#39;s video display back onto the system host&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;On Linux, QEMU is one such userspace host. QEMU uses KVM when available to virtualize guests at near-native speeds, but otherwise falls back to software-only emulation.&lt;/p&gt;
-&lt;p&gt;The last piece of the puzzle is &lt;a href=&#34;https://wiki.libvirt.org/page/FAQ#What_is_libvirt.3F&#34;&gt;libvirt&lt;/a&gt;
-Libvirt provides a convenient way to storage and network interface management for virtual machines. Libvirt includes an API library, a daemon (libvirtd), and a command line utility (virsh).&lt;/p&gt;
-&lt;p&gt;Gnome Boxes uses libvirt, as does Vagrant. Hence the blog title: using Vagrant with the libvirt plugin.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/kvm.jpg&#34; alt=&#34;plaatje&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;lets-run-a-vm-already&#34;&gt;Let&#39;s run a VM already&lt;/h2&gt;
-&lt;p&gt;If you run this on Fedora 32, you can see that lots of packages are already installed:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;dnf list --installed &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep libvirt
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;dnf list --installed &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep qemu
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We need Vagrant and the vagrant-libvirt plugin:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;sudo dnf install vagrant
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;sudo vagrant plugin install vagrant-libvirt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then make a folder and add a Vagrantfile in it&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;mkdir ~/vagrant/centos &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/vagrant/centos
-&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;cat &amp;gt; Vagrantfile &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;&amp;#39;EOF&amp;#39;
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;$extra = &amp;lt;&amp;lt;-EXTRA
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;dnf update -y &amp;amp;&amp;amp; dnf install vim net-tools git lsof tar -y
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EXTRA
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;Vagrant.configure(&amp;#34;2&amp;#34;) do |config|
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  config.vm.define &amp;#34;node01&amp;#34; do |node01_config|
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    node01_config.vm.box =&amp;#34;generic/centos8&amp;#34;
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    node01_config.vm.hostname = &amp;#34;centos01&amp;#34;
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    node01_config.vm.provider :libvirt do |domain|
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.memory = 4096
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.cpus = 2
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.nested = true
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.volume_cache = &amp;#39;none&amp;#39;
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    end
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  end
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  config.vm.provision &amp;#34;shell&amp;#34;, inline: $extra
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;end
-&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And then do&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;vagrant up
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Hooray!&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/vagrant-centos.png&#34; alt=&#34;centos&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;afterthought-what-about-lxc-and-lxd&#34;&gt;Afterthought: What about LXC and LXD?&lt;/h2&gt;
-&lt;p&gt;You can also run &lt;a href=&#34;https://linuxcontainers.org/lxd/&#34;&gt;LXD&lt;/a&gt; instead of KVM. I think that LXD is the Canonical way, while KVM has been adopted by RedHat (fact check probably needed).
-Traditionally, LXD is used to create system containers, light-weight virtual machines that use Linux Container features and not hardware virtualization.
-However with LXD you can create both system containers and virtual machines. &lt;a href=&#34;https://www.cyberciti.biz/faq/how-to-install-setup-lxd-on-fedora-linux/&#34;&gt;Here&lt;/a&gt; is a nice blog post explaining that.&lt;/p&gt;
-
-        
-      </description>
+      <description>Here is a post about how to create virtual machines with Vagrant and the libvirt plugin.
+Why use libvirt as a vagrant provider Because when on a modern Linux distro running Gnome, chances are it&#39;s already there!
+I use Vagrant extensively to run quick, short lived virtual machines to test and try out things. I always used and use Virtualbox as a virtual machine provider for Vagrant. Maybe I am late to the party but I recently discovered Gnome Boxes and I was wondering about the underlying architecture.</description>
     </item>
     
   </channel>

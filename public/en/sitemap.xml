@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://moonstreet.nl/</loc>
-    <lastmod>2020-12-29T13:30:21+01:00</lastmod>
+    <lastmod>2021-12-21T11:24:21+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -15,21 +14,12 @@
                 hreflang="en"
                 href="https://moonstreet.nl/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/tags/azure/</loc>
-    <lastmod>2020-12-29T13:30:21+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://moonstreet.nl/post/aks-nodepools/</loc>
-    <lastmod>2020-12-29T13:30:21+01:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2021-12-21T11:24:21+01:00</lastmod>
+  </url><url>
     <loc>https://moonstreet.nl/categories/</loc>
-    <lastmod>2020-12-29T13:30:21+01:00</lastmod>
+    <lastmod>2021-12-21T11:24:21+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -40,21 +30,15 @@
                 hreflang="en"
                 href="https://moonstreet.nl/categories/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/tags/kubernetes/</loc>
-    <lastmod>2020-12-29T13:30:21+01:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2021-12-21T11:24:21+01:00</lastmod>
+  </url><url>
     <loc>https://moonstreet.nl/post/</loc>
-    <lastmod>2020-12-29T13:30:21+01:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2021-12-21T11:24:21+01:00</lastmod>
+  </url><url>
     <loc>https://moonstreet.nl/tags/</loc>
-    <lastmod>2020-12-29T13:30:21+01:00</lastmod>
+    <lastmod>2021-12-21T11:24:21+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -65,68 +49,63 @@
                 hreflang="en"
                 href="https://moonstreet.nl/tags/"
                 />
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/categories/technology/</loc>
-    <lastmod>2020-12-29T13:30:21+01:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2021-12-21T11:24:21+01:00</lastmod>
+  </url><url>
     <loc>https://moonstreet.nl/tags/terraform/</loc>
+    <lastmod>2021-12-21T11:24:21+01:00</lastmod>
+  </url><url>
+    <loc>https://moonstreet.nl/post/terraform-patterns-loops/</loc>
+    <lastmod>2021-12-21T11:24:21+01:00</lastmod>
+  </url><url>
+    <loc>https://moonstreet.nl/post/terraform-patterns-conditionals/</loc>
+    <lastmod>2021-12-21T08:24:21+01:00</lastmod>
+  </url><url>
+    <loc>https://moonstreet.nl/tags/linux/</loc>
+    <lastmod>2021-03-06T09:44:56+01:00</lastmod>
+  </url><url>
+    <loc>https://moonstreet.nl/post/terminal-workflow/</loc>
+    <lastmod>2021-03-06T09:44:56+01:00</lastmod>
+  </url><url>
+    <loc>https://moonstreet.nl/tags/vim/</loc>
+    <lastmod>2021-03-06T09:44:56+01:00</lastmod>
+  </url><url>
+    <loc>https://moonstreet.nl/post/nice-vim-commands/</loc>
+    <lastmod>2021-03-05T09:44:56+01:00</lastmod>
+  </url><url>
+    <loc>https://moonstreet.nl/post/arch-notes/</loc>
+    <lastmod>2021-02-28T08:39:40+01:00</lastmod>
+  </url><url>
+    <loc>https://moonstreet.nl/post/aks-nodepools/</loc>
     <lastmod>2020-12-29T13:30:21+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/post/kubernetes-readonly/</loc>
     <lastmod>2020-12-28T17:10:13+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/tags/k3s/</loc>
     <lastmod>2020-12-28T17:10:13+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/about/</loc>
     <lastmod>2020-12-28T17:10:13+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/post/k3s-with-ingress/</loc>
     <lastmod>2020-12-26T16:33:46+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/tags/kind/</loc>
     <lastmod>2020-12-26T16:33:46+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://moonstreet.nl/tags/linux/</loc>
-    <lastmod>2020-12-26T16:33:46+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/post/k3s-libvirt/</loc>
     <lastmod>2020-09-27T09:17:02+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/post/libvirt/</loc>
     <lastmod>2020-09-20T10:37:24+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/tags/virtualization/</loc>
     <lastmod>2020-09-20T10:37:24+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/tags/index/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://moonstreet.nl/series/</loc>
     <xhtml:link
                 rel="alternate"
@@ -139,5 +118,4 @@
                 href="https://moonstreet.nl/series/"
                 />
   </url>
-  
 </urlset>

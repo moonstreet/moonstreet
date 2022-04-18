@@ -6,6 +6,15 @@
     <description>Recent content in Categories on Moonstreet</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Tue, 29 Dec 2020 13:30:21 +0100</lastBuildDate><atom:link href="https://moonstreet.nl/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Dec 2021 11:24:21 +0100</lastBuildDate><atom:link href="https://moonstreet.nl/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Technology</title>
+      <link>https://moonstreet.nl/categories/technology/</link>
+      <pubDate>Tue, 21 Dec 2021 11:24:21 +0100</pubDate>
+      
+      <guid>https://moonstreet.nl/categories/technology/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vim on Moonstreet</title>
+    <link>https://moonstreet.nl/tags/vim/</link>
+    <description>Recent content in vim on Moonstreet</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 06 Mar 2021 09:44:56 +0100</lastBuildDate><atom:link href="https://moonstreet.nl/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terminal Workflow</title>
+      <link>https://moonstreet.nl/post/terminal-workflow/</link>
+      <pubDate>Sat, 06 Mar 2021 09:44:56 +0100</pubDate>
+      
+      <guid>https://moonstreet.nl/post/terminal-workflow/</guid>
+      <description>This is a post about my workflow when editing files in the terminal.
+When editing files quickly I usually resort to vim. It requires a lot of muscle memory but hey, one needs to train their reptile brain, right.
+Tmux config So I use tmux and vim so you need those two installed. My tmux config is really simple. I changed the leader key to ctrl+q for easy reach on my keyboard.</description>
+    </item>
+    
+    <item>
+      <title>My personal vim cheatsheet</title>
+      <link>https://moonstreet.nl/post/nice-vim-commands/</link>
+      <pubDate>Fri, 05 Mar 2021 09:44:56 +0100</pubDate>
+      
+      <guid>https://moonstreet.nl/post/nice-vim-commands/</guid>
+      <description>Here is my vim &amp;amp; tmux cheatsheet.
+tmux This is my .tmux.conf. I prefer to set the meta key to q.
+1set-option -g prefix C-q 2set -g mouse off 3 4set -g status-bg black 5set -g status-fg white    Command What it does     ctrl+q arrows Navigate windows (tmux)   ctrl+q % Split vertically (tmux)   ctrl+q &amp;quot; Split horizontally (tmux)   ctrl+q z Toggle window full screen (nice one!</description>
+    </item>
+    
+  </channel>
+</rss>
