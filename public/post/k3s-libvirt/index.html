@@ -4,7 +4,7 @@
   <head>
 <title>K3s on a Centos vm | Moonstreet</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.79.1" />
+<meta name="generator" content="Hugo 0.92.2" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-186145252-1"></script>
@@ -41,8 +41,8 @@ K3s The previous post was all about being able to install Kubernetes quickly. Fo
     
     
     <link rel="preload" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity = "sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" as="style" crossorigin="anonymous">
-    <link rel="preload" href="https://moonstreet.nl/js/bundle.min.d825c6faebcaa74403ab8ef0d4b080ff0ce798034a3a26be7740a8c48d45394f4ce04afb608fddcb45a630167a2f03a4a0435cbd4dcf37f2f13b4c25a259ecf4.js" as="script" integrity=
-    "sha512-2CXG&#43;uvKp0QDq47w1LCA/wznmANKOia&#43;d0CoxI1FOU9M4Er7YI/dy0WmMBZ6LwOkoENcvU3PN/LxO0wlolns9A==" crossorigin="anonymous">
+    <link rel="preload" href="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" as="script" integrity=
+    "sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous">
 
     
     <link rel="stylesheet" type="text/css" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity="sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" crossorigin="anonymous">
@@ -161,7 +161,7 @@ Let's go!</p>
 This is because SELinux is still experimental in K3s.
 We also need to enable ssh password authentication so we can issue scp commands from our host machine.
 For this we just add the following lines to the extra script part of our Vagrantfile:</p>
-<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="ln"> 1</span><span class="vg">$extra</span> <span class="o">=</span> <span class="s">&lt;&lt;-EXTRA
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ruby" data-lang="ruby"><span class="ln"> 1</span><span class="vg">$extra</span> <span class="o">=</span> <span class="s">&lt;&lt;-EXTRA
 </span><span class="ln"> 2</span><span class="s"></span><span class="n">dnf</span> <span class="n">update</span> <span class="o">-</span><span class="n">y</span> <span class="o">&amp;&amp;</span> <span class="n">dnf</span> <span class="n">install</span> <span class="n">vim</span> <span class="n">net</span><span class="o">-</span><span class="n">tools</span> <span class="n">git</span> <span class="n">lsof</span> <span class="n">tar</span> <span class="o">-</span><span class="n">y</span>
 <span class="ln"> 3</span><span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="s1">&#39;s/enforcing/disabled/g&#39;</span> <span class="sr">/etc/se</span><span class="n">linux</span><span class="o">/</span><span class="n">config</span>
 <span class="ln"> 4</span><span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="s1">&#39;s/PasswordAuthentication\s.*no/PasswordAuthentication yes/g&#39;</span> <span class="sr">/etc/ss</span><span class="n">h</span><span class="o">/</span><span class="n">sshd_config</span>
@@ -184,15 +184,15 @@ For this we just add the following lines to the extra script part of our Vagrant
 <span class="ln">21</span>  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">provision</span> <span class="s2">&#34;shell&#34;</span><span class="p">,</span> <span class="ss">inline</span><span class="p">:</span> <span class="vg">$extra</span>
 <span class="ln">22</span><span class="k">end</span>
 </code></pre></div><p>Now log on the the virtual machine and issue these commands:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>curl -sfL https://get.k3s.io <span class="p">|</span> sh -s - --write-kubeconfig-mode <span class="m">644</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>curl -sfL https://get.k3s.io <span class="p">|</span> sh -s - --write-kubeconfig-mode <span class="m">644</span>
 <span class="ln">2</span>sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
 </code></pre></div><p>Now wait a bit. Once ready, you can issue:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>kubectl get pods --all-namespaces
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>kubectl get pods --all-namespaces
 </code></pre></div><h2 id="manage-k3s-from-the-host">Manage K3s from the host</h2>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span> scp vagrant@192.168.122.232:/home/vagrant/.kube/config .
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span> scp vagrant@192.168.122.232:/home/vagrant/.kube/config .
 </code></pre></div><p>Edit the config and change the 127.0.0.1 address from the server to the ip address of your vm. (Mine is 192.168.122.232)</p>
 <p>Then run:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>kubectl get pods --kubeconfig config --all-namespaces
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>kubectl get pods --kubeconfig config --all-namespaces
 </code></pre></div><p>Hooray!</p>
 <p><img src="/vagrant-k3s.png" alt="k3s"></p>
 
@@ -211,11 +211,26 @@ For this we just add the following lines to the extra script part of our Vagrant
     <h2 class="mt-4">Featured Posts</h2>
     <ul>
       <li>
-        <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
+        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
     </ul>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
+      <li>
+        <a href="https://moonstreet.nl/post/terraform-patterns-loops/" class="nav-link">Terraform patterns: loops</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/terraform-patterns-conditionals/" class="nav-link">Terraform patterns: conditionals</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
+      </li>
       <li>
         <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
       </li>
@@ -225,16 +240,13 @@ For this we just add the following lines to the extra script part of our Vagrant
       <li>
         <a href="https://moonstreet.nl/post/k3s-with-ingress/" class="nav-link">Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</a>
       </li>
-      <li>
-        <a href="https://moonstreet.nl/post/libvirt/" class="nav-link">Vagrant with the libvirt plugin</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://moonstreet.nl/categories/technology/' class="post_tag button button_translucent">
           TECHNOLOGY
-          <span class="button_tally">5</span>
+          <span class="button_tally">10</span>
         </a>
         
         
@@ -243,24 +255,34 @@ For this we just add the following lines to the extra script part of our Vagrant
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
       <nav class="tags_nav">
+        <a href='https://moonstreet.nl/tags/linux/' class="post_tag button button_translucent">
+          LINUX
+          <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
+          KUBERNETES
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
+          AZURE
+          <span class="button_tally">3</span>
+        </a>
+        
         <a href='https://moonstreet.nl/tags/k3s/' class="post_tag button button_translucent">
           K3S
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
-          KUBERNETES
+        <a href='https://moonstreet.nl/tags/terraform/' class="post_tag button button_translucent">
+          TERRAFORM
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/linux/' class="post_tag button button_translucent">
-          LINUX
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
-          AZURE
-          <span class="button_tally">1</span>
+        <a href='https://moonstreet.nl/tags/vim/' class="post_tag button button_translucent">
+          VIM
+          <span class="button_tally">2</span>
         </a>
         
         <a href='https://moonstreet.nl/tags/index/' class="post_tag button button_translucent">
@@ -270,11 +292,6 @@ For this we just add the following lines to the extra script part of our Vagrant
         
         <a href='https://moonstreet.nl/tags/kind/' class="post_tag button button_translucent">
           KIND
-          <span class="button_tally">1</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/terraform/' class="post_tag button button_translucent">
-          TERRAFORM
           <span class="button_tally">1</span>
         </a>
         
@@ -355,7 +372,7 @@ For this we just add the following lines to the extra script part of our Vagrant
   </div>
 </footer>
 
-    <script type="text/javascript" src="https://moonstreet.nl/js/bundle.min.d825c6faebcaa74403ab8ef0d4b080ff0ce798034a3a26be7740a8c48d45394f4ce04afb608fddcb45a630167a2f03a4a0435cbd4dcf37f2f13b4c25a259ecf4.js" integrity="sha512-2CXG&#43;uvKp0QDq47w1LCA/wznmANKOia&#43;d0CoxI1FOU9M4Er7YI/dy0WmMBZ6LwOkoENcvU3PN/LxO0wlolns9A==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" integrity="sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous"></script>
     
   </body>
 </html>

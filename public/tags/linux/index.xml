@@ -13,9 +13,132 @@
       <pubDate>Sat, 06 Mar 2021 09:44:56 +0100</pubDate>
       
       <guid>https://moonstreet.nl/post/terminal-workflow/</guid>
-      <description>This is a post about my workflow when editing files in the terminal.
-When editing files quickly I usually resort to vim. It requires a lot of muscle memory but hey, one needs to train their reptile brain, right.
-Tmux config So I use tmux and vim so you need those two installed. My tmux config is really simple. I changed the leader key to ctrl+q for easy reach on my keyboard.</description>
+      <description>
+        
+          &lt;img src=&#34;https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Tmux_logo.svg/1280px-Tmux_logo.svg.png&#34; width=&#34;400&#34;&gt;
+&lt;p&gt;This is a post about my workflow when editing files in the terminal.&lt;/p&gt;
+&lt;p&gt;When editing files quickly I usually resort to vim.
+It requires a lot of muscle memory but hey, one needs to train their reptile brain, right.&lt;/p&gt;
+&lt;h2 id=&#34;tmux-config&#34;&gt;Tmux config&lt;/h2&gt;
+&lt;p&gt;So I use tmux and vim so you need those two installed.
+My tmux config is really simple. I changed the leader key to ctrl+q for easy reach on my keyboard.
+I used to have ctrl+a but that conflicted with my habit to use that keyboard combo to go to the beginning of a command.&lt;/p&gt;
+&lt;p&gt;Create or edit ~/.tmux.conf and add this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;set-option -g prefix C-q
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -g mouse off
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -g status-bg black
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -g status-fg white
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;workflow&#34;&gt;Workflow&lt;/h2&gt;
+&lt;p&gt;First start tmux and then split the screen horizontally.
+Then decrease the size of the lower screen.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;tmux
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;ctrl+q &amp;#34;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;ctrl+q  arrow down #hold ctrl+q while pressing arrow down key
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You will end up with something like this:&lt;/p&gt;
+&lt;img src=&#34;https://moonstreet.nl/termimal1.png&#34; width=&#34;800&#34;&gt;
+&lt;p&gt;Then in the upper half of the screen I open the files I want to work with&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;vim -O file1 file2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then you will end up with something like this:&lt;/p&gt;
+&lt;img src=&#34;https://moonstreet.nl/termimal2.png&#34; width=&#34;800&#34;&gt;
+&lt;p&gt;As you can see you can edit files in the upper part of the screen and issue commands in the lower part.&lt;/p&gt;
+&lt;h2 id=&#34;some-basic-commands&#34;&gt;Some basic commands&lt;/h2&gt;
+&lt;p&gt;If you want to open another buffer (aka file in vim) you can do:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;ctrl+p &lt;span class=&#34;c1&#34;&gt;#assuming you have that installed in vim, else use :e&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then you can just choose which buffer you want to display with
+:bd, :bn and so on. If you want to delete a buffer then just type :bd&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Command&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;What it does&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:bn&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Display next buffer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:bp&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Display previous buffer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:bd&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Delete buffer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:ls&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;List buffers&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;And some other useful navigation commands. It might take some practice because you need to memorize two sets of commands.
+But the reward is big, I promise.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Command&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;What it does&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;u&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Undo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+r&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Redo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+ww&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Navigate to buffer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:vsplit&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Split vertically&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl + w _&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Set height of split to max&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl + w |&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Set width of split to max&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Here some tmux commands:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Command&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;What it does&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+q arrows&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Navigate windows (tmux)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+q %&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Split vertically (tmux)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+q &amp;quot;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Split horizontally (tmux)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+q z&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Toggle window full screen (nice one!)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+        
+      </description>
     </item>
     
     <item>
@@ -24,9 +147,236 @@ Tmux config So I use tmux and vim so you need those two installed. My tmux confi
       <pubDate>Fri, 05 Mar 2021 09:44:56 +0100</pubDate>
       
       <guid>https://moonstreet.nl/post/nice-vim-commands/</guid>
-      <description>Here is my vim &amp;amp; tmux cheatsheet.
-tmux This is my .tmux.conf. I prefer to set the meta key to q.
-1set-option -g prefix C-q 2set -g mouse off 3 4set -g status-bg black 5set -g status-fg white    Command What it does     ctrl+q arrows Navigate windows (tmux)   ctrl+q % Split vertically (tmux)   ctrl+q &amp;quot; Split horizontally (tmux)   ctrl+q z Toggle window full screen (nice one!</description>
+      <description>
+        
+          &lt;p&gt;Here is  my vim &amp;amp; tmux cheatsheet.&lt;/p&gt;
+&lt;h2 id=&#34;tmux&#34;&gt;tmux&lt;/h2&gt;
+&lt;p&gt;This is my .tmux.conf. I prefer to set the meta key to &lt;strong&gt;q&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;set-option -g prefix C-q
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -g mouse off
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -g status-bg black
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -g status-fg white
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Command&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;What it does&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+q arrows&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Navigate windows (tmux)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+q %&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Split vertically (tmux)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+q &amp;quot;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Split horizontally (tmux)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+q z&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Toggle window full screen (nice one!)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;[&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Enter scroll mode&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;q&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Leave scroll mode&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;open-multiple-files-at-once&#34;&gt;Open multiple files at once&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;vim file1 file2
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;vim -O file1 file2 &lt;span class=&#34;c1&#34;&gt;# split vertically&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;buffers&#34;&gt;Buffers&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Command&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;What it does&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:bn&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Display next buffer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:bp&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Display previous buffer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:bd&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Delete buffer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:ls&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;List buffers&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Command&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;What it does&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;u&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Undo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+r&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Redo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl+ww&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Navigate to buffer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:vsplit&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Split vertically&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl + w _&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Set height of split to max&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ctrl + w |&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Set width of split to max&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;productivity-boosters&#34;&gt;Productivity boosters&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Command&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;What it does&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;v&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Enter visual mode per character&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;V&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Enter visual mode per line&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ZZ&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Write file, if modified, and quit Vim&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;(&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;jumps to the previous sentence&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;)&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;jumps to the next sentence&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;{&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;jumps to the previous paragraph&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;}&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;jumps to the next paragraph&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;[[&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;jumps to the previous section&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;]]&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;jumps to the next section&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;[]&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;jump to the end of the previous section&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;][&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;jump to the end of the next section&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;a&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Insert text after the cursor&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;A&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Insert text at the end of the line&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;i&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Insert text before the cursor&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;o&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Begin a new line below the cursor&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;O&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Begin a new line above the cursor&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Go&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Add a new line at the end of the file&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:%s/wrong/right/gc&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Find and replace&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;/foo&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Search and highlight foo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:noh&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Stop highlihghting foo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:r&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Replace current character&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;:R&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Replace current character and stay in insert mode&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;favorites&#34;&gt;Favorites&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Command&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;What it does&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ci &amp;quot;&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Change text between quotes works with {, [ and so on&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;.&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Repeat&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+        
+      </description>
     </item>
     
     <item>
@@ -35,8 +385,154 @@ tmux This is my .tmux.conf. I prefer to set the meta key to q.
       <pubDate>Sun, 28 Feb 2021 08:39:40 +0100</pubDate>
       
       <guid>https://moonstreet.nl/post/arch-notes/</guid>
-      <description>Arch Linux is extremely well documented so I highly recommend to read the Arch installation guide. This guide installs the Gnome desktop environment, but one can easily swap Gnome for i3 or another desktop environment, or leave it all together. This is the procedure I used for installing Arch on a Thinkpad t460s, t490s and a Dell Precision 5550.
-Partitioning Checkout the current partition scheme and the name of the harddrive(s)</description>
+      <description>
+        
+          &lt;p&gt;Arch Linux is extremely well documented so I highly recommend to read the &lt;a href=&#34;https://wiki.archlinux.org/index.php/Installation_guide&#34;&gt;Arch installation guide&lt;/a&gt;.
+This guide installs the Gnome desktop environment, but one can easily swap Gnome for i3 or another desktop environment, or leave it all together.
+This is the procedure I used for installing Arch on a Thinkpad t460s, t490s and a Dell Precision 5550.&lt;/p&gt;
+&lt;h2 id=&#34;partitioning&#34;&gt;Partitioning&lt;/h2&gt;
+&lt;p&gt;Checkout the current partition scheme and the name of the harddrive(s)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;fdisk -l
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Determine how you want to partition the disk. I do not use anything fancy (yet).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;a EFI boot partition and an ext4 root partition&lt;/li&gt;
+&lt;li&gt;an encrypted root&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;device&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;size&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;purpose&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;/dev/nvme0n1p1&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;500 MB - 1 GB&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;boot&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;/dev/nvme0n1p2&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;remainder&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;encrypted root&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Let&#39;s go ahead and delete the existing partitions and create new partitions.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;fdisk /dev/nvme01
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;fdisk d &lt;span class=&#34;c1&#34;&gt;# delete until no partitions are left&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;fdisk n &lt;span class=&#34;c1&#34;&gt;# boot partition, type +512M for size&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;fdisk n &lt;span class=&#34;c1&#34;&gt;# for root partition, remainder of disk &lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;fdisk t L &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# set to EFI&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;fdisk p &lt;span class=&#34;c1&#34;&gt;# check&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;fdisk w &lt;span class=&#34;c1&#34;&gt;# write&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Optional: if you need a swap partition just create an extra partition and prepare it as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;mkswap /dev/nvme0n1p3
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;swapon /dev/nvme0n1p3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;encrypt-and-mount&#34;&gt;Encrypt and mount&lt;/h2&gt;
+&lt;p&gt;To encrypt the root partion with Luks:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;cryptsetup -y -v luksFormat /dev/nvme0n1p2
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;cryptsetup open /dev/nvme0n1p2 cryptroot 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Source: &lt;a href=&#34;https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system#LUKS_on_a_partition&#34;&gt;https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system#LUKS_on_a_partition&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Set filesystem to ext4 and mount it:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;mkfs.ext4 /dev/mapper/cryptroot
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;mount /dev/mapper/cryptroot /mnt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Make filesystem for boot and mount&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;mkfs.fat -F32 /dev/vme0n1p1
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;mkdir /mnt/boot
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;mount /dev/vme0n1p1 /mnt/boot
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;bootstrap&#34;&gt;Bootstrap&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;pacstrap /mnt vim sudo grub efibootmgr linux linux-lts base base-devel dhcpcd linux-firmware
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Create fstab&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;genfstab -U /mnt &amp;gt;&amp;gt; /mnt/etc/fstab
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now chroot into the newly mounted root:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;arch-chroot /mnt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Set time zone:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;ln -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;hwclock --systohc
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Edit /etc/locale.gen and uncomment en_US.UTF-8 UTF-8 and other needed locales.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;vim /etc/locale.gen
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Generate the locales by running:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;locale-gen
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Create the locale.conf(5) file, and set the LANG variable accordingly:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;/etc/locale.conf
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;LANG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Create the hostname file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;/etc/hostname
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;myhostname
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;/etc/hosts
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;127.0.0.1	localhost
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;::1		localhost
+&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;127.0.1.1	myhostname.localdomain	myhostname
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;grub&#34;&gt;Grub&lt;/h2&gt;
+&lt;p&gt;This step is the most exciting. We need to create a ramdisk to configure early userspace.
+See here: &lt;a href=&#34;https://en.wikipedia.org/wiki/Initial_ramdisk&#34;&gt;https://en.wikipedia.org/wiki/Initial_ramdisk&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We need to make sure to add an encrypt hook before the filesystem is loaded&lt;/li&gt;
+&lt;li&gt;We need to add the video driver so it starts before GDM (only for Gnome users)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Which videodriver to add? See here: &lt;a href=&#34;https://wiki.archlinux.org/index.php/Kernel_mode_setting#Early_KMS_start&#34;&gt;https://wiki.archlinux.org/index.php/Kernel_mode_setting#Early_KMS_start&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Edit /etc/mkinitcpio.conf:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;HOOKS: add the word &amp;quot;encrypt&amp;quot; just before &amp;quot;filesystems&amp;quot;&lt;/li&gt;
+&lt;li&gt;MODULES: add the video driver&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Leave the rest of the file in tact.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;vim /etc/mkinitcpio.conf
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# only change this:&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;MODULES&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=(&lt;/span&gt;i915&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;HOOKS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=(&lt;/span&gt;base udev autodetect keyboard keymap consolefont modconf block encrypt filesystems fsck&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next generate the ramdisk:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;mkinitcpio -P 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now install Grub:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;grub-install --target&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;x86_64-efi --efi-directory&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/boot --bootloader-id&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;GRUB
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# if you didn&amp;#39;t configure encryption, you should mount the EFI partition in /boot/efi and also set --efi-directory=/boot/efi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Edit the grub conf to point to the encrypted root.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;vim /etc/default/grub &lt;span class=&#34;c1&#34;&gt;# --&amp;gt; cryptdevice=/dev/nvme0n1p2:cryptroot&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here is a screenshot from my grub config. I also changed the order as you can see.
+&lt;img src=&#34;https://moonstreet.nl/grub.png&#34; alt=&#34;1&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Generate grub:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;grub-mkconfig -o /boot/grub/grub.cfg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;add-user-and-desktop-environment&#34;&gt;Add user and desktop environment&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;passwd
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;useradd -mg users -G wheel,storage,power -s /bin/bash jacqueline
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;passwd jacqueline
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;pacman -S xorg xorg-server gnome zsh cmake git neofetch jq ansible
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; gdm.service
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; NetworkManager.service
+&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; dhcpcd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now reboot into Gnome.&lt;/p&gt;
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+&lt;h3 id=&#34;add-an-extra-encryption-key&#34;&gt;Add an extra encryption key&lt;/h3&gt;
+&lt;p&gt;If you regret your disk encryption key, you can easily set another one:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;sudo cryptsetup luksDump /dev/nvme0n1p2
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;sudo cryptsetup luksAddKey --key-slot &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; /dev/nvme0n1p2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;history&#34;&gt;History&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;ln -sd /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;hwclock --systohc
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;vim /etc/locale.gen
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;locale-gen
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;vim /etc/locale.conf
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;vim /etc/hostname
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;vim /etc/hosts
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;vim /etc/mkinitcpio.conf
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;mkinitcpio -P
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;grub-install --target&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;x86_64-efi --efi-directory&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/boot --bootloader-id&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;GRUB
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;vim /etc/default/grub
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;grub-mkconfig -o /boot/grub/grub.cfg
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;passwd
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;useradd -mg users -G wheel,storage,power -s /bin/bash jacqueline
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;passwd jacqueline
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;pacman -S xorg xorg-server gnome zsh cmake git neofetch jq ansible
+&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; gdm.service
+&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; NetworkManager.service
+&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;systemctl &lt;span class=&#34;nb&#34;&gt;enable&lt;/span&gt; dhcpcd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+        
+      </description>
     </item>
     
     <item>
@@ -45,8 +541,161 @@ Partitioning Checkout the current partition scheme and the name of the harddrive
       <pubDate>Sat, 26 Dec 2020 16:33:46 +0100</pubDate>
       
       <guid>https://moonstreet.nl/post/k3s-with-ingress/</guid>
-      <description>Here is how to quickly install Kubernetes with ingress on your laptop. I use this to test and create operators with the Operator Framework. Still learning though.
-I was first using K3s but then I discovered Kind which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn&#39;t manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.</description>
+      <description>
+        
+          &lt;p&gt;Here is how to quickly install Kubernetes with ingress on your laptop.
+I use this to test and create operators with the &lt;a href=&#34;https://operatorframework.io/&#34;&gt;Operator Framework&lt;/a&gt;. Still learning though.&lt;/p&gt;
+&lt;p&gt;I was first using &lt;a href=&#34;https://k3s.io/&#34;&gt;K3s&lt;/a&gt; but then I discovered &lt;a href=&#34;https://kind.sigs.k8s.io/&#34;&gt;Kind&lt;/a&gt; which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn&#39;t manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.&lt;/p&gt;
+&lt;h2 id=&#34;k3s&#34;&gt;K3s&lt;/h2&gt;
+&lt;p&gt;When running K3s, by default Traefik is installed as an ingress controller.
+You need an ingress controller to expose (web) applications to the outside world.
+I am however more comfortable with the Nginx ingress controller so let&#39;s just install that instead.&lt;/p&gt;
+&lt;p&gt;In this post I will first install K3s, then install the Nginx ingress controller.
+Finally I will deploy a little go application (which is going to be fabulous later).&lt;/p&gt;
+&lt;h2 id=&#34;install-k3s-with-nginx-ingress&#34;&gt;Install K3s with Nginx ingress&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;curl -sfL https://get.k3s.io &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sh -s - --write-kubeconfig-mode &lt;span class=&#34;m&#34;&gt;644&lt;/span&gt; --disable traefik
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Wait a bit. When done, we can copy the config file so we can use kubectl.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;mkdir ~/.kube
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we are ready to install Nginx ingress:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/deploy.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;With running &lt;code&gt;kubectl get pods --all-namespaces -w&lt;/code&gt; we can check the progress&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;vagrant@centos02 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;$ kubectl get pods --all-namespaces -w
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;NAMESPACE       NAME                                        READY   STATUS              RESTARTS   AGE
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;kube-system     coredns-66c464876b-2f5gq                    1/1     Running             &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21m
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;kube-system     local-path-provisioner-7ff9579c6-ms2qx      1/1     Running             &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21m
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;kube-system     metrics-server-7b4f8b595-2kxvv              1/1     Running             &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21m
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;ingress-nginx   ingress-nginx-controller-7474996559-79ztf   0/1     ContainerCreating   &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21s
+&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;ingress-nginx   ingress-nginx-admission-patch-km6v8         0/1     Completed           &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21s
+&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;ingress-nginx   ingress-nginx-admission-create-6jqz4        0/1     Completed           &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;          21s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Great, we have an ingress controller now. But, we do not have a load balancer. So we need to enable the ingress controller to use port 80 and 443 on the host. Let&#39;s patch the ingress controller.&lt;/p&gt;
+&lt;p&gt;Create the patch first:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;cat &amp;gt; ingress.yaml &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF 
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;spec:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  template:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    spec:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      hostNetwork: true
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then patch the ingress controller deployment like so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl patch deployment ingress-nginx-controller -n ingress-nginx --patch &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;cat ingress.yaml&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you now run &lt;code&gt;curl localhost&lt;/code&gt; we see at there is a web server running. That means success!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;vagrant@centos02 ~&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;$ curl localhost                                                                                                                            
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&amp;lt;html&amp;gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&amp;lt;head&amp;gt;&amp;lt;title&amp;gt;404 Not Found&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&amp;lt;body&amp;gt;
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&amp;lt;center&amp;gt;&amp;lt;h1&amp;gt;404 Not Found&amp;lt;/h1&amp;gt;&amp;lt;/center&amp;gt;
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&amp;lt;hr&amp;gt;&amp;lt;center&amp;gt;nginx&amp;lt;/center&amp;gt;
+&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;&amp;lt;/body&amp;gt;
+&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;expose-a-web-page&#34;&gt;Expose a web page&lt;/h2&gt;
+&lt;p&gt;I am working on an application at the moment called &#39;carolyne&#39;.
+You can find it here: &lt;a href=&#34;https://gitlab.com/jacqinthebox/carolyne&#34;&gt;https://gitlab.com/jacqinthebox/carolyne&lt;/a&gt;.
+I already pushed a container to the Docker hub, so we can just use that for now.
+Carolyne runs happily on port 4000.&lt;/p&gt;
+&lt;p&gt;Let&#39;s create a deployment and a service object quickly.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;k create namespace apps
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then create the deployment&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kubectl apply -f -
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: apps/v1
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: Deployment
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;metadata:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  name: carolyne
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  namespace: apps
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  labels:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    app: carolyne
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;spec:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  replicas: 1
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  selector:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    matchLabels:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      app: carolyne
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  template:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    metadata:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      labels:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;        app: carolyne
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    spec:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      containers:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;        - name: carolyne
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;          image: jacqueline/carolyne:latest
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;          ports:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;23&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;            - containerPort: 4000
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;24&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Let&#39;s create the service&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kubectl apply -f -
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: v1
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: Service
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;metadata:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  name: carolyne-service
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  namespace: apps
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  labels:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    app: carolyne
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;spec:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  ports:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    - port: 4000
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  selector:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    app: carolyne
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally, let&#39;s create the ingress rules.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kubectl apply -f -
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: networking.k8s.io/v1
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: Ingress
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;metadata:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  annotations:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    kubernetes.io/ingress.class: nginx
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    nginx.ingress.kubernetes.io/rewrite-target: /\$1
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  name: apps-ingress-rules
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  namespace: apps
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;spec:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  rules:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  - host: carolyne.moonstreet.local
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    http:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      paths:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      - backend:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;          service: 
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;            name: carolyne-service
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;            port: 
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;              number: 4000
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;        path: /(.*)
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;        pathType: Prefix
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Need to add the hostname to my hostfile:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# sudo vim /etc/hosts&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;127.0.0.1       localhost carolyne.moonstreet.local
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And now we can browse to that lovely web application I just crafted.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/carolyne1.png&#34; alt=&#34;1&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/carolyne2.png&#34; alt=&#34;2&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;and-now-with-kind&#34;&gt;And now with Kind!&lt;/h2&gt;
+&lt;p&gt;Install Kind:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-linux-amd64
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;chmod +x ./kind
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;sudo mv ./kind /usr/local/bin/kind
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Create a Kind cluster like so:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | kind create cluster --name sandbox01 --config=-
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;kind: Cluster
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;apiVersion: kind.x-k8s.io/v1alpha4
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;nodes:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;- role: control-plane
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  kubeadmConfigPatches:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  - |
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    kind: InitConfiguration
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    nodeRegistration:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      kubeletExtraArgs:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;        node-labels: &amp;#34;ingress-ready=true&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  extraPortMappings:
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  - containerPort: 80
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    hostPort: 80
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    protocol: TCP
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  - containerPort: 443
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    hostPort: 443
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    protocol: TCP
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Install Ingress:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And create Carolyne (in the meantime I made a quick manifest):.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl create namespace apps
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;kubectl apply -f https://gitlab.com/jacqinthebox/carolyne/-/raw/master/deploy.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+        
+      </description>
     </item>
     
     <item>
@@ -55,9 +704,54 @@ I was first using K3s but then I discovered Kind which seems to be even faster, 
       <pubDate>Sun, 27 Sep 2020 09:17:02 +0200</pubDate>
       
       <guid>https://moonstreet.nl/post/k3s-libvirt/</guid>
-      <description>This post is about installing lightweight Kubernetes (K3s) on our new vm.
-K3s The previous post was all about being able to install Kubernetes quickly. For that I will use k3s from Rancher because it is fast. Let&#39;s go!
-Prepare We do this for testing so we can safely disable the firewall and SELinux on our CentOS vm. This is because SELinux is still experimental in K3s. We also need to enable ssh password authentication so we can issue scp commands from our host machine.</description>
+      <description>
+        
+          &lt;p&gt;This post is about installing lightweight Kubernetes (K3s) on our new vm.&lt;/p&gt;
+&lt;h2 id=&#34;k3s&#34;&gt;K3s&lt;/h2&gt;
+&lt;p&gt;The previous post was all about being able to install Kubernetes quickly. For that I will use &lt;a href=&#34;https://k3s.io/&#34;&gt;k3s&lt;/a&gt; from Rancher because it is fast.
+Let&#39;s go!&lt;/p&gt;
+&lt;h2 id=&#34;prepare&#34;&gt;Prepare&lt;/h2&gt;
+&lt;p&gt;We do this for testing so we can safely disable the firewall and SELinux on our CentOS vm.
+This is because SELinux is still experimental in K3s.
+We also need to enable ssh password authentication so we can issue scp commands from our host machine.
+For this we just add the following lines to the extra script part of our Vagrantfile:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-ruby&#34; data-lang=&#34;ruby&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;vg&#34;&gt;$extra&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;-EXTRA
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dnf&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;update&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dnf&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vim&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;net&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tools&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lsof&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tar&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sed&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/enforcing/disabled/g&amp;#39;&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;/etc/se&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;linux&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sed&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/PasswordAuthentication\s.*no/PasswordAuthentication yes/g&amp;#39;&lt;/span&gt; &lt;span class=&#34;sr&#34;&gt;/etc/ss&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sshd_config&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;systemctl&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;disable&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;firewalld&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;systemctl&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;restart&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sshd&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;reboot&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;EXTRA&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;no&#34;&gt;Vagrant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;configure&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;define&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;node01&amp;#34;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node01_config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;node01_config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;box&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;generic/centos8&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;node01_config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hostname&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;centos01&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;node01_config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;provider&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;:libvirt&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;do&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;memory&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4096&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cpus&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nested&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kp&#34;&gt;true&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;domain&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;volume_cache&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;provision&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;shell&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;inline&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;vg&#34;&gt;$extra&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now log on the the virtual machine and issue these commands:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;curl -sfL https://get.k3s.io &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sh -s - --write-kubeconfig-mode &lt;span class=&#34;m&#34;&gt;644&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now wait a bit. Once ready, you can issue:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl get pods --all-namespaces
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;manage-k3s-from-the-host&#34;&gt;Manage K3s from the host&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt; scp vagrant@192.168.122.232:/home/vagrant/.kube/config .
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Edit the config and change the 127.0.0.1 address from the server to the ip address of your vm. (Mine is 192.168.122.232)&lt;/p&gt;
+&lt;p&gt;Then run:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;kubectl get pods --kubeconfig config --all-namespaces
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Hooray!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/vagrant-k3s.png&#34; alt=&#34;k3s&#34;&gt;&lt;/p&gt;
+
+        
+      </description>
     </item>
     
     <item>
@@ -66,9 +760,69 @@ Prepare We do this for testing so we can safely disable the firewall and SELinux
       <pubDate>Sun, 20 Sep 2020 10:37:24 +0200</pubDate>
       
       <guid>https://moonstreet.nl/post/libvirt/</guid>
-      <description>Here is a post about how to create virtual machines with Vagrant and the libvirt plugin.
-Why use libvirt as a vagrant provider Because when on a modern Linux distro running Gnome, chances are it&#39;s already there!
-I use Vagrant extensively to run quick, short lived virtual machines to test and try out things. I always used and use Virtualbox as a virtual machine provider for Vagrant. Maybe I am late to the party but I recently discovered Gnome Boxes and I was wondering about the underlying architecture.</description>
+      <description>
+        
+          &lt;p&gt;Here is a post about how to create virtual machines with Vagrant and the libvirt plugin.&lt;/p&gt;
+&lt;h2 id=&#34;why-use-libvirt-as-a-vagrant-provider&#34;&gt;Why use libvirt as a vagrant provider&lt;/h2&gt;
+&lt;p&gt;Because when on a modern Linux distro running Gnome, chances are it&#39;s already there!&lt;/p&gt;
+&lt;p&gt;I use Vagrant extensively to run quick, short lived virtual machines to test and try out things. I always used and use Virtualbox as a virtual machine provider for Vagrant.
+Maybe I am late to the party but I recently discovered &lt;a href=&#34;https://help.gnome.org/users/gnome-boxes/stable/supported-protocols.html.en&#34;&gt;Gnome Boxes&lt;/a&gt; and I was wondering about the underlying architecture. Then I went on vacation and finally took the time to investigate.&lt;/p&gt;
+&lt;p&gt;The answer is: &lt;a href=&#34;https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine&#34;&gt;KVM&lt;/a&gt;. Together with &lt;a href=&#34;https://wiki.qemu.org/Main_Page&#34;&gt;QEMU&lt;/a&gt; and &lt;a href=&#34;https://libvirt.org/&#34;&gt;libvirt&lt;/a&gt;.
+(I remember using Qemu back in the 2007 or so but thinking it was terribly slow and left it for what is was. But its 2020 now, so let&#39;s dive in again!)&lt;/p&gt;
+&lt;h2 id=&#34;kvm-qemu-libvirt-lost-in-the-limbo&#34;&gt;KVM, QEMU, libvirt: lost in the limbo&lt;/h2&gt;
+&lt;p&gt;To refresh the memory a bit, a hypervisor is software that creates and runs virtual machines. Type 1 hypervisors (like Xen, ESXi and Hyper-V) run directly on the hardware. Type 2 hypervisors (Parallels, Virtualbox, Vmware Fusion) run on top of an OS.  KVM turns Linux into a type 1 hypervisor, but at the same time runs a fully functional OS. So it is a special case of a hypervisor.&lt;/p&gt;
+&lt;p&gt;KVM provides device abstraction but does not emulate a machine. It exposes the /dev/kvm interface, which a user mode host can then use to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bootstrap an iso (set up theguest VM address space)&lt;/li&gt;
+&lt;li&gt;Feed the guest simulated I/O&lt;/li&gt;
+&lt;li&gt;Map the guest&#39;s video display back onto the system host&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;On Linux, QEMU is one such userspace host. QEMU uses KVM when available to virtualize guests at near-native speeds, but otherwise falls back to software-only emulation.&lt;/p&gt;
+&lt;p&gt;The last piece of the puzzle is &lt;a href=&#34;https://wiki.libvirt.org/page/FAQ#What_is_libvirt.3F&#34;&gt;libvirt&lt;/a&gt;
+Libvirt provides a convenient way to storage and network interface management for virtual machines. Libvirt includes an API library, a daemon (libvirtd), and a command line utility (virsh).&lt;/p&gt;
+&lt;p&gt;Gnome Boxes uses libvirt, as does Vagrant. Hence the blog title: using Vagrant with the libvirt plugin.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/kvm.jpg&#34; alt=&#34;plaatje&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;lets-run-a-vm-already&#34;&gt;Let&#39;s run a VM already&lt;/h2&gt;
+&lt;p&gt;If you run this on Fedora 32, you can see that lots of packages are already installed:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;dnf list --installed &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep libvirt
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;dnf list --installed &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep qemu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We need Vagrant and the vagrant-libvirt plugin:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;sudo dnf install vagrant
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;sudo vagrant plugin install vagrant-libvirt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Then make a folder and add a Vagrantfile in it&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;mkdir ~/vagrant/centos &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/vagrant/centos
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;cat &amp;gt; Vagrantfile &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;&amp;#39;EOF&amp;#39;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;$extra = &amp;lt;&amp;lt;-EXTRA
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;dnf update -y &amp;amp;&amp;amp; dnf install vim net-tools git lsof tar -y
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EXTRA
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;Vagrant.configure(&amp;#34;2&amp;#34;) do |config|
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  config.vm.define &amp;#34;node01&amp;#34; do |node01_config|
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    node01_config.vm.box =&amp;#34;generic/centos8&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    node01_config.vm.hostname = &amp;#34;centos01&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    node01_config.vm.provider :libvirt do |domain|
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.memory = 4096
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.cpus = 2
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.nested = true
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;      domain.volume_cache = &amp;#39;none&amp;#39;
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;    end
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  end
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;  config.vm.provision &amp;#34;shell&amp;#34;, inline: $extra
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;end
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;EOF&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And then do&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;vagrant up
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Hooray!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://moonstreet.nl/vagrant-centos.png&#34; alt=&#34;centos&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;afterthought-what-about-lxc-and-lxd&#34;&gt;Afterthought: What about LXC and LXD?&lt;/h2&gt;
+&lt;p&gt;You can also run &lt;a href=&#34;https://linuxcontainers.org/lxd/&#34;&gt;LXD&lt;/a&gt; instead of KVM. I think that LXD is the Canonical way, while KVM has been adopted by RedHat (fact check probably needed).
+Traditionally, LXD is used to create system containers, light-weight virtual machines that use Linux Container features and not hardware virtualization.
+However with LXD you can create both system containers and virtual machines. &lt;a href=&#34;https://www.cyberciti.biz/faq/how-to-install-setup-lxd-on-fedora-linux/&#34;&gt;Here&lt;/a&gt; is a nice blog post explaining that.&lt;/p&gt;
+
+        
+      </description>
     </item>
     
   </channel>

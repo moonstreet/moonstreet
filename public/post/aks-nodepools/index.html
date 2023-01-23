@@ -4,7 +4,7 @@
   <head>
 <title>Azure Kubernetes node pools with Terraform | Moonstreet</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.79.1" />
+<meta name="generator" content="Hugo 0.92.2" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-186145252-1"></script>
@@ -39,8 +39,8 @@
     
     
     <link rel="preload" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity = "sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" as="style" crossorigin="anonymous">
-    <link rel="preload" href="https://moonstreet.nl/js/bundle.min.d825c6faebcaa74403ab8ef0d4b080ff0ce798034a3a26be7740a8c48d45394f4ce04afb608fddcb45a630167a2f03a4a0435cbd4dcf37f2f13b4c25a259ecf4.js" as="script" integrity=
-    "sha512-2CXG&#43;uvKp0QDq47w1LCA/wznmANKOia&#43;d0CoxI1FOU9M4Er7YI/dy0WmMBZ6LwOkoENcvU3PN/LxO0wlolns9A==" crossorigin="anonymous">
+    <link rel="preload" href="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" as="script" integrity=
+    "sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous">
 
     
     <link rel="stylesheet" type="text/css" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity="sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" crossorigin="anonymous">
@@ -166,95 +166,95 @@ The initial number of nodes and their size (SKU) is defined when you create an A
 </ul>
 <p>If you define an AKS cluster, following the Terraform <a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster">documentation</a> you will note that there is a default node pool block, but there isn't a definition of for extra node pools. In fact, there is a separate resource, namely the <a href="https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster_node_pool">azurerm_kubernetes_cluster_node_pool</a> resource.</p>
 <p>My definition of the azurerm_kubernetes_cluster_node_pool is like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-terraform" data-lang="terraform"><span class="ln"> 1</span><span class="kr">resource</span> <span class="s2">&#34;azurerm_kubernetes_cluster_node_pool&#34;</span> <span class="s2">&#34;pools&#34;</span> <span class="p">{</span>
-<span class="ln"> 2</span>  <span class="nx">lifecycle</span> <span class="p">{</span>
-<span class="ln"> 3</span>    <span class="na">ignore_changes</span> = <span class="p">[</span>
-<span class="ln"> 4</span>      <span class="nx">node_count</span>
-<span class="ln"> 5</span>    <span class="p">]</span>
-<span class="ln"> 6</span>  <span class="p">}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>resource &#34;azurerm_kubernetes_cluster_node_pool&#34; &#34;pools&#34; {
+<span class="ln"> 2</span>  lifecycle {
+<span class="ln"> 3</span>    ignore_changes = [
+<span class="ln"> 4</span>      node_count
+<span class="ln"> 5</span>    ]
+<span class="ln"> 6</span>  }
 <span class="ln"> 7</span>
-<span class="ln"> 8</span>  <span class="na">for_each</span> = <span class="nb">var</span><span class="p">.</span><span class="nx">az_aks_additional_node_pools</span>
-<span class="ln"> 9</span>  <span class="na">kubernetes_cluster_id</span> = <span class="nx">azurerm_kubernetes_cluster</span><span class="p">.</span><span class="nx">kube</span><span class="p">.</span><span class="nx">id</span>
-<span class="ln">10</span>  <span class="na">name</span>                  = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">name</span>
-<span class="ln">11</span>  <span class="na">mode</span>                  = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">mode</span>
-<span class="ln">12</span>  <span class="na">node_count</span>            = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">node_count</span>
-<span class="ln">13</span>  <span class="na">vm_size</span>               = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">vm_size</span>
-<span class="ln">14</span>  <span class="na">availability_zones</span>    = <span class="p">[</span><span class="s2">&#34;1&#34;</span><span class="p">,</span> <span class="s2">&#34;2&#34;</span><span class="p">]</span>
-<span class="ln">15</span>  <span class="na">max_pods</span>              = <span class="m">250</span>
-<span class="ln">16</span>  <span class="na">os_disk_size_gb</span>       = <span class="m">128</span>
-<span class="ln">17</span>  <span class="na">node_taints</span>           = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">taints</span>
-<span class="ln">18</span>  <span class="na">node_labels</span>           = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">labels</span>
-<span class="ln">19</span>  <span class="na">enable_auto_scaling</span>   = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">cluster_auto_scaling</span>
-<span class="ln">20</span>  <span class="na">min_count</span>             = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">cluster_auto_scaling_min_count</span>
-<span class="ln">21</span>  <span class="na">max_count</span>             = <span class="nb">each</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">cluster_auto_scaling_max_count</span>
-<span class="ln">22</span><span class="p">}</span>
+<span class="ln"> 8</span>  for_each = var.az_aks_additional_node_pools
+<span class="ln"> 9</span>  kubernetes_cluster_id = azurerm_kubernetes_cluster.kube.id
+<span class="ln">10</span>  name                  = each.value.name
+<span class="ln">11</span>  mode                  = each.value.mode
+<span class="ln">12</span>  node_count            = each.value.node_count
+<span class="ln">13</span>  vm_size               = each.value.vm_size
+<span class="ln">14</span>  availability_zones    = [&#34;1&#34;, &#34;2&#34;]
+<span class="ln">15</span>  max_pods              = 250
+<span class="ln">16</span>  os_disk_size_gb       = 128
+<span class="ln">17</span>  node_taints           = each.value.taints
+<span class="ln">18</span>  node_labels           = each.value.labels
+<span class="ln">19</span>  enable_auto_scaling   = each.value.cluster_auto_scaling
+<span class="ln">20</span>  min_count             = each.value.cluster_auto_scaling_min_count
+<span class="ln">21</span>  max_count             = each.value.cluster_auto_scaling_max_count
+<span class="ln">22</span>}
 </code></pre></div><p>We will be using the for_each expression to be able to define and deploy multiple nodepools later.
 The variable is defined as follows:</p>
-<div class="highlight"><pre class="chroma"><code class="language-terraform" data-lang="terraform"><span class="ln"> 1</span><span class="kr">
-</span><span class="ln"> 2</span><span class="kr">variable</span> <span class="s2">&#34;az_aks_additional_node_pools&#34;</span> <span class="p">{</span>
-<span class="ln"> 3</span>  <span class="na">type</span> =<span class="nb"> map</span><span class="p">(</span><span class="nx">object</span><span class="p">({</span>
-<span class="ln"> 4</span>    <span class="na">node_count</span>                     = <span class="nx">number</span>
-<span class="ln"> 5</span>    <span class="na">name</span>                           = <span class="nx">string</span>
-<span class="ln"> 6</span>    <span class="na">mode</span>                           = <span class="nx">string</span>
-<span class="ln"> 7</span>    <span class="na">vm_size</span>                        = <span class="nx">string</span>
-<span class="ln"> 8</span>    <span class="na">taints</span>                         =<span class="nb"> list</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span>
-<span class="ln"> 9</span>    <span class="na">cluster_auto_scaling</span>           = <span class="nx">bool</span>
-<span class="ln">10</span>    <span class="na">cluster_auto_scaling_min_count</span> = <span class="nx">number</span>
-<span class="ln">11</span>    <span class="na">cluster_auto_scaling_max_count</span> = <span class="nx">number</span>
-<span class="ln">12</span>    <span class="na">labels</span>                         =<span class="nb"> map</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span>
-<span class="ln">13</span>  <span class="p">}))</span>
-<span class="ln">14</span><span class="p">}</span>
-</code></pre></div><p>Look at 'taints' and 'labels': taint is a list of strings whereas labels are a map of strings. It took me an hour or so to figure this out, but I was also watching television at the same time, and it does not say anything. You need the labels, and the taints to configure your workloads (deployments and statefulsets) to direct the pods to the correct node pool.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>
+<span class="ln"> 2</span>variable &#34;az_aks_additional_node_pools&#34; {
+<span class="ln"> 3</span>  type = map(object({
+<span class="ln"> 4</span>    node_count                     = number
+<span class="ln"> 5</span>    name                           = string
+<span class="ln"> 6</span>    mode                           = string
+<span class="ln"> 7</span>    vm_size                        = string
+<span class="ln"> 8</span>    taints                         = list(string)
+<span class="ln"> 9</span>    cluster_auto_scaling           = bool
+<span class="ln">10</span>    cluster_auto_scaling_min_count = number
+<span class="ln">11</span>    cluster_auto_scaling_max_count = number
+<span class="ln">12</span>    labels                         = map(string)
+<span class="ln">13</span>  }))
+<span class="ln">14</span>}
+</code></pre></div><p>Look at 'taints' and 'labels': taint is a list of strings whereas labels are a map of strings. It took me an hour or so to figure this out, but I was also watching television at the same time. You need the labels, and the taints to configure your workloads (deployments and statefulsets) to direct the pods to the correct node pool.</p>
 <p>Finally, this is how I define 3 node pools for a cluster. This will result in:</p>
-<div class="highlight"><pre class="chroma"><code class="language-terraform" data-lang="terraform"><span class="ln"> 1</span>  <span class="na">az_aks_additional_node_pools</span> = <span class="p">{</span>
-<span class="ln"> 2</span>    <span class="na">systempool</span> = <span class="p">{</span>
-<span class="ln"> 3</span>      <span class="na">node_count</span> = <span class="m">1</span>
-<span class="ln"> 4</span>      <span class="na">mode</span> = <span class="s2">&#34;System&#34;</span>
-<span class="ln"> 5</span>      <span class="na">name</span> = <span class="s2">&#34;system&#34;</span>
-<span class="ln"> 6</span>      <span class="na">vm_size</span>    = <span class="s2">&#34;Standard_B2ms&#34;</span>
-<span class="ln"> 7</span>      <span class="na">zones</span>      = <span class="p">[</span><span class="s2">&#34;1&#34;</span><span class="p">,</span> <span class="s2">&#34;2&#34;</span><span class="p">]</span>
-<span class="ln"> 8</span>      <span class="na">taints</span> = <span class="p">[</span>
-<span class="ln"> 9</span>        <span class="s2">&#34;CriticalAddonsOnly=true:NoSchedule&#34;</span>
-<span class="ln">10</span>      <span class="p">]</span>
-<span class="ln">11</span>      <span class="na">labels</span> = <span class="nx">null</span>
-<span class="ln">12</span>      <span class="na">cluster_auto_scaling</span>           = <span class="kc">false</span>
-<span class="ln">13</span>      <span class="na">cluster_auto_scaling_min_count</span> = <span class="nx">null</span>
-<span class="ln">14</span>      <span class="na">cluster_auto_scaling_max_count</span> = <span class="nx">null</span>
-<span class="ln">15</span>    <span class="p">}</span>
-<span class="ln">16</span>    <span class="na">infrapool</span> = <span class="p">{</span>
-<span class="ln">17</span>      <span class="na">node_count</span> = <span class="m">1</span>
-<span class="ln">18</span>      <span class="na">name</span> = <span class="s2">&#34;infra&#34;</span>
-<span class="ln">19</span>      <span class="na">mode</span> = <span class="s2">&#34;User&#34;</span>
-<span class="ln">20</span>      <span class="na">vm_size</span>    = <span class="s2">&#34;Standard_B2ms&#34;</span>
-<span class="ln">21</span>      <span class="na">zones</span>      = <span class="p">[</span><span class="s2">&#34;1&#34;</span><span class="p">,</span> <span class="s2">&#34;2&#34;</span><span class="p">]</span>
-<span class="ln">22</span>      <span class="na">taints</span> = <span class="p">[</span>
-<span class="ln">23</span>        <span class="s2">&#34;InfraAddonsOnly=true:NoSchedule&#34;</span>
-<span class="ln">24</span>      <span class="p">]</span>
-<span class="ln">25</span>      <span class="na">labels</span> = <span class="p">{</span>
-<span class="ln">26</span>        <span class="nx">nodepool</span><span class="o">:</span> <span class="s2">&#34;infra&#34;</span>
-<span class="ln">27</span>      <span class="p">}</span>
-<span class="ln">28</span>      <span class="na">cluster_auto_scaling</span>           = <span class="kc">false</span>
-<span class="ln">29</span>      <span class="na">cluster_auto_scaling_min_count</span> = <span class="nx">null</span>
-<span class="ln">30</span>      <span class="na">cluster_auto_scaling_max_count</span> = <span class="nx">null</span>
-<span class="ln">31</span>    <span class="p">}</span>
-<span class="ln">32</span>    <span class="na">apppool</span> = <span class="p">{</span>
-<span class="ln">33</span>      <span class="na">node_count</span>                     = <span class="m">2</span>
-<span class="ln">34</span>      <span class="na">name</span>                           = <span class="s2">&#34;app16&#34;</span>
-<span class="ln">35</span>      <span class="na">mode</span>                           = <span class="s2">&#34;User&#34;</span>
-<span class="ln">36</span>      <span class="na">vm_size</span>                        = <span class="s2">&#34;Standard_A2m_v2&#34;</span>
-<span class="ln">37</span>      <span class="na">zones</span>                          = <span class="p">[</span><span class="s2">&#34;1&#34;</span><span class="p">,</span> <span class="s2">&#34;2&#34;</span><span class="p">]</span>
-<span class="ln">38</span>      <span class="na">taints</span>                         = <span class="nx">null</span>
-<span class="ln">39</span>      <span class="na">labels</span> = <span class="p">{</span>
-<span class="ln">40</span>        <span class="nx">nodepool</span><span class="o">:</span> <span class="s2">&#34;app16&#34;</span>
-<span class="ln">41</span>      <span class="p">}</span>
-<span class="ln">42</span>      <span class="na">cluster_auto_scaling</span>           = <span class="kc">true</span>
-<span class="ln">43</span>      <span class="na">cluster_auto_scaling_min_count</span> = <span class="m">2</span>
-<span class="ln">44</span>      <span class="na">cluster_auto_scaling_max_count</span> = <span class="m">4</span>
-<span class="ln">45</span>    <span class="p">}</span>
-<span class="ln">46</span>  <span class="p">}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>  az_aks_additional_node_pools = {
+<span class="ln"> 2</span>    systempool = {
+<span class="ln"> 3</span>      node_count = 1
+<span class="ln"> 4</span>      mode = &#34;System&#34;
+<span class="ln"> 5</span>      name = &#34;system&#34;
+<span class="ln"> 6</span>      vm_size    = &#34;Standard_B2ms&#34;
+<span class="ln"> 7</span>      zones      = [&#34;1&#34;, &#34;2&#34;]
+<span class="ln"> 8</span>      taints = [
+<span class="ln"> 9</span>        &#34;CriticalAddonsOnly=true:NoSchedule&#34;
+<span class="ln">10</span>      ]
+<span class="ln">11</span>      labels = null
+<span class="ln">12</span>      cluster_auto_scaling           = false
+<span class="ln">13</span>      cluster_auto_scaling_min_count = null
+<span class="ln">14</span>      cluster_auto_scaling_max_count = null
+<span class="ln">15</span>    }
+<span class="ln">16</span>    infrapool = {
+<span class="ln">17</span>      node_count = 1
+<span class="ln">18</span>      name = &#34;infra&#34;
+<span class="ln">19</span>      mode = &#34;User&#34;
+<span class="ln">20</span>      vm_size    = &#34;Standard_B2ms&#34;
+<span class="ln">21</span>      zones      = [&#34;1&#34;, &#34;2&#34;]
+<span class="ln">22</span>      taints = [
+<span class="ln">23</span>        &#34;InfraAddonsOnly=true:NoSchedule&#34;
+<span class="ln">24</span>      ]
+<span class="ln">25</span>      labels = {
+<span class="ln">26</span>        nodepool: &#34;infra&#34;
+<span class="ln">27</span>      }
+<span class="ln">28</span>      cluster_auto_scaling           = false
+<span class="ln">29</span>      cluster_auto_scaling_min_count = null
+<span class="ln">30</span>      cluster_auto_scaling_max_count = null
+<span class="ln">31</span>    }
+<span class="ln">32</span>    apppool = {
+<span class="ln">33</span>      node_count                     = 2
+<span class="ln">34</span>      name                           = &#34;app16&#34;
+<span class="ln">35</span>      mode                           = &#34;User&#34;
+<span class="ln">36</span>      vm_size                        = &#34;Standard_A2m_v2&#34;
+<span class="ln">37</span>      zones                          = [&#34;1&#34;, &#34;2&#34;]
+<span class="ln">38</span>      taints                         = null
+<span class="ln">39</span>      labels = {
+<span class="ln">40</span>        nodepool: &#34;app16&#34;
+<span class="ln">41</span>      }
+<span class="ln">42</span>      cluster_auto_scaling           = true
+<span class="ln">43</span>      cluster_auto_scaling_min_count = 2
+<span class="ln">44</span>      cluster_auto_scaling_max_count = 4
+<span class="ln">45</span>    }
+<span class="ln">46</span>  }
 </code></pre></div><h2 id="cleaning-up-the-default-node-pool">Cleaning up the default node pool</h2>
 <p>When the cluster and its node pools are deployed, I let Jenkins clean up de the default node pool because it's no longer needed.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>az aks nodepool delete --resource-group <span class="nv">$CLUSTER_FULL_NAME</span>-rg --cluster-name <span class="nv">$CLUSTER_FULL_NAME</span> --name default
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>az aks nodepool delete --resource-group <span class="nv">$CLUSTER_FULL_NAME</span>-rg --cluster-name <span class="nv">$CLUSTER_FULL_NAME</span> --name default
 </code></pre></div><h2 id="resources-and-inspiration">Resources and inspiration</h2>
 <ul>
 <li><a href="https://www.danielstechblog.io/">https://www.danielstechblog.io/</a></li>
@@ -274,8 +274,29 @@ The variable is defined as follows:</p>
         A collection of notes about technology so I don&#39;t forget what it is all about.
       </div>
       <a href='https://moonstreet.nl/about/' class="button mt-1" role="button">Read More</a>
+    <h2 class="mt-4">Featured Posts</h2>
+    <ul>
+      <li>
+        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+      </li>
+    </ul>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
+      <li>
+        <a href="https://moonstreet.nl/post/terraform-patterns-loops/" class="nav-link">Terraform patterns: loops</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/terraform-patterns-conditionals/" class="nav-link">Terraform patterns: conditionals</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
+      </li>
       <li>
         <a href="https://moonstreet.nl/post/kubernetes-readonly/" class="nav-link">Create a read-only user in Kubernetes</a>
       </li>
@@ -285,16 +306,13 @@ The variable is defined as follows:</p>
       <li>
         <a href="https://moonstreet.nl/post/k3s-libvirt/" class="nav-link">K3s on a Centos vm</a>
       </li>
-      <li>
-        <a href="https://moonstreet.nl/post/libvirt/" class="nav-link">Vagrant with the libvirt plugin</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://moonstreet.nl/categories/technology/' class="post_tag button button_translucent">
           TECHNOLOGY
-          <span class="button_tally">5</span>
+          <span class="button_tally">10</span>
         </a>
         
         
@@ -303,24 +321,34 @@ The variable is defined as follows:</p>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
       <nav class="tags_nav">
+        <a href='https://moonstreet.nl/tags/linux/' class="post_tag button button_translucent">
+          LINUX
+          <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
+          KUBERNETES
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
+          AZURE
+          <span class="button_tally">3</span>
+        </a>
+        
         <a href='https://moonstreet.nl/tags/k3s/' class="post_tag button button_translucent">
           K3S
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
-          KUBERNETES
+        <a href='https://moonstreet.nl/tags/terraform/' class="post_tag button button_translucent">
+          TERRAFORM
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/linux/' class="post_tag button button_translucent">
-          LINUX
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
-          AZURE
-          <span class="button_tally">1</span>
+        <a href='https://moonstreet.nl/tags/vim/' class="post_tag button button_translucent">
+          VIM
+          <span class="button_tally">2</span>
         </a>
         
         <a href='https://moonstreet.nl/tags/index/' class="post_tag button button_translucent">
@@ -330,11 +358,6 @@ The variable is defined as follows:</p>
         
         <a href='https://moonstreet.nl/tags/kind/' class="post_tag button button_translucent">
           KIND
-          <span class="button_tally">1</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/terraform/' class="post_tag button button_translucent">
-          TERRAFORM
           <span class="button_tally">1</span>
         </a>
         
@@ -415,7 +438,7 @@ The variable is defined as follows:</p>
   </div>
 </footer>
 
-    <script type="text/javascript" src="https://moonstreet.nl/js/bundle.min.d825c6faebcaa74403ab8ef0d4b080ff0ce798034a3a26be7740a8c48d45394f4ce04afb608fddcb45a630167a2f03a4a0435cbd4dcf37f2f13b4c25a259ecf4.js" integrity="sha512-2CXG&#43;uvKp0QDq47w1LCA/wznmANKOia&#43;d0CoxI1FOU9M4Er7YI/dy0WmMBZ6LwOkoENcvU3PN/LxO0wlolns9A==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" integrity="sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous"></script>
     
   </body>
 </html>

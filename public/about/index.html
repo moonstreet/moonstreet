@@ -4,7 +4,7 @@
   <head>
 <title>Over about | Moonstreet</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.79.1" />
+<meta name="generator" content="Hugo 0.92.2" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-186145252-1"></script>
@@ -39,8 +39,8 @@
     
     
     <link rel="preload" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity = "sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" as="style" crossorigin="anonymous">
-    <link rel="preload" href="https://moonstreet.nl/js/bundle.min.d825c6faebcaa74403ab8ef0d4b080ff0ce798034a3a26be7740a8c48d45394f4ce04afb608fddcb45a630167a2f03a4a0435cbd4dcf37f2f13b4c25a259ecf4.js" as="script" integrity=
-    "sha512-2CXG&#43;uvKp0QDq47w1LCA/wznmANKOia&#43;d0CoxI1FOU9M4Er7YI/dy0WmMBZ6LwOkoENcvU3PN/LxO0wlolns9A==" crossorigin="anonymous">
+    <link rel="preload" href="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" as="script" integrity=
+    "sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous">
 
     
     <link rel="stylesheet" type="text/css" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity="sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" crossorigin="anonymous">
@@ -160,7 +160,7 @@ This website is made with the following tools:</p>
 <li><a href="https://github.com/kimcc/hugo-theme-noteworthy">Noteworthy</a>, the theme.</li>
 </ul>
 <p>Here are the steps to create this site:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>sudo dnf install -y hugo
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>sudo dnf install -y hugo
 <span class="ln">2</span>mkdir ~/blog <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/blog
 <span class="ln">3</span>hugo new site moonstreet
 <span class="ln">4</span><span class="nb">cd</span> themes
@@ -170,18 +170,28 @@ This website is made with the following tools:</p>
 <span class="ln">8</span><span class="nb">echo</span> <span class="s1">&#39;theme = &#34;hugo-theme-noteworthy&#34;&#39;</span> &gt;&gt; config.toml
 <span class="ln">9</span>hugo serve -D
 </code></pre></div><p>Then in a new terminal window:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>hugo new posts/hugo.md
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>hugo new posts/hugo.md
 </code></pre></div><p>And then paste this content in hugo.md.</p>
 <h2 id="push-to-github-and-publish-with-netlify">Push to Github and publish with Netlify</h2>
 <p>When publishing, make sure your post is not set to 'draft'.
 Run a final <code>hugo</code> to build the site.
 Then commit and push.</p>
 <h2 id="on-a-new-computer">On a new computer</h2>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>git clone <span class="c1"># this repo</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="ln">1</span>git clone <span class="c1"># this repo</span>
 <span class="ln">2</span><span class="nb">cd</span> moonstreet
 <span class="ln">3</span>git submodule update --init --recursive
 <span class="ln">4</span>hugo server -D
-</code></pre></div><p>Written in Go, Hugo is an open source static site generator available under the <a href="https://github.com/gohugoio/hugo/blob/master/LICENSE">Apache Licence 2.0.</a> Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.</p>
+</code></pre></div><h2 id="some-markdown-pointers">Some markdown pointers</h2>
+<p>On how to include and resize images.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="ln">1</span>![<span class="nt">tmux</span>](<span class="na">https://upload.wikimedia.org/Tmux_logo.svg/1280px-Tmux_logo.svg.png</span>)
+<span class="ln">2</span> 
+<span class="ln">3</span><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://upload.wikimedia.org/1280px-Tmux_logo.svg.png&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;400&#34;</span><span class="p">&gt;</span>
+<span class="ln">4</span>
+<span class="ln">5</span><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/termimal2.png&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;600&#34;</span><span class="p">&gt;</span>
+<span class="ln">6</span>
+<span class="ln">7</span>![<span class="nt">plaatje</span>](<span class="na">/termimal2.png</span>)
+</code></pre></div><h2 id="about-hugo">About Hugo</h2>
+<p>Written in Go, Hugo is an open source static site generator available under the <a href="https://github.com/gohugoio/hugo/blob/master/LICENSE">Apache Licence 2.0.</a> Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.</p>
 <p>Hugo makes use of a variety of open source projects including:</p>
 <ul>
 <li><a href="https://github.com/yuin/goldmark">https://github.com/yuin/goldmark</a></li>
@@ -209,11 +219,26 @@ Then commit and push.</p>
     <h2 class="mt-4">Featured Posts</h2>
     <ul>
       <li>
-        <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
+        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
     </ul>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
+      <li>
+        <a href="https://moonstreet.nl/post/terraform-patterns-loops/" class="nav-link">Terraform patterns: loops</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/terraform-patterns-conditionals/" class="nav-link">Terraform patterns: conditionals</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
+      </li>
       <li>
         <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
       </li>
@@ -223,19 +248,13 @@ Then commit and push.</p>
       <li>
         <a href="https://moonstreet.nl/post/k3s-with-ingress/" class="nav-link">Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</a>
       </li>
-      <li>
-        <a href="https://moonstreet.nl/post/k3s-libvirt/" class="nav-link">K3s on a Centos vm</a>
-      </li>
-      <li>
-        <a href="https://moonstreet.nl/post/libvirt/" class="nav-link">Vagrant with the libvirt plugin</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://moonstreet.nl/categories/technology/' class="post_tag button button_translucent">
           TECHNOLOGY
-          <span class="button_tally">5</span>
+          <span class="button_tally">10</span>
         </a>
         
         
@@ -244,24 +263,34 @@ Then commit and push.</p>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
       <nav class="tags_nav">
+        <a href='https://moonstreet.nl/tags/linux/' class="post_tag button button_translucent">
+          LINUX
+          <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
+          KUBERNETES
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
+          AZURE
+          <span class="button_tally">3</span>
+        </a>
+        
         <a href='https://moonstreet.nl/tags/k3s/' class="post_tag button button_translucent">
           K3S
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
-          KUBERNETES
+        <a href='https://moonstreet.nl/tags/terraform/' class="post_tag button button_translucent">
+          TERRAFORM
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/linux/' class="post_tag button button_translucent">
-          LINUX
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
-          AZURE
-          <span class="button_tally">1</span>
+        <a href='https://moonstreet.nl/tags/vim/' class="post_tag button button_translucent">
+          VIM
+          <span class="button_tally">2</span>
         </a>
         
         <a href='https://moonstreet.nl/tags/index/' class="post_tag button button_translucent">
@@ -271,11 +300,6 @@ Then commit and push.</p>
         
         <a href='https://moonstreet.nl/tags/kind/' class="post_tag button button_translucent">
           KIND
-          <span class="button_tally">1</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/terraform/' class="post_tag button button_translucent">
-          TERRAFORM
           <span class="button_tally">1</span>
         </a>
         
@@ -356,7 +380,7 @@ Then commit and push.</p>
   </div>
 </footer>
 
-    <script type="text/javascript" src="https://moonstreet.nl/js/bundle.min.d825c6faebcaa74403ab8ef0d4b080ff0ce798034a3a26be7740a8c48d45394f4ce04afb608fddcb45a630167a2f03a4a0435cbd4dcf37f2f13b4c25a259ecf4.js" integrity="sha512-2CXG&#43;uvKp0QDq47w1LCA/wznmANKOia&#43;d0CoxI1FOU9M4Er7YI/dy0WmMBZ6LwOkoENcvU3PN/LxO0wlolns9A==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" integrity="sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous"></script>
     
   </body>
 </html>

@@ -4,7 +4,7 @@
   <head>
 <title>terraform | Moonstreet</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.79.1" />
+<meta name="generator" content="Hugo 0.92.2" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-186145252-1"></script>
@@ -40,8 +40,8 @@
     
     
     <link rel="preload" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity = "sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" as="style" crossorigin="anonymous">
-    <link rel="preload" href="https://moonstreet.nl/js/bundle.min.d825c6faebcaa74403ab8ef0d4b080ff0ce798034a3a26be7740a8c48d45394f4ce04afb608fddcb45a630167a2f03a4a0435cbd4dcf37f2f13b4c25a259ecf4.js" as="script" integrity=
-    "sha512-2CXG&#43;uvKp0QDq47w1LCA/wznmANKOia&#43;d0CoxI1FOU9M4Er7YI/dy0WmMBZ6LwOkoENcvU3PN/LxO0wlolns9A==" crossorigin="anonymous">
+    <link rel="preload" href="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" as="script" integrity=
+    "sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous">
 
     
     <link rel="stylesheet" type="text/css" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity="sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" crossorigin="anonymous">
@@ -139,6 +139,79 @@
   <div class="excerpt">
     <div class="excerpt_header">
       <h3 class="post_link">
+        <a href="https://moonstreet.nl/post/terraform-patterns-loops/">Terraform patterns: loops</a>
+      </h3>
+      <div class="post_meta">
+  
+    <svg class="icon">
+  <use xlink:href="#calendar"></use>
+</svg>
+    <span class="post_date">
+      Dec 21, 2021</span>
+      <a href='https://moonstreet.nl/tags/kubernetes' class="post_tag button button_translucent">kubernetes
+      </a>
+      <a href='https://moonstreet.nl/tags/azure' class="post_tag button button_translucent">azure
+      </a>
+      <a href='https://moonstreet.nl/tags/terraform' class="post_tag button button_translucent">terraform
+      </a>
+</div>
+
+    </div>
+      <div class="excerpt_footer">
+        <div>
+          <p class="pale">
+            
+              Create multiple resources with a loop If you want to create multiple instances of, say, an Azure resource group, you can add a for_each argument. The for_each argument accepts a map or a set, and creates an instance for each item in that map or set.
+So you can create a map of key value pairs (aka a dictionary) and use …
+            
+          </p>
+          <a href="https://moonstreet.nl/post/terraform-patterns-loops/" class="excerpt_more button">Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+
+      <li class="post_item">
+  <div class="excerpt">
+    <div class="excerpt_header">
+      <h3 class="post_link">
+        <a href="https://moonstreet.nl/post/terraform-patterns-conditionals/">Terraform patterns: conditionals</a>
+      </h3>
+      <div class="post_meta">
+  
+    <svg class="icon">
+  <use xlink:href="#calendar"></use>
+</svg>
+    <span class="post_date">
+      Dec 21, 2021</span>
+      <a href='https://moonstreet.nl/tags/kubernetes' class="post_tag button button_translucent">kubernetes
+      </a>
+      <a href='https://moonstreet.nl/tags/azure' class="post_tag button button_translucent">azure
+      </a>
+      <a href='https://moonstreet.nl/tags/terraform' class="post_tag button button_translucent">terraform
+      </a>
+</div>
+
+    </div>
+      <div class="excerpt_footer">
+        <div>
+          <p class="pale">
+            
+              This is a back to basics post about a Terraform pattern: conditionals. It's Azure centric.
+Conditionals: if then else Imagine we want a resource group name to follow the rules of naming convention but in other cases we don't want to. So if there is a naming convention, implement that, if not than do not.
+For example, …
+            
+          </p>
+          <a href="https://moonstreet.nl/post/terraform-patterns-conditionals/" class="excerpt_more button">Read More</a>
+        </div>
+      </div>
+    </div>
+  </li>
+
+      <li class="post_item">
+  <div class="excerpt">
+    <div class="excerpt_header">
+      <h3 class="post_link">
         <a href="https://moonstreet.nl/post/aks-nodepools/">Azure Kubernetes node pools with Terraform</a>
       </h3>
       <div class="post_meta">
@@ -171,8 +244,6 @@
   </li>
 
     <li>
-
-
     </li>
   </ul>
 <aside class="sidebar">
@@ -186,11 +257,26 @@
     <h2 class="mt-4">Featured Posts</h2>
     <ul>
       <li>
-        <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
+        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
     </ul>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
+      <li>
+        <a href="https://moonstreet.nl/post/terraform-patterns-loops/" class="nav-link">Terraform patterns: loops</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/terraform-patterns-conditionals/" class="nav-link">Terraform patterns: conditionals</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+      </li>
+      <li>
+        <a href="https://moonstreet.nl/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
+      </li>
       <li>
         <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
       </li>
@@ -200,19 +286,13 @@
       <li>
         <a href="https://moonstreet.nl/post/k3s-with-ingress/" class="nav-link">Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</a>
       </li>
-      <li>
-        <a href="https://moonstreet.nl/post/k3s-libvirt/" class="nav-link">K3s on a Centos vm</a>
-      </li>
-      <li>
-        <a href="https://moonstreet.nl/post/libvirt/" class="nav-link">Vagrant with the libvirt plugin</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://moonstreet.nl/categories/technology/' class="post_tag button button_translucent">
           TECHNOLOGY
-          <span class="button_tally">5</span>
+          <span class="button_tally">10</span>
         </a>
         
         
@@ -221,24 +301,34 @@
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
       <nav class="tags_nav">
+        <a href='https://moonstreet.nl/tags/linux/' class="post_tag button button_translucent">
+          LINUX
+          <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
+          KUBERNETES
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
+          AZURE
+          <span class="button_tally">3</span>
+        </a>
+        
         <a href='https://moonstreet.nl/tags/k3s/' class="post_tag button button_translucent">
           K3S
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
-          KUBERNETES
+        <a href='https://moonstreet.nl/tags/terraform/' class="post_tag button button_translucent">
+          TERRAFORM
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/linux/' class="post_tag button button_translucent">
-          LINUX
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
-          AZURE
-          <span class="button_tally">1</span>
+        <a href='https://moonstreet.nl/tags/vim/' class="post_tag button button_translucent">
+          VIM
+          <span class="button_tally">2</span>
         </a>
         
         <a href='https://moonstreet.nl/tags/index/' class="post_tag button button_translucent">
@@ -248,11 +338,6 @@
         
         <a href='https://moonstreet.nl/tags/kind/' class="post_tag button button_translucent">
           KIND
-          <span class="button_tally">1</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/terraform/' class="post_tag button button_translucent">
-          TERRAFORM
           <span class="button_tally">1</span>
         </a>
         
@@ -335,7 +420,7 @@
   </div>
 </footer>
 
-    <script type="text/javascript" src="https://moonstreet.nl/js/bundle.min.d825c6faebcaa74403ab8ef0d4b080ff0ce798034a3a26be7740a8c48d45394f4ce04afb608fddcb45a630167a2f03a4a0435cbd4dcf37f2f13b4c25a259ecf4.js" integrity="sha512-2CXG&#43;uvKp0QDq47w1LCA/wznmANKOia&#43;d0CoxI1FOU9M4Er7YI/dy0WmMBZ6LwOkoENcvU3PN/LxO0wlolns9A==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" integrity="sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous"></script>
     
   </body>
 </html>

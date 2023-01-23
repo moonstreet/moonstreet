@@ -13,9 +13,230 @@
       <pubDate>Tue, 21 Dec 2021 11:24:21 +0100</pubDate>
       
       <guid>https://moonstreet.nl/post/terraform-patterns-loops/</guid>
-      <description>Create multiple resources with a loop If you want to create multiple instances of, say, an Azure resource group, you can add a for_each argument. The for_each argument accepts a map or a set, and creates an instance for each item in that map or set.
-So you can create a map of key value pairs (aka a dictionary) and use it to define multiple resource groups:
-1resource &amp;#34;azurerm_resource_group&amp;#34; &amp;#34;rg&amp;#34; { 2 for_each = { 3 projectx-dev-we = &amp;#34;westeurope&amp;#34; 4 projectx-dev-us = &amp;#34;eastus&amp;#34; 5 } 6 7 name = &amp;#34;${each.</description>
+      <description>
+        
+          &lt;h1 id=&#34;create-multiple-resources-with-a-loop&#34;&gt;Create multiple resources with a loop&lt;/h1&gt;
+&lt;p&gt;If you want to create multiple instances of, say, an Azure resource group, you can add a for_each argument.
+The for_each argument accepts a map or a set, and creates an instance for each item in that map or set.&lt;/p&gt;
+&lt;p&gt;So you can create a map of key value pairs (aka a dictionary) and use it to define multiple resource groups:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;resource &amp;#34;azurerm_resource_group&amp;#34; &amp;#34;rg&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;    for_each = {
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;        projectx-dev-we = &amp;#34;westeurope&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;        projectx-dev-us = &amp;#34;eastus&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;    }
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;    
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;    name     = &amp;#34;${each.key}-rg&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;    location = each.value
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;    tags     = var.tags
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Sure enough you can also refactor the map as a variable&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;variable &amp;#34;groups&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;    default = {
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;        projectx-prod-we = &amp;#34;westeurope&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;        projectx-prod-us = &amp;#34;eastus&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;    }
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;resource &amp;#34;azurerm_resource_group&amp;#34; &amp;#34;otherrg&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;    for_each = var.groups
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;    name     = &amp;#34;${each.key}-rg&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;    location = each.value
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;    tags     = var.tags
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;reference-the-resource-group&#34;&gt;Reference the resource group&lt;/h2&gt;
+&lt;p&gt;What if you want to create a storage account in each of the created resource groups?
+You could reference the resource group that has been created in the previous step as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;resource &amp;#34;azurerm_storage_account&amp;#34; &amp;#34;storage&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    name = &amp;#34;projectxprodwestorage&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;    account_replication_type = &amp;#34;LRS&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;    account_tier = &amp;#34;Standard&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;    location = azurerm_resource_group.otherrg[&amp;#34;projectx-prod-we&amp;#34;].location
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;    resource_group_name = azurerm_resource_group.otherrg[&amp;#34;projectx-prod-we&amp;#34;].name
+&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;a-more-complex-example&#34;&gt;A more complex example&lt;/h2&gt;
+&lt;p&gt;A map has just some keys and values. They can contain many things of just one type.
+But what if I want to use strings, lists and so on to create my new resource, in a for-each loop?
+For  example, I have a vnet and it contains multiple subnets. So there is a one-to-many relationship.
+&lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet&#34;&gt;Here&lt;/a&gt; is its definition.&lt;/p&gt;
+&lt;p&gt;The subnet has a name (of type string) and address_prefixes (of type list).
+Objects to the rescue! Objects contain a specific set of things of many types, and they have name whih we can refer to.&lt;/p&gt;
+&lt;p&gt;First, let&#39;s create the vnet:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;resource &amp;#34;azurerm_virtual_network&amp;#34; &amp;#34;vnet&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    address_space       = [&amp;#34;172.16.0.0/16&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;    location            = azurerm_resource_group.otherrg[&amp;#34;projectx-prod-we&amp;#34;].location
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;    name                = &amp;#34;${var.prefix}-vnet&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;    resource_group_name = azurerm_resource_group.otherrg[&amp;#34;projectx-prod-we&amp;#34;].name
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Let&#39;s now define the subnets.&lt;/p&gt;
+&lt;h3 id=&#34;use-a-map-of-objects&#34;&gt;Use a map of objects&lt;/h3&gt;
+&lt;p&gt;As the variable type we could use a map of objects. The key is the name of the subnet instance, and the value is a complex object with the subnet properties.
+The map has the following definition:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;variable &amp;#34;subnets&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;  type = map(object({
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;    address_prefixes  = list(string)
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;    service_endpoints = list(string)
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;  }))
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can then define the default value of the variable:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;variable &amp;#34;subnets&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;    type    = map(object({
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;    address_prefixes     = list(string)
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;    service_endpoints    = list(string)
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;    }))
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;    default = {
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;        &amp;#34;db-subnet&amp;#34; = {
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;            address_prefixes     = [&amp;#34;172.16.1.0/24&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;            service_endpoints    = [&amp;#34;Microsoft.AzureCosmosDB&amp;#34;,&amp;#34;Microsoft.Sql&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;        },
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;        &amp;#34;generic-subnet&amp;#34; = {
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;            address_prefixes     = [&amp;#34;172.16.2.0/24&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;            service_endpoints    = [&amp;#34;Microsoft.Storage&amp;#34;,&amp;#34;Microsoft.KeyVault&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;        }
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;    }
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally, we can create the subnets as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;resource &amp;#34;azurerm_subnet&amp;#34; &amp;#34;subnet&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    for_each = var.subnets
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;    name                 = &amp;#34;${var.prefix}-${each.key}&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;    resource_group_name  = azurerm_resource_group.otherrg[&amp;#34;projectx-prod-we&amp;#34;].name
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;    virtual_network_name = azurerm_virtual_network.vnet.name
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;    address_prefixes     = each.value.address_prefixes
+&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;    service_endpoints    = each.value.service_endpoints
+&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;use-a-list-of-objects&#34;&gt;Use a list of objects&lt;/h3&gt;
+&lt;p&gt;We can also use a list of objects, but then we can only use name and one extra property.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;variable &amp;#34;subnets_list&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;  description = &amp;#34;Required. A map of string, object with the subnet definition&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;  type    = list(object({
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;    name = string
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;    address_prefixes     = list(string)
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;    service_endpoints    = list(string)
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;  }))
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;  default = [
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;    {
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;      name : &amp;#34;firewall_subnet&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;      address_prefixes : [&amp;#34;10.12.0.0/24&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;      service_endpoints : [&amp;#34;Microsoft.Sql&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;    },
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;    {
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;      name : &amp;#34;jumpbox_subnet&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;      address_prefixes : [&amp;#34;10.12.1.0/24&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;      service_endpoints : [&amp;#34;Microsoft.Sql&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;    }
+&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;  ]
+&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The for_each meta-argument accepts a map or a set of strings, so we need to translate the list to a map.
+We say: we set the key of the map to the unique subnet.name, and the value is the complete subnet object.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;resource &amp;#34;azurerm_subnet&amp;#34; &amp;#34;subnet&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;  for_each = { for subnet in var.subnets : subnet.name =&amp;gt; subnet }
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;    name                 = &amp;#34;${var.prefix}-${each.key}&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;    resource_group_name  = azurerm_resource_group.otherrg[&amp;#34;projectx-prod-we&amp;#34;].name
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;    virtual_network_name = azurerm_virtual_network.vnet.name
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;    address_prefixes     = each.value.address_prefixes
+&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;    service_endpoints    = each.value.service_endpoints
+&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;take-aways&#34;&gt;Take aways&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Terraform can give you headaches.&lt;/li&gt;
+&lt;li&gt;For_each accepts a map. A map is a dictionary, with a key and a value. The value can be a complex property like an an object or a list.&lt;/li&gt;
+&lt;li&gt;When using a list, we need to transform the list to a map by setting a key and a value with the arrow notation. We can set the value to a complex object.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;complete-example&#34;&gt;Complete example&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;terraform {
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;  required_providers {
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;    azurerm = {
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;      source  = &amp;#34;hashicorp/azurerm&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;      version = &amp;#34;=3.2.0&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;    }
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;  }
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;# Configure the Microsoft Azure Provider
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;provider &amp;#34;azurerm&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;  features {}
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;variable &amp;#34;prefix&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;  default = &amp;#34;headache-dev&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;variable &amp;#34;network_portion&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;  default = &amp;#34;10.14&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;23&lt;/span&gt;//using locals, not variables, because Terraform does not support variables in variables (variable nesting)
+&lt;span class=&#34;ln&#34;&gt;24&lt;/span&gt;locals {
+&lt;span class=&#34;ln&#34;&gt;25&lt;/span&gt;  common_tags = {
+&lt;span class=&#34;ln&#34;&gt;26&lt;/span&gt;    environment   = &amp;#34;sratch&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;27&lt;/span&gt;    creation_date = formatdate(&amp;#34;YYYY-MM-01&amp;#34;, timestamp())
+&lt;span class=&#34;ln&#34;&gt;28&lt;/span&gt;  }
+&lt;span class=&#34;ln&#34;&gt;29&lt;/span&gt;  subnets-map = {
+&lt;span class=&#34;ln&#34;&gt;30&lt;/span&gt;      &amp;#34;db-subnet&amp;#34; = {
+&lt;span class=&#34;ln&#34;&gt;31&lt;/span&gt;        address_prefixes  = [&amp;#34;${var.network_portion}.1.0/24&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;32&lt;/span&gt;        service_endpoints = [&amp;#34;Microsoft.AzureCosmosDB&amp;#34;, &amp;#34;Microsoft.Sql&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;33&lt;/span&gt;      }
+&lt;span class=&#34;ln&#34;&gt;34&lt;/span&gt;      &amp;#34;generic-subnet&amp;#34; = {
+&lt;span class=&#34;ln&#34;&gt;35&lt;/span&gt;        address_prefixes  = [&amp;#34;${var.network_portion}.2.0/24&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;36&lt;/span&gt;        service_endpoints = [&amp;#34;Microsoft.Storage&amp;#34;, &amp;#34;Microsoft.KeyVault&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;37&lt;/span&gt;    }
+&lt;span class=&#34;ln&#34;&gt;38&lt;/span&gt;  }
+&lt;span class=&#34;ln&#34;&gt;39&lt;/span&gt;  subnets-list = [
+&lt;span class=&#34;ln&#34;&gt;40&lt;/span&gt;    {
+&lt;span class=&#34;ln&#34;&gt;41&lt;/span&gt;      name = &amp;#34;fw-subnet&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;42&lt;/span&gt;      address_prefixes  = [&amp;#34;${var.network_portion}.3.0/24&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;43&lt;/span&gt;      service_endpoints = [&amp;#34;Microsoft.AzureCosmosDB&amp;#34;, &amp;#34;Microsoft.Sql&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;44&lt;/span&gt;    },
+&lt;span class=&#34;ln&#34;&gt;45&lt;/span&gt;    {
+&lt;span class=&#34;ln&#34;&gt;46&lt;/span&gt;      name = &amp;#34;vm-subnet&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;47&lt;/span&gt;      address_prefixes  = [&amp;#34;${var.network_portion}.4.0/24&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;48&lt;/span&gt;      service_endpoints = [&amp;#34;Microsoft.Storage&amp;#34;, &amp;#34;Microsoft.KeyVault&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;49&lt;/span&gt;    }
+&lt;span class=&#34;ln&#34;&gt;50&lt;/span&gt;  ]
+&lt;span class=&#34;ln&#34;&gt;51&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt;52&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;53&lt;/span&gt;resource &amp;#34;azurerm_resource_group&amp;#34; &amp;#34;vnetgroup&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;54&lt;/span&gt;  location = &amp;#34;westeurope&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;55&lt;/span&gt;  name     = &amp;#34;${var.prefix}-rg&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;56&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt;57&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;58&lt;/span&gt;resource &amp;#34;azurerm_virtual_network&amp;#34; &amp;#34;vnet&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;59&lt;/span&gt;  address_space       = [&amp;#34;${var.network_portion}.0.0/16&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;60&lt;/span&gt;  location            = &amp;#34;westeurope&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;61&lt;/span&gt;  name                = &amp;#34;${var.prefix}-vnet&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;62&lt;/span&gt;  resource_group_name = azurerm_resource_group.vnetgroup.name
+&lt;span class=&#34;ln&#34;&gt;63&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt;64&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;65&lt;/span&gt;resource &amp;#34;azurerm_subnet&amp;#34; &amp;#34;subnet&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;66&lt;/span&gt;  for_each = { for subnet in local.subnets-list : subnet.name =&amp;gt; subnet }
+&lt;span class=&#34;ln&#34;&gt;67&lt;/span&gt;  name                 = &amp;#34;${var.prefix}-${each.key}&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;68&lt;/span&gt;  resource_group_name  = azurerm_resource_group.vnetgroup.name
+&lt;span class=&#34;ln&#34;&gt;69&lt;/span&gt;  virtual_network_name = azurerm_virtual_network.vnet.name
+&lt;span class=&#34;ln&#34;&gt;70&lt;/span&gt;  address_prefixes = each.value.address_prefixes
+&lt;span class=&#34;ln&#34;&gt;71&lt;/span&gt;  service_endpoints = each.value.service_endpoints
+&lt;span class=&#34;ln&#34;&gt;72&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;73&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt;74&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;75&lt;/span&gt;resource &amp;#34;azurerm_subnet&amp;#34; &amp;#34;subnet2&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;76&lt;/span&gt;  for_each = local.subnets-map
+&lt;span class=&#34;ln&#34;&gt;77&lt;/span&gt;  name                 = &amp;#34;${var.prefix}-${each.key}&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;78&lt;/span&gt;  resource_group_name  = azurerm_resource_group.vnetgroup.name
+&lt;span class=&#34;ln&#34;&gt;79&lt;/span&gt;  virtual_network_name = azurerm_virtual_network.vnet.name
+&lt;span class=&#34;ln&#34;&gt;80&lt;/span&gt;  address_prefixes = each.value.address_prefixes
+&lt;span class=&#34;ln&#34;&gt;81&lt;/span&gt;  service_endpoints = each.value.service_endpoints
+&lt;span class=&#34;ln&#34;&gt;82&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;other-musings&#34;&gt;Other musings&lt;/h2&gt;
+&lt;p&gt;What I don&#39;t like in the above examples, is that my subnet object definition is incomplete. There is no resource_group_name or location, because we use the values of the vnet definition for that. Can&#39;t we add those properties to our object definition?&lt;br&gt;
+That would lead to a whole lot of repetition, because we can&#39;t use variables in variables. Terraform will fail when using nested variables (can not interpolate variables when using a datastructure as a variable). And optional properties in an object are not (yet?) supported.
+What we could do to solve this is to create a local variable. Locals support variable nesting.
+Anyway I will stick to using the root value.&lt;/p&gt;
+&lt;p&gt;In next posts we will discuss modules and maybe also dynamics.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/58594506/how-to-for-each-through-a-listobjects-in-terraform-0-12&#34;&gt;https://stackoverflow.com/questions/58594506/how-to-for-each-through-a-listobjects-in-terraform-0-12&lt;/a&gt;
+&lt;a href=&#34;https://www.reddit.com/r/Terraform/comments/hyqago/difference_between_maps_and_objects/&#34;&gt;https://www.reddit.com/r/Terraform/comments/hyqago/difference_between_maps_and_objects/&lt;/a&gt;
+&lt;a href=&#34;https://www.terraform.io/language/meta-arguments/for_each&#34;&gt;https://www.terraform.io/language/meta-arguments/for_each&lt;/a&gt;&lt;/p&gt;
+
+        
+      </description>
     </item>
     
     <item>
@@ -24,9 +245,88 @@ So you can create a map of key value pairs (aka a dictionary) and use it to defi
       <pubDate>Tue, 21 Dec 2021 08:24:21 +0100</pubDate>
       
       <guid>https://moonstreet.nl/post/terraform-patterns-conditionals/</guid>
-      <description>This is a back to basics post about a Terraform pattern: conditionals. It&#39;s Azure centric.
-Conditionals: if then else Imagine we want a resource group name to follow the rules of naming convention but in other cases we don&#39;t want to. So if there is a naming convention, implement that, if not than do not.
-For example, the naming convention should follow this pattern: &amp;lt;projectname&amp;gt;-&amp;lt;environment&amp;gt;-&amp;lt;resource&amp;gt; . We want every resource to be prefixed by that pattern.</description>
+      <description>
+        
+          &lt;p&gt;This is a back to basics post about a Terraform pattern: conditionals.
+It&#39;s Azure centric.&lt;/p&gt;
+&lt;h2 id=&#34;conditionals-if-then-else&#34;&gt;Conditionals: if then else&lt;/h2&gt;
+&lt;p&gt;Imagine we want a resource group name to follow the rules of naming convention but in other cases we don&#39;t want to.
+So if there is a naming convention, implement that, if not than do not.&lt;/p&gt;
+&lt;p&gt;For example, the naming convention should follow this pattern: &lt;code&gt;&amp;lt;projectname&amp;gt;-&amp;lt;environment&amp;gt;-&amp;lt;resource&amp;gt;&lt;/code&gt; .
+We want every resource to be prefixed by that pattern. So if the prefix is set, please use the prefix pattern, else just take the variable of the full name.&lt;/p&gt;
+&lt;p&gt;This is where the ternary operator comes in.
+If var.prefix is an empty string then the result is &amp;quot;my-prefix-rg&amp;quot;, but otherwise it is the actual value of var.rg_name:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Symbol&lt;/th&gt;
+&lt;th&gt;Meaning&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;if var.prefix&lt;/td&gt;
+&lt;td&gt;condition&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;?&lt;/td&gt;
+&lt;td&gt;then&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;do stuff&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:&lt;/td&gt;
+&lt;td&gt;else&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;do other stuff&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;# condition ? true_val : false_val
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;name  = var.rg_name == null ? &amp;#34;${var.prefix}-rg&amp;#34; : var.rg_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A full example&lt;/p&gt;
+&lt;p&gt;main.tf&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;resource &amp;#34;azurerm_resource_group&amp;#34; &amp;#34;rg&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;  name     = var.rg_name == null ? &amp;#34;${var.prefix}-rg&amp;#34; : var.rg_name
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;  location = var.location
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;  tags     = var.tags
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;variables.tf&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;variable prefix {
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;  default = &amp;#34;projextx-dev&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;variable rg_name {
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;  default = null
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;variable &amp;#34;location&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;  default = &amp;#34;westeurope&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;}
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;# let&amp;#39;s add tags
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;variable &amp;#34;tags&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;  default = {
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;    owner = &amp;#34;jacqueline&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;    department = &amp;#34;research&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;  }
+&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;what-about-the-null-value&#34;&gt;What about the null value?&lt;/h2&gt;
+&lt;p&gt;Terraform v0.12 allows assigning the special value null to an argument to mark it as &amp;quot;unset&amp;quot;. So a module can allow its caller to conditionally override a value while retaining the default behavior if the value is not defined.&lt;/p&gt;
+&lt;p&gt;In other words:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;null can be used with conditionals&lt;/li&gt;
+&lt;li&gt;in other cases: null does not mean a resource does not get created. It just means its default behaviour will be applied.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.hashicorp.com/blog/terraform-0-12-conditional-operator-improvements&#34;&gt;https://www.hashicorp.com/blog/terraform-0-12-conditional-operator-improvements&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The next pattern will be loops.&lt;/p&gt;
+
+        
+      </description>
     </item>
     
     <item>
@@ -35,8 +335,121 @@ For example, the naming convention should follow this pattern: &amp;lt;projectna
       <pubDate>Tue, 29 Dec 2020 13:30:21 +0100</pubDate>
       
       <guid>https://moonstreet.nl/post/aks-nodepools/</guid>
-      <description>In Azure Kubernetes Service (AKS), nodes of the same configuration are grouped together into node pools. These node pools contain the underlying VMs that run your applications. The initial number of nodes and their size (SKU) is defined when you create an AKS cluster, which creates a system node pool. To support applications that have different compute or storage demands, you can create additional user node pools.
-I just copied the above text from here because it is just right.</description>
+      <description>
+        
+          &lt;p&gt;&lt;strong&gt;In Azure Kubernetes Service (AKS), nodes of the same configuration are grouped together into node pools.&lt;/strong&gt; These node pools contain the underlying VMs that run your applications.
+The initial number of nodes and their size (SKU) is defined when you create an AKS cluster, which creates a system node pool. To support applications that have different compute or storage demands, you can create additional user node pools.&lt;/p&gt;
+&lt;p&gt;I just copied the above text from &lt;a href=&#34;https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools&#34;&gt;here&lt;/a&gt; because it is just right. To have a full understanding of node pools I encourage you to read the whole article. Also, if you plan to run Azure Kubernetes in production, I can recommend &lt;a href=&#34;https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads&#34;&gt;this article&lt;/a&gt; as well. It&#39;s all about the sizing baby!&lt;/p&gt;
+&lt;p&gt;This post is about deploying node pools with Terraform. I assume a bit of prior knowledge about Azure and Terraform modules.&lt;/p&gt;
+&lt;p&gt;Because we run multiple instances of AKS I thought to make the number of node pools and their properties variable. &lt;a href=&#34;https://www.danielstechblog.io/terraform-working-with-aks-multiple-node-pools-in-tf-azure-provider-version-1-37/&#34;&gt;This&lt;/a&gt; article directed me in that direction.&lt;/p&gt;
+&lt;p&gt;At work, we have a git repo with multiple cluster definitions (I treat them like cattle). The clusters are deployed in a Jenkins pipeline.&lt;/p&gt;
+&lt;h2 id=&#34;terraform-config&#34;&gt;Terraform config&lt;/h2&gt;
+&lt;p&gt;My goal is to create 3 node pools:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;a system node pool for system pods&lt;/li&gt;
+&lt;li&gt;an infra node pool for infra pods (Vault, Elasticsearch and Prometheus to be precise)&lt;/li&gt;
+&lt;li&gt;an app node pool for our LOB apps&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you define an AKS cluster, following the Terraform &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster&#34;&gt;documentation&lt;/a&gt; you will note that there is a default node pool block, but there isn&#39;t a definition of for extra node pools. In fact, there is a separate resource, namely the &lt;a href=&#34;https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/kubernetes_cluster_node_pool&#34;&gt;azurerm_kubernetes_cluster_node_pool&lt;/a&gt; resource.&lt;/p&gt;
+&lt;p&gt;My definition of the azurerm_kubernetes_cluster_node_pool is like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;resource &amp;#34;azurerm_kubernetes_cluster_node_pool&amp;#34; &amp;#34;pools&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;  lifecycle {
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;    ignore_changes = [
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;      node_count
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;    ]
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;  }
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;  for_each = var.az_aks_additional_node_pools
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;  kubernetes_cluster_id = azurerm_kubernetes_cluster.kube.id
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;  name                  = each.value.name
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;  mode                  = each.value.mode
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;  node_count            = each.value.node_count
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;  vm_size               = each.value.vm_size
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;  availability_zones    = [&amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;  max_pods              = 250
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;  os_disk_size_gb       = 128
+&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;  node_taints           = each.value.taints
+&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;  node_labels           = each.value.labels
+&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;  enable_auto_scaling   = each.value.cluster_auto_scaling
+&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;  min_count             = each.value.cluster_auto_scaling_min_count
+&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;  max_count             = each.value.cluster_auto_scaling_max_count
+&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We will be using the for_each expression to be able to define and deploy multiple nodepools later.
+The variable is defined as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;variable &amp;#34;az_aks_additional_node_pools&amp;#34; {
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;  type = map(object({
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;    node_count                     = number
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;    name                           = string
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;    mode                           = string
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;    vm_size                        = string
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;    taints                         = list(string)
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;    cluster_auto_scaling           = bool
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;    cluster_auto_scaling_min_count = number
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;    cluster_auto_scaling_max_count = number
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;    labels                         = map(string)
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;  }))
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Look at &#39;taints&#39; and &#39;labels&#39;: taint is a list of strings whereas labels are a map of strings. It took me an hour or so to figure this out, but I was also watching television at the same time. You need the labels, and the taints to configure your workloads (deployments and statefulsets) to direct the pods to the correct node pool.&lt;/p&gt;
+&lt;p&gt;Finally, this is how I define 3 node pools for a cluster. This will result in:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;  az_aks_additional_node_pools = {
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;    systempool = {
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;      node_count = 1
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;      mode = &amp;#34;System&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;      name = &amp;#34;system&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;      vm_size    = &amp;#34;Standard_B2ms&amp;#34;
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;      zones      = [&amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;      taints = [
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;        &amp;#34;CriticalAddonsOnly=true:NoSchedule&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;      ]
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;      labels = null
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;      cluster_auto_scaling           = false
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;      cluster_auto_scaling_min_count = null
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;      cluster_auto_scaling_max_count = null
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;    }
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;    infrapool = {
+&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;      node_count = 1
+&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;      name = &amp;#34;infra&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;      mode = &amp;#34;User&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;      vm_size    = &amp;#34;Standard_B2ms&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;      zones      = [&amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;      taints = [
+&lt;span class=&#34;ln&#34;&gt;23&lt;/span&gt;        &amp;#34;InfraAddonsOnly=true:NoSchedule&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;24&lt;/span&gt;      ]
+&lt;span class=&#34;ln&#34;&gt;25&lt;/span&gt;      labels = {
+&lt;span class=&#34;ln&#34;&gt;26&lt;/span&gt;        nodepool: &amp;#34;infra&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;27&lt;/span&gt;      }
+&lt;span class=&#34;ln&#34;&gt;28&lt;/span&gt;      cluster_auto_scaling           = false
+&lt;span class=&#34;ln&#34;&gt;29&lt;/span&gt;      cluster_auto_scaling_min_count = null
+&lt;span class=&#34;ln&#34;&gt;30&lt;/span&gt;      cluster_auto_scaling_max_count = null
+&lt;span class=&#34;ln&#34;&gt;31&lt;/span&gt;    }
+&lt;span class=&#34;ln&#34;&gt;32&lt;/span&gt;    apppool = {
+&lt;span class=&#34;ln&#34;&gt;33&lt;/span&gt;      node_count                     = 2
+&lt;span class=&#34;ln&#34;&gt;34&lt;/span&gt;      name                           = &amp;#34;app16&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;35&lt;/span&gt;      mode                           = &amp;#34;User&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;36&lt;/span&gt;      vm_size                        = &amp;#34;Standard_A2m_v2&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;37&lt;/span&gt;      zones                          = [&amp;#34;1&amp;#34;, &amp;#34;2&amp;#34;]
+&lt;span class=&#34;ln&#34;&gt;38&lt;/span&gt;      taints                         = null
+&lt;span class=&#34;ln&#34;&gt;39&lt;/span&gt;      labels = {
+&lt;span class=&#34;ln&#34;&gt;40&lt;/span&gt;        nodepool: &amp;#34;app16&amp;#34;
+&lt;span class=&#34;ln&#34;&gt;41&lt;/span&gt;      }
+&lt;span class=&#34;ln&#34;&gt;42&lt;/span&gt;      cluster_auto_scaling           = true
+&lt;span class=&#34;ln&#34;&gt;43&lt;/span&gt;      cluster_auto_scaling_min_count = 2
+&lt;span class=&#34;ln&#34;&gt;44&lt;/span&gt;      cluster_auto_scaling_max_count = 4
+&lt;span class=&#34;ln&#34;&gt;45&lt;/span&gt;    }
+&lt;span class=&#34;ln&#34;&gt;46&lt;/span&gt;  }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;cleaning-up-the-default-node-pool&#34;&gt;Cleaning up the default node pool&lt;/h2&gt;
+&lt;p&gt;When the cluster and its node pools are deployed, I let Jenkins clean up de the default node pool because it&#39;s no longer needed.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;az aks nodepool delete --resource-group &lt;span class=&#34;nv&#34;&gt;$CLUSTER_FULL_NAME&lt;/span&gt;-rg --cluster-name &lt;span class=&#34;nv&#34;&gt;$CLUSTER_FULL_NAME&lt;/span&gt; --name default
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;resources-and-inspiration&#34;&gt;Resources and inspiration&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.danielstechblog.io/&#34;&gt;https://www.danielstechblog.io/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads&#34;&gt;https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools&#34;&gt;https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+        
+      </description>
     </item>
     
   </channel>
