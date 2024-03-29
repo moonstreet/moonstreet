@@ -28,11 +28,13 @@ Let's keep it simple and easy to remember!
 
 ## nnn
 [nnn](https://github.com/jarun/nnn) a full-featured terminal file manager.
+Here are some commands you will need:
 
 | Shortcut | Description                     |
 |----------|---------------------------------|
 | !        | Open folder in terminal         |
 | e        | Open selected file in vim       |
+| q (or 2x esc        | Exit nnn                        |
 
 <img src="/nnn.png" width="400">
 
