@@ -1,19 +1,12 @@
 
 <!DOCTYPE html>
 <html lang="en" data-figures="true" class="page">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 <title>Terraform patterns: loops | Moonstreet</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.124.1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-186145252-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-186145252-1');
-</script>
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
@@ -21,29 +14,29 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@jacqoutthebox">
 <meta name="twitter:title" content="Terraform patterns: loops" />
-<meta property="og:url" content="https://moonstreet.nl/post/terraform-patterns-loops/" />
+<meta property="og:url" content="http://localhost:1313/post/terraform-patterns-loops/" />
 <meta property="og:title" content="Terraform patterns: loops" />
 <meta property="og:description" content="Article description." />
-<meta property="og:image" content="https://moonstreet.nl/images/thumbnail.png" />
-<link rel="apple-touch-icon" sizes="180x180" href='https://moonstreet.nl/icons/apple-touch-icon.png'>
-<link rel="icon" type="image/png" sizes="32x32" href='https://moonstreet.nl/icons/favicon-32x32.png'>
-<link rel="manifest" href='https://moonstreet.nl/icons/site.webmanifest'>
-<link rel="mask-icon" href='https://moonstreet.nl/safari-pinned-tab.svg' color="#002538">
+<meta property="og:image" content="http://localhost:1313/images/thumbnail.png" />
+<link rel="apple-touch-icon" sizes="180x180" href='http://localhost:1313/icons/apple-touch-icon.png'>
+<link rel="icon" type="image/png" sizes="32x32" href='http://localhost:1313/icons/favicon-32x32.png'>
+<link rel="manifest" href='http://localhost:1313/icons/site.webmanifest'>
+<link rel="mask-icon" href='http://localhost:1313/safari-pinned-tab.svg' color="#002538">
 <meta name="msapplication-TileColor" content="#002538">
 <meta name="theme-color" content="#002538">
 
-<link rel="canonical" href="https://moonstreet.nl/post/terraform-patterns-loops/">
+<link rel="canonical" href="http://localhost:1313/post/terraform-patterns-loops/">
 
     
 
     
     
-    <link rel="preload" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity = "sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" as="style" crossorigin="anonymous">
-    <link rel="preload" href="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" as="script" integrity=
-    "sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous">
+    <link rel="preload" href="http://localhost:1313/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity = "sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" as="style" crossorigin="anonymous">
+    <link rel="preload" href="http://localhost:1313/js/bundle.min.070d32d12b123a1477f5a2486473e7b62f760db8490f46e6d15f85def3e5b93cacb079d0dfcd8dea7c8f3b6e936ec18c9be654b2ec1fd07f39bbd5c09fb06fd4.js" as="script" integrity=
+    "sha512-Bw0y0SsSOhR39aJIZHPnti92DbhJD0bm0V&#43;F3vPluTyssHnQ382N6nyPO26TbsGMm&#43;ZUsuwf0H85u9XAn7Bv1A==" crossorigin="anonymous">
 
     
-    <link rel="stylesheet" type="text/css" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity="sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity="sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" crossorigin="anonymous">
     
   </head>
   
@@ -53,8 +46,8 @@
 
 <header class="nav_header" >
   <nav class="nav">
-    <a href='https://moonstreet.nl/' class="nav_brand nav_item">
-      <img src="https://moonstreet.nl/logos/bitma10.png" class="logo">
+    <a href='http://localhost:1313/' class="nav_brand nav_item">
+      <img src="http://localhost:1313/logos/bitma10.png" class="logo">
       <div class="nav_close">
         <div>
           <svg class="icon">
@@ -73,13 +66,13 @@
         
 
   <div class="nav_parent">
-    <a href="https://moonstreet.nl/" class="nav_item">Home </a>
+    <a href="http://localhost:1313/" class="nav_item">Home </a>
   </div>
   <div class="nav_parent">
-    <a href="https://moonstreet.nl/about/" class="nav_item">About </a>
+    <a href="http://localhost:1313/about/" class="nav_item">About </a>
   </div>
   <div class="nav_parent">
-    <a href="https://moonstreet.nl/" class="nav_item">Links <img src='https://moonstreet.nl/icons/caret-icon.svg' alt="icon" class="nav_icon"></a>
+    <a href="http://localhost:1313/" class="nav_item">Links <img src='http://localhost:1313/icons/caret-icon.svg' alt="icon" class="nav_icon"></a>
     <div class="nav_sub">
       <span class="nav_child"></span>
         <a href="https://kubernetes.io/" class="nav_child nav_item">Kubernetes</a>
@@ -89,15 +82,18 @@
         <a href="https://thenewstack.io/" class="nav_child nav_item">The New Stack</a>
     </div>
   </div>
+  <div class="nav_parent">
+    <a href="http://localhost:1313/post/prompt/" class="nav_item">Prompt </a>
+  </div>
       
       <div class="nav_parent">
         <a href="#" class="nav_item">🌐</a>
         <div class="nav_sub">
           <span class="nav_child"></span>
           
-          <a href="https://moonstreet.nl/" class="nav_child nav_item">English</a>
+          <a href="http://localhost:1313/" class="nav_child nav_item">English</a>
           
-          <a href="https://moonstreet.nl/pt/" class="nav_child nav_item"></a>
+          <a href="http://localhost:1313/pt/" class="nav_child nav_item"></a>
           
         </div>
       </div>
@@ -114,7 +110,7 @@
 </svg>
   </a>
     
-  <a href="https://moonstreet.nl/index.xml">
+  <a href="http://localhost:1313/index.xml">
     <svg class="icon">
   <use xlink:href="#rss"></use>
 </svg>
@@ -140,11 +136,11 @@
 </svg>
     <span class="post_date">
       Dec 21, 2021</span>
-      <a href='https://moonstreet.nl/tags/kubernetes' class="post_tag button button_translucent">kubernetes
+      <a href='http://localhost:1313/tags/kubernetes' class="post_tag button button_translucent">kubernetes
       </a>
-      <a href='https://moonstreet.nl/tags/azure' class="post_tag button button_translucent">azure
+      <a href='http://localhost:1313/tags/azure' class="post_tag button button_translucent">azure
       </a>
-      <a href='https://moonstreet.nl/tags/terraform' class="post_tag button button_translucent">terraform
+      <a href='http://localhost:1313/tags/terraform' class="post_tag button button_translucent">terraform
       </a>
 </div>
 
@@ -155,42 +151,42 @@
 <p>If you want to create multiple instances of, say, an Azure resource group, you can add a for_each argument.
 The for_each argument accepts a map or a set, and creates an instance for each item in that map or set.</p>
 <p>So you can create a map of key value pairs (aka a dictionary) and use it to define multiple resource groups:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>resource &#34;azurerm_resource_group&#34; &#34;rg&#34; {
-<span class="ln"> 2</span>    for_each = {
-<span class="ln"> 3</span>        projectx-dev-we = &#34;westeurope&#34;
-<span class="ln"> 4</span>        projectx-dev-us = &#34;eastus&#34;
-<span class="ln"> 5</span>    }
-<span class="ln"> 6</span>    
-<span class="ln"> 7</span>    name     = &#34;${each.key}-rg&#34;
-<span class="ln"> 8</span>    location = each.value
-<span class="ln"> 9</span>    tags     = var.tags
-<span class="ln">10</span>}
-</code></pre></div><p>Sure enough you can also refactor the map as a variable</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>variable &#34;groups&#34; {
-<span class="ln"> 2</span>    default = {
-<span class="ln"> 3</span>        projectx-prod-we = &#34;westeurope&#34;
-<span class="ln"> 4</span>        projectx-prod-us = &#34;eastus&#34;
-<span class="ln"> 5</span>    }
-<span class="ln"> 6</span>}
-<span class="ln"> 7</span>
-<span class="ln"> 8</span>resource &#34;azurerm_resource_group&#34; &#34;otherrg&#34; {
-<span class="ln"> 9</span>    for_each = var.groups
-<span class="ln">10</span>
-<span class="ln">11</span>    name     = &#34;${each.key}-rg&#34;
-<span class="ln">12</span>    location = each.value
-<span class="ln">13</span>    tags     = var.tags
-<span class="ln">14</span>}
-</code></pre></div><h2 id="reference-the-resource-group">Reference the resource group</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_resource_group&#34;</span> <span class="s2">&#34;rg&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="n">for_each</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        <span class="n">projectx</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">we</span> <span class="o">=</span> <span class="s2">&#34;westeurope&#34;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">        <span class="n">projectx</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">us</span> <span class="o">=</span> <span class="s2">&#34;eastus&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="n">name</span>     <span class="o">=</span> <span class="s2">&#34;${each.key}-rg&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="n">location</span> <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">value</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="n">tags</span>     <span class="o">=</span> <span class="k">var</span><span class="o">.</span><span class="n">tags</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Sure enough you can also refactor the map as a variable</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">variable</span> <span class="s2">&#34;groups&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="n">default</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">        <span class="n">projectx</span><span class="o">-</span><span class="n">prod</span><span class="o">-</span><span class="n">we</span> <span class="o">=</span> <span class="s2">&#34;westeurope&#34;</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">        <span class="n">projectx</span><span class="o">-</span><span class="n">prod</span><span class="o">-</span><span class="n">us</span> <span class="o">=</span> <span class="s2">&#34;eastus&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_resource_group&#34;</span> <span class="s2">&#34;otherrg&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="n">for_each</span> <span class="o">=</span> <span class="k">var</span><span class="o">.</span><span class="n">groups</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="n">name</span>     <span class="o">=</span> <span class="s2">&#34;${each.key}-rg&#34;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="n">location</span> <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">value</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="n">tags</span>     <span class="o">=</span> <span class="k">var</span><span class="o">.</span><span class="n">tags</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="reference-the-resource-group">Reference the resource group</h2>
 <p>What if you want to create a storage account in each of the created resource groups?
 You could reference the resource group that has been created in the previous step as follows:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>resource &#34;azurerm_storage_account&#34; &#34;storage&#34; {
-<span class="ln">2</span>    name = &#34;projectxprodwestorage&#34;
-<span class="ln">3</span>    account_replication_type = &#34;LRS&#34;
-<span class="ln">4</span>    account_tier = &#34;Standard&#34;
-<span class="ln">5</span>    location = azurerm_resource_group.otherrg[&#34;projectx-prod-we&#34;].location
-<span class="ln">6</span>    resource_group_name = azurerm_resource_group.otherrg[&#34;projectx-prod-we&#34;].name
-<span class="ln">7</span>}
-</code></pre></div><h2 id="a-more-complex-example">A more complex example</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">resource &#34;azurerm_storage_account&#34; &#34;storage&#34; {
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    name = &#34;projectxprodwestorage&#34;
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    account_replication_type = &#34;LRS&#34;
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    account_tier = &#34;Standard&#34;
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    location = azurerm_resource_group.otherrg[&#34;projectx-prod-we&#34;].location
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    resource_group_name = azurerm_resource_group.otherrg[&#34;projectx-prod-we&#34;].name
+</span></span><span class="line"><span class="ln">7</span><span class="cl">}
+</span></span></code></pre></div><h2 id="a-more-complex-example">A more complex example</h2>
 <p>A map has just some keys and values. They can contain many things of just one type.
 But what if I want to use strings, lists and so on to create my new resource, in a for-each loop?
 For  example, I have a vnet and it contains multiple subnets. So there is a one-to-many relationship.
@@ -198,170 +194,170 @@ For  example, I have a vnet and it contains multiple subnets. So there is a one-
 <p>The subnet has a name (of type string) and address_prefixes (of type list).
 Objects to the rescue! Objects contain a specific set of things of many types, and they have name whih we can refer to.</p>
 <p>First, let's create the vnet:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>resource &#34;azurerm_virtual_network&#34; &#34;vnet&#34; {
-<span class="ln">2</span>    address_space       = [&#34;172.16.0.0/16&#34;]
-<span class="ln">3</span>    location            = azurerm_resource_group.otherrg[&#34;projectx-prod-we&#34;].location
-<span class="ln">4</span>    name                = &#34;${var.prefix}-vnet&#34;
-<span class="ln">5</span>    resource_group_name = azurerm_resource_group.otherrg[&#34;projectx-prod-we&#34;].name
-<span class="ln">6</span>}
-</code></pre></div><p>Let's now define the subnets.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_virtual_network&#34;</span> <span class="s2">&#34;vnet&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="n">address_space</span>       <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;172.16.0.0/16&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="n">location</span>            <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">otherrg</span><span class="p">[</span><span class="s2">&#34;projectx-prod-we&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">location</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="n">name</span>                <span class="o">=</span> <span class="s2">&#34;${var.prefix}-vnet&#34;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="n">resource_group_name</span> <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">otherrg</span><span class="p">[</span><span class="s2">&#34;projectx-prod-we&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Let's now define the subnets.</p>
 <h3 id="use-a-map-of-objects">Use a map of objects</h3>
 <p>As the variable type we could use a map of objects. The key is the name of the subnet instance, and the value is a complex object with the subnet properties.
 The map has the following definition:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>variable &#34;subnets&#34; {
-<span class="ln">2</span>  type = map(object({
-<span class="ln">3</span>    address_prefixes  = list(string)
-<span class="ln">4</span>    service_endpoints = list(string)
-<span class="ln">5</span>  }))
-<span class="ln">6</span>}
-</code></pre></div><p>We can then define the default value of the variable:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>variable &#34;subnets&#34; {
-<span class="ln"> 2</span>    type    = map(object({
-<span class="ln"> 3</span>    address_prefixes     = list(string)
-<span class="ln"> 4</span>    service_endpoints    = list(string)
-<span class="ln"> 5</span>    }))
-<span class="ln"> 6</span>    default = {
-<span class="ln"> 7</span>        &#34;db-subnet&#34; = {
-<span class="ln"> 8</span>            address_prefixes     = [&#34;172.16.1.0/24&#34;]
-<span class="ln"> 9</span>            service_endpoints    = [&#34;Microsoft.AzureCosmosDB&#34;,&#34;Microsoft.Sql&#34;]
-<span class="ln">10</span>        },
-<span class="ln">11</span>        &#34;generic-subnet&#34; = {
-<span class="ln">12</span>            address_prefixes     = [&#34;172.16.2.0/24&#34;]
-<span class="ln">13</span>            service_endpoints    = [&#34;Microsoft.Storage&#34;,&#34;Microsoft.KeyVault&#34;]
-<span class="ln">14</span>        }
-<span class="ln">15</span>    }
-<span class="ln">16</span>}
-</code></pre></div><p>Finally, we can create the subnets as follows:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>resource &#34;azurerm_subnet&#34; &#34;subnet&#34; {
-<span class="ln">2</span>    for_each = var.subnets
-<span class="ln">3</span>    name                 = &#34;${var.prefix}-${each.key}&#34;
-<span class="ln">4</span>    resource_group_name  = azurerm_resource_group.otherrg[&#34;projectx-prod-we&#34;].name
-<span class="ln">5</span>    virtual_network_name = azurerm_virtual_network.vnet.name
-<span class="ln">6</span>    address_prefixes     = each.value.address_prefixes
-<span class="ln">7</span>    service_endpoints    = each.value.service_endpoints
-<span class="ln">8</span>}
-</code></pre></div><h3 id="use-a-list-of-objects">Use a list of objects</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">variable</span> <span class="s2">&#34;subnets&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="n">type</span> <span class="o">=</span> <span class="n">map</span><span class="p">(</span><span class="n">object</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="n">address_prefixes</span>  <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="n">service_endpoints</span> <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  <span class="p">}))</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>We can then define the default value of the variable:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">variable</span> <span class="s2">&#34;subnets&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="n">type</span>    <span class="o">=</span> <span class="n">map</span><span class="p">(</span><span class="n">object</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="n">address_prefixes</span>     <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="n">service_endpoints</span>    <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="p">}))</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="n">default</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="s2">&#34;db-subnet&#34;</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">            <span class="n">address_prefixes</span>     <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;172.16.1.0/24&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">            <span class="n">service_endpoints</span>    <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Microsoft.AzureCosmosDB&#34;</span><span class="p">,</span><span class="s2">&#34;Microsoft.Sql&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        <span class="s2">&#34;generic-subnet&#34;</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">            <span class="n">address_prefixes</span>     <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;172.16.2.0/24&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">            <span class="n">service_endpoints</span>    <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Microsoft.Storage&#34;</span><span class="p">,</span><span class="s2">&#34;Microsoft.KeyVault&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Finally, we can create the subnets as follows:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_subnet&#34;</span> <span class="s2">&#34;subnet&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">    <span class="n">for_each</span> <span class="o">=</span> <span class="k">var</span><span class="o">.</span><span class="n">subnets</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="n">name</span>                 <span class="o">=</span> <span class="s2">&#34;${var.prefix}-${each.key}&#34;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="n">resource_group_name</span>  <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">otherrg</span><span class="p">[</span><span class="s2">&#34;projectx-prod-we&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="n">virtual_network_name</span> <span class="o">=</span> <span class="n">azurerm_virtual_network</span><span class="o">.</span><span class="n">vnet</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="n">address_prefixes</span>     <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">address_prefixes</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    <span class="n">service_endpoints</span>    <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">service_endpoints</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="use-a-list-of-objects">Use a list of objects</h3>
 <p>We can also use a list of objects, but then we can only use name and one extra property.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>variable &#34;subnets_list&#34; {
-<span class="ln"> 2</span>  description = &#34;Required. A map of string, object with the subnet definition&#34;
-<span class="ln"> 3</span>  type    = list(object({
-<span class="ln"> 4</span>    name = string
-<span class="ln"> 5</span>    address_prefixes     = list(string)
-<span class="ln"> 6</span>    service_endpoints    = list(string)
-<span class="ln"> 7</span>  }))
-<span class="ln"> 8</span>  default = [
-<span class="ln"> 9</span>    {
-<span class="ln">10</span>      name : &#34;firewall_subnet&#34;
-<span class="ln">11</span>      address_prefixes : [&#34;10.12.0.0/24&#34;]
-<span class="ln">12</span>      service_endpoints : [&#34;Microsoft.Sql&#34;]
-<span class="ln">13</span>    },
-<span class="ln">14</span>    {
-<span class="ln">15</span>      name : &#34;jumpbox_subnet&#34;
-<span class="ln">16</span>      address_prefixes : [&#34;10.12.1.0/24&#34;]
-<span class="ln">17</span>      service_endpoints : [&#34;Microsoft.Sql&#34;]
-<span class="ln">18</span>    }
-<span class="ln">19</span>  ]
-<span class="ln">20</span>}
-</code></pre></div><p>The for_each meta-argument accepts a map or a set of strings, so we need to translate the list to a map.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">variable</span> <span class="s2">&#34;subnets_list&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="n">description</span> <span class="o">=</span> <span class="s2">&#34;Required. A map of string, object with the subnet definition&#34;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="n">type</span>    <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="n">object</span><span class="p">({</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="n">string</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="n">address_prefixes</span>     <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="n">service_endpoints</span>    <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">}))</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="n">default</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">      <span class="n">name</span> <span class="p">:</span> <span class="s2">&#34;firewall_subnet&#34;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">      <span class="n">address_prefixes</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&#34;10.12.0.0/24&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">      <span class="n">service_endpoints</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&#34;Microsoft.Sql&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">      <span class="n">name</span> <span class="p">:</span> <span class="s2">&#34;jumpbox_subnet&#34;</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">      <span class="n">address_prefixes</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&#34;10.12.1.0/24&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">      <span class="n">service_endpoints</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&#34;Microsoft.Sql&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The for_each meta-argument accepts a map or a set of strings, so we need to translate the list to a map.
 We say: we set the key of the map to the unique subnet.name, and the value is the complete subnet object.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>resource &#34;azurerm_subnet&#34; &#34;subnet&#34; {
-<span class="ln">2</span>  for_each = { for subnet in var.subnets : subnet.name =&gt; subnet }
-<span class="ln">3</span>    name                 = &#34;${var.prefix}-${each.key}&#34;
-<span class="ln">4</span>    resource_group_name  = azurerm_resource_group.otherrg[&#34;projectx-prod-we&#34;].name
-<span class="ln">5</span>    virtual_network_name = azurerm_virtual_network.vnet.name
-<span class="ln">6</span>    address_prefixes     = each.value.address_prefixes
-<span class="ln">7</span>    service_endpoints    = each.value.service_endpoints
-<span class="ln">8</span>}
-</code></pre></div><h2 id="take-aways">Take aways</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_subnet&#34;</span> <span class="s2">&#34;subnet&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="n">for_each</span> <span class="o">=</span> <span class="p">{</span> <span class="k">for</span> <span class="n">subnet</span> <span class="ow">in</span> <span class="k">var</span><span class="o">.</span><span class="n">subnets</span> <span class="p">:</span> <span class="n">subnet</span><span class="o">.</span><span class="n">name</span> <span class="o">=&gt;</span> <span class="n">subnet</span> <span class="p">}</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">    <span class="n">name</span>                 <span class="o">=</span> <span class="s2">&#34;${var.prefix}-${each.key}&#34;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">    <span class="n">resource_group_name</span>  <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">otherrg</span><span class="p">[</span><span class="s2">&#34;projectx-prod-we&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">    <span class="n">virtual_network_name</span> <span class="o">=</span> <span class="n">azurerm_virtual_network</span><span class="o">.</span><span class="n">vnet</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="ln">6</span><span class="cl">    <span class="n">address_prefixes</span>     <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">address_prefixes</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">    <span class="n">service_endpoints</span>    <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">service_endpoints</span>
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="take-aways">Take aways</h2>
 <ul>
 <li>Terraform can give you headaches.</li>
 <li>For_each accepts a map. A map is a dictionary, with a key and a value. The value can be a complex property like an an object or a list.</li>
 <li>When using a list, we need to transform the list to a map by setting a key and a value with the arrow notation. We can set the value to a complex object.</li>
 </ul>
 <h2 id="complete-example">Complete example</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>terraform {
-<span class="ln"> 2</span>  required_providers {
-<span class="ln"> 3</span>    azurerm = {
-<span class="ln"> 4</span>      source  = &#34;hashicorp/azurerm&#34;
-<span class="ln"> 5</span>      version = &#34;=3.2.0&#34;
-<span class="ln"> 6</span>    }
-<span class="ln"> 7</span>  }
-<span class="ln"> 8</span>}
-<span class="ln"> 9</span>
-<span class="ln">10</span># Configure the Microsoft Azure Provider
-<span class="ln">11</span>provider &#34;azurerm&#34; {
-<span class="ln">12</span>  features {}
-<span class="ln">13</span>}
-<span class="ln">14</span>
-<span class="ln">15</span>variable &#34;prefix&#34; {
-<span class="ln">16</span>  default = &#34;headache-dev&#34;
-<span class="ln">17</span>}
-<span class="ln">18</span>
-<span class="ln">19</span>variable &#34;network_portion&#34; {
-<span class="ln">20</span>  default = &#34;10.14&#34;
-<span class="ln">21</span>}
-<span class="ln">22</span>
-<span class="ln">23</span>//using locals, not variables, because Terraform does not support variables in variables (variable nesting)
-<span class="ln">24</span>locals {
-<span class="ln">25</span>  common_tags = {
-<span class="ln">26</span>    environment   = &#34;sratch&#34;
-<span class="ln">27</span>    creation_date = formatdate(&#34;YYYY-MM-01&#34;, timestamp())
-<span class="ln">28</span>  }
-<span class="ln">29</span>  subnets-map = {
-<span class="ln">30</span>      &#34;db-subnet&#34; = {
-<span class="ln">31</span>        address_prefixes  = [&#34;${var.network_portion}.1.0/24&#34;]
-<span class="ln">32</span>        service_endpoints = [&#34;Microsoft.AzureCosmosDB&#34;, &#34;Microsoft.Sql&#34;]
-<span class="ln">33</span>      }
-<span class="ln">34</span>      &#34;generic-subnet&#34; = {
-<span class="ln">35</span>        address_prefixes  = [&#34;${var.network_portion}.2.0/24&#34;]
-<span class="ln">36</span>        service_endpoints = [&#34;Microsoft.Storage&#34;, &#34;Microsoft.KeyVault&#34;]
-<span class="ln">37</span>    }
-<span class="ln">38</span>  }
-<span class="ln">39</span>  subnets-list = [
-<span class="ln">40</span>    {
-<span class="ln">41</span>      name = &#34;fw-subnet&#34;
-<span class="ln">42</span>      address_prefixes  = [&#34;${var.network_portion}.3.0/24&#34;]
-<span class="ln">43</span>      service_endpoints = [&#34;Microsoft.AzureCosmosDB&#34;, &#34;Microsoft.Sql&#34;]
-<span class="ln">44</span>    },
-<span class="ln">45</span>    {
-<span class="ln">46</span>      name = &#34;vm-subnet&#34;
-<span class="ln">47</span>      address_prefixes  = [&#34;${var.network_portion}.4.0/24&#34;]
-<span class="ln">48</span>      service_endpoints = [&#34;Microsoft.Storage&#34;, &#34;Microsoft.KeyVault&#34;]
-<span class="ln">49</span>    }
-<span class="ln">50</span>  ]
-<span class="ln">51</span>}
-<span class="ln">52</span>
-<span class="ln">53</span>resource &#34;azurerm_resource_group&#34; &#34;vnetgroup&#34; {
-<span class="ln">54</span>  location = &#34;westeurope&#34;
-<span class="ln">55</span>  name     = &#34;${var.prefix}-rg&#34;
-<span class="ln">56</span>}
-<span class="ln">57</span>
-<span class="ln">58</span>resource &#34;azurerm_virtual_network&#34; &#34;vnet&#34; {
-<span class="ln">59</span>  address_space       = [&#34;${var.network_portion}.0.0/16&#34;]
-<span class="ln">60</span>  location            = &#34;westeurope&#34;
-<span class="ln">61</span>  name                = &#34;${var.prefix}-vnet&#34;
-<span class="ln">62</span>  resource_group_name = azurerm_resource_group.vnetgroup.name
-<span class="ln">63</span>}
-<span class="ln">64</span>
-<span class="ln">65</span>resource &#34;azurerm_subnet&#34; &#34;subnet&#34; {
-<span class="ln">66</span>  for_each = { for subnet in local.subnets-list : subnet.name =&gt; subnet }
-<span class="ln">67</span>  name                 = &#34;${var.prefix}-${each.key}&#34;
-<span class="ln">68</span>  resource_group_name  = azurerm_resource_group.vnetgroup.name
-<span class="ln">69</span>  virtual_network_name = azurerm_virtual_network.vnet.name
-<span class="ln">70</span>  address_prefixes = each.value.address_prefixes
-<span class="ln">71</span>  service_endpoints = each.value.service_endpoints
-<span class="ln">72</span>
-<span class="ln">73</span>}
-<span class="ln">74</span>
-<span class="ln">75</span>resource &#34;azurerm_subnet&#34; &#34;subnet2&#34; {
-<span class="ln">76</span>  for_each = local.subnets-map
-<span class="ln">77</span>  name                 = &#34;${var.prefix}-${each.key}&#34;
-<span class="ln">78</span>  resource_group_name  = azurerm_resource_group.vnetgroup.name
-<span class="ln">79</span>  virtual_network_name = azurerm_virtual_network.vnet.name
-<span class="ln">80</span>  address_prefixes = each.value.address_prefixes
-<span class="ln">81</span>  service_endpoints = each.value.service_endpoints
-<span class="ln">82</span>}
-</code></pre></div><h2 id="other-musings">Other musings</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">terraform</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="n">required_providers</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="n">azurerm</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">      <span class="n">source</span>  <span class="o">=</span> <span class="s2">&#34;hashicorp/azurerm&#34;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">      <span class="n">version</span> <span class="o">=</span> <span class="s2">&#34;=3.2.0&#34;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1"># Configure the Microsoft Azure Provider</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="n">provider</span> <span class="s2">&#34;azurerm&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="n">features</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="n">variable</span> <span class="s2">&#34;prefix&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  <span class="n">default</span> <span class="o">=</span> <span class="s2">&#34;headache-dev&#34;</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">
+</span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="n">variable</span> <span class="s2">&#34;network_portion&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  <span class="n">default</span> <span class="o">=</span> <span class="s2">&#34;10.14&#34;</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">
+</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="o">//</span><span class="n">using</span> <span class="n">locals</span><span class="p">,</span> <span class="ow">not</span> <span class="n">variables</span><span class="p">,</span> <span class="n">because</span> <span class="n">Terraform</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">support</span> <span class="n">variables</span> <span class="ow">in</span> <span class="n">variables</span> <span class="p">(</span><span class="n">variable</span> <span class="n">nesting</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="n">locals</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">  <span class="n">common_tags</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">    <span class="n">environment</span>   <span class="o">=</span> <span class="s2">&#34;sratch&#34;</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">    <span class="n">creation_date</span> <span class="o">=</span> <span class="n">formatdate</span><span class="p">(</span><span class="s2">&#34;YYYY-MM-01&#34;</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">())</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">  <span class="n">subnets</span><span class="o">-</span><span class="n">map</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">      <span class="s2">&#34;db-subnet&#34;</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">        <span class="n">address_prefixes</span>  <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;${var.network_portion}.1.0/24&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">        <span class="n">service_endpoints</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Microsoft.AzureCosmosDB&#34;</span><span class="p">,</span> <span class="s2">&#34;Microsoft.Sql&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">      <span class="s2">&#34;generic-subnet&#34;</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">        <span class="n">address_prefixes</span>  <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;${var.network_portion}.2.0/24&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">        <span class="n">service_endpoints</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Microsoft.Storage&#34;</span><span class="p">,</span> <span class="s2">&#34;Microsoft.KeyVault&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">  <span class="n">subnets</span><span class="o">-</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">      <span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;fw-subnet&#34;</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">      <span class="n">address_prefixes</span>  <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;${var.network_portion}.3.0/24&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">      <span class="n">service_endpoints</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Microsoft.AzureCosmosDB&#34;</span><span class="p">,</span> <span class="s2">&#34;Microsoft.Sql&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="ln">46</span><span class="cl">      <span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;vm-subnet&#34;</span>
+</span></span><span class="line"><span class="ln">47</span><span class="cl">      <span class="n">address_prefixes</span>  <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;${var.network_portion}.4.0/24&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl">      <span class="n">service_endpoints</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Microsoft.Storage&#34;</span><span class="p">,</span> <span class="s2">&#34;Microsoft.KeyVault&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">49</span><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="ln">50</span><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">52</span><span class="cl">
+</span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_resource_group&#34;</span> <span class="s2">&#34;vnetgroup&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">54</span><span class="cl">  <span class="n">location</span> <span class="o">=</span> <span class="s2">&#34;westeurope&#34;</span>
+</span></span><span class="line"><span class="ln">55</span><span class="cl">  <span class="n">name</span>     <span class="o">=</span> <span class="s2">&#34;${var.prefix}-rg&#34;</span>
+</span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">57</span><span class="cl">
+</span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_virtual_network&#34;</span> <span class="s2">&#34;vnet&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">59</span><span class="cl">  <span class="n">address_space</span>       <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;${var.network_portion}.0.0/16&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="ln">60</span><span class="cl">  <span class="n">location</span>            <span class="o">=</span> <span class="s2">&#34;westeurope&#34;</span>
+</span></span><span class="line"><span class="ln">61</span><span class="cl">  <span class="n">name</span>                <span class="o">=</span> <span class="s2">&#34;${var.prefix}-vnet&#34;</span>
+</span></span><span class="line"><span class="ln">62</span><span class="cl">  <span class="n">resource_group_name</span> <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">vnetgroup</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="ln">63</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">64</span><span class="cl">
+</span></span><span class="line"><span class="ln">65</span><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_subnet&#34;</span> <span class="s2">&#34;subnet&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">66</span><span class="cl">  <span class="n">for_each</span> <span class="o">=</span> <span class="p">{</span> <span class="k">for</span> <span class="n">subnet</span> <span class="ow">in</span> <span class="n">local</span><span class="o">.</span><span class="n">subnets</span><span class="o">-</span><span class="n">list</span> <span class="p">:</span> <span class="n">subnet</span><span class="o">.</span><span class="n">name</span> <span class="o">=&gt;</span> <span class="n">subnet</span> <span class="p">}</span>
+</span></span><span class="line"><span class="ln">67</span><span class="cl">  <span class="n">name</span>                 <span class="o">=</span> <span class="s2">&#34;${var.prefix}-${each.key}&#34;</span>
+</span></span><span class="line"><span class="ln">68</span><span class="cl">  <span class="n">resource_group_name</span>  <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">vnetgroup</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="ln">69</span><span class="cl">  <span class="n">virtual_network_name</span> <span class="o">=</span> <span class="n">azurerm_virtual_network</span><span class="o">.</span><span class="n">vnet</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="ln">70</span><span class="cl">  <span class="n">address_prefixes</span> <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">address_prefixes</span>
+</span></span><span class="line"><span class="ln">71</span><span class="cl">  <span class="n">service_endpoints</span> <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">service_endpoints</span>
+</span></span><span class="line"><span class="ln">72</span><span class="cl">
+</span></span><span class="line"><span class="ln">73</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">74</span><span class="cl">
+</span></span><span class="line"><span class="ln">75</span><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_subnet&#34;</span> <span class="s2">&#34;subnet2&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">76</span><span class="cl">  <span class="n">for_each</span> <span class="o">=</span> <span class="n">local</span><span class="o">.</span><span class="n">subnets</span><span class="o">-</span><span class="n">map</span>
+</span></span><span class="line"><span class="ln">77</span><span class="cl">  <span class="n">name</span>                 <span class="o">=</span> <span class="s2">&#34;${var.prefix}-${each.key}&#34;</span>
+</span></span><span class="line"><span class="ln">78</span><span class="cl">  <span class="n">resource_group_name</span>  <span class="o">=</span> <span class="n">azurerm_resource_group</span><span class="o">.</span><span class="n">vnetgroup</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="ln">79</span><span class="cl">  <span class="n">virtual_network_name</span> <span class="o">=</span> <span class="n">azurerm_virtual_network</span><span class="o">.</span><span class="n">vnet</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="ln">80</span><span class="cl">  <span class="n">address_prefixes</span> <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">address_prefixes</span>
+</span></span><span class="line"><span class="ln">81</span><span class="cl">  <span class="n">service_endpoints</span> <span class="o">=</span> <span class="n">each</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">service_endpoints</span>
+</span></span><span class="line"><span class="ln">82</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="other-musings">Other musings</h2>
 <p>What I don't like in the above examples, is that my subnet object definition is incomplete. There is no resource_group_name or location, because we use the values of the vnet definition for that. Can't we add those properties to our object definition?<br>
 That would lead to a whole lot of repetition, because we can't use variables in variables. Terraform will fail when using nested variables (can not interpolate variables when using a datastructure as a variable). And optional properties in an object are not (yet?) supported.
 What we could do to solve this is to create a local variable. Locals support variable nesting.
@@ -382,46 +378,46 @@ Anyway I will stick to using the root value.</p>
       <div>
         A collection of notes about technology so I don&#39;t forget what it is all about.
       </div>
-      <a href='https://moonstreet.nl/about/' class="button mt-1" role="button">Read More</a>
+      <a href='http://localhost:1313/about/' class="button mt-1" role="button">Read More</a>
     <h2 class="mt-4">Featured Posts</h2>
     <ul>
       <li>
-        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+        <a href="http://localhost:1313/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
     </ul>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
-        <a href="https://moonstreet.nl/post/terraform-patterns-conditionals/" class="nav-link">Terraform patterns: conditionals</a>
+        <a href="http://localhost:1313/post/terraform-patterns-modules/" class="nav-link">Terraform patterns: modules</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
+        <a href="http://localhost:1313/post/terraform-patterns-conditionals/" class="nav-link">Terraform patterns: conditionals</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+        <a href="http://localhost:1313/post/prompt/" class="nav-link">Prompt</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
+        <a href="http://localhost:1313/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
+        <a href="http://localhost:1313/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/kubernetes-readonly/" class="nav-link">Create a read-only user in Kubernetes</a>
+        <a href="http://localhost:1313/post/cobra-cli/" class="nav-link">Cobra Cli</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/k3s-with-ingress/" class="nav-link">Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</a>
+        <a href="http://localhost:1313/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/k3s-libvirt/" class="nav-link">K3s on a Centos vm</a>
+        <a href="http://localhost:1313/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
       </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
-        <a href='https://moonstreet.nl/categories/technology/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/categories/technology/' class="post_tag button button_translucent">
           TECHNOLOGY
-          <span class="button_tally">10</span>
+          <span class="button_tally">13</span>
         </a>
         
         
@@ -430,47 +426,57 @@ Anyway I will stick to using the root value.</p>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
       <nav class="tags_nav">
-        <a href='https://moonstreet.nl/tags/linux/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/linux/' class="post_tag button button_translucent">
           LINUX
+          <span class="button_tally">8</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/kubernetes/' class="post_tag button button_translucent">
+          KUBERNETES
           <span class="button_tally">6</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
-          KUBERNETES
-          <span class="button_tally">5</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/azure/' class="post_tag button button_translucent">
           AZURE
-          <span class="button_tally">3</span>
+          <span class="button_tally">4</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/k3s/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/terraform/' class="post_tag button button_translucent">
+          TERRAFORM
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/k3s/' class="post_tag button button_translucent">
           K3S
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/terraform/' class="post_tag button button_translucent">
-          TERRAFORM
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/vim/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/vim/' class="post_tag button button_translucent">
           VIM
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/index/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/golang/' class="post_tag button button_translucent">
+          GOLANG
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/index/' class="post_tag button button_translucent">
           INDEX
           <span class="button_tally">1</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/kind/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/kind/' class="post_tag button button_translucent">
           KIND
           <span class="button_tally">1</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/virtualization/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/terminal/' class="post_tag button button_translucent">
+          TERMINAL
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/virtualization/' class="post_tag button button_translucent">
           VIRTUALIZATION
           <span class="button_tally">1</span>
         </a>
@@ -537,7 +543,7 @@ Anyway I will stick to using the root value.</p>
 
 <footer class="footer">
   <div class="footer_inner wrap pale">
-    <img src='https://moonstreet.nl/icons/apple-touch-icon.png' class="icon icon_2 transparent">
+    <img src='http://localhost:1313/icons/apple-touch-icon.png' class="icon icon_2 transparent">
     <p>Copyright<span class="year"></span> MOONSTREET. All Rights Reserved</p><a class="to_top" href="#documentTop">
   <svg class="icon">
   <use xlink:href="#arrow"></use>
@@ -547,7 +553,7 @@ Anyway I will stick to using the root value.</p>
   </div>
 </footer>
 
-    <script type="text/javascript" src="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" integrity="sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/bundle.min.070d32d12b123a1477f5a2486473e7b62f760db8490f46e6d15f85def3e5b93cacb079d0dfcd8dea7c8f3b6e936ec18c9be654b2ec1fd07f39bbd5c09fb06fd4.js" integrity="sha512-Bw0y0SsSOhR39aJIZHPnti92DbhJD0bm0V&#43;F3vPluTyssHnQ382N6nyPO26TbsGMm&#43;ZUsuwf0H85u9XAn7Bv1A==" crossorigin="anonymous"></script>
     
   </body>
 </html>

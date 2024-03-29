@@ -1,19 +1,12 @@
 
 <!DOCTYPE html>
 <html lang="en" data-figures="true" class="page">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 <title>Terraform patterns: conditionals | Moonstreet</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.124.1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-186145252-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-186145252-1');
-</script>
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
@@ -21,29 +14,29 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@jacqoutthebox">
 <meta name="twitter:title" content="Terraform patterns: conditionals" />
-<meta property="og:url" content="https://moonstreet.nl/post/terraform-patterns-conditionals/" />
+<meta property="og:url" content="http://localhost:1313/post/terraform-patterns-conditionals/" />
 <meta property="og:title" content="Terraform patterns: conditionals" />
 <meta property="og:description" content="Article description." />
-<meta property="og:image" content="https://moonstreet.nl/images/thumbnail.png" />
-<link rel="apple-touch-icon" sizes="180x180" href='https://moonstreet.nl/icons/apple-touch-icon.png'>
-<link rel="icon" type="image/png" sizes="32x32" href='https://moonstreet.nl/icons/favicon-32x32.png'>
-<link rel="manifest" href='https://moonstreet.nl/icons/site.webmanifest'>
-<link rel="mask-icon" href='https://moonstreet.nl/safari-pinned-tab.svg' color="#002538">
+<meta property="og:image" content="http://localhost:1313/images/thumbnail.png" />
+<link rel="apple-touch-icon" sizes="180x180" href='http://localhost:1313/icons/apple-touch-icon.png'>
+<link rel="icon" type="image/png" sizes="32x32" href='http://localhost:1313/icons/favicon-32x32.png'>
+<link rel="manifest" href='http://localhost:1313/icons/site.webmanifest'>
+<link rel="mask-icon" href='http://localhost:1313/safari-pinned-tab.svg' color="#002538">
 <meta name="msapplication-TileColor" content="#002538">
 <meta name="theme-color" content="#002538">
 
-<link rel="canonical" href="https://moonstreet.nl/post/terraform-patterns-conditionals/">
+<link rel="canonical" href="http://localhost:1313/post/terraform-patterns-conditionals/">
 
     
 
     
     
-    <link rel="preload" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity = "sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" as="style" crossorigin="anonymous">
-    <link rel="preload" href="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" as="script" integrity=
-    "sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous">
+    <link rel="preload" href="http://localhost:1313/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity = "sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" as="style" crossorigin="anonymous">
+    <link rel="preload" href="http://localhost:1313/js/bundle.min.070d32d12b123a1477f5a2486473e7b62f760db8490f46e6d15f85def3e5b93cacb079d0dfcd8dea7c8f3b6e936ec18c9be654b2ec1fd07f39bbd5c09fb06fd4.js" as="script" integrity=
+    "sha512-Bw0y0SsSOhR39aJIZHPnti92DbhJD0bm0V&#43;F3vPluTyssHnQ382N6nyPO26TbsGMm&#43;ZUsuwf0H85u9XAn7Bv1A==" crossorigin="anonymous">
 
     
-    <link rel="stylesheet" type="text/css" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity="sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity="sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" crossorigin="anonymous">
     
   </head>
   
@@ -53,8 +46,8 @@
 
 <header class="nav_header" >
   <nav class="nav">
-    <a href='https://moonstreet.nl/' class="nav_brand nav_item">
-      <img src="https://moonstreet.nl/logos/bitma10.png" class="logo">
+    <a href='http://localhost:1313/' class="nav_brand nav_item">
+      <img src="http://localhost:1313/logos/bitma10.png" class="logo">
       <div class="nav_close">
         <div>
           <svg class="icon">
@@ -73,13 +66,13 @@
         
 
   <div class="nav_parent">
-    <a href="https://moonstreet.nl/" class="nav_item">Home </a>
+    <a href="http://localhost:1313/" class="nav_item">Home </a>
   </div>
   <div class="nav_parent">
-    <a href="https://moonstreet.nl/about/" class="nav_item">About </a>
+    <a href="http://localhost:1313/about/" class="nav_item">About </a>
   </div>
   <div class="nav_parent">
-    <a href="https://moonstreet.nl/" class="nav_item">Links <img src='https://moonstreet.nl/icons/caret-icon.svg' alt="icon" class="nav_icon"></a>
+    <a href="http://localhost:1313/" class="nav_item">Links <img src='http://localhost:1313/icons/caret-icon.svg' alt="icon" class="nav_icon"></a>
     <div class="nav_sub">
       <span class="nav_child"></span>
         <a href="https://kubernetes.io/" class="nav_child nav_item">Kubernetes</a>
@@ -89,15 +82,18 @@
         <a href="https://thenewstack.io/" class="nav_child nav_item">The New Stack</a>
     </div>
   </div>
+  <div class="nav_parent">
+    <a href="http://localhost:1313/post/prompt/" class="nav_item">Prompt </a>
+  </div>
       
       <div class="nav_parent">
         <a href="#" class="nav_item">🌐</a>
         <div class="nav_sub">
           <span class="nav_child"></span>
           
-          <a href="https://moonstreet.nl/" class="nav_child nav_item">English</a>
+          <a href="http://localhost:1313/" class="nav_child nav_item">English</a>
           
-          <a href="https://moonstreet.nl/pt/" class="nav_child nav_item"></a>
+          <a href="http://localhost:1313/pt/" class="nav_child nav_item"></a>
           
         </div>
       </div>
@@ -114,7 +110,7 @@
 </svg>
   </a>
     
-  <a href="https://moonstreet.nl/index.xml">
+  <a href="http://localhost:1313/index.xml">
     <svg class="icon">
   <use xlink:href="#rss"></use>
 </svg>
@@ -140,11 +136,11 @@
 </svg>
     <span class="post_date">
       Dec 21, 2021</span>
-      <a href='https://moonstreet.nl/tags/kubernetes' class="post_tag button button_translucent">kubernetes
+      <a href='http://localhost:1313/tags/kubernetes' class="post_tag button button_translucent">kubernetes
       </a>
-      <a href='https://moonstreet.nl/tags/azure' class="post_tag button button_translucent">azure
+      <a href='http://localhost:1313/tags/azure' class="post_tag button button_translucent">azure
       </a>
-      <a href='https://moonstreet.nl/tags/terraform' class="post_tag button button_translucent">terraform
+      <a href='http://localhost:1313/tags/terraform' class="post_tag button button_translucent">terraform
       </a>
 </div>
 
@@ -190,36 +186,36 @@ If var.prefix is an empty string then the result is &quot;my-prefix-rg&quot;, bu
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span># condition ? true_val : false_val
-<span class="ln">2</span>name  = var.rg_name == null ? &#34;${var.prefix}-rg&#34; : var.rg_name
-</code></pre></div><p>A full example</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># condition ? true_val : false_val</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">name</span>  <span class="o">=</span> <span class="k">var</span><span class="o">.</span><span class="n">rg_name</span> <span class="o">==</span> <span class="n">null</span> <span class="err">?</span> <span class="s2">&#34;${var.prefix}-rg&#34;</span> <span class="p">:</span> <span class="k">var</span><span class="o">.</span><span class="n">rg_name</span>
+</span></span></code></pre></div><p>A full example</p>
 <p>main.tf</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>resource &#34;azurerm_resource_group&#34; &#34;rg&#34; {
-<span class="ln">2</span>  name     = var.rg_name == null ? &#34;${var.prefix}-rg&#34; : var.rg_name
-<span class="ln">3</span>  location = var.location
-<span class="ln">4</span>  tags     = var.tags
-<span class="ln">5</span>}
-</code></pre></div><p>variables.tf</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>variable prefix {
-<span class="ln"> 2</span>  default = &#34;projextx-dev&#34;
-<span class="ln"> 3</span>}
-<span class="ln"> 4</span>
-<span class="ln"> 5</span>variable rg_name {
-<span class="ln"> 6</span>  default = null
-<span class="ln"> 7</span>}
-<span class="ln"> 8</span>
-<span class="ln"> 9</span>variable &#34;location&#34; {
-<span class="ln">10</span>  default = &#34;westeurope&#34;
-<span class="ln">11</span>}
-<span class="ln">12</span>
-<span class="ln">13</span># let&#39;s add tags
-<span class="ln">14</span>variable &#34;tags&#34; {
-<span class="ln">15</span>  default = {
-<span class="ln">16</span>    owner = &#34;jacqueline&#34;
-<span class="ln">17</span>    department = &#34;research&#34;
-<span class="ln">18</span>  }
-<span class="ln">19</span>}
-</code></pre></div><h2 id="what-about-the-null-value">What about the null value?</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">resource</span> <span class="s2">&#34;azurerm_resource_group&#34;</span> <span class="s2">&#34;rg&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="n">name</span>     <span class="o">=</span> <span class="k">var</span><span class="o">.</span><span class="n">rg_name</span> <span class="o">==</span> <span class="n">null</span> <span class="err">?</span> <span class="s2">&#34;${var.prefix}-rg&#34;</span> <span class="p">:</span> <span class="k">var</span><span class="o">.</span><span class="n">rg_name</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="n">location</span> <span class="o">=</span> <span class="k">var</span><span class="o">.</span><span class="n">location</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  <span class="n">tags</span>     <span class="o">=</span> <span class="k">var</span><span class="o">.</span><span class="n">tags</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>variables.tf</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="n">variable</span> <span class="n">prefix</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  <span class="n">default</span> <span class="o">=</span> <span class="s2">&#34;projextx-dev&#34;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="n">variable</span> <span class="n">rg_name</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  <span class="n">default</span> <span class="o">=</span> <span class="n">null</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="n">variable</span> <span class="s2">&#34;location&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  <span class="n">default</span> <span class="o">=</span> <span class="s2">&#34;westeurope&#34;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="c1"># let&#39;s add tags</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="n">variable</span> <span class="s2">&#34;tags&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  <span class="n">default</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">    <span class="n">owner</span> <span class="o">=</span> <span class="s2">&#34;jacqueline&#34;</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="n">department</span> <span class="o">=</span> <span class="s2">&#34;research&#34;</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="what-about-the-null-value">What about the null value?</h2>
 <p>Terraform v0.12 allows assigning the special value null to an argument to mark it as &quot;unset&quot;. So a module can allow its caller to conditionally override a value while retaining the default behavior if the value is not defined.</p>
 <p>In other words:</p>
 <ul>
@@ -240,46 +236,49 @@ If var.prefix is an empty string then the result is &quot;my-prefix-rg&quot;, bu
       <div>
         A collection of notes about technology so I don&#39;t forget what it is all about.
       </div>
-      <a href='https://moonstreet.nl/about/' class="button mt-1" role="button">Read More</a>
+      <a href='http://localhost:1313/about/' class="button mt-1" role="button">Read More</a>
     <h2 class="mt-4">Featured Posts</h2>
     <ul>
       <li>
-        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+        <a href="http://localhost:1313/post/vim-find/" class="nav-link">Finding files quickly</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
     </ul>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
-        <a href="https://moonstreet.nl/post/terraform-patterns-loops/" class="nav-link">Terraform patterns: loops</a>
+        <a href="http://localhost:1313/post/vim-find/" class="nav-link">Finding files quickly</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
+        <a href="http://localhost:1313/post/terraform-patterns-modules/" class="nav-link">Terraform patterns: modules</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+        <a href="http://localhost:1313/post/terraform-patterns-loops/" class="nav-link">Terraform patterns: loops</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
+        <a href="http://localhost:1313/post/prompt/" class="nav-link">Prompt</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
+        <a href="http://localhost:1313/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/kubernetes-readonly/" class="nav-link">Create a read-only user in Kubernetes</a>
+        <a href="http://localhost:1313/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/k3s-with-ingress/" class="nav-link">Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</a>
+        <a href="http://localhost:1313/post/cobra-cli/" class="nav-link">Cobra Cli</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/k3s-libvirt/" class="nav-link">K3s on a Centos vm</a>
+        <a href="http://localhost:1313/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
       </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
-        <a href='https://moonstreet.nl/categories/technology/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/categories/technology/' class="post_tag button button_translucent">
           TECHNOLOGY
-          <span class="button_tally">10</span>
+          <span class="button_tally">14</span>
         </a>
         
         
@@ -288,47 +287,62 @@ If var.prefix is an empty string then the result is &quot;my-prefix-rg&quot;, bu
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
       <nav class="tags_nav">
-        <a href='https://moonstreet.nl/tags/linux/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/linux/' class="post_tag button button_translucent">
           LINUX
+          <span class="button_tally">9</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/kubernetes/' class="post_tag button button_translucent">
+          KUBERNETES
           <span class="button_tally">6</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
-          KUBERNETES
-          <span class="button_tally">5</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/azure/' class="post_tag button button_translucent">
           AZURE
-          <span class="button_tally">3</span>
+          <span class="button_tally">4</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/k3s/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/terraform/' class="post_tag button button_translucent">
+          TERRAFORM
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/k3s/' class="post_tag button button_translucent">
           K3S
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/terraform/' class="post_tag button button_translucent">
-          TERRAFORM
+        <a href='http://localhost:1313/tags/vim/' class="post_tag button button_translucent">
+          VIM
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/vim/' class="post_tag button button_translucent">
-          VIM
-          <span class="button_tally">2</span>
+        <a href='http://localhost:1313/tags/golang/' class="post_tag button button_translucent">
+          GOLANG
+          <span class="button_tally">1</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/index/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/index/' class="post_tag button button_translucent">
           INDEX
           <span class="button_tally">1</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/kind/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/kind/' class="post_tag button button_translucent">
           KIND
           <span class="button_tally">1</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/virtualization/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/mouseless/' class="post_tag button button_translucent">
+          MOUSELESS
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/terminal/' class="post_tag button button_translucent">
+          TERMINAL
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/virtualization/' class="post_tag button button_translucent">
           VIRTUALIZATION
           <span class="button_tally">1</span>
         </a>
@@ -395,7 +409,7 @@ If var.prefix is an empty string then the result is &quot;my-prefix-rg&quot;, bu
 
 <footer class="footer">
   <div class="footer_inner wrap pale">
-    <img src='https://moonstreet.nl/icons/apple-touch-icon.png' class="icon icon_2 transparent">
+    <img src='http://localhost:1313/icons/apple-touch-icon.png' class="icon icon_2 transparent">
     <p>Copyright<span class="year"></span> MOONSTREET. All Rights Reserved</p><a class="to_top" href="#documentTop">
   <svg class="icon">
   <use xlink:href="#arrow"></use>
@@ -405,7 +419,7 @@ If var.prefix is an empty string then the result is &quot;my-prefix-rg&quot;, bu
   </div>
 </footer>
 
-    <script type="text/javascript" src="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" integrity="sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/bundle.min.070d32d12b123a1477f5a2486473e7b62f760db8490f46e6d15f85def3e5b93cacb079d0dfcd8dea7c8f3b6e936ec18c9be654b2ec1fd07f39bbd5c09fb06fd4.js" integrity="sha512-Bw0y0SsSOhR39aJIZHPnti92DbhJD0bm0V&#43;F3vPluTyssHnQ382N6nyPO26TbsGMm&#43;ZUsuwf0H85u9XAn7Bv1A==" crossorigin="anonymous"></script>
     
   </body>
 </html>

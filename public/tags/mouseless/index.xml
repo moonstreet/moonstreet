@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mouseless on Moonstreet</title>
+    <link>http://localhost:1313/tags/mouseless/</link>
+    <description>Recent content in Mouseless on Moonstreet</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
+    <lastBuildDate>Fri, 29 Mar 2024 08:44:56 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/mouseless/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Finding files quickly</title>
+      <link>http://localhost:1313/post/vim-find/</link>
+      <pubDate>Fri, 29 Mar 2024 08:44:56 +0100</pubDate>
+      
+      <guid>http://localhost:1313/post/vim-find/</guid>
+      <description>
+        
+          &lt;h1 id=&#34;finding-files-with-fzf-and-ripgrep&#34;&gt;Finding files with fzf, and ripgrep.&lt;/h1&gt;
+&lt;p&gt;This is the next articial in the series &#39;mouseless&#39;. Find previous articles here:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://localhost:1313/post/terminal-workflow/&#34;&gt;Terminal workflow&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;http://localhost:1313/post/nice-vim-commands/&#34;&gt;Nice vim commands&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Why? Because navigating through files in can take a lot of time, especially if you are faced with a big git repo. However, tools like ripgrep and fzf can assist you here.&lt;/p&gt;
+&lt;p&gt;Let&#39;s keep it simple and easy to remember!&lt;/p&gt;
+&lt;h2 id=&#34;terminal&#34;&gt;Terminal&lt;/h2&gt;
+&lt;h3 id=&#34;fzf&#34;&gt;fzf&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/junegunn/fzf&#34;&gt;fzf&lt;/a&gt; is a tool that can help you deal with searching for files and then filter the results.
+Just typing &lt;code&gt;fzf&lt;/code&gt; in a folder will display all files and folders, and then you can carry on typing to narrow the results.&lt;/p&gt;
+&lt;h3 id=&#34;rg&#34;&gt;rg&lt;/h3&gt;
+&lt;h2 id=&#34;vim&#34;&gt;vim&lt;/h2&gt;
+&lt;p&gt;Wouldn&#39;t it be nice to edit the selected file immediately in vim?
+Yes it would. At this to your .zshrc or .bashrc:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; vimrg&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;local&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;rg --line-number --no-heading --color&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; fzf --ansi --delimiter&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;:&amp;#39;&lt;/span&gt; --preview &lt;span class=&#34;s1&#34;&gt;&amp;#39;rg --color=always --context 2 {1} {2}&amp;#39;&lt;/span&gt; --preview-window&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;hidden --no-height &lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[[&lt;/span&gt; -n &lt;span class=&#34;nv&#34;&gt;$file&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;local&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;file_path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$file&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; cut -d&lt;span class=&#34;s1&#34;&gt;&amp;#39;:&amp;#39;&lt;/span&gt; -f1&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;local&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;line_number&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$file&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; cut -d&lt;span class=&#34;s1&#34;&gt;&amp;#39;:&amp;#39;&lt;/span&gt; -f2&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;    vim &lt;span class=&#34;s2&#34;&gt;&amp;#34;+&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$line_number&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$file_path&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When running vimrg &amp;quot;encryption&amp;quot; it will open vim upon selecting the entry you want to edit.&lt;/p&gt;
+&lt;h3 id=&#34;fzf-in-vim&#34;&gt;fzf in vim&lt;/h3&gt;
+&lt;p&gt;When installing fzf in vim, it will actually use ripgrep under the covers to search the folder.
+It allows you to type &lt;code&gt;:Rg &amp;lt;searchterm&amp;gt;&lt;/code&gt; and then it will open a nice fzf preview window.&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

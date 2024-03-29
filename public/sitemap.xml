@@ -2,14 +2,14 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <sitemap>
-    <loc>https://moonstreet.nl/pt/sitemap.xml</loc>
+    <loc>http://localhost:1313/en/sitemap.xml</loc>
+    
+      <lastmod>2021-12-21T16:24:21+01:00</lastmod>
     
   </sitemap>
   
   <sitemap>
-    <loc>https://moonstreet.nl/en/sitemap.xml</loc>
-    
-      <lastmod>2021-12-21T11:24:21+01:00</lastmod>
+    <loc>http://localhost:1313/pt/sitemap.xml</loc>
     
   </sitemap>
   

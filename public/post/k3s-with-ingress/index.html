@@ -1,19 +1,12 @@
 
 <!DOCTYPE html>
 <html lang="en" data-figures="" class="page">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 <title>Install the Nginx ingress controller on K3s - or Kind - and deploy a web app | Moonstreet</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.124.1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-186145252-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-186145252-1');
-</script>
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
@@ -21,29 +14,29 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@jacqoutthebox">
 <meta name="twitter:title" content="Install the Nginx ingress controller on K3s - or Kind - and deploy a web app" />
-<meta property="og:url" content="https://moonstreet.nl/post/k3s-with-ingress/" />
+<meta property="og:url" content="http://localhost:1313/post/k3s-with-ingress/" />
 <meta property="og:title" content="Install the Nginx ingress controller on K3s - or Kind - and deploy a web app" />
 <meta property="og:description" content="Here is how to quickly install Kubernetes with ingress on your laptop. I use this to test and create operators with the Operator Framework. Still learning …" />
-<meta property="og:image" content="https://moonstreet.nl/images/thumbnail.png" />
-<link rel="apple-touch-icon" sizes="180x180" href='https://moonstreet.nl/icons/apple-touch-icon.png'>
-<link rel="icon" type="image/png" sizes="32x32" href='https://moonstreet.nl/icons/favicon-32x32.png'>
-<link rel="manifest" href='https://moonstreet.nl/icons/site.webmanifest'>
-<link rel="mask-icon" href='https://moonstreet.nl/safari-pinned-tab.svg' color="#002538">
+<meta property="og:image" content="http://localhost:1313/images/thumbnail.png" />
+<link rel="apple-touch-icon" sizes="180x180" href='http://localhost:1313/icons/apple-touch-icon.png'>
+<link rel="icon" type="image/png" sizes="32x32" href='http://localhost:1313/icons/favicon-32x32.png'>
+<link rel="manifest" href='http://localhost:1313/icons/site.webmanifest'>
+<link rel="mask-icon" href='http://localhost:1313/safari-pinned-tab.svg' color="#002538">
 <meta name="msapplication-TileColor" content="#002538">
 <meta name="theme-color" content="#002538">
 
-<link rel="canonical" href="https://moonstreet.nl/post/k3s-with-ingress/">
+<link rel="canonical" href="http://localhost:1313/post/k3s-with-ingress/">
 
     
 
     
     
-    <link rel="preload" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity = "sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" as="style" crossorigin="anonymous">
-    <link rel="preload" href="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" as="script" integrity=
-    "sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous">
+    <link rel="preload" href="http://localhost:1313/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity = "sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" as="style" crossorigin="anonymous">
+    <link rel="preload" href="http://localhost:1313/js/bundle.min.070d32d12b123a1477f5a2486473e7b62f760db8490f46e6d15f85def3e5b93cacb079d0dfcd8dea7c8f3b6e936ec18c9be654b2ec1fd07f39bbd5c09fb06fd4.js" as="script" integrity=
+    "sha512-Bw0y0SsSOhR39aJIZHPnti92DbhJD0bm0V&#43;F3vPluTyssHnQ382N6nyPO26TbsGMm&#43;ZUsuwf0H85u9XAn7Bv1A==" crossorigin="anonymous">
 
     
-    <link rel="stylesheet" type="text/css" href="https://moonstreet.nl/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity="sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/styles.2b3290fc6e94839826981c23ed76e1831472bd3f8af68332da00b97d9430b56bfb7e9394d5c09aca633c093c621709cdd745eec940be733933ac5d876223de52.css" integrity="sha512-KzKQ/G6Ug5gmmBwj7XbhgxRyvT&#43;K9oMy2gC5fZQwtWv7fpOU1cCaymM8CTxiFwnN10XuyUC&#43;czkzrF2HYiPeUg==" crossorigin="anonymous">
     
   </head>
   
@@ -54,8 +47,8 @@
 
 <header class="nav_header" >
   <nav class="nav">
-    <a href='https://moonstreet.nl/' class="nav_brand nav_item">
-      <img src="https://moonstreet.nl/logos/bitma10.png" class="logo">
+    <a href='http://localhost:1313/' class="nav_brand nav_item">
+      <img src="http://localhost:1313/logos/bitma10.png" class="logo">
       <div class="nav_close">
         <div>
           <svg class="icon">
@@ -74,13 +67,13 @@
         
 
   <div class="nav_parent">
-    <a href="https://moonstreet.nl/" class="nav_item">Home </a>
+    <a href="http://localhost:1313/" class="nav_item">Home </a>
   </div>
   <div class="nav_parent">
-    <a href="https://moonstreet.nl/about/" class="nav_item">About </a>
+    <a href="http://localhost:1313/about/" class="nav_item">About </a>
   </div>
   <div class="nav_parent">
-    <a href="https://moonstreet.nl/" class="nav_item">Links <img src='https://moonstreet.nl/icons/caret-icon.svg' alt="icon" class="nav_icon"></a>
+    <a href="http://localhost:1313/" class="nav_item">Links <img src='http://localhost:1313/icons/caret-icon.svg' alt="icon" class="nav_icon"></a>
     <div class="nav_sub">
       <span class="nav_child"></span>
         <a href="https://kubernetes.io/" class="nav_child nav_item">Kubernetes</a>
@@ -90,15 +83,18 @@
         <a href="https://thenewstack.io/" class="nav_child nav_item">The New Stack</a>
     </div>
   </div>
+  <div class="nav_parent">
+    <a href="http://localhost:1313/post/prompt/" class="nav_item">Prompt </a>
+  </div>
       
       <div class="nav_parent">
         <a href="#" class="nav_item">🌐</a>
         <div class="nav_sub">
           <span class="nav_child"></span>
           
-          <a href="https://moonstreet.nl/" class="nav_child nav_item">English</a>
+          <a href="http://localhost:1313/" class="nav_child nav_item">English</a>
           
-          <a href="https://moonstreet.nl/pt/" class="nav_child nav_item"></a>
+          <a href="http://localhost:1313/pt/" class="nav_child nav_item"></a>
           
         </div>
       </div>
@@ -115,7 +111,7 @@
 </svg>
   </a>
     
-  <a href="https://moonstreet.nl/index.xml">
+  <a href="http://localhost:1313/index.xml">
     <svg class="icon">
   <use xlink:href="#rss"></use>
 </svg>
@@ -141,13 +137,13 @@
 </svg>
     <span class="post_date">
       Dec 26, 2020</span>
-      <a href='https://moonstreet.nl/tags/kubernetes' class="post_tag button button_translucent">kubernetes
+      <a href='http://localhost:1313/tags/kubernetes' class="post_tag button button_translucent">kubernetes
       </a>
-      <a href='https://moonstreet.nl/tags/k3s' class="post_tag button button_translucent">k3s
+      <a href='http://localhost:1313/tags/k3s' class="post_tag button button_translucent">k3s
       </a>
-      <a href='https://moonstreet.nl/tags/kind' class="post_tag button button_translucent">kind
+      <a href='http://localhost:1313/tags/kind' class="post_tag button button_translucent">kind
       </a>
-      <a href='https://moonstreet.nl/tags/linux' class="post_tag button button_translucent">linux
+      <a href='http://localhost:1313/tags/linux' class="post_tag button button_translucent">linux
       </a>
 </div>
 
@@ -164,147 +160,147 @@ I am however more comfortable with the Nginx ingress controller so let's just in
 <p>In this post I will first install K3s, then install the Nginx ingress controller.
 Finally I will deploy a little go application (which is going to be fabulous later).</p>
 <h2 id="install-k3s-with-nginx-ingress">Install K3s with Nginx ingress</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>curl -sfL https://get.k3s.io <span class="p">|</span> sh -s - --write-kubeconfig-mode <span class="m">644</span> --disable traefik
-</code></pre></div><p>Wait a bit. When done, we can copy the config file so we can use kubectl.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>mkdir ~/.kube
-<span class="ln">2</span>sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-</code></pre></div><p>Now we are ready to install Nginx ingress:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/deploy.yaml
-</code></pre></div><p>With running <code>kubectl get pods --all-namespaces -w</code> we can check the progress</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="o">[</span>vagrant@centos02 ~<span class="o">]</span>$ kubectl get pods --all-namespaces -w
-<span class="ln">2</span>NAMESPACE       NAME                                        READY   STATUS              RESTARTS   AGE
-<span class="ln">3</span>kube-system     coredns-66c464876b-2f5gq                    1/1     Running             <span class="m">0</span>          21m
-<span class="ln">4</span>kube-system     local-path-provisioner-7ff9579c6-ms2qx      1/1     Running             <span class="m">0</span>          21m
-<span class="ln">5</span>kube-system     metrics-server-7b4f8b595-2kxvv              1/1     Running             <span class="m">0</span>          21m
-<span class="ln">6</span>ingress-nginx   ingress-nginx-controller-7474996559-79ztf   0/1     ContainerCreating   <span class="m">0</span>          21s
-<span class="ln">7</span>ingress-nginx   ingress-nginx-admission-patch-km6v8         0/1     Completed           <span class="m">0</span>          21s
-<span class="ln">8</span>ingress-nginx   ingress-nginx-admission-create-6jqz4        0/1     Completed           <span class="m">0</span>          21s
-</code></pre></div><p>Great, we have an ingress controller now. But, we do not have a load balancer. So we need to enable the ingress controller to use port 80 and 443 on the host. Let's patch the ingress controller.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">curl -sfL https://get.k3s.io <span class="p">|</span> sh -s - --write-kubeconfig-mode <span class="m">644</span> --disable traefik
+</span></span></code></pre></div><p>Wait a bit. When done, we can copy the config file so we can use kubectl.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">mkdir ~/.kube
+</span></span><span class="line"><span class="ln">2</span><span class="cl">sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+</span></span></code></pre></div><p>Now we are ready to install Nginx ingress:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/baremetal/deploy.yaml
+</span></span></code></pre></div><p>With running <code>kubectl get pods --all-namespaces -w</code> we can check the progress</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="o">[</span>vagrant@centos02 ~<span class="o">]</span>$ kubectl get pods --all-namespaces -w
+</span></span><span class="line"><span class="ln">2</span><span class="cl">NAMESPACE       NAME                                        READY   STATUS              RESTARTS   AGE
+</span></span><span class="line"><span class="ln">3</span><span class="cl">kube-system     coredns-66c464876b-2f5gq                    1/1     Running             <span class="m">0</span>          21m
+</span></span><span class="line"><span class="ln">4</span><span class="cl">kube-system     local-path-provisioner-7ff9579c6-ms2qx      1/1     Running             <span class="m">0</span>          21m
+</span></span><span class="line"><span class="ln">5</span><span class="cl">kube-system     metrics-server-7b4f8b595-2kxvv              1/1     Running             <span class="m">0</span>          21m
+</span></span><span class="line"><span class="ln">6</span><span class="cl">ingress-nginx   ingress-nginx-controller-7474996559-79ztf   0/1     ContainerCreating   <span class="m">0</span>          21s
+</span></span><span class="line"><span class="ln">7</span><span class="cl">ingress-nginx   ingress-nginx-admission-patch-km6v8         0/1     Completed           <span class="m">0</span>          21s
+</span></span><span class="line"><span class="ln">8</span><span class="cl">ingress-nginx   ingress-nginx-admission-create-6jqz4        0/1     Completed           <span class="m">0</span>          21s
+</span></span></code></pre></div><p>Great, we have an ingress controller now. But, we do not have a load balancer. So we need to enable the ingress controller to use port 80 and 443 on the host. Let's patch the ingress controller.</p>
 <p>Create the patch first:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>cat &gt; ingress.yaml <span class="s">&lt;&lt;EOF 
-</span><span class="ln">2</span><span class="s">spec:
-</span><span class="ln">3</span><span class="s">  template:
-</span><span class="ln">4</span><span class="s">    spec:
-</span><span class="ln">5</span><span class="s">      hostNetwork: true
-</span><span class="ln">6</span><span class="s">EOF</span>
-</code></pre></div><p>Then patch the ingress controller deployment like so:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl patch deployment ingress-nginx-controller -n ingress-nginx --patch <span class="s2">&#34;</span><span class="k">$(</span>cat ingress.yaml<span class="k">)</span><span class="s2">&#34;</span>
-</code></pre></div><p>If you now run <code>curl localhost</code> we see at there is a web server running. That means success!</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="o">[</span>vagrant@centos02 ~<span class="o">]</span>$ curl localhost                                                                                                                            
-<span class="ln">2</span>&lt;html&gt;
-<span class="ln">3</span>&lt;head&gt;&lt;title&gt;404 Not Found&lt;/title&gt;&lt;/head&gt;
-<span class="ln">4</span>&lt;body&gt;
-<span class="ln">5</span>&lt;center&gt;&lt;h1&gt;404 Not Found&lt;/h1&gt;&lt;/center&gt;
-<span class="ln">6</span>&lt;hr&gt;&lt;center&gt;nginx&lt;/center&gt;
-<span class="ln">7</span>&lt;/body&gt;
-<span class="ln">8</span>&lt;/html&gt;
-</code></pre></div><h2 id="expose-a-web-page">Expose a web page</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">cat &gt; ingress.yaml <span class="s">&lt;&lt;EOF 
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="s">  template:
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="s">    spec:
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="s">      hostNetwork: true
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></div><p>Then patch the ingress controller deployment like so:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">kubectl patch deployment ingress-nginx-controller -n ingress-nginx --patch <span class="s2">&#34;</span><span class="k">$(</span>cat ingress.yaml<span class="k">)</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>If you now run <code>curl localhost</code> we see at there is a web server running. That means success!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="o">[</span>vagrant@centos02 ~<span class="o">]</span>$ curl localhost                                                                                                                            
+</span></span><span class="line"><span class="ln">2</span><span class="cl">&lt;html&gt;
+</span></span><span class="line"><span class="ln">3</span><span class="cl">&lt;head&gt;&lt;title&gt;404 Not Found&lt;/title&gt;&lt;/head&gt;
+</span></span><span class="line"><span class="ln">4</span><span class="cl">&lt;body&gt;
+</span></span><span class="line"><span class="ln">5</span><span class="cl">&lt;center&gt;&lt;h1&gt;404 Not Found&lt;/h1&gt;&lt;/center&gt;
+</span></span><span class="line"><span class="ln">6</span><span class="cl">&lt;hr&gt;&lt;center&gt;nginx&lt;/center&gt;
+</span></span><span class="line"><span class="ln">7</span><span class="cl">&lt;/body&gt;
+</span></span><span class="line"><span class="ln">8</span><span class="cl">&lt;/html&gt;
+</span></span></code></pre></div><h2 id="expose-a-web-page">Expose a web page</h2>
 <p>I am working on an application at the moment called 'carolyne'.
 You can find it here: <a href="https://gitlab.com/jacqinthebox/carolyne">https://gitlab.com/jacqinthebox/carolyne</a>.
 I already pushed a container to the Docker hub, so we can just use that for now.
 Carolyne runs happily on port 4000.</p>
 <p>Let's create a deployment and a service object quickly.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>k create namespace apps
-</code></pre></div><p>Then create the deployment</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>cat <span class="s">&lt;&lt;EOF | kubectl apply -f -
-</span><span class="ln"> 2</span><span class="s">apiVersion: apps/v1
-</span><span class="ln"> 3</span><span class="s">kind: Deployment
-</span><span class="ln"> 4</span><span class="s">metadata:
-</span><span class="ln"> 5</span><span class="s">  name: carolyne
-</span><span class="ln"> 6</span><span class="s">  namespace: apps
-</span><span class="ln"> 7</span><span class="s">  labels:
-</span><span class="ln"> 8</span><span class="s">    app: carolyne
-</span><span class="ln"> 9</span><span class="s">spec:
-</span><span class="ln">10</span><span class="s">  replicas: 1
-</span><span class="ln">11</span><span class="s">  selector:
-</span><span class="ln">12</span><span class="s">    matchLabels:
-</span><span class="ln">13</span><span class="s">      app: carolyne
-</span><span class="ln">14</span><span class="s">  template:
-</span><span class="ln">15</span><span class="s">    metadata:
-</span><span class="ln">16</span><span class="s">      labels:
-</span><span class="ln">17</span><span class="s">        app: carolyne
-</span><span class="ln">18</span><span class="s">    spec:
-</span><span class="ln">19</span><span class="s">      containers:
-</span><span class="ln">20</span><span class="s">        - name: carolyne
-</span><span class="ln">21</span><span class="s">          image: jacqueline/carolyne:latest
-</span><span class="ln">22</span><span class="s">          ports:
-</span><span class="ln">23</span><span class="s">            - containerPort: 4000
-</span><span class="ln">24</span><span class="s">EOF</span>
-</code></pre></div><p>Let's create the service</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>cat <span class="s">&lt;&lt;EOF | kubectl apply -f -
-</span><span class="ln"> 2</span><span class="s">apiVersion: v1
-</span><span class="ln"> 3</span><span class="s">kind: Service
-</span><span class="ln"> 4</span><span class="s">metadata:
-</span><span class="ln"> 5</span><span class="s">  name: carolyne-service
-</span><span class="ln"> 6</span><span class="s">  namespace: apps
-</span><span class="ln"> 7</span><span class="s">  labels:
-</span><span class="ln"> 8</span><span class="s">    app: carolyne
-</span><span class="ln"> 9</span><span class="s">spec:
-</span><span class="ln">10</span><span class="s">  ports:
-</span><span class="ln">11</span><span class="s">    - port: 4000
-</span><span class="ln">12</span><span class="s">  selector:
-</span><span class="ln">13</span><span class="s">    app: carolyne
-</span><span class="ln">14</span><span class="s">EOF</span>
-</code></pre></div><p>Finally, let's create the ingress rules.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>cat <span class="s">&lt;&lt;EOF | kubectl apply -f -
-</span><span class="ln"> 2</span><span class="s">apiVersion: networking.k8s.io/v1
-</span><span class="ln"> 3</span><span class="s">kind: Ingress
-</span><span class="ln"> 4</span><span class="s">metadata:
-</span><span class="ln"> 5</span><span class="s">  annotations:
-</span><span class="ln"> 6</span><span class="s">    kubernetes.io/ingress.class: nginx
-</span><span class="ln"> 7</span><span class="s">    nginx.ingress.kubernetes.io/rewrite-target: /\$1
-</span><span class="ln"> 8</span><span class="s">  name: apps-ingress-rules
-</span><span class="ln"> 9</span><span class="s">  namespace: apps
-</span><span class="ln">10</span><span class="s">spec:
-</span><span class="ln">11</span><span class="s">  rules:
-</span><span class="ln">12</span><span class="s">  - host: carolyne.moonstreet.local
-</span><span class="ln">13</span><span class="s">    http:
-</span><span class="ln">14</span><span class="s">      paths:
-</span><span class="ln">15</span><span class="s">      - backend:
-</span><span class="ln">16</span><span class="s">          service: 
-</span><span class="ln">17</span><span class="s">            name: carolyne-service
-</span><span class="ln">18</span><span class="s">            port: 
-</span><span class="ln">19</span><span class="s">              number: 4000
-</span><span class="ln">20</span><span class="s">        path: /(.*)
-</span><span class="ln">21</span><span class="s">        pathType: Prefix
-</span><span class="ln">22</span><span class="s">EOF</span>
-</code></pre></div><p>Need to add the hostname to my hostfile:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="c1"># sudo vim /etc/hosts</span>
-<span class="ln">2</span>127.0.0.1       localhost carolyne.moonstreet.local
-</code></pre></div><p>And now we can browse to that lovely web application I just crafted.</p>
-<p><img src="/carolyne1.png" alt="1"></p>
-<p><img src="/carolyne2.png" alt="2"></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">k create namespace apps
+</span></span></code></pre></div><p>Then create the deployment</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">cat <span class="s">&lt;&lt;EOF | kubectl apply -f -
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="s">apiVersion: apps/v1
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="s">kind: Deployment
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="s">  name: carolyne
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="s">  namespace: apps
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="s">  labels:
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="s">    app: carolyne
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s">  replicas: 1
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s">  selector:
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="s">    matchLabels:
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="s">      app: carolyne
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="s">  template:
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="s">    metadata:
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="s">      labels:
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="s">        app: carolyne
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="s">    spec:
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="s">      containers:
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="s">        - name: carolyne
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="s">          image: jacqueline/carolyne:latest
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="s">          ports:
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="s">            - containerPort: 4000
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></div><p>Let's create the service</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">cat <span class="s">&lt;&lt;EOF | kubectl apply -f -
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="s">apiVersion: v1
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="s">kind: Service
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="s">  name: carolyne-service
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="s">  namespace: apps
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="s">  labels:
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="s">    app: carolyne
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s">  ports:
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s">    - port: 4000
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="s">  selector:
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="s">    app: carolyne
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></div><p>Finally, let's create the ingress rules.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">cat <span class="s">&lt;&lt;EOF | kubectl apply -f -
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="s">apiVersion: networking.k8s.io/v1
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="s">kind: Ingress
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="s">metadata:
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="s">  annotations:
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="s">    kubernetes.io/ingress.class: nginx
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="s">    nginx.ingress.kubernetes.io/rewrite-target: /\$1
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="s">  name: apps-ingress-rules
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="s">  namespace: apps
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s">spec:
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s">  rules:
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="s">  - host: carolyne.moonstreet.local
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="s">    http:
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="s">      paths:
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="s">      - backend:
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="s">          service: 
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="s">            name: carolyne-service
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="s">            port: 
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="s">              number: 4000
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="s">        path: /(.*)
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="s">        pathType: Prefix
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></div><p>Need to add the hostname to my hostfile:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># sudo vim /etc/hosts</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">127.0.0.1       localhost carolyne.moonstreet.local
+</span></span></code></pre></div><p>And now we can browse to that lovely web application I just crafted.</p>
+<p><img alt="1" src="/carolyne1.png"></p>
+<p><img alt="2" src="/carolyne2.png"></p>
 <h2 id="and-now-with-kind">And now with Kind!</h2>
 <p>Install Kind:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-linux-amd64
-<span class="ln">2</span>chmod +x ./kind
-<span class="ln">3</span>sudo mv ./kind /usr/local/bin/kind
-</code></pre></div><p>Create a Kind cluster like so:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>cat <span class="s">&lt;&lt;EOF | kind create cluster --name sandbox01 --config=-
-</span><span class="ln"> 2</span><span class="s">kind: Cluster
-</span><span class="ln"> 3</span><span class="s">apiVersion: kind.x-k8s.io/v1alpha4
-</span><span class="ln"> 4</span><span class="s">nodes:
-</span><span class="ln"> 5</span><span class="s">- role: control-plane
-</span><span class="ln"> 6</span><span class="s">  kubeadmConfigPatches:
-</span><span class="ln"> 7</span><span class="s">  - |
-</span><span class="ln"> 8</span><span class="s">    kind: InitConfiguration
-</span><span class="ln"> 9</span><span class="s">    nodeRegistration:
-</span><span class="ln">10</span><span class="s">      kubeletExtraArgs:
-</span><span class="ln">11</span><span class="s">        node-labels: &#34;ingress-ready=true&#34;
-</span><span class="ln">12</span><span class="s">  extraPortMappings:
-</span><span class="ln">13</span><span class="s">  - containerPort: 80
-</span><span class="ln">14</span><span class="s">    hostPort: 80
-</span><span class="ln">15</span><span class="s">    protocol: TCP
-</span><span class="ln">16</span><span class="s">  - containerPort: 443
-</span><span class="ln">17</span><span class="s">    hostPort: 443
-</span><span class="ln">18</span><span class="s">    protocol: TCP
-</span><span class="ln">19</span><span class="s">EOF</span>
-</code></pre></div><p>Install Ingress:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
-</code></pre></div><p>And create Carolyne (in the meantime I made a quick manifest):.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>kubectl create namespace apps
-<span class="ln">2</span>kubectl apply -f https://gitlab.com/jacqinthebox/carolyne/-/raw/master/deploy.yaml
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-linux-amd64
+</span></span><span class="line"><span class="ln">2</span><span class="cl">chmod +x ./kind
+</span></span><span class="line"><span class="ln">3</span><span class="cl">sudo mv ./kind /usr/local/bin/kind
+</span></span></code></pre></div><p>Create a Kind cluster like so:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">cat <span class="s">&lt;&lt;EOF | kind create cluster --name sandbox01 --config=-
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="s">kind: Cluster
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="s">apiVersion: kind.x-k8s.io/v1alpha4
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="s">nodes:
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="s">- role: control-plane
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="s">  kubeadmConfigPatches:
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="s">  - |
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="s">    kind: InitConfiguration
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="s">    nodeRegistration:
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s">      kubeletExtraArgs:
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s">        node-labels: &#34;ingress-ready=true&#34;
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="s">  extraPortMappings:
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="s">  - containerPort: 80
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="s">    hostPort: 80
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="s">    protocol: TCP
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="s">  - containerPort: 443
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="s">    hostPort: 443
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="s">    protocol: TCP
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="s">EOF</span>
+</span></span></code></pre></div><p>Install Ingress:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+</span></span></code></pre></div><p>And create Carolyne (in the meantime I made a quick manifest):.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">kubectl create namespace apps
+</span></span><span class="line"><span class="ln">2</span><span class="cl">kubectl apply -f https://gitlab.com/jacqinthebox/carolyne/-/raw/master/deploy.yaml
+</span></span></code></pre></div>
     
       
     
@@ -316,46 +312,46 @@ Carolyne runs happily on port 4000.</p>
       <div>
         A collection of notes about technology so I don&#39;t forget what it is all about.
       </div>
-      <a href='https://moonstreet.nl/about/' class="button mt-1" role="button">Read More</a>
+      <a href='http://localhost:1313/about/' class="button mt-1" role="button">Read More</a>
     <h2 class="mt-4">Featured Posts</h2>
     <ul>
       <li>
-        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+        <a href="http://localhost:1313/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
     </ul>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
-        <a href="https://moonstreet.nl/post/terraform-patterns-loops/" class="nav-link">Terraform patterns: loops</a>
+        <a href="http://localhost:1313/post/terraform-patterns-modules/" class="nav-link">Terraform patterns: modules</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/terraform-patterns-conditionals/" class="nav-link">Terraform patterns: conditionals</a>
+        <a href="http://localhost:1313/post/terraform-patterns-loops/" class="nav-link">Terraform patterns: loops</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
+        <a href="http://localhost:1313/post/terraform-patterns-conditionals/" class="nav-link">Terraform patterns: conditionals</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+        <a href="http://localhost:1313/post/prompt/" class="nav-link">Prompt</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
+        <a href="http://localhost:1313/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
+        <a href="http://localhost:1313/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/kubernetes-readonly/" class="nav-link">Create a read-only user in Kubernetes</a>
+        <a href="http://localhost:1313/post/cobra-cli/" class="nav-link">Cobra Cli</a>
       </li>
       <li>
-        <a href="https://moonstreet.nl/post/k3s-libvirt/" class="nav-link">K3s on a Centos vm</a>
+        <a href="http://localhost:1313/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
       </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
-        <a href='https://moonstreet.nl/categories/technology/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/categories/technology/' class="post_tag button button_translucent">
           TECHNOLOGY
-          <span class="button_tally">10</span>
+          <span class="button_tally">13</span>
         </a>
         
         
@@ -364,47 +360,57 @@ Carolyne runs happily on port 4000.</p>
     <div>
       <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
       <nav class="tags_nav">
-        <a href='https://moonstreet.nl/tags/linux/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/linux/' class="post_tag button button_translucent">
           LINUX
+          <span class="button_tally">8</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/kubernetes/' class="post_tag button button_translucent">
+          KUBERNETES
           <span class="button_tally">6</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/kubernetes/' class="post_tag button button_translucent">
-          KUBERNETES
-          <span class="button_tally">5</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/azure/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/azure/' class="post_tag button button_translucent">
           AZURE
-          <span class="button_tally">3</span>
+          <span class="button_tally">4</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/k3s/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/terraform/' class="post_tag button button_translucent">
+          TERRAFORM
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/k3s/' class="post_tag button button_translucent">
           K3S
           <span class="button_tally">3</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/terraform/' class="post_tag button button_translucent">
-          TERRAFORM
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://moonstreet.nl/tags/vim/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/vim/' class="post_tag button button_translucent">
           VIM
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/index/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/golang/' class="post_tag button button_translucent">
+          GOLANG
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/index/' class="post_tag button button_translucent">
           INDEX
           <span class="button_tally">1</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/kind/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/kind/' class="post_tag button button_translucent">
           KIND
           <span class="button_tally">1</span>
         </a>
         
-        <a href='https://moonstreet.nl/tags/virtualization/' class="post_tag button button_translucent">
+        <a href='http://localhost:1313/tags/terminal/' class="post_tag button button_translucent">
+          TERMINAL
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/virtualization/' class="post_tag button button_translucent">
           VIRTUALIZATION
           <span class="button_tally">1</span>
         </a>
@@ -471,7 +477,7 @@ Carolyne runs happily on port 4000.</p>
 
 <footer class="footer">
   <div class="footer_inner wrap pale">
-    <img src='https://moonstreet.nl/icons/apple-touch-icon.png' class="icon icon_2 transparent">
+    <img src='http://localhost:1313/icons/apple-touch-icon.png' class="icon icon_2 transparent">
     <p>Copyright<span class="year"></span> MOONSTREET. All Rights Reserved</p><a class="to_top" href="#documentTop">
   <svg class="icon">
   <use xlink:href="#arrow"></use>
@@ -481,7 +487,7 @@ Carolyne runs happily on port 4000.</p>
   </div>
 </footer>
 
-    <script type="text/javascript" src="https://moonstreet.nl/js/bundle.min.165dea27572f8e27d37ac6f578cbce25a07e3e33f4fccff48200725c4b31a6579467d5c9ea54e9a15e1b9476b97700c5d60bc758a1e1cad892249f598fb7d164.js" integrity="sha512-Fl3qJ1cvjifTesb1eMvOJaB&#43;PjP0/M/0ggByXEsxpleUZ9XJ6lTpoV4blHa5dwDF1gvHWKHhytiSJJ9Zj7fRZA==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/bundle.min.070d32d12b123a1477f5a2486473e7b62f760db8490f46e6d15f85def3e5b93cacb079d0dfcd8dea7c8f3b6e936ec18c9be654b2ec1fd07f39bbd5c09fb06fd4.js" integrity="sha512-Bw0y0SsSOhR39aJIZHPnti92DbhJD0bm0V&#43;F3vPluTyssHnQ382N6nyPO26TbsGMm&#43;ZUsuwf0H85u9XAn7Bv1A==" crossorigin="anonymous"></script>
     
   </body>
 </html>
