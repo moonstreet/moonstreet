@@ -159,13 +159,14 @@ Why? …" />
 <a href="http://localhost:1313/post/nice-vim-commands/">Nice vim commands</a></p>
 <p>Why? Because navigating through files in can take a lot of time, especially if you are faced with a big git repo. However, tools like ripgrep and fzf can assist you here.</p>
 <p>Let's keep it simple and easy to remember!</p>
-<h2 id="terminal">Terminal</h2>
 <p><a href="https://github.com/junegunn/fzf">fzf</a> is a tool that can help you deal with searching for files and then filter the results.
 Just typing <code>fzf</code> in a folder will display all files and folders, and then you can carry on typing to narrow the results.</p>
 <img src="/fzf.png" width="400">
-<h2 id="vim">vim</h2>
+<p><a href="https://github.com/BurntSushi/ripgrep">ripgrep</a> is a tool that recursively searches the current directory for a regex pattern. It is blazingly fast.</p>
+<h2 id="fzf-and-rg-in-vim">fzf and rg in vim</h2>
 <p>Wouldn't it be nice to edit the selected file immediately in vim?
-Yes it would. At this to your .zshrc or .bashrc:</p>
+Yes it would. Install the <a href="https://github.com/junegunn/fzf.vim">fzf.vim</a> plugin.</p>
+<p>At this to your .zshrc or .bashrc:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">function</span> vimrg<span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl">  <span class="nb">local</span> <span class="nv">file</span><span class="o">=</span><span class="k">$(</span>rg --line-number --no-heading --color<span class="o">=</span>always <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="p">|</span> fzf --ansi --delimiter<span class="o">=</span><span class="s1">&#39;:&#39;</span> --preview <span class="s1">&#39;rg --color=always --context 2 {1} {2}&#39;</span> --preview-window<span class="o">=</span>hidden --no-height <span class="k">)</span>
 </span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="k">if</span> <span class="o">[[</span> -n <span class="nv">$file</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
@@ -174,7 +175,7 @@ Yes it would. At this to your .zshrc or .bashrc:</p>
 </span></span><span class="line"><span class="ln">6</span><span class="cl">    vim <span class="s2">&#34;+</span><span class="nv">$line_number</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="nv">$file_path</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="ln">7</span><span class="cl">  <span class="k">fi</span>
 </span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="o">}</span>
-</span></span></code></pre></div><p>When running vimrg &quot;encryption&quot; it will open vim upon selecting the entry you want to edit.</p>
+</span></span></code></pre></div><p>When running vimrg &quot;encryption&quot; it will start fzf to all files with 'encryption' somewhere in the text. It will open the file in vim upon selecting the entry you want to edit.</p>
 <h3 id="fzf-in-vim">fzf in vim</h3>
 <p>When installing fzf in vim, it will actually use ripgrep under the covers to search the folder.
 It allows you to type <code>:Rg &lt;searchterm&gt;</code> and then it will open a nice fzf preview window.</p>

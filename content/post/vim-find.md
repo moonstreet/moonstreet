@@ -26,17 +26,20 @@ Why? Because navigating through files in can take a lot of time, especially if y
 
 Let's keep it simple and easy to remember!
 
-## Terminal
-
 [fzf](https://github.com/junegunn/fzf) is a tool that can help you deal with searching for files and then filter the results.
 Just typing `fzf` in a folder will display all files and folders, and then you can carry on typing to narrow the results.
 
 <img src="/fzf.png" width="400">
 
-## vim
+[ripgrep](https://github.com/BurntSushi/ripgrep) is a tool that recursively searches the current directory for a regex pattern. It is blazingly fast. 
+
+
+## fzf and rg in vim
 
 Wouldn't it be nice to edit the selected file immediately in vim?
-Yes it would. At this to your .zshrc or .bashrc:
+Yes it would. Install the [fzf.vim](https://github.com/junegunn/fzf.vim) plugin. 
+
+At this to your .zshrc or .bashrc:
 
 ```sh
 function vimrg() {
@@ -49,7 +52,8 @@ function vimrg() {
 }
 
 ```
-When running vimrg "encryption" it will open vim upon selecting the entry you want to edit.
+When running vimrg "encryption" it will start fzf to all files with 'encryption' somewhere in the text. It will open the file in vim upon selecting the entry you want to edit.
+
 
 ### fzf in vim
 When installing fzf in vim, it will actually use ripgrep under the covers to search the folder.
