@@ -1,7 +1,7 @@
 ---
 title: "Finding files quickly"
 date: 2024-03-29T08:44:56+01:00
-draft: true
+draft: false
 featured: true
 showShare: false
 codeMaxLines: 50 
