@@ -12,6 +12,7 @@ categories:
 tags:
 - linux
 - vim
+- mouseless
 ---
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Tmux_logo.svg/1280px-Tmux_logo.svg.png" width="400">

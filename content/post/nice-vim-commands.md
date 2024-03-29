@@ -12,6 +12,7 @@ categories:
 tags:
 - linux
 - vim
+- mouseless
 ---
 
 Here is  my vim & tmux cheatsheet.
