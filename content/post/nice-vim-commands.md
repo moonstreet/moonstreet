@@ -38,8 +38,7 @@ set -g status-fg white
 | [ | Enter scroll mode |
 | q | Leave scroll mode |
 
-
- ## Open multiple files at once
+## Open multiple files at once
 
 ```shell
 vim file1 file2
@@ -55,9 +54,7 @@ vim -O file1 file2 # split vertically
 | :bd | Delete buffer |
 | :ls| List buffers |
 
-
 ## Windows
-
 
 | Command    | What it does    |
 | :------------- | :----------: | 

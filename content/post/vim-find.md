@@ -15,7 +15,7 @@ tags:
 - mouseless
 ---
 
-# Finding files with fzf, and ripgrep.
+# Finding files with fzf ripgrep and nnn
 
 This is the next articial in the series 'mouseless'. Find previous articles here: 
 
@@ -26,13 +26,24 @@ Why? Because navigating through files in can take a lot of time, especially if y
 
 Let's keep it simple and easy to remember!
 
+## nnn
+[nnn](https://github.com/jarun/nnn) a full-featured terminal file manager.
+
+| Shortcut | Description                     |
+|----------|---------------------------------|
+| !        | Open folder in terminal         |
+| e        | Open selected file in vim       |
+
+<img src="/nnn.png" width="400">
+
+## fzf and ripgrep
+
 [fzf](https://github.com/junegunn/fzf) is a tool that can help you deal with searching for files and then filter the results.
 Just typing `fzf` in a folder will display all files and folders, and then you can carry on typing to narrow the results.
 
 <img src="/fzf.png" width="400">
 
 [ripgrep](https://github.com/BurntSushi/ripgrep) is a tool that recursively searches the current directory for a regex pattern. It is blazingly fast. 
-
 
 ## fzf and rg in vim
 
@@ -54,18 +65,13 @@ function vimrg() {
 ```
 When running vimrg "encryption" it will start fzf to all files with 'encryption' somewhere in the text. It will open the file in vim upon selecting the entry you want to edit.
 
-
 ### fzf in vim
 When installing fzf in vim, it will actually use ripgrep under the covers to search the folder.
 It allows you to type `:Rg <searchterm>` and then it will open a nice fzf preview window.
 
 <img src="/rg-vim.png" width="600">
 
-
 ## What is next
 
 I think I should write more, but I really want to go for a run now and do some other work.
-
-
-
 
