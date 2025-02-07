@@ -4,7 +4,7 @@
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 <title>Terraform patterns: loops | Moonstreet</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.127.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta property="og:locale" content="en" />
@@ -81,9 +81,6 @@
         <a href="http://www.thebuttonfactory.nl/" class="nav_child nav_item">The Buttonfactory</a>
         <a href="https://thenewstack.io/" class="nav_child nav_item">The New Stack</a>
     </div>
-  </div>
-  <div class="nav_parent">
-    <a href="http://localhost:1313/post/prompt/" class="nav_item">Prompt </a>
   </div>
       
       <div class="nav_parent">
@@ -382,19 +379,19 @@ Anyway I will stick to using the root value.</p>
     <h2 class="mt-4">Featured Posts</h2>
     <ul>
       <li>
+        <a href="http://localhost:1313/post/vim-find/" class="nav-link">Finding files quickly</a>
+      </li>
+      <li>
         <a href="http://localhost:1313/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
     </ul>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
-        <a href="http://localhost:1313/post/terraform-patterns-modules/" class="nav-link">Terraform patterns: modules</a>
+        <a href="http://localhost:1313/post/vim-find/" class="nav-link">Finding files quickly</a>
       </li>
       <li>
         <a href="http://localhost:1313/post/terraform-patterns-conditionals/" class="nav-link">Terraform patterns: conditionals</a>
-      </li>
-      <li>
-        <a href="http://localhost:1313/post/prompt/" class="nav-link">Prompt</a>
       </li>
       <li>
         <a href="http://localhost:1313/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
@@ -403,13 +400,16 @@ Anyway I will stick to using the root value.</p>
         <a href="http://localhost:1313/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
       <li>
-        <a href="http://localhost:1313/post/cobra-cli/" class="nav-link">Cobra Cli</a>
-      </li>
-      <li>
         <a href="http://localhost:1313/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
       </li>
       <li>
         <a href="http://localhost:1313/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/post/kubernetes-readonly/" class="nav-link">Create a read-only user in Kubernetes</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/post/k3s-with-ingress/" class="nav-link">Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</a>
       </li>
     </ul>
     <div>
@@ -417,7 +417,7 @@ Anyway I will stick to using the root value.</p>
       <nav class="tags_nav">
         <a href='http://localhost:1313/categories/technology/' class="post_tag button button_translucent">
           TECHNOLOGY
-          <span class="button_tally">13</span>
+          <span class="button_tally">11</span>
         </a>
         
         
@@ -428,22 +428,17 @@ Anyway I will stick to using the root value.</p>
       <nav class="tags_nav">
         <a href='http://localhost:1313/tags/linux/' class="post_tag button button_translucent">
           LINUX
-          <span class="button_tally">8</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='http://localhost:1313/tags/kubernetes/' class="post_tag button button_translucent">
           KUBERNETES
-          <span class="button_tally">6</span>
+          <span class="button_tally">5</span>
         </a>
         
         <a href='http://localhost:1313/tags/azure/' class="post_tag button button_translucent">
           AZURE
-          <span class="button_tally">4</span>
-        </a>
-        
-        <a href='http://localhost:1313/tags/terraform/' class="post_tag button button_translucent">
-          TERRAFORM
-          <span class="button_tally">4</span>
+          <span class="button_tally">3</span>
         </a>
         
         <a href='http://localhost:1313/tags/k3s/' class="post_tag button button_translucent">
@@ -451,14 +446,19 @@ Anyway I will stick to using the root value.</p>
           <span class="button_tally">3</span>
         </a>
         
-        <a href='http://localhost:1313/tags/vim/' class="post_tag button button_translucent">
-          VIM
-          <span class="button_tally">2</span>
+        <a href='http://localhost:1313/tags/mouseless/' class="post_tag button button_translucent">
+          MOUSELESS
+          <span class="button_tally">3</span>
         </a>
         
-        <a href='http://localhost:1313/tags/golang/' class="post_tag button button_translucent">
-          GOLANG
-          <span class="button_tally">1</span>
+        <a href='http://localhost:1313/tags/terraform/' class="post_tag button button_translucent">
+          TERRAFORM
+          <span class="button_tally">3</span>
+        </a>
+        
+        <a href='http://localhost:1313/tags/vim/' class="post_tag button button_translucent">
+          VIM
+          <span class="button_tally">3</span>
         </a>
         
         <a href='http://localhost:1313/tags/index/' class="post_tag button button_translucent">
@@ -468,11 +468,6 @@ Anyway I will stick to using the root value.</p>
         
         <a href='http://localhost:1313/tags/kind/' class="post_tag button button_translucent">
           KIND
-          <span class="button_tally">1</span>
-        </a>
-        
-        <a href='http://localhost:1313/tags/terminal/' class="post_tag button button_translucent">
-          TERMINAL
           <span class="button_tally">1</span>
         </a>
         

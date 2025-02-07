@@ -4,25 +4,23 @@
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 <title>Finding files quickly | Moonstreet</title>
 <meta charset="utf-8">
-<meta name="generator" content="Hugo 0.124.1">
+<meta name="generator" content="Hugo 0.127.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="Finding files with fzf, and ripgrep. This is the next articial in the series &#39;mouseless&#39;. Find previous articles here:
+<meta name="description" content="Finding files with fzf ripgrep and nnn This is the next articial in the series &#39;mouseless&#39;. Find previous articles here:
 Terminal workflow
-Nice vim commands
-Why? …">
+Nice vim commands …">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@jacqoutthebox">
 <meta name="twitter:title" content="Finding files quickly" />
 <meta property="og:url" content="http://localhost:1313/post/vim-find/" />
 <meta property="og:title" content="Finding files quickly" />
-<meta property="og:description" content="Finding files with fzf, and ripgrep. This is the next articial in the series &#39;mouseless&#39;. Find previous articles here:
+<meta property="og:description" content="Finding files with fzf ripgrep and nnn This is the next articial in the series &#39;mouseless&#39;. Find previous articles here:
 Terminal workflow
-Nice vim commands
-Why? …" />
+Nice vim commands …" />
 <meta property="og:image" content="http://localhost:1313/images/thumbnail.png" />
 <link rel="apple-touch-icon" sizes="180x180" href='http://localhost:1313/icons/apple-touch-icon.png'>
 <link rel="icon" type="image/png" sizes="32x32" href='http://localhost:1313/icons/favicon-32x32.png'>
@@ -88,9 +86,6 @@ Why? …" />
         <a href="https://thenewstack.io/" class="nav_child nav_item">The New Stack</a>
     </div>
   </div>
-  <div class="nav_parent">
-    <a href="http://localhost:1313/post/prompt/" class="nav_item">Prompt </a>
-  </div>
       
       <div class="nav_parent">
         <a href="#" class="nav_item">🌐</a>
@@ -153,12 +148,39 @@ Why? …" />
     
 
     
-    <h1 id="finding-files-with-fzf-and-ripgrep">Finding files with fzf, and ripgrep.</h1>
+    <h1 id="finding-files-with-fzf-ripgrep-and-nnn">Finding files with fzf ripgrep and nnn</h1>
 <p>This is the next articial in the series 'mouseless'. Find previous articles here:</p>
 <p><a href="http://localhost:1313/post/terminal-workflow/">Terminal workflow</a><br>
 <a href="http://localhost:1313/post/nice-vim-commands/">Nice vim commands</a></p>
 <p>Why? Because navigating through files in can take a lot of time, especially if you are faced with a big git repo. However, tools like ripgrep and fzf can assist you here.</p>
 <p>Let's keep it simple and easy to remember!</p>
+<h2 id="nnn">nnn</h2>
+<p><a href="https://github.com/jarun/nnn">nnn</a> a full-featured terminal file manager.
+Here are some commands you will need:</p>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>!</td>
+<td>Open folder in terminal</td>
+</tr>
+<tr>
+<td>e</td>
+<td>Open selected file in vim</td>
+</tr>
+<tr>
+<td>q (or 2x esc</td>
+<td>Exit nnn</td>
+</tr>
+</tbody>
+</table>
+<img src="/nnn.png" width="400">
+<h2 id="fzf-and-ripgrep">fzf and ripgrep</h2>
 <p><a href="https://github.com/junegunn/fzf">fzf</a> is a tool that can help you deal with searching for files and then filter the results.
 Just typing <code>fzf</code> in a folder will display all files and folders, and then you can carry on typing to narrow the results.</p>
 <img src="/fzf.png" width="400">
@@ -204,16 +226,10 @@ It allows you to type <code>:Rg &lt;searchterm&gt;</code> and then it will open 
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
-        <a href="http://localhost:1313/post/terraform-patterns-modules/" class="nav-link">Terraform patterns: modules</a>
-      </li>
-      <li>
         <a href="http://localhost:1313/post/terraform-patterns-loops/" class="nav-link">Terraform patterns: loops</a>
       </li>
       <li>
         <a href="http://localhost:1313/post/terraform-patterns-conditionals/" class="nav-link">Terraform patterns: conditionals</a>
-      </li>
-      <li>
-        <a href="http://localhost:1313/post/prompt/" class="nav-link">Prompt</a>
       </li>
       <li>
         <a href="http://localhost:1313/post/terminal-workflow/" class="nav-link">Terminal Workflow</a>
@@ -222,10 +238,16 @@ It allows you to type <code>:Rg &lt;searchterm&gt;</code> and then it will open 
         <a href="http://localhost:1313/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
       </li>
       <li>
-        <a href="http://localhost:1313/post/cobra-cli/" class="nav-link">Cobra Cli</a>
+        <a href="http://localhost:1313/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
       </li>
       <li>
-        <a href="http://localhost:1313/post/arch-notes/" class="nav-link">A minimal Arch Linux installation with Gnome. My notes.</a>
+        <a href="http://localhost:1313/post/aks-nodepools/" class="nav-link">Azure Kubernetes node pools with Terraform</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/post/kubernetes-readonly/" class="nav-link">Create a read-only user in Kubernetes</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/post/k3s-with-ingress/" class="nav-link">Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</a>
       </li>
     </ul>
     <div>
@@ -233,7 +255,7 @@ It allows you to type <code>:Rg &lt;searchterm&gt;</code> and then it will open 
       <nav class="tags_nav">
         <a href='http://localhost:1313/categories/technology/' class="post_tag button button_translucent">
           TECHNOLOGY
-          <span class="button_tally">14</span>
+          <span class="button_tally">11</span>
         </a>
         
         
@@ -244,22 +266,17 @@ It allows you to type <code>:Rg &lt;searchterm&gt;</code> and then it will open 
       <nav class="tags_nav">
         <a href='http://localhost:1313/tags/linux/' class="post_tag button button_translucent">
           LINUX
-          <span class="button_tally">9</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='http://localhost:1313/tags/kubernetes/' class="post_tag button button_translucent">
           KUBERNETES
-          <span class="button_tally">6</span>
+          <span class="button_tally">5</span>
         </a>
         
         <a href='http://localhost:1313/tags/azure/' class="post_tag button button_translucent">
           AZURE
-          <span class="button_tally">4</span>
-        </a>
-        
-        <a href='http://localhost:1313/tags/terraform/' class="post_tag button button_translucent">
-          TERRAFORM
-          <span class="button_tally">4</span>
+          <span class="button_tally">3</span>
         </a>
         
         <a href='http://localhost:1313/tags/k3s/' class="post_tag button button_translucent">
@@ -272,14 +289,14 @@ It allows you to type <code>:Rg &lt;searchterm&gt;</code> and then it will open 
           <span class="button_tally">3</span>
         </a>
         
-        <a href='http://localhost:1313/tags/vim/' class="post_tag button button_translucent">
-          VIM
+        <a href='http://localhost:1313/tags/terraform/' class="post_tag button button_translucent">
+          TERRAFORM
           <span class="button_tally">3</span>
         </a>
         
-        <a href='http://localhost:1313/tags/golang/' class="post_tag button button_translucent">
-          GOLANG
-          <span class="button_tally">1</span>
+        <a href='http://localhost:1313/tags/vim/' class="post_tag button button_translucent">
+          VIM
+          <span class="button_tally">3</span>
         </a>
         
         <a href='http://localhost:1313/tags/index/' class="post_tag button button_translucent">
@@ -289,11 +306,6 @@ It allows you to type <code>:Rg &lt;searchterm&gt;</code> and then it will open 
         
         <a href='http://localhost:1313/tags/kind/' class="post_tag button button_translucent">
           KIND
-          <span class="button_tally">1</span>
-        </a>
-        
-        <a href='http://localhost:1313/tags/terminal/' class="post_tag button button_translucent">
-          TERMINAL
           <span class="button_tally">1</span>
         </a>
         
