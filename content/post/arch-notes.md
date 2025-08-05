@@ -14,6 +14,17 @@ Arch Linux is extremely well documented so I highly recommend to read the [Arch 
 This guide installs the Gnome desktop environment, but one can easily swap Gnome for i3 or another desktop environment, or leave it all together.
 This is the procedure I used for installing Arch on a Thinkpad t460s, t490s and a Dell Precision 5550.
 
+## Wifi
+
+```sh
+iwctl
+# inside iwctl:
+device list             # ge.g., wlan0
+station wlan0 scan
+station wlan0 get-networks
+station wlan0 connect "your-SSID"
+```
+
 
 ## Partitioning
 
@@ -82,8 +93,20 @@ mount /dev/vme0n1p1 /mnt/boot
 ## Bootstrap
 
 ```sh
-pacstrap /mnt vim sudo grub efibootmgr linux linux-lts base base-devel dhcpcd linux-firmware
+pacstrap /mnt vim sudo grub efibootmgr linux linux-lts base base-devel networkmanager linux-firmware amd-ucode
+
 ```
+
+Sometimes you need to fix the mirror:
+
+```sh
+reflector --country Netherlands,Germany --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+# or fix
+rm -rf /etc/pacman.d/gnupg
+pacman-key --init
+pacman-key --populate archlinux
+```
+
 
 Create fstab
 
@@ -156,6 +179,12 @@ vim /etc/mkinitcpio.conf
 # only change this:
 MODULES=(i915)
 HOOKS=(base udev autodetect keyboard keymap consolefont modconf block encrypt filesystems fsck)
+```
+
+Or when using AMD
+
+```sh
+MODULES=(amdgpu)  # AMD graphics for Ryzen
 ```
 
 Next generate the ramdisk:
