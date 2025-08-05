@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2021-12-21T16:24:21+01:00</lastmod>
+    <lastmod>2025-02-05T16:24:21+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -15,11 +15,8 @@
                 href="http://localhost:1313/"
                 />
   </url><url>
-    <loc>http://localhost:1313/tags/azure/</loc>
-    <lastmod>2021-12-21T16:24:21+01:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2021-12-21T16:24:21+01:00</lastmod>
+    <lastmod>2025-02-05T16:24:21+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -32,16 +29,22 @@
                 />
   </url><url>
     <loc>http://localhost:1313/tags/index/</loc>
-    <lastmod>2021-12-21T16:24:21+01:00</lastmod>
+    <lastmod>2025-02-05T16:24:21+01:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/kubernetes/</loc>
-    <lastmod>2021-12-21T16:24:21+01:00</lastmod>
+    <loc>http://localhost:1313/tags/linux/</loc>
+    <lastmod>2025-02-05T16:24:21+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/llm/</loc>
+    <lastmod>2025-02-05T16:24:21+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/ollama/</loc>
+    <lastmod>2025-02-05T16:24:21+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2021-12-21T16:24:21+01:00</lastmod>
+    <lastmod>2025-02-05T16:24:21+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2021-12-21T16:24:21+01:00</lastmod>
+    <lastmod>2025-02-05T16:24:21+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt"
@@ -54,22 +57,34 @@
                 />
   </url><url>
     <loc>http://localhost:1313/categories/technology/</loc>
-    <lastmod>2021-12-21T16:24:21+01:00</lastmod>
+    <lastmod>2025-02-05T16:24:21+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/azure/</loc>
+    <lastmod>2024-05-04T09:13:46+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/bicep-types/</loc>
+    <lastmod>2024-05-04T09:13:46+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/vim-find/</loc>
+    <lastmod>2024-03-29T08:44:56+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/mouseless/</loc>
+    <lastmod>2024-03-29T08:44:56+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/vim/</loc>
+    <lastmod>2024-03-29T08:44:56+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/kubernetes/</loc>
+    <lastmod>2021-12-21T11:24:21+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/terraform/</loc>
-    <lastmod>2021-12-21T16:24:21+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/post/terraform-patterns-modules/</loc>
-    <lastmod>2021-12-21T16:24:21+01:00</lastmod>
+    <lastmod>2021-12-21T11:24:21+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/terraform-patterns-loops/</loc>
     <lastmod>2021-12-21T11:24:21+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/terraform-patterns-conditionals/</loc>
     <lastmod>2021-12-21T08:24:21+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/linux/</loc>
-    <lastmod>2021-03-07T09:13:46+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/prompt/</loc>
     <lastmod>2021-03-07T09:13:46+01:00</lastmod>
@@ -78,9 +93,6 @@
     <lastmod>2021-03-07T09:13:46+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/terminal-workflow/</loc>
-    <lastmod>2021-03-06T09:44:56+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/vim/</loc>
     <lastmod>2021-03-06T09:44:56+01:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/nice-vim-commands/</loc>

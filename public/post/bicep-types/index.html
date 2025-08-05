@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<html lang="en" data-figures="">
+<html lang="en" data-figures="true" class="page">
   <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-<title>Technology | Moonstreet</title>
+<title>Azure Bicep cheatsheet | Moonstreet</title>
 <meta charset="utf-8">
 <meta name="generator" content="Hugo 0.127.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -10,13 +10,15 @@
 <meta property="og:locale" content="en" />
 
 <meta property="og:type" content="article">
-<meta name="description" content="">
+<meta name="description" content="Azure Bicep cheatsheet For my work I need to use Azure Bicep more and more. And slowly I come to appreciate it.
+Useful links These are 2 links I can&#39;t do …">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@jacqoutthebox">
-<meta name="twitter:title" content="Technology" />
-<meta property="og:url" content="http://localhost:1313/categories/technology/" />
-<meta property="og:title" content="Technology" />
-<meta property="og:description" content="" />
+<meta name="twitter:title" content="Azure Bicep cheatsheet" />
+<meta property="og:url" content="http://localhost:1313/post/bicep-types/" />
+<meta property="og:title" content="Azure Bicep cheatsheet" />
+<meta property="og:description" content="Azure Bicep cheatsheet For my work I need to use Azure Bicep more and more. And slowly I come to appreciate it.
+Useful links These are 2 links I can&#39;t do …" />
 <meta property="og:image" content="http://localhost:1313/images/thumbnail.png" />
 <link rel="apple-touch-icon" sizes="180x180" href='http://localhost:1313/icons/apple-touch-icon.png'>
 <link rel="icon" type="image/png" sizes="32x32" href='http://localhost:1313/icons/favicon-32x32.png'>
@@ -25,8 +27,7 @@
 <meta name="msapplication-TileColor" content="#002538">
 <meta name="theme-color" content="#002538">
 
-<link rel="canonical" href="http://localhost:1313/categories/technology/">
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/categories/technology/index.xml" title="Moonstreet" />
+<link rel="canonical" href="http://localhost:1313/post/bicep-types/">
 
     
 
@@ -43,8 +44,7 @@
   
   
     
-  
-  <body data-code="7" data-lines="false" id="documentTop">
+  <body data-code="50" data-lines="true" id="documentTop">
 
 <header class="nav_header" >
   <nav class="nav">
@@ -84,7 +84,7 @@
         <a href="https://thenewstack.io/" class="nav_child nav_item">The New Stack</a>
     </div>
   </div>
-  <div class="nav_parent">
+  <div class="nav_parent nav_active">
     <a href="http://localhost:1313/post/bicep-types/" class="nav_item">Azure Bicep cheatsheet </a>
   </div>
   <div class="nav_parent">
@@ -131,208 +131,60 @@
 </header>
 
     <main>
-
+  
 <div class="grid-inverse wrap content">
-  <ul class="posts" id="posts">
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="http://localhost:1313/post/aks-nodepools/">Azure Kubernetes node pools with Terraform</a>
-      </h3>
-      <div class="post_meta">
+  <article class="post_content">
+    <h1 class="post_title">Azure Bicep cheatsheet</h1><div class="post_meta">
   
     <svg class="icon">
   <use xlink:href="#calendar"></use>
 </svg>
     <span class="post_date">
-      Dec 29, 2020</span>
-      <a href='http://localhost:1313/tags/kubernetes' class="post_tag button button_translucent">kubernetes
-      </a>
+      May 4, 2024</span>
       <a href='http://localhost:1313/tags/azure' class="post_tag button button_translucent">azure
       </a>
-      <a href='http://localhost:1313/tags/terraform' class="post_tag button button_translucent">terraform
-      </a>
 </div>
 
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-              In Azure Kubernetes Service (AKS), nodes of the same configuration are grouped together into node pools. These node pools contain the underlying VMs that run your applications. The initial number of nodes and their size (SKU) is defined when you create an AKS cluster, which creates a system node pool. To support …
-            
-          </p>
-          <a href="http://localhost:1313/post/aks-nodepools/" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
+    
 
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="http://localhost:1313/post/kubernetes-readonly/">Create a read-only user in Kubernetes</a>
-      </h3>
-      <div class="post_meta">
-  
-    <svg class="icon">
-  <use xlink:href="#calendar"></use>
-</svg>
-    <span class="post_date">
-      Dec 28, 2020</span>
-      <a href='http://localhost:1313/tags/kubernetes' class="post_tag button button_translucent">kubernetes
-      </a>
-      <a href='http://localhost:1313/tags/k3s' class="post_tag button button_translucent">k3s
-      </a>
-</div>
+    
+    <h1 id="azure-bicep-cheatsheet">Azure Bicep cheatsheet</h1>
+<p>For my work I need to use Azure Bicep more and more. And slowly I come to appreciate it.</p>
+<h2 id="useful-links">Useful links</h2>
+<p>These are 2 links I can't do without:</p>
+<ul>
+<li><a href="https://github.com/Azure/bicep-registry-modules">Azure Verified Modules</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/templates/">Bicep Reference</a></li>
+</ul>
+<h2 id="bicep-in-5-short-sentences">Bicep in 5 short sentences</h2>
+<p>Azure resources can be deployed via a REST endpoint: the Azure Resource Manager REST API. That API accepts a JSON payload that represents the desired state of the infrastructure you want to deploy. Bicep is a DSL that provides a more readable syntax. Bicep files are compiled (transpiled) into ARM Template JSON files.</p>
+<h2 id="cheatsheet">Cheatsheet</h2>
+<p>From 1 to 100 in 1 second. The use of modules is assumed.</p>
+<h3 id="optional-parameters">Optional parameters</h3>
+<p>You have an optional parameter. When a value is assigned, use it. When not, omit the parameter.</p>
+<p><em>Method 1</em></p>
+<p>Give the parameter a default empty value. Then use the <code>empty()</code> function to evaluate.</p>
+<p>Declaration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">@description(&#39;Optional.Specifies the dnsPrefix. If empty it will default to aks-&lt;suffix&gt;.&#39;) 
+</span></span><span class="line"><span class="ln">2</span><span class="cl">param dnsPrefix string = &#39;&#39;
+</span></span></code></pre></div><p>Implementation:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">dnsPrefix: !empty(dnsPrefix) ? dnsPrefix : &#39;aks-${suffix}&#39;
+</span></span></code></pre></div><p>Explanation:</p>
+<p>' ' is considered an empty string in Bicep. The !empty() function returns true if the string is not empty (i.e., has a length greater than 0) and false if the string is empty. If no value is provided for the dnsPrefix parameter, it will default to an empty string (''). When the !empty(dnsPrefix) condition is evaluated, it will be false because an empty string is considered empty.</p>
+<p><em>Method 2</em></p>
+<p>Use an object. When the object has the property, use it, else set it to null.</p>
+<p>Declaration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">@description(&#39;Optional.Specifies the dnsPrefix. If empty it will default to aks-&lt;suffix&gt;.&#39;) 
+</span></span><span class="line"><span class="ln">2</span><span class="cl">param dnsPrefix string = &#39;&#39;
+</span></span></code></pre></div><p>Implementation:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">dnsPrefix: !empty(dnsPrefix) ? dnsPrefix : &#39;aks-${suffix}&#39;
+</span></span></code></pre></div><p>Explanation:</p>
+<p>' ' is considered an empty string in Bicep. The !empty() function returns true if the string is not empty (i.e., has a length greater than 0) and false if the string is empty. If no value is provided for the dnsPrefix parameter, it will default to an empty string (''). When the !empty(dnsPrefix) condition is evaluated, it will be false because an empty string is considered empty.</p>
 
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-              Normal users are assumed to be managed by an outside, independent service. Kubernetes does not have objects which represent normal user accounts. Normal users cannot be added to a cluster through an API call. However, any user that presents a valid certificate signed by the cluster's certificate authority (CA) is …
-            
-          </p>
-          <a href="http://localhost:1313/post/kubernetes-readonly/" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="http://localhost:1313/post/k3s-with-ingress/">Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</a>
-      </h3>
-      <div class="post_meta">
-  
-    <svg class="icon">
-  <use xlink:href="#calendar"></use>
-</svg>
-    <span class="post_date">
-      Dec 26, 2020</span>
-      <a href='http://localhost:1313/tags/kubernetes' class="post_tag button button_translucent">kubernetes
-      </a>
-      <a href='http://localhost:1313/tags/k3s' class="post_tag button button_translucent">k3s
-      </a>
-      <a href='http://localhost:1313/tags/kind' class="post_tag button button_translucent">kind
-      </a>
-      <a href='http://localhost:1313/tags/linux' class="post_tag button button_translucent">linux
-      </a>
-</div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-              Here is how to quickly install Kubernetes with ingress on your laptop. I use this to test and create operators with the Operator Framework. Still learning though.
-I was first using K3s but then I discovered Kind which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a …
-            
-          </p>
-          <a href="http://localhost:1313/post/k3s-with-ingress/" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="http://localhost:1313/post/k3s-libvirt/">K3s on a Centos vm</a>
-      </h3>
-      <div class="post_meta">
-  
-    <svg class="icon">
-  <use xlink:href="#calendar"></use>
-</svg>
-    <span class="post_date">
-      Sep 27, 2020</span>
-      <a href='http://localhost:1313/tags/linux' class="post_tag button button_translucent">linux
-      </a>
-      <a href='http://localhost:1313/tags/k3s' class="post_tag button button_translucent">k3s
-      </a>
-</div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-              This post is about installing lightweight Kubernetes (K3s) on our new vm.
-K3s The previous post was all about being able to install Kubernetes quickly. For that I will use k3s from Rancher because it is fast. Let's go!
-Prepare We do this for testing so we can safely disable the firewall and SELinux on our CentOS vm. …
-            
-          </p>
-          <a href="http://localhost:1313/post/k3s-libvirt/" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-      <li class="post_item">
-  <div class="excerpt">
-    <div class="excerpt_header">
-      <h3 class="post_link">
-        <a href="http://localhost:1313/post/libvirt/">Vagrant with the libvirt plugin</a>
-      </h3>
-      <div class="post_meta">
-  
-    <svg class="icon">
-  <use xlink:href="#calendar"></use>
-</svg>
-    <span class="post_date">
-      Sep 20, 2020</span>
-      <a href='http://localhost:1313/tags/linux' class="post_tag button button_translucent">linux
-      </a>
-      <a href='http://localhost:1313/tags/virtualization' class="post_tag button button_translucent">virtualization
-      </a>
-</div>
-
-    </div>
-      <div class="excerpt_footer">
-        <div>
-          <p class="pale">
-            
-              Here is a post about how to create virtual machines with Vagrant and the libvirt plugin.
-Why use libvirt as a vagrant provider Because when on a modern Linux distro running Gnome, chances are it's already there!
-I use Vagrant extensively to run quick, short lived virtual machines to test and try out things. I always …
-            
-          </p>
-          <a href="http://localhost:1313/post/libvirt/" class="excerpt_more button">Read More</a>
-        </div>
-      </div>
-    </div>
-  </li>
-
-    <li>
-    <ul class="pagination pagination-default">
-      <li class="page-item">
-        <a href="/categories/technology/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/categories/technology/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/categories/technology/" aria-label="Page 1" class="page-link" role="button">1</a>
-      </li>
-      <li class="page-item active">
-        <a aria-current="page" aria-label="Page 2" class="page-link" role="button">2</a>
-      </li>
-      <li class="page-item disabled">
-        <a aria-disabled="true" aria-label="Next" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&raquo;</span></a>
-      </li>
-      <li class="page-item disabled">
-        <a aria-disabled="true" aria-label="Last" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&raquo;&raquo;</span></a>
-      </li>
-    </ul>
-    </li>
-  </ul>
+    
+      
+    
+  </article>
 <aside class="sidebar">
   <section class="sidebar_inner">
     
@@ -359,9 +211,6 @@ I use Vagrant extensively to run quick, short lived virtual machines to test and
         <a href="http://localhost:1313/post/ollama/" class="nav-link">Ollama server</a>
       </li>
       <li>
-        <a href="http://localhost:1313/post/bicep-types/" class="nav-link">Azure Bicep cheatsheet</a>
-      </li>
-      <li>
         <a href="http://localhost:1313/post/vim-find/" class="nav-link">Finding files quickly</a>
       </li>
       <li>
@@ -378,6 +227,9 @@ I use Vagrant extensively to run quick, short lived virtual machines to test and
       </li>
       <li>
         <a href="http://localhost:1313/post/nice-vim-commands/" class="nav-link">My personal vim cheatsheet</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/post/cobra-cli/" class="nav-link">Cobra Cli</a>
       </li>
     </ul>
     <div>
@@ -466,8 +318,6 @@ I use Vagrant extensively to run quick, short lived virtual machines to test and
 </aside>
 
 </div>
-
-
     </main><svg width="0" height="0" class="hidden">
   <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
     <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>

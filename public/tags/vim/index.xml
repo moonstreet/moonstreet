@@ -7,7 +7,76 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Sat, 06 Mar 2021 09:44:56 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Mar 2024 08:44:56 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Finding files quickly</title>
+      <link>http://localhost:1313/post/vim-find/</link>
+      <pubDate>Fri, 29 Mar 2024 08:44:56 +0100</pubDate>
+      
+      <guid>http://localhost:1313/post/vim-find/</guid>
+      <description>
+        
+          &lt;h1 id=&#34;finding-files-with-fzf-ripgrep-and-nnn&#34;&gt;Finding files with fzf ripgrep and nnn&lt;/h1&gt;
+&lt;p&gt;This is the next articial in the series &#39;mouseless&#39;. Find previous articles here:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://localhost:1313/post/terminal-workflow/&#34;&gt;Terminal workflow&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;http://localhost:1313/post/nice-vim-commands/&#34;&gt;Nice vim commands&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Why? Because navigating through files in can take a lot of time, especially if you are faced with a big git repo. However, tools like ripgrep and fzf can assist you here.&lt;/p&gt;
+&lt;p&gt;Let&#39;s keep it simple and easy to remember!&lt;/p&gt;
+&lt;h2 id=&#34;nnn&#34;&gt;nnn&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/jarun/nnn&#34;&gt;nnn&lt;/a&gt; a full-featured terminal file manager.
+Here are some commands you will need:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Shortcut&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;!&lt;/td&gt;
+&lt;td&gt;Open folder in terminal&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;e&lt;/td&gt;
+&lt;td&gt;Open selected file in vim&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;q (or 2x esc&lt;/td&gt;
+&lt;td&gt;Exit nnn&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;img src=&#34;http://localhost:1313/nnn.png&#34; width=&#34;400&#34;&gt;
+&lt;h2 id=&#34;fzf-and-ripgrep&#34;&gt;fzf and ripgrep&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/junegunn/fzf&#34;&gt;fzf&lt;/a&gt; is a tool that can help you deal with searching for files and then filter the results.
+Just typing &lt;code&gt;fzf&lt;/code&gt; in a folder will display all files and folders, and then you can carry on typing to narrow the results.&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/fzf.png&#34; width=&#34;400&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/BurntSushi/ripgrep&#34;&gt;ripgrep&lt;/a&gt; is a tool that recursively searches the current directory for a regex pattern. It is blazingly fast.&lt;/p&gt;
+&lt;h2 id=&#34;fzf-and-rg-in-vim&#34;&gt;fzf and rg in vim&lt;/h2&gt;
+&lt;p&gt;Wouldn&#39;t it be nice to edit the selected file immediately in vim?
+Yes it would. Install the &lt;a href=&#34;https://github.com/junegunn/fzf.vim&#34;&gt;fzf.vim&lt;/a&gt; plugin.&lt;/p&gt;
+&lt;p&gt;At this to your .zshrc or .bashrc:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; vimrg&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;local&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;rg --line-number --no-heading --color&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;always &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; fzf --ansi --delimiter&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;:&amp;#39;&lt;/span&gt; --preview &lt;span class=&#34;s1&#34;&gt;&amp;#39;rg --color=always --context 2 {1} {2}&amp;#39;&lt;/span&gt; --preview-window&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;hidden --no-height &lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[[&lt;/span&gt; -n &lt;span class=&#34;nv&#34;&gt;$file&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;local&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;file_path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$file&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; cut -d&lt;span class=&#34;s1&#34;&gt;&amp;#39;:&amp;#39;&lt;/span&gt; -f1&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;local&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;line_number&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$file&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; cut -d&lt;span class=&#34;s1&#34;&gt;&amp;#39;:&amp;#39;&lt;/span&gt; -f2&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;    vim &lt;span class=&#34;s2&#34;&gt;&amp;#34;+&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$line_number&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$file_path&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When running vimrg &amp;quot;encryption&amp;quot; it will start fzf to all files with &#39;encryption&#39; somewhere in the text. It will open the file in vim upon selecting the entry you want to edit.&lt;/p&gt;
+&lt;h3 id=&#34;fzf-in-vim&#34;&gt;fzf in vim&lt;/h3&gt;
+&lt;p&gt;When installing fzf in vim, it will actually use ripgrep under the covers to search the folder.
+It allows you to type &lt;code&gt;:Rg &amp;lt;searchterm&amp;gt;&lt;/code&gt; and then it will open a nice fzf preview window.&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/rg-vim.png&#34; width=&#34;600&#34;&gt;
+&lt;h2 id=&#34;what-is-next&#34;&gt;What is next&lt;/h2&gt;
+&lt;p&gt;I think I should write more, but I really want to go for a run now and do some other work.&lt;/p&gt;
+
+        
+      </description>
+    </item>
+    
     <item>
       <title>Terminal Workflow</title>
       <link>http://localhost:1313/post/terminal-workflow/</link>

@@ -7,24 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Tue, 21 Dec 2021 16:24:21 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Terraform patterns: modules</title>
-      <link>http://localhost:1313/post/terraform-patterns-modules/</link>
-      <pubDate>Tue, 21 Dec 2021 16:24:21 +0100</pubDate>
-      
-      <guid>http://localhost:1313/post/terraform-patterns-modules/</guid>
-      <description>
-        
-          &lt;h2 id=&#34;what-about-the-outputs&#34;&gt;What about the outputs?&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;output&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;resource_groups&amp;#34;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;    value&lt;/span&gt;       &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt; { for groups in azurerm_resource_group.otherrg : groups.name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;groups&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;location&lt;/span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-        
-      </description>
-    </item>
-    
+    <lastBuildDate>Tue, 21 Dec 2021 11:24:21 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Terraform patterns: loops</title>
       <link>http://localhost:1313/post/terraform-patterns-loops/</link>

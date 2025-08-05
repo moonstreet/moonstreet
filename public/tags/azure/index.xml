@@ -7,20 +7,48 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Tue, 21 Dec 2021 16:24:21 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/azure/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 May 2024 09:13:46 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/azure/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Terraform patterns: modules</title>
-      <link>http://localhost:1313/post/terraform-patterns-modules/</link>
-      <pubDate>Tue, 21 Dec 2021 16:24:21 +0100</pubDate>
+      <title>Azure Bicep cheatsheet</title>
+      <link>http://localhost:1313/post/bicep-types/</link>
+      <pubDate>Sat, 04 May 2024 09:13:46 +0100</pubDate>
       
-      <guid>http://localhost:1313/post/terraform-patterns-modules/</guid>
+      <guid>http://localhost:1313/post/bicep-types/</guid>
       <description>
         
-          &lt;h2 id=&#34;what-about-the-outputs&#34;&gt;What about the outputs?&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hcl&#34; data-lang=&#34;hcl&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;output&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;resource_groups&amp;#34;&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;    value&lt;/span&gt;       &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt; { for groups in azurerm_resource_group.otherrg : groups.name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;groups&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;location&lt;/span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+          &lt;h1 id=&#34;azure-bicep-cheatsheet&#34;&gt;Azure Bicep cheatsheet&lt;/h1&gt;
+&lt;p&gt;For my work I need to use Azure Bicep more and more. And slowly I come to appreciate it.&lt;/p&gt;
+&lt;h2 id=&#34;useful-links&#34;&gt;Useful links&lt;/h2&gt;
+&lt;p&gt;These are 2 links I can&#39;t do without:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/Azure/bicep-registry-modules&#34;&gt;Azure Verified Modules&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://learn.microsoft.com/en-us/azure/templates/&#34;&gt;Bicep Reference&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;bicep-in-5-short-sentences&#34;&gt;Bicep in 5 short sentences&lt;/h2&gt;
+&lt;p&gt;Azure resources can be deployed via a REST endpoint: the Azure Resource Manager REST API. That API accepts a JSON payload that represents the desired state of the infrastructure you want to deploy. Bicep is a DSL that provides a more readable syntax. Bicep files are compiled (transpiled) into ARM Template JSON files.&lt;/p&gt;
+&lt;h2 id=&#34;cheatsheet&#34;&gt;Cheatsheet&lt;/h2&gt;
+&lt;p&gt;From 1 to 100 in 1 second. The use of modules is assumed.&lt;/p&gt;
+&lt;h3 id=&#34;optional-parameters&#34;&gt;Optional parameters&lt;/h3&gt;
+&lt;p&gt;You have an optional parameter. When a value is assigned, use it. When not, omit the parameter.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Method 1&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Give the parameter a default empty value. Then use the &lt;code&gt;empty()&lt;/code&gt; function to evaluate.&lt;/p&gt;
+&lt;p&gt;Declaration:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;@description(&amp;#39;Optional.Specifies the dnsPrefix. If empty it will default to aks-&amp;lt;suffix&amp;gt;.&amp;#39;) 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;param dnsPrefix string = &amp;#39;&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Implementation:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;dnsPrefix: !empty(dnsPrefix) ? dnsPrefix : &amp;#39;aks-${suffix}&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Explanation:&lt;/p&gt;
+&lt;p&gt;&#39; &#39; is considered an empty string in Bicep. The !empty() function returns true if the string is not empty (i.e., has a length greater than 0) and false if the string is empty. If no value is provided for the dnsPrefix parameter, it will default to an empty string (&#39;&#39;). When the !empty(dnsPrefix) condition is evaluated, it will be false because an empty string is considered empty.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Method 2&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Use an object. When the object has the property, use it, else set it to null.&lt;/p&gt;
+&lt;p&gt;Declaration:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;@description(&amp;#39;Optional.Specifies the dnsPrefix. If empty it will default to aks-&amp;lt;suffix&amp;gt;.&amp;#39;) 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;param dnsPrefix string = &amp;#39;&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Implementation:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;dnsPrefix: !empty(dnsPrefix) ? dnsPrefix : &amp;#39;aks-${suffix}&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Explanation:&lt;/p&gt;
+&lt;p&gt;&#39; &#39; is considered an empty string in Bicep. The !empty() function returns true if the string is not empty (i.e., has a length greater than 0) and false if the string is empty. If no value is provided for the dnsPrefix parameter, it will default to an empty string (&#39;&#39;). When the !empty(dnsPrefix) condition is evaluated, it will be false because an empty string is considered empty.&lt;/p&gt;
+
         
       </description>
     </item>
