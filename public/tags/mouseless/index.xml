@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mouseless on Moonstreet</title><link>http://localhost:1313/tags/mouseless/</link><description>Recent content in Mouseless on Moonstreet</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright><lastBuildDate>Fri, 29 Mar 2024 08:44:56 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/mouseless/index.xml" rel="self" type="application/rss+xml"/><item><title>Finding files quickly</title><link>http://localhost:1313/post/vim-find/</link><pubDate>Fri, 29 Mar 2024 08:44:56 +0100</pubDate><guid>http://localhost:1313/post/vim-find/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mouseless on Moonstreet</title><link>https://www.moonstreet.nl/tags/mouseless/</link><description>Recent content in Mouseless on Moonstreet</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright><lastBuildDate>Fri, 29 Mar 2024 08:44:56 +0100</lastBuildDate><atom:link href="https://www.moonstreet.nl/tags/mouseless/index.xml" rel="self" type="application/rss+xml"/><item><title>Finding files quickly</title><link>https://www.moonstreet.nl/post/vim-find/</link><pubDate>Fri, 29 Mar 2024 08:44:56 +0100</pubDate><guid>https://www.moonstreet.nl/post/vim-find/</guid><description>
 &lt;h1 id="finding-files-with-fzf-ripgrep-and-nnn">Finding files with fzf ripgrep and nnn&lt;/h1>
 &lt;p>This is the next articial in the series 'mouseless'. Find previous articles here:&lt;/p>
-&lt;p>&lt;a href="http://localhost:1313/post/terminal-workflow/">Terminal workflow&lt;/a>&lt;br>
-&lt;a href="http://localhost:1313/post/nice-vim-commands/">Nice vim commands&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://www.moonstreet.nl/post/terminal-workflow/">Terminal workflow&lt;/a>&lt;br>
+&lt;a href="https://www.moonstreet.nl/post/nice-vim-commands/">Nice vim commands&lt;/a>&lt;/p>
 &lt;p>Why? Because navigating through files in can take a lot of time, especially if you are faced with a big git repo. However, tools like ripgrep and fzf can assist you here.&lt;/p>
 &lt;p>Let's keep it simple and easy to remember!&lt;/p>
 &lt;h2 id="nnn">nnn&lt;/h2>
 &lt;p>&lt;a href="https://github.com/jarun/nnn">nnn&lt;/a> a full-featured terminal file manager.
-Here are some commands you will need:&lt;/p></description></item><item><title>Terminal Workflow</title><link>http://localhost:1313/post/terminal-workflow/</link><pubDate>Sat, 06 Mar 2021 09:44:56 +0100</pubDate><guid>http://localhost:1313/post/terminal-workflow/</guid><description>
+Here are some commands you will need:&lt;/p></description></item><item><title>Terminal Workflow</title><link>https://www.moonstreet.nl/post/terminal-workflow/</link><pubDate>Sat, 06 Mar 2021 09:44:56 +0100</pubDate><guid>https://www.moonstreet.nl/post/terminal-workflow/</guid><description>
 &lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Tmux_logo.svg/1280px-Tmux_logo.svg.png" width="400">
 &lt;p>This is a post about my workflow when editing files in the terminal.&lt;/p>
 &lt;p>When editing files quickly I usually resort to vim.
@@ -15,7 +15,7 @@ It requires a lot of muscle memory but hey, one needs to train their reptile bra
 &lt;h2 id="tmux-config">Tmux config&lt;/h2>
 &lt;p>So I use tmux and vim so you need those two installed.
 My tmux config is really simple. I changed the leader key to ctrl+q for easy reach on my keyboard.
-I used to have ctrl+a but that conflicted with my habit to use that keyboard combo to go to the beginning of a command.&lt;/p></description></item><item><title>My personal vim cheatsheet</title><link>http://localhost:1313/post/nice-vim-commands/</link><pubDate>Fri, 05 Mar 2021 09:44:56 +0100</pubDate><guid>http://localhost:1313/post/nice-vim-commands/</guid><description>
+I used to have ctrl+a but that conflicted with my habit to use that keyboard combo to go to the beginning of a command.&lt;/p></description></item><item><title>My personal vim cheatsheet</title><link>https://www.moonstreet.nl/post/nice-vim-commands/</link><pubDate>Fri, 05 Mar 2021 09:44:56 +0100</pubDate><guid>https://www.moonstreet.nl/post/nice-vim-commands/</guid><description>
 &lt;p>Here is my vim &amp;amp; tmux cheatsheet.&lt;/p>
 &lt;h2 id="tmux">tmux&lt;/h2>
 &lt;p>This is my .tmux.conf. I prefer to set the meta key to &lt;strong>q&lt;/strong>.&lt;/p>

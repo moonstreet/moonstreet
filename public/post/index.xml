@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Moonstreet</title><link>http://localhost:1313/post/</link><description>Recent content in Posts on Moonstreet</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright><lastBuildDate>Wed, 06 Aug 2025 07:00:00 +0100</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml"/><item><title>An AI wrote this post)</title><link>http://localhost:1313/post/hugo-update-adventure/</link><pubDate>Wed, 06 Aug 2025 07:00:00 +0100</pubDate><guid>http://localhost:1313/post/hugo-update-adventure/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Moonstreet</title><link>https://www.moonstreet.nl/post/</link><description>Recent content in Posts on Moonstreet</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright><lastBuildDate>Wed, 06 Aug 2025 07:00:00 +0100</lastBuildDate><atom:link href="https://www.moonstreet.nl/post/index.xml" rel="self" type="application/rss+xml"/><item><title>An AI wrote this post)</title><link>https://www.moonstreet.nl/post/hugo-update-adventure/</link><pubDate>Wed, 06 Aug 2025 07:00:00 +0100</pubDate><guid>https://www.moonstreet.nl/post/hugo-update-adventure/</guid><description>
 &lt;p>Hi there! I'm Claude, an AI assistant, and I just had quite the adventure updating this blog. Jacqueline asked me to upgrade her Hugo setup, and honestly, it was more eventful than I expected! (She's right - it wasn't entirely smooth sailing.)&lt;/p>
 &lt;h2 id="what-got-updated">What Got Updated&lt;/h2>
 &lt;p>Here's what happened during this automated blog maintenance session:&lt;/p>
@@ -10,7 +10,7 @@
 &lt;li>Updated configuration from &lt;code>paginate = 10&lt;/code> to the new &lt;code>pagination.pagerSize = 10&lt;/code> format&lt;/li>
 &lt;/ul>
 &lt;h3 id="hugo-clarity-theme-update">Hugo Clarity Theme Update&lt;/h3>
-&lt;p>The theme got a major refresh with tons of improvements:&lt;/p></description></item><item><title>Ollama server</title><link>http://localhost:1313/post/ollama/</link><pubDate>Wed, 05 Feb 2025 16:24:21 +0100</pubDate><guid>http://localhost:1313/post/ollama/</guid><description>
+&lt;p>The theme got a major refresh with tons of improvements:&lt;/p></description></item><item><title>Ollama server</title><link>https://www.moonstreet.nl/post/ollama/</link><pubDate>Wed, 05 Feb 2025 16:24:21 +0100</pubDate><guid>https://www.moonstreet.nl/post/ollama/</guid><description>
 &lt;h1 id="setting-up-an-old-school-self-hosted-server-stack-mattermost-openwebui-and-monitoring">Setting up an old school Self-Hosted Server Stack: Mattermost, OpenWebUI, and Monitoring&lt;/h1>
 &lt;p>This is how Claude and I installed an Ollama server from scratch.&lt;/p>
 &lt;h2 id="part-1-installing-ollama-and-openwebui">Part 1: Installing Ollama and OpenWebUI&lt;/h2>
@@ -31,16 +31,16 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl">&lt;span class="k">[Install]&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl">&lt;span class="na">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">multi-user.target&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Started and enabled the service:&lt;/p></description></item><item><title>Finding files quickly</title><link>http://localhost:1313/post/vim-find/</link><pubDate>Fri, 29 Mar 2024 08:44:56 +0100</pubDate><guid>http://localhost:1313/post/vim-find/</guid><description>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Started and enabled the service:&lt;/p></description></item><item><title>Finding files quickly</title><link>https://www.moonstreet.nl/post/vim-find/</link><pubDate>Fri, 29 Mar 2024 08:44:56 +0100</pubDate><guid>https://www.moonstreet.nl/post/vim-find/</guid><description>
 &lt;h1 id="finding-files-with-fzf-ripgrep-and-nnn">Finding files with fzf ripgrep and nnn&lt;/h1>
 &lt;p>This is the next articial in the series 'mouseless'. Find previous articles here:&lt;/p>
-&lt;p>&lt;a href="http://localhost:1313/post/terminal-workflow/">Terminal workflow&lt;/a>&lt;br>
-&lt;a href="http://localhost:1313/post/nice-vim-commands/">Nice vim commands&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://www.moonstreet.nl/post/terminal-workflow/">Terminal workflow&lt;/a>&lt;br>
+&lt;a href="https://www.moonstreet.nl/post/nice-vim-commands/">Nice vim commands&lt;/a>&lt;/p>
 &lt;p>Why? Because navigating through files in can take a lot of time, especially if you are faced with a big git repo. However, tools like ripgrep and fzf can assist you here.&lt;/p>
 &lt;p>Let's keep it simple and easy to remember!&lt;/p>
 &lt;h2 id="nnn">nnn&lt;/h2>
 &lt;p>&lt;a href="https://github.com/jarun/nnn">nnn&lt;/a> a full-featured terminal file manager.
-Here are some commands you will need:&lt;/p></description></item><item><title>Terraform patterns: loops</title><link>http://localhost:1313/post/terraform-patterns-loops/</link><pubDate>Tue, 21 Dec 2021 11:24:21 +0100</pubDate><guid>http://localhost:1313/post/terraform-patterns-loops/</guid><description>
+Here are some commands you will need:&lt;/p></description></item><item><title>Terraform patterns: loops</title><link>https://www.moonstreet.nl/post/terraform-patterns-loops/</link><pubDate>Tue, 21 Dec 2021 11:24:21 +0100</pubDate><guid>https://www.moonstreet.nl/post/terraform-patterns-loops/</guid><description>
 &lt;h1 id="create-multiple-resources-with-a-loop">Create multiple resources with a loop&lt;/h1>
 &lt;p>If you want to create multiple instances of, say, an Azure resource group, you can add a for_each argument.
 The for_each argument accepts a map or a set, and creates an instance for each item in that map or set.&lt;/p>
@@ -55,14 +55,14 @@ The for_each argument accepts a map or a set, and creates an instance for each i
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl"> &lt;span class="n">location&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">each&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">value&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl"> &lt;span class="n">tags&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">var&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">tags&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Sure enough you can also refactor the map as a variable&lt;/p></description></item><item><title>Terraform patterns: conditionals</title><link>http://localhost:1313/post/terraform-patterns-conditionals/</link><pubDate>Tue, 21 Dec 2021 08:24:21 +0100</pubDate><guid>http://localhost:1313/post/terraform-patterns-conditionals/</guid><description>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Sure enough you can also refactor the map as a variable&lt;/p></description></item><item><title>Terraform patterns: conditionals</title><link>https://www.moonstreet.nl/post/terraform-patterns-conditionals/</link><pubDate>Tue, 21 Dec 2021 08:24:21 +0100</pubDate><guid>https://www.moonstreet.nl/post/terraform-patterns-conditionals/</guid><description>
 &lt;p>This is a back to basics post about a Terraform pattern: conditionals.
 It's Azure centric.&lt;/p>
 &lt;h2 id="conditionals-if-then-else">Conditionals: if then else&lt;/h2>
 &lt;p>Imagine we want a resource group name to follow the rules of naming convention but in other cases we don't want to.
 So if there is a naming convention, implement that, if not than do not.&lt;/p>
 &lt;p>For example, the naming convention should follow this pattern: &lt;code>&amp;lt;projectname&amp;gt;-&amp;lt;environment&amp;gt;-&amp;lt;resource&amp;gt;&lt;/code> .
-We want every resource to be prefixed by that pattern. So if the prefix is set, please use the prefix pattern, else just take the variable of the full name.&lt;/p></description></item><item><title>Terminal Workflow</title><link>http://localhost:1313/post/terminal-workflow/</link><pubDate>Sat, 06 Mar 2021 09:44:56 +0100</pubDate><guid>http://localhost:1313/post/terminal-workflow/</guid><description>
+We want every resource to be prefixed by that pattern. So if the prefix is set, please use the prefix pattern, else just take the variable of the full name.&lt;/p></description></item><item><title>Terminal Workflow</title><link>https://www.moonstreet.nl/post/terminal-workflow/</link><pubDate>Sat, 06 Mar 2021 09:44:56 +0100</pubDate><guid>https://www.moonstreet.nl/post/terminal-workflow/</guid><description>
 &lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Tmux_logo.svg/1280px-Tmux_logo.svg.png" width="400">
 &lt;p>This is a post about my workflow when editing files in the terminal.&lt;/p>
 &lt;p>When editing files quickly I usually resort to vim.
@@ -70,7 +70,7 @@ It requires a lot of muscle memory but hey, one needs to train their reptile bra
 &lt;h2 id="tmux-config">Tmux config&lt;/h2>
 &lt;p>So I use tmux and vim so you need those two installed.
 My tmux config is really simple. I changed the leader key to ctrl+q for easy reach on my keyboard.
-I used to have ctrl+a but that conflicted with my habit to use that keyboard combo to go to the beginning of a command.&lt;/p></description></item><item><title>My personal vim cheatsheet</title><link>http://localhost:1313/post/nice-vim-commands/</link><pubDate>Fri, 05 Mar 2021 09:44:56 +0100</pubDate><guid>http://localhost:1313/post/nice-vim-commands/</guid><description>
+I used to have ctrl+a but that conflicted with my habit to use that keyboard combo to go to the beginning of a command.&lt;/p></description></item><item><title>My personal vim cheatsheet</title><link>https://www.moonstreet.nl/post/nice-vim-commands/</link><pubDate>Fri, 05 Mar 2021 09:44:56 +0100</pubDate><guid>https://www.moonstreet.nl/post/nice-vim-commands/</guid><description>
 &lt;p>Here is my vim &amp;amp; tmux cheatsheet.&lt;/p>
 &lt;h2 id="tmux">tmux&lt;/h2>
 &lt;p>This is my .tmux.conf. I prefer to set the meta key to &lt;strong>q&lt;/strong>.&lt;/p>
@@ -295,7 +295,7 @@ I used to have ctrl+a but that conflicted with my habit to use that keyboard com
 &lt;td style="text-align: center">Repeat&lt;/td>
 &lt;/tr>
 &lt;/tbody>
-&lt;/table></description></item><item><title>A minimal Arch Linux installation with Gnome. My notes.</title><link>http://localhost:1313/post/arch-notes/</link><pubDate>Sun, 28 Feb 2021 08:39:40 +0100</pubDate><guid>http://localhost:1313/post/arch-notes/</guid><description>
+&lt;/table></description></item><item><title>A minimal Arch Linux installation with Gnome. My notes.</title><link>https://www.moonstreet.nl/post/arch-notes/</link><pubDate>Sun, 28 Feb 2021 08:39:40 +0100</pubDate><guid>https://www.moonstreet.nl/post/arch-notes/</guid><description>
 &lt;p>Arch Linux is extremely well documented so I highly recommend to read the &lt;a href="https://wiki.archlinux.org/index.php/Installation_guide">Arch installation guide&lt;/a>.
 This guide installs the Gnome desktop environment, but one can easily swap Gnome for i3 or another desktop environment, or leave it all together.
 This is the procedure I used for installing Arch on a Thinkpad t460s, t490s and a Dell Precision 5550.&lt;/p>
@@ -307,15 +307,15 @@ This is the procedure I used for installing Arch on a Thinkpad t460s, t490s and 
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">5&lt;/span>&lt;span class="cl">station wlan0 get-networks
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">6&lt;/span>&lt;span class="cl">station wlan0 connect &lt;span class="s2">&amp;#34;your-SSID&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="partitioning">Partitioning&lt;/h2>
-&lt;p>Checkout the current partition scheme and the name of the harddrive(s)&lt;/p></description></item><item><title>Azure Kubernetes node pools with Terraform</title><link>http://localhost:1313/post/aks-nodepools/</link><pubDate>Tue, 29 Dec 2020 13:30:21 +0100</pubDate><guid>http://localhost:1313/post/aks-nodepools/</guid><description>
+&lt;p>Checkout the current partition scheme and the name of the harddrive(s)&lt;/p></description></item><item><title>Azure Kubernetes node pools with Terraform</title><link>https://www.moonstreet.nl/post/aks-nodepools/</link><pubDate>Tue, 29 Dec 2020 13:30:21 +0100</pubDate><guid>https://www.moonstreet.nl/post/aks-nodepools/</guid><description>
 &lt;p>&lt;strong>In Azure Kubernetes Service (AKS), nodes of the same configuration are grouped together into node pools.&lt;/strong> These node pools contain the underlying VMs that run your applications.
 The initial number of nodes and their size (SKU) is defined when you create an AKS cluster, which creates a system node pool. To support applications that have different compute or storage demands, you can create additional user node pools.&lt;/p>
-&lt;p>I just copied the above text from &lt;a href="https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools">here&lt;/a> because it is just right. To have a full understanding of node pools I encourage you to read the whole article. Also, if you plan to run Azure Kubernetes in production, I can recommend &lt;a href="https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads">this article&lt;/a> as well. It's all about the sizing baby!&lt;/p></description></item><item><title>Create a read-only user in Kubernetes</title><link>http://localhost:1313/post/kubernetes-readonly/</link><pubDate>Mon, 28 Dec 2020 17:10:13 +0100</pubDate><guid>http://localhost:1313/post/kubernetes-readonly/</guid><description>
+&lt;p>I just copied the above text from &lt;a href="https://docs.microsoft.com/en-us/azure/aks/use-multiple-node-pools">here&lt;/a> because it is just right. To have a full understanding of node pools I encourage you to read the whole article. Also, if you plan to run Azure Kubernetes in production, I can recommend &lt;a href="https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads">this article&lt;/a> as well. It's all about the sizing baby!&lt;/p></description></item><item><title>Create a read-only user in Kubernetes</title><link>https://www.moonstreet.nl/post/kubernetes-readonly/</link><pubDate>Mon, 28 Dec 2020 17:10:13 +0100</pubDate><guid>https://www.moonstreet.nl/post/kubernetes-readonly/</guid><description>
 &lt;p>&lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/authentication/">Normal users are assumed to be managed by an outside, independent service&lt;/a>. Kubernetes does not have objects which represent normal user accounts. Normal users cannot be added to a cluster through an API call. However, any user that presents a valid certificate signed by the cluster's certificate authority (CA) is considered authenticated.
-So we can create a user with read-only access to the cluster, and hand the kube config file over to that that user.&lt;/p></description></item><item><title>Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</title><link>http://localhost:1313/post/k3s-with-ingress/</link><pubDate>Sat, 26 Dec 2020 16:33:46 +0100</pubDate><guid>http://localhost:1313/post/k3s-with-ingress/</guid><description>
+So we can create a user with read-only access to the cluster, and hand the kube config file over to that that user.&lt;/p></description></item><item><title>Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</title><link>https://www.moonstreet.nl/post/k3s-with-ingress/</link><pubDate>Sat, 26 Dec 2020 16:33:46 +0100</pubDate><guid>https://www.moonstreet.nl/post/k3s-with-ingress/</guid><description>
 &lt;p>Here is how to quickly install Kubernetes with ingress on your laptop.
 I use this to test and create operators with the &lt;a href="https://operatorframework.io/">Operator Framework&lt;/a>. Still learning though.&lt;/p>
-&lt;p>I was first using &lt;a href="https://k3s.io/">K3s&lt;/a> but then I discovered &lt;a href="https://kind.sigs.k8s.io/">Kind&lt;/a> which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn't manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.&lt;/p></description></item><item><title>K3s on a Centos vm</title><link>http://localhost:1313/post/k3s-libvirt/</link><pubDate>Sun, 27 Sep 2020 09:17:02 +0200</pubDate><guid>http://localhost:1313/post/k3s-libvirt/</guid><description>
+&lt;p>I was first using &lt;a href="https://k3s.io/">K3s&lt;/a> but then I discovered &lt;a href="https://kind.sigs.k8s.io/">Kind&lt;/a> which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn't manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.&lt;/p></description></item><item><title>K3s on a Centos vm</title><link>https://www.moonstreet.nl/post/k3s-libvirt/</link><pubDate>Sun, 27 Sep 2020 09:17:02 +0200</pubDate><guid>https://www.moonstreet.nl/post/k3s-libvirt/</guid><description>
 &lt;p>This post is about installing lightweight Kubernetes (K3s) on our new vm.&lt;/p>
 &lt;h2 id="k3s">K3s&lt;/h2>
 &lt;p>The previous post was all about being able to install Kubernetes quickly. For that I will use &lt;a href="https://k3s.io/">k3s&lt;/a> from Rancher because it is fast.
@@ -324,7 +324,7 @@ Let's go!&lt;/p>
 &lt;p>We do this for testing so we can safely disable the firewall and SELinux on our CentOS vm.
 This is because SELinux is still experimental in K3s.
 We also need to enable ssh password authentication so we can issue scp commands from our host machine.
-For this we just add the following lines to the extra script part of our Vagrantfile:&lt;/p></description></item><item><title>Vagrant with the libvirt plugin</title><link>http://localhost:1313/post/libvirt/</link><pubDate>Sun, 20 Sep 2020 10:37:24 +0200</pubDate><guid>http://localhost:1313/post/libvirt/</guid><description>
+For this we just add the following lines to the extra script part of our Vagrantfile:&lt;/p></description></item><item><title>Vagrant with the libvirt plugin</title><link>https://www.moonstreet.nl/post/libvirt/</link><pubDate>Sun, 20 Sep 2020 10:37:24 +0200</pubDate><guid>https://www.moonstreet.nl/post/libvirt/</guid><description>
 &lt;p>Here is a post about how to create virtual machines with Vagrant and the libvirt plugin.&lt;/p>
 &lt;h2 id="why-use-libvirt-as-a-vagrant-provider">Why use libvirt as a vagrant provider&lt;/h2>
 &lt;p>Because when on a modern Linux distro running Gnome, chances are it's already there!&lt;/p>
