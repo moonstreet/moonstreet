@@ -1,5 +1,5 @@
 ---
-title: "A minimal Arch Linux installation with Gnome. My notes."
+title: "A minimal Arch Linux installation with Gnome"
 date: 2021-02-28T08:39:40+01:00
 draft: false
 showShare: false
@@ -14,6 +14,8 @@ tags:
 Arch Linux is extremely well documented so I highly recommend to read the [Arch installation guide](https://wiki.archlinux.org/index.php/Installation_guide).
 This guide installs the Gnome desktop environment, but one can easily swap Gnome for i3 or another desktop environment, or leave it all together.
 This is the procedure I used for installing Arch on a Thinkpad t460s, t490s and a Dell Precision 5550.
+
+This article has been updated on 2025-08-03.
 
 ## Wifi
 
@@ -87,7 +89,7 @@ Make filesystem for boot and mount
 ```shell
 mkfs.fat -F32 /dev/vme0n1p1
 mkdir /mnt/boot
-mount /dev/vme0n1p1 /mnt/boot
+mount /dev/nvme0n1p1 /mnt/boot
 ```
 
 

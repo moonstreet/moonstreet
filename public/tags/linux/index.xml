@@ -261,10 +261,11 @@ I used to have ctrl+a but that conflicted with my habit to use that keyboard com
 &lt;td style="text-align: center">Repeat&lt;/td>
 &lt;/tr>
 &lt;/tbody>
-&lt;/table></description></item><item><title>A minimal Arch Linux installation with Gnome. My notes.</title><link>https://www.moonstreet.nl/post/arch-notes/</link><pubDate>Sun, 28 Feb 2021 08:39:40 +0100</pubDate><guid>https://www.moonstreet.nl/post/arch-notes/</guid><description>
+&lt;/table></description></item><item><title>A minimal Arch Linux installation with Gnome</title><link>https://www.moonstreet.nl/post/arch-notes/</link><pubDate>Sun, 28 Feb 2021 08:39:40 +0100</pubDate><guid>https://www.moonstreet.nl/post/arch-notes/</guid><description>
 &lt;p>Arch Linux is extremely well documented so I highly recommend to read the &lt;a href="https://wiki.archlinux.org/index.php/Installation_guide">Arch installation guide&lt;/a>.
 This guide installs the Gnome desktop environment, but one can easily swap Gnome for i3 or another desktop environment, or leave it all together.
 This is the procedure I used for installing Arch on a Thinkpad t460s, t490s and a Dell Precision 5550.&lt;/p>
+&lt;p>This article has been updated on 2025-08-03.&lt;/p>
 &lt;h2 id="wifi">Wifi&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">iwctl
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl">&lt;span class="c1"># inside iwctl:&lt;/span>
