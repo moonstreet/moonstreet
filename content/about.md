@@ -48,9 +48,14 @@ Then in a new terminal window:
 ```sh
 hugo new posts/hugo.md
 # write something
-hugo --theme hugo-clarity --minify --disableFastRender
 ```
 
+Then build like this (very important step)
+
+```sh
+hugo --theme hugo-clarity --minify
+```
+And deploy!
 Nice! Need to blog more.
 
 ## Push to Github and publish with Netlify
