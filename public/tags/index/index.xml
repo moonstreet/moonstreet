@@ -4,22 +4,17 @@
     <title>Index on Moonstreet</title>
     <link>http://localhost:1313/tags/index/</link>
     <description>Recent content in Index on Moonstreet</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Wed, 05 Feb 2025 16:24:21 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/index/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Aug 2025 07:00:00 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Posts</title>
       <link>http://localhost:1313/post/</link>
-      <pubDate>Wed, 05 Feb 2025 16:24:21 +0100</pubDate>
-      
+      <pubDate>Wed, 06 Aug 2025 07:00:00 +0100</pubDate>
       <guid>http://localhost:1313/post/</guid>
-      <description>
-        
-          
-        
-      </description>
+      <description></description>
     </item>
-    
   </channel>
 </rss>

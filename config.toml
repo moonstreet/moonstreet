@@ -5,7 +5,8 @@ title = "Moonstreet"
 author = "Jacqueline"
 copyright = "Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved."
 # canonifyurls = true
-paginate = 10
+[pagination]
+pagerSize = 10
 theme = "hugo-clarity"
 
 disqusShortname = ""
@@ -21,6 +22,9 @@ DefaultContentLanguage = "en"
 category = "categories"
 tag = "tags"
 series = "series"
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
 
 
 [markup]

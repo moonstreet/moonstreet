@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kind on Moonstreet</title>
+    <link>https://www.moonstreet.nl/tags/kind/</link>
+    <description>Recent content in Kind on Moonstreet</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
+    <lastBuildDate>Sat, 26 Dec 2020 16:33:46 +0100</lastBuildDate><atom:link href="https://www.moonstreet.nl/tags/kind/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Install the Nginx ingress controller on K3s - or Kind - and deploy a web app</title>
+      <link>https://www.moonstreet.nl/post/k3s-with-ingress/</link>
+      <pubDate>Sat, 26 Dec 2020 16:33:46 +0100</pubDate>
+      
+      <guid>https://www.moonstreet.nl/post/k3s-with-ingress/</guid>
+      <description>
+        
+          
+            &lt;p&gt;Here is how to quickly install Kubernetes with ingress on your laptop.
+I use this to test and create operators with the &lt;a href=&#34;https://operatorframework.io/&#34;&gt;Operator Framework&lt;/a&gt;. Still learning though.&lt;/p&gt;
+&lt;p&gt;I was first using &lt;a href=&#34;https://k3s.io/&#34;&gt;K3s&lt;/a&gt; but then I discovered &lt;a href=&#34;https://kind.sigs.k8s.io/&#34;&gt;Kind&lt;/a&gt; which seems to be even faster, deployment wise. Also it leaves a smaller footprint because it runs in a Docker container. (Didn&#39;t manage to run it with podman yet). So I quickly added a paragraph about Kind if you scroll down this post.&lt;/p&gt;
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
