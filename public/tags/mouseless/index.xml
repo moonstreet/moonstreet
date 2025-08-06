@@ -1,34 +1,243 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Mouseless on Moonstreet</title>
-    <link>http://localhost:1313/tags/mouseless/</link>
-    <description>Recent content in Mouseless on Moonstreet</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright>
-    <lastBuildDate>Fri, 29 Mar 2024 08:44:56 +0100</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/mouseless/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Finding files quickly</title>
-      <link>http://localhost:1313/post/vim-find/</link>
-      <pubDate>Fri, 29 Mar 2024 08:44:56 +0100</pubDate>
-      <guid>http://localhost:1313/post/vim-find/</guid>
-      <description>&lt;h1 id=&#34;finding-files-with-fzf-ripgrep-and-nnn&#34;&gt;Finding files with fzf ripgrep and nnn&lt;/h1&gt;&#xA;&lt;p&gt;This is the next articial in the series &#39;mouseless&#39;. Find previous articles here:&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;http://localhost:1313/post/terminal-workflow/&#34;&gt;Terminal workflow&lt;/a&gt;&lt;br&gt;&#xA;&lt;a href=&#34;http://localhost:1313/post/nice-vim-commands/&#34;&gt;Nice vim commands&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Why? Because navigating through files in can take a lot of time, especially if you are faced with a big git repo. However, tools like ripgrep and fzf can assist you here.&lt;/p&gt;&#xA;&lt;p&gt;Let&#39;s keep it simple and easy to remember!&lt;/p&gt;&#xA;&lt;h2 id=&#34;nnn&#34;&gt;nnn&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/jarun/nnn&#34;&gt;nnn&lt;/a&gt; a full-featured terminal file manager.&#xA;Here are some commands you will need:&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Terminal Workflow</title>
-      <link>http://localhost:1313/post/terminal-workflow/</link>
-      <pubDate>Sat, 06 Mar 2021 09:44:56 +0100</pubDate>
-      <guid>http://localhost:1313/post/terminal-workflow/</guid>
-      <description>&lt;img src=&#34;https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Tmux_logo.svg/1280px-Tmux_logo.svg.png&#34; width=&#34;400&#34;&gt;&#xA;&lt;p&gt;This is a post about my workflow when editing files in the terminal.&lt;/p&gt;&#xA;&lt;p&gt;When editing files quickly I usually resort to vim.&#xA;It requires a lot of muscle memory but hey, one needs to train their reptile brain, right.&lt;/p&gt;&#xA;&lt;h2 id=&#34;tmux-config&#34;&gt;Tmux config&lt;/h2&gt;&#xA;&lt;p&gt;So I use tmux and vim so you need those two installed.&#xA;My tmux config is really simple. I changed the leader key to ctrl+q for easy reach on my keyboard.&#xA;I used to have ctrl+a but that conflicted with my habit to use that keyboard combo to go to the beginning of a command.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>My personal vim cheatsheet</title>
-      <link>http://localhost:1313/post/nice-vim-commands/</link>
-      <pubDate>Fri, 05 Mar 2021 09:44:56 +0100</pubDate>
-      <guid>http://localhost:1313/post/nice-vim-commands/</guid>
-      <description>&lt;p&gt;Here is  my vim &amp;amp; tmux cheatsheet.&lt;/p&gt;&#xA;&lt;h2 id=&#34;tmux&#34;&gt;tmux&lt;/h2&gt;&#xA;&lt;p&gt;This is my .tmux.conf. I prefer to set the meta key to &lt;strong&gt;q&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;set-option -g prefix C-q&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -g mouse off&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -g status-bg black&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -g status-fg white&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th style=&#34;text-align: left&#34;&gt;Command&lt;/th&gt;&#xA;          &lt;th style=&#34;text-align: center&#34;&gt;What it does&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;ctrl+q arrows&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Navigate windows (tmux)&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;ctrl+q %&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Split vertically (tmux)&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;ctrl+q &amp;quot;&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Split horizontally (tmux)&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;ctrl+q z&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Toggle window full screen (nice one!)&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;[&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Enter scroll mode&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;q&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Leave scroll mode&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h2 id=&#34;open-multiple-files-at-once&#34;&gt;Open multiple files at once&lt;/h2&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;vim file1 file2&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;vim -O file1 file2 &lt;span class=&#34;c1&#34;&gt;# split vertically&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;buffers&#34;&gt;Buffers&lt;/h2&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th style=&#34;text-align: left&#34;&gt;Command&lt;/th&gt;&#xA;          &lt;th style=&#34;text-align: center&#34;&gt;What it does&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;:bn&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Display next buffer&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;:bp&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Display previous buffer&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;:bd&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Delete buffer&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;:ls&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;List buffers&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th style=&#34;text-align: left&#34;&gt;Command&lt;/th&gt;&#xA;          &lt;th style=&#34;text-align: center&#34;&gt;What it does&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;u&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Undo&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;ctrl+r&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Redo&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;ctrl+ww&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Navigate to buffer&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;:vsplit&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Split vertically&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;ctrl + w _&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Set height of split to max&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;ctrl + w |&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Set width of split to max&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h2 id=&#34;productivity-boosters&#34;&gt;Productivity boosters&lt;/h2&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th style=&#34;text-align: left&#34;&gt;Command&lt;/th&gt;&#xA;          &lt;th style=&#34;text-align: center&#34;&gt;What it does&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;v&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Enter visual mode per character&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;V&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Enter visual mode per line&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;ZZ&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Write file, if modified, and quit Vim&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;(&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;jumps to the previous sentence&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;)&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;jumps to the next sentence&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;{&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;jumps to the previous paragraph&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;}&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;jumps to the next paragraph&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;[[&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;jumps to the previous section&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;]]&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;jumps to the next section&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;[]&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;jump to the end of the previous section&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;][&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;jump to the end of the next section&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;a&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Insert text after the cursor&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;A&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Insert text at the end of the line&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;i&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Insert text before the cursor&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;o&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Begin a new line below the cursor&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;O&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Begin a new line above the cursor&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;Go&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Add a new line at the end of the file&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;:%s/wrong/right/gc&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Find and replace&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;/foo&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Search and highlight foo&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;:noh&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Stop highlihghting foo&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;:r&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Replace current character&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;:R&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Replace current character and stay in insert mode&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h2 id=&#34;favorites&#34;&gt;Favorites&lt;/h2&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th style=&#34;text-align: left&#34;&gt;Command&lt;/th&gt;&#xA;          &lt;th style=&#34;text-align: center&#34;&gt;What it does&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;ci &amp;quot;&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Change text between quotes works with {, [ and so on&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td style=&#34;text-align: left&#34;&gt;.&lt;/td&gt;&#xA;          &lt;td style=&#34;text-align: center&#34;&gt;Repeat&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mouseless on Moonstreet</title><link>https://www.moonstreet.nl/tags/mouseless/</link><description>Recent content in Mouseless on Moonstreet</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>Copyright © 2008–2018, Steve Francia and the Hugo Authors; all rights reserved.</copyright><lastBuildDate>Fri, 29 Mar 2024 08:44:56 +0100</lastBuildDate><atom:link href="https://www.moonstreet.nl/tags/mouseless/index.xml" rel="self" type="application/rss+xml"/><item><title>Finding files quickly</title><link>https://www.moonstreet.nl/post/vim-find/</link><pubDate>Fri, 29 Mar 2024 08:44:56 +0100</pubDate><guid>https://www.moonstreet.nl/post/vim-find/</guid><description>
+&lt;h1 id="finding-files-with-fzf-ripgrep-and-nnn">Finding files with fzf ripgrep and nnn&lt;/h1>
+&lt;p>This is the next articial in the series 'mouseless'. Find previous articles here:&lt;/p>
+&lt;p>&lt;a href="https://www.moonstreet.nl/post/terminal-workflow/">Terminal workflow&lt;/a>&lt;br>
+&lt;a href="https://www.moonstreet.nl/post/nice-vim-commands/">Nice vim commands&lt;/a>&lt;/p>
+&lt;p>Why? Because navigating through files in can take a lot of time, especially if you are faced with a big git repo. However, tools like ripgrep and fzf can assist you here.&lt;/p>
+&lt;p>Let's keep it simple and easy to remember!&lt;/p>
+&lt;h2 id="nnn">nnn&lt;/h2>
+&lt;p>&lt;a href="https://github.com/jarun/nnn">nnn&lt;/a> a full-featured terminal file manager.
+Here are some commands you will need:&lt;/p></description></item><item><title>Terminal Workflow</title><link>https://www.moonstreet.nl/post/terminal-workflow/</link><pubDate>Sat, 06 Mar 2021 09:44:56 +0100</pubDate><guid>https://www.moonstreet.nl/post/terminal-workflow/</guid><description>
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Tmux_logo.svg/1280px-Tmux_logo.svg.png" width="400">
+&lt;p>This is a post about my workflow when editing files in the terminal.&lt;/p>
+&lt;p>When editing files quickly I usually resort to vim.
+It requires a lot of muscle memory but hey, one needs to train their reptile brain, right.&lt;/p>
+&lt;h2 id="tmux-config">Tmux config&lt;/h2>
+&lt;p>So I use tmux and vim so you need those two installed.
+My tmux config is really simple. I changed the leader key to ctrl+q for easy reach on my keyboard.
+I used to have ctrl+a but that conflicted with my habit to use that keyboard combo to go to the beginning of a command.&lt;/p></description></item><item><title>My personal vim cheatsheet</title><link>https://www.moonstreet.nl/post/nice-vim-commands/</link><pubDate>Fri, 05 Mar 2021 09:44:56 +0100</pubDate><guid>https://www.moonstreet.nl/post/nice-vim-commands/</guid><description>
+&lt;p>Here is my vim &amp;amp; tmux cheatsheet.&lt;/p>
+&lt;h2 id="tmux">tmux&lt;/h2>
+&lt;p>This is my .tmux.conf. I prefer to set the meta key to &lt;strong>q&lt;/strong>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">set-option -g prefix C-q
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl">&lt;span class="nb">set&lt;/span> -g mouse off
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">3&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">4&lt;/span>&lt;span class="cl">&lt;span class="nb">set&lt;/span> -g status-bg black
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">5&lt;/span>&lt;span class="cl">&lt;span class="nb">set&lt;/span> -g status-fg white
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Command&lt;/th>
+&lt;th style="text-align: center">What it does&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">ctrl+q arrows&lt;/td>
+&lt;td style="text-align: center">Navigate windows (tmux)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">ctrl+q %&lt;/td>
+&lt;td style="text-align: center">Split vertically (tmux)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">ctrl+q &amp;quot;&lt;/td>
+&lt;td style="text-align: center">Split horizontally (tmux)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">ctrl+q z&lt;/td>
+&lt;td style="text-align: center">Toggle window full screen (nice one!)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">[&lt;/td>
+&lt;td style="text-align: center">Enter scroll mode&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">q&lt;/td>
+&lt;td style="text-align: center">Leave scroll mode&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="open-multiple-files-at-once">Open multiple files at once&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">vim file1 file2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl">vim -O file1 file2 &lt;span class="c1"># split vertically&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="buffers">Buffers&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Command&lt;/th>
+&lt;th style="text-align: center">What it does&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">:bn&lt;/td>
+&lt;td style="text-align: center">Display next buffer&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">:bp&lt;/td>
+&lt;td style="text-align: center">Display previous buffer&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">:bd&lt;/td>
+&lt;td style="text-align: center">Delete buffer&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">:ls&lt;/td>
+&lt;td style="text-align: center">List buffers&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="windows">Windows&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Command&lt;/th>
+&lt;th style="text-align: center">What it does&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">u&lt;/td>
+&lt;td style="text-align: center">Undo&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">ctrl+r&lt;/td>
+&lt;td style="text-align: center">Redo&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">ctrl+ww&lt;/td>
+&lt;td style="text-align: center">Navigate to buffer&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">:vsplit&lt;/td>
+&lt;td style="text-align: center">Split vertically&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">ctrl + w _&lt;/td>
+&lt;td style="text-align: center">Set height of split to max&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">ctrl + w |&lt;/td>
+&lt;td style="text-align: center">Set width of split to max&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="productivity-boosters">Productivity boosters&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Command&lt;/th>
+&lt;th style="text-align: center">What it does&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">v&lt;/td>
+&lt;td style="text-align: center">Enter visual mode per character&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">V&lt;/td>
+&lt;td style="text-align: center">Enter visual mode per line&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">ZZ&lt;/td>
+&lt;td style="text-align: center">Write file, if modified, and quit Vim&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">(&lt;/td>
+&lt;td style="text-align: center">jumps to the previous sentence&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">)&lt;/td>
+&lt;td style="text-align: center">jumps to the next sentence&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">{&lt;/td>
+&lt;td style="text-align: center">jumps to the previous paragraph&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">}&lt;/td>
+&lt;td style="text-align: center">jumps to the next paragraph&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">[[&lt;/td>
+&lt;td style="text-align: center">jumps to the previous section&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">]]&lt;/td>
+&lt;td style="text-align: center">jumps to the next section&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">[]&lt;/td>
+&lt;td style="text-align: center">jump to the end of the previous section&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">][&lt;/td>
+&lt;td style="text-align: center">jump to the end of the next section&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">a&lt;/td>
+&lt;td style="text-align: center">Insert text after the cursor&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">A&lt;/td>
+&lt;td style="text-align: center">Insert text at the end of the line&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">i&lt;/td>
+&lt;td style="text-align: center">Insert text before the cursor&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">o&lt;/td>
+&lt;td style="text-align: center">Begin a new line below the cursor&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">O&lt;/td>
+&lt;td style="text-align: center">Begin a new line above the cursor&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">Go&lt;/td>
+&lt;td style="text-align: center">Add a new line at the end of the file&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">:%s/wrong/right/gc&lt;/td>
+&lt;td style="text-align: center">Find and replace&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">/foo&lt;/td>
+&lt;td style="text-align: center">Search and highlight foo&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">:noh&lt;/td>
+&lt;td style="text-align: center">Stop highlihghting foo&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">:r&lt;/td>
+&lt;td style="text-align: center">Replace current character&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">:R&lt;/td>
+&lt;td style="text-align: center">Replace current character and stay in insert mode&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="favorites">Favorites&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align: left">Command&lt;/th>
+&lt;th style="text-align: center">What it does&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align: left">ci &amp;quot;&lt;/td>
+&lt;td style="text-align: center">Change text between quotes works with {, [ and so on&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align: left">.&lt;/td>
+&lt;td style="text-align: center">Repeat&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>
