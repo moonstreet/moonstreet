@@ -4,6 +4,7 @@ date: 2021-02-28T08:39:40+01:00
 draft: false
 showShare: false
 codeMaxLines: 50
+featured: true
 categories:
   - Technology 
 tags:
