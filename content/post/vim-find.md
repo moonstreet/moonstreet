@@ -2,7 +2,7 @@
 title: "Finding files quickly"
 date: 2024-03-29T08:44:56+01:00
 draft: false
-featured: true
+featured: false
 showShare: false
 codeMaxLines: 50 
 codeLineNumbers: true 
