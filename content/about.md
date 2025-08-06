@@ -27,9 +27,13 @@ This website is made with the following tools:
 Here are the steps to create this site:
 
 ```sh
-sudo dnf install -y hugo
+sudo dnf install -y hugo # or yay -S hugo
 mkdir ~/blog && cd ~/blog
 hugo new site moonstreet
+```
+Then
+
+```sh
 cd themes
 git init
 git clone https://github.com/kimcc/hugo-theme-noteworthy.git
@@ -40,11 +44,14 @@ hugo serve -D
 
 Then in a new terminal window:
 
+
 ```sh
 hugo new posts/hugo.md
+# write something
+hugo --theme hugo-clarity --minify --disableFastRender
 ```
 
-And then paste this content in hugo.md.
+Nice! Need to blog more.
 
 ## Push to Github and publish with Netlify
 
